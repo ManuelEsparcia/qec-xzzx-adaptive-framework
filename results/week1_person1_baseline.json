@@ -1,0 +1,2588 @@
+{
+  "metadata": {
+    "report_name": "week1_person1_baseline",
+    "timestamp_utc": "2026-02-15T10:32:28+00:00",
+    "num_cases": 3,
+    "shots_per_case": 300,
+    "reference_shots_per_case": 300,
+    "keep_soft_info_samples": 100
+  },
+  "cases_summary": [
+    {
+      "case_name": "case_d3_r2_p0.005",
+      "distance": 3,
+      "rounds": 2,
+      "p": 0.005,
+      "logical_basis": "x",
+      "shots": 300,
+      "num_qubits": 26,
+      "num_detectors": 16,
+      "num_observables": 1,
+      "benchmark_error_rate": 0.0033333333333333335,
+      "reference_ler_helper": 0.0,
+      "abs_delta_benchmark_vs_reference": 0.0033333333333333335,
+      "avg_decode_time_sec": 1.587599127863844e-05,
+      "soft_info_samples_kept": 100,
+      "status": "ok"
+    },
+    {
+      "case_name": "case_d3_r3_p0.01",
+      "distance": 3,
+      "rounds": 3,
+      "p": 0.01,
+      "logical_basis": "x",
+      "shots": 300,
+      "num_qubits": 26,
+      "num_detectors": 24,
+      "num_observables": 1,
+      "benchmark_error_rate": 0.02,
+      "reference_ler_helper": 0.016666666666666666,
+      "abs_delta_benchmark_vs_reference": 0.003333333333333334,
+      "avg_decode_time_sec": 1.3727333086232343e-05,
+      "soft_info_samples_kept": 100,
+      "status": "ok"
+    },
+    {
+      "case_name": "case_d5_r3_p0.01",
+      "distance": 5,
+      "rounds": 3,
+      "p": 0.01,
+      "logical_basis": "x",
+      "shots": 300,
+      "num_qubits": 64,
+      "num_detectors": 72,
+      "num_observables": 1,
+      "benchmark_error_rate": 0.006666666666666667,
+      "reference_ler_helper": 0.01,
+      "abs_delta_benchmark_vs_reference": 0.003333333333333333,
+      "avg_decode_time_sec": 2.0296995450432103e-05,
+      "soft_info_samples_kept": 100,
+      "status": "ok"
+    }
+  ],
+  "aggregates": {
+    "mean_benchmark_error_rate": 0.01,
+    "mean_reference_ler_helper": 0.008888888888888889,
+    "mean_abs_delta_benchmark_vs_reference": 0.0033333333333333335,
+    "mean_avg_decode_time_sec": 1.6633439938434296e-05
+  },
+  "full_results": [
+    {
+      "metadata": {
+        "pipeline": "week1_person1_pipeline",
+        "timestamp_utc": "2026-02-15T10:32:28+00:00"
+      },
+      "config": {
+        "distance": 3,
+        "rounds": 2,
+        "noise_model": "depolarizing",
+        "p": 0.005,
+        "logical_basis": "x",
+        "shots": 300,
+        "keep_soft_info_samples": 100,
+        "reference_ler_shots": 300
+      },
+      "circuit_summary": {
+        "num_qubits": 26,
+        "num_measurements": 25,
+        "num_detectors": 16,
+        "num_observables": 1,
+        "stim_version": "1.15.0",
+        "dem_num_detectors": 16,
+        "dem_num_observables": 1
+      },
+      "benchmark": {
+        "shots": 300,
+        "num_detectors": 16,
+        "num_observables": 1,
+        "error_rate": 0.0033333333333333335,
+        "avg_decode_time": 1.587599127863844e-05,
+        "soft_info_samples": [
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 0.00014649995137006044
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.8600025214254856e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.3199984095990658e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.2199976481497288e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 2.4799956008791924e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.2100092135369778e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1299969628453255e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.2699980288743973e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1299969628453255e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0999967344105244e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1600088328123093e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1100084520876408e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7101102941176471,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6516887486793707,
+            "decode_time": 1.4399993233382702e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.2499978765845299e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0999967344105244e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.700735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6402548850354096,
+            "decode_time": 1.4399993233382702e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1299969628453255e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0999967344105244e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.2499978765845299e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0899966582655907e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1399970389902592e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0999967344105244e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0999967344105244e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0999967344105244e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1499971151351929e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.700735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6402548850354096,
+            "decode_time": 1.3899989426136017e-05
+          },
+          {
+            "syndrome_weight": 1.0,
+            "total_weight": 1.0,
+            "weight_gap": 0.640625,
+            "normalized_weight": 1.0,
+            "confidence_score": 0.5621765008857981,
+            "decode_time": 1.2400094419717789e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1300086043775082e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.100008375942707e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.100008375942707e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7101102941176471,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6516887486793707,
+            "decode_time": 1.3599987141788006e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1299969628453255e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0999967344105244e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1599971912801266e-05
+          },
+          {
+            "syndrome_weight": 1.0,
+            "total_weight": 0.7,
+            "weight_gap": 0.7288602941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6740302901361046,
+            "decode_time": 1.1999974958598614e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.2199976481497288e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0999967344105244e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0899966582655907e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0899966582655907e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.079996582120657e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.2199976481497288e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.209997572004795e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0899966582655907e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.1899974197149277e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.3499986380338669e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.3299984857439995e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1399970389902592e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.3999999999999995,
+            "weight_gap": 0.6774305555555555,
+            "normalized_weight": 0.7999999999999998,
+            "confidence_score": 0.613277729457477,
+            "decode_time": 1.5099998563528061e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1300086043775082e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1200085282325745e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0900082997977734e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1200085282325745e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.079996582120657e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0999967344105244e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0899966582655907e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1800089851021767e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1100084520876408e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1200085282325745e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.2199976481497288e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7101102941176471,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6516887486793707,
+            "decode_time": 1.9499915651977062e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1399970389902592e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.2199976481497288e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 1.0,
+            "total_weight": 0.7,
+            "weight_gap": 0.7288602941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6740302901361046,
+            "decode_time": 1.1999974958598614e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.2299977242946625e-05
+          },
+          {
+            "syndrome_weight": 1.0,
+            "total_weight": 0.7,
+            "weight_gap": 0.7288602941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6740302901361046,
+            "decode_time": 1.1899974197149277e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1600088328123093e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1200085282325745e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.2300093658268452e-05
+          },
+          {
+            "syndrome_weight": 1.0,
+            "total_weight": 1.0,
+            "weight_gap": 0.640625,
+            "normalized_weight": 1.0,
+            "confidence_score": 0.5621765008857981,
+            "decode_time": 1.2400094419717789e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.2299977242946625e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7101102941176471,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6516887486793707,
+            "decode_time": 1.2599979527294636e-05
+          }
+        ]
+      },
+      "reference": {
+        "ler_mwpm_helper": 0.0,
+        "reference_ler_shots": 300
+      },
+      "status": "ok"
+    },
+    {
+      "metadata": {
+        "pipeline": "week1_person1_pipeline",
+        "timestamp_utc": "2026-02-15T10:32:28+00:00"
+      },
+      "config": {
+        "distance": 3,
+        "rounds": 3,
+        "noise_model": "depolarizing",
+        "p": 0.01,
+        "logical_basis": "x",
+        "shots": 300,
+        "keep_soft_info_samples": 100,
+        "reference_ler_shots": 300
+      },
+      "circuit_summary": {
+        "num_qubits": 26,
+        "num_measurements": 33,
+        "num_detectors": 24,
+        "num_observables": 1,
+        "stim_version": "1.15.0",
+        "dem_num_detectors": 24,
+        "dem_num_observables": 1
+      },
+      "benchmark": {
+        "shots": 300,
+        "num_detectors": 24,
+        "num_observables": 1,
+        "error_rate": 0.02,
+        "avg_decode_time": 1.3727333086232343e-05,
+        "soft_info_samples": [
+          {
+            "syndrome_weight": 6.0,
+            "total_weight": 4.499999999999999,
+            "weight_gap": 0.6839285714285714,
+            "normalized_weight": 0.7499999999999999,
+            "confidence_score": 0.620779270835888,
+            "decode_time": 0.00012910005170851946
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.3999999999999995,
+            "weight_gap": 0.6868055555555556,
+            "normalized_weight": 0.7999999999999998,
+            "confidence_score": 0.6250669087083595,
+            "decode_time": 1.8600025214254856e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.4499993994832039e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.5900004655122757e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.2999982573091984e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.3199984095990658e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.209997572004795e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1299969628453255e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7194852941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.3199984095990658e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1499971151351929e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1399970389902592e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7194852941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.3199984095990658e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.2599979527294636e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1599971912801266e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.7132352941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6554622966417211,
+            "decode_time": 1.3599987141788006e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.7132352941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6554622966417211,
+            "decode_time": 1.4399993233382702e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.2999982573091984e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7194852941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.2999982573091984e-05
+          },
+          {
+            "syndrome_weight": 6.0,
+            "total_weight": 4.199999999999999,
+            "weight_gap": 0.7007352941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6402548850354096,
+            "decode_time": 1.4499993994832039e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1500087566673756e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1500087566673756e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.2499978765845299e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.2399978004395962e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1299969628453255e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1399970389902592e-05
+          },
+          {
+            "syndrome_weight": 5.0,
+            "total_weight": 3.5,
+            "weight_gap": 0.7069852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.647896072642286,
+            "decode_time": 1.3699987903237343e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1600088328123093e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1300086043775082e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.100008375942707e-05
+          },
+          {
+            "syndrome_weight": 1.0,
+            "total_weight": 0.7,
+            "weight_gap": 0.731985294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6776815062162943,
+            "decode_time": 1.2200092896819115e-05
+          },
+          {
+            "syndrome_weight": 1.0,
+            "total_weight": 0.7,
+            "weight_gap": 0.731985294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6776815062162943,
+            "decode_time": 1.2199976481497288e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.7,
+            "weight_gap": 0.6780405405405404,
+            "normalized_weight": 0.85,
+            "confidence_score": 0.6140608740531097,
+            "decode_time": 1.2499978765845299e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1299969628453255e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.2299977242946625e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.2199976481497288e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.7132352941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6554622966417211,
+            "decode_time": 1.4199991710484028e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.3199984095990658e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.2399978004395962e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1100084520876408e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.2200092896819115e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1300086043775082e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.2299977242946625e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0899966582655907e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.209997572004795e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.7,
+            "weight_gap": 0.6780405405405404,
+            "normalized_weight": 0.85,
+            "confidence_score": 0.6140608740531097,
+            "decode_time": 1.2499978765845299e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0899966582655907e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0999967344105244e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.7132352941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6554622966417211,
+            "decode_time": 1.2999982573091984e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7194852941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.2499978765845299e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1199968867003918e-05
+          },
+          {
+            "syndrome_weight": 5.0,
+            "total_weight": 3.5,
+            "weight_gap": 0.7069852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.647896072642286,
+            "decode_time": 1.4999997802078724e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.2499978765845299e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1299969628453255e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7194852941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.279998105019331e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1299969628453255e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 3.0999999999999996,
+            "weight_gap": 0.6883802816901409,
+            "normalized_weight": 0.7749999999999999,
+            "confidence_score": 0.6267799266134403,
+            "decode_time": 1.300009898841381e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.2499978765845299e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1299969628453255e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.2299977242946625e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.209997572004795e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.2199976481497288e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7194852941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.2599979527294636e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7194852941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.27000967040658e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1200085282325745e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0999967344105244e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.7,
+            "weight_gap": 0.6780405405405404,
+            "normalized_weight": 0.85,
+            "confidence_score": 0.6140608740531097,
+            "decode_time": 1.179997343569994e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.109996810555458e-05
+          },
+          {
+            "syndrome_weight": 5.0,
+            "total_weight": 3.5,
+            "weight_gap": 0.7069852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.647896072642286,
+            "decode_time": 1.3399985618889332e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0899966582655907e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.2299977242946625e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.2699980288743973e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1200085282325745e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1200085282325745e-05
+          },
+          {
+            "syndrome_weight": 1.0,
+            "total_weight": 0.7,
+            "weight_gap": 0.731985294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6776815062162943,
+            "decode_time": 1.2699980288743973e-05
+          },
+          {
+            "syndrome_weight": 6.0,
+            "total_weight": 4.499999999999999,
+            "weight_gap": 0.6839285714285714,
+            "normalized_weight": 0.7499999999999999,
+            "confidence_score": 0.620779270835888,
+            "decode_time": 1.6000005416572094e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7194852941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.4200108125805855e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1299969628453255e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.2199976481497288e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1899974197149277e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.1499971151351929e-05
+          },
+          {
+            "syndrome_weight": 1.0,
+            "total_weight": 0.7,
+            "weight_gap": 0.731985294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6776815062162943,
+            "decode_time": 1.2199976481497288e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0999967344105244e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.0899966582655907e-05
+          },
+          {
+            "syndrome_weight": 1.0,
+            "total_weight": 0.7,
+            "weight_gap": 0.731985294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6776815062162943,
+            "decode_time": 1.209997572004795e-05
+          },
+          {
+            "syndrome_weight": 6.0,
+            "total_weight": 4.199999999999999,
+            "weight_gap": 0.7007352941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6402548850354096,
+            "decode_time": 1.7999904230237007e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7194852941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.2999982573091984e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 1.2599979527294636e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.7,
+            "weight_gap": 0.6780405405405404,
+            "normalized_weight": 0.85,
+            "confidence_score": 0.6140608740531097,
+            "decode_time": 1.610000617802143e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 3.8499943912029266e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 6.7099928855896e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.725735294117647,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6703578321957111,
+            "decode_time": 2.8000096790492535e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7194852941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 2.0900042727589607e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.7,
+            "weight_gap": 0.6780405405405404,
+            "normalized_weight": 0.85,
+            "confidence_score": 0.6140608740531097,
+            "decode_time": 1.6000005416572094e-05
+          }
+        ]
+      },
+      "reference": {
+        "ler_mwpm_helper": 0.016666666666666666,
+        "reference_ler_shots": 300
+      },
+      "status": "ok"
+    },
+    {
+      "metadata": {
+        "pipeline": "week1_person1_pipeline",
+        "timestamp_utc": "2026-02-15T10:32:28+00:00"
+      },
+      "config": {
+        "distance": 5,
+        "rounds": 3,
+        "noise_model": "depolarizing",
+        "p": 0.01,
+        "logical_basis": "x",
+        "shots": 300,
+        "keep_soft_info_samples": 100,
+        "reference_ler_shots": 300
+      },
+      "circuit_summary": {
+        "num_qubits": 64,
+        "num_measurements": 97,
+        "num_detectors": 72,
+        "num_observables": 1,
+        "stim_version": "1.15.0",
+        "dem_num_detectors": 72,
+        "dem_num_observables": 1
+      },
+      "benchmark": {
+        "shots": 300,
+        "num_detectors": 72,
+        "num_observables": 1,
+        "error_rate": 0.006666666666666667,
+        "avg_decode_time": 2.0296995450432103e-05,
+        "soft_info_samples": [
+          {
+            "syndrome_weight": 9.0,
+            "total_weight": 6.6,
+            "weight_gap": 0.7081730769230768,
+            "normalized_weight": 0.7333333333333333,
+            "confidence_score": 0.650335172606436,
+            "decode_time": 0.0005224000196903944
+          },
+          {
+            "syndrome_weight": 12.0,
+            "total_weight": 8.399999999999999,
+            "weight_gap": 0.7132352941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6554622966417211,
+            "decode_time": 5.21000474691391e-05
+          },
+          {
+            "syndrome_weight": 16.0,
+            "total_weight": 11.5,
+            "weight_gap": 0.6984848484848485,
+            "normalized_weight": 0.71875,
+            "confidence_score": 0.6380957290964488,
+            "decode_time": 4.0899962186813354e-05
+          },
+          {
+            "syndrome_weight": 5.0,
+            "total_weight": 3.5,
+            "weight_gap": 0.7278186274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6728084816686298,
+            "decode_time": 4.109996370971203e-05
+          },
+          {
+            "syndrome_weight": 1.0,
+            "total_weight": 1.0,
+            "weight_gap": 0.6479166666666667,
+            "normalized_weight": 1.0,
+            "confidence_score": 0.5717240928009726,
+            "decode_time": 5.089992191642523e-05
+          },
+          {
+            "syndrome_weight": 8.0,
+            "total_weight": 5.6,
+            "weight_gap": 0.7215686274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6654287479901342,
+            "decode_time": 4.569999873638153e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7319852941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6776815062162945,
+            "decode_time": 1.3999990187585354e-05
+          },
+          {
+            "syndrome_weight": 8.0,
+            "total_weight": 5.6,
+            "weight_gap": 0.7215686274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6654287479901342,
+            "decode_time": 1.610000617802143e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.3999999999999995,
+            "weight_gap": 0.6993055555555556,
+            "normalized_weight": 0.7999999999999998,
+            "confidence_score": 0.6405559128965912,
+            "decode_time": 3.400002606213093e-05
+          },
+          {
+            "syndrome_weight": 5.0,
+            "total_weight": 3.5,
+            "weight_gap": 0.7278186274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6728084816686298,
+            "decode_time": 1.8999911844730377e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.7299019607843138,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6752497383174116,
+            "decode_time": 1.780001912266016e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.7299019607843138,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6752497383174116,
+            "decode_time": 1.4099990949034691e-05
+          },
+          {
+            "syndrome_weight": 9.0,
+            "total_weight": 6.3,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.6099889762699604e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7340686274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6801036913505868,
+            "decode_time": 1.2999982573091984e-05
+          },
+          {
+            "syndrome_weight": 5.0,
+            "total_weight": 3.5,
+            "weight_gap": 0.7278186274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6728084816686298,
+            "decode_time": 3.490003291517496e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7340686274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6801036913505868,
+            "decode_time": 3.200001083314419e-05
+          },
+          {
+            "syndrome_weight": 13.0,
+            "total_weight": 9.4,
+            "weight_gap": 0.7032738095238095,
+            "normalized_weight": 0.7230769230769231,
+            "confidence_score": 0.6440974135709573,
+            "decode_time": 3.0800001695752144e-05
+          },
+          {
+            "syndrome_weight": 9.0,
+            "total_weight": 6.3,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 2.6600086130201817e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7319852941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6776815062162945,
+            "decode_time": 1.9200029782950878e-05
+          },
+          {
+            "syndrome_weight": 6.0,
+            "total_weight": 4.499999999999999,
+            "weight_gap": 0.7089285714285714,
+            "normalized_weight": 0.7499999999999999,
+            "confidence_score": 0.6516251631983505,
+            "decode_time": 2.119992859661579e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.7299019607843138,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6752497383174116,
+            "decode_time": 2.619996666908264e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7319852941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6776815062162945,
+            "decode_time": 3.0399998649954796e-05
+          },
+          {
+            "syndrome_weight": 12.0,
+            "total_weight": 8.399999999999999,
+            "weight_gap": 0.7132352941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6554622966417211,
+            "decode_time": 1.9900035113096237e-05
+          },
+          {
+            "syndrome_weight": 8.0,
+            "total_weight": 5.8999999999999995,
+            "weight_gap": 0.7088729016786571,
+            "normalized_weight": 0.7374999999999999,
+            "confidence_score": 0.6512845192138378,
+            "decode_time": 1.7200014553964138e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.2299977242946625e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7319852941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6776815062162945,
+            "decode_time": 1.7600017599761486e-05
+          },
+          {
+            "syndrome_weight": 8.0,
+            "total_weight": 5.6,
+            "weight_gap": 0.7215686274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6654287479901342,
+            "decode_time": 2.529995981603861e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.7299019607843138,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6752497383174116,
+            "decode_time": 2.8699985705316067e-05
+          },
+          {
+            "syndrome_weight": 7.0,
+            "total_weight": 5.199999999999999,
+            "weight_gap": 0.7091871584699453,
+            "normalized_weight": 0.7428571428571428,
+            "confidence_score": 0.6517875907870171,
+            "decode_time": 1.6600009985268116e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 3.0999999999999996,
+            "weight_gap": 0.7050469483568076,
+            "normalized_weight": 0.7749999999999999,
+            "confidence_score": 0.6473283297084256,
+            "decode_time": 1.780001912266016e-05
+          },
+          {
+            "syndrome_weight": 5.0,
+            "total_weight": 3.5,
+            "weight_gap": 0.7278186274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6728084816686298,
+            "decode_time": 1.4399993233382702e-05
+          },
+          {
+            "syndrome_weight": 6.0,
+            "total_weight": 4.199999999999999,
+            "weight_gap": 0.7257352941176471,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6703578321957112,
+            "decode_time": 1.4699995517730713e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.610000617802143e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 2.129992935806513e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.7299019607843138,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6752497383174116,
+            "decode_time": 2.0900042727589607e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.7299019607843138,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6752497383174116,
+            "decode_time": 2.1099927835166454e-05
+          },
+          {
+            "syndrome_weight": 6.0,
+            "total_weight": 4.199999999999999,
+            "weight_gap": 0.7257352941176471,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6703578321957112,
+            "decode_time": 2.8999987989664078e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7340686274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6801036913505868,
+            "decode_time": 1.7600017599761486e-05
+          },
+          {
+            "syndrome_weight": 9.0,
+            "total_weight": 6.6,
+            "weight_gap": 0.7081730769230768,
+            "normalized_weight": 0.7333333333333333,
+            "confidence_score": 0.650335172606436,
+            "decode_time": 2.0399922505021095e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7319852941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6776815062162945,
+            "decode_time": 1.4599994756281376e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.7,
+            "weight_gap": 0.6863738738738738,
+            "normalized_weight": 0.85,
+            "confidence_score": 0.6245389262705628,
+            "decode_time": 1.71000137925148e-05
+          },
+          {
+            "syndrome_weight": 9.0,
+            "total_weight": 6.3,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 3.5199918784201145e-05
+          },
+          {
+            "syndrome_weight": 5.0,
+            "total_weight": 3.5,
+            "weight_gap": 0.7278186274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6728084816686298,
+            "decode_time": 3.930006641894579e-05
+          },
+          {
+            "syndrome_weight": 8.0,
+            "total_weight": 5.6,
+            "weight_gap": 0.7215686274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6654287479901342,
+            "decode_time": 1.5900004655122757e-05
+          },
+          {
+            "syndrome_weight": 5.0,
+            "total_weight": 3.5,
+            "weight_gap": 0.7278186274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6728084816686298,
+            "decode_time": 1.3999990187585354e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7340686274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6801036913505868,
+            "decode_time": 1.279998105019331e-05
+          },
+          {
+            "syndrome_weight": 6.0,
+            "total_weight": 4.199999999999999,
+            "weight_gap": 0.7257352941176471,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6703578321957112,
+            "decode_time": 1.680001150816679e-05
+          },
+          {
+            "syndrome_weight": 7.0,
+            "total_weight": 5.199999999999999,
+            "weight_gap": 0.7091871584699453,
+            "normalized_weight": 0.7428571428571428,
+            "confidence_score": 0.6517875907870171,
+            "decode_time": 3.820005804300308e-05
+          },
+          {
+            "syndrome_weight": 7.0,
+            "total_weight": 4.8999999999999995,
+            "weight_gap": 0.7236519607843137,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6678978877279916,
+            "decode_time": 3.730005118995905e-05
+          },
+          {
+            "syndrome_weight": 12.0,
+            "total_weight": 8.7,
+            "weight_gap": 0.7047101449275363,
+            "normalized_weight": 0.725,
+            "confidence_score": 0.6459049453584882,
+            "decode_time": 2.2099935449659824e-05
+          },
+          {
+            "syndrome_weight": 9.0,
+            "total_weight": 6.3,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.610000617802143e-05
+          },
+          {
+            "syndrome_weight": 9.0,
+            "total_weight": 6.3,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 2.0900042727589607e-05
+          },
+          {
+            "syndrome_weight": 16.0,
+            "total_weight": 11.5,
+            "weight_gap": 0.6984848484848485,
+            "normalized_weight": 0.71875,
+            "confidence_score": 0.6380957290964488,
+            "decode_time": 2.359994687139988e-05
+          },
+          {
+            "syndrome_weight": 11.0,
+            "total_weight": 7.699999999999999,
+            "weight_gap": 0.7153186274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6579671826379317,
+            "decode_time": 1.9799917936325073e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 2.0600040443241596e-05
+          },
+          {
+            "syndrome_weight": 1.0,
+            "total_weight": 0.7,
+            "weight_gap": 0.7361519607843138,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6825162016234215,
+            "decode_time": 2.9999995604157448e-05
+          },
+          {
+            "syndrome_weight": 7.0,
+            "total_weight": 4.8999999999999995,
+            "weight_gap": 0.7236519607843137,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6678978877279916,
+            "decode_time": 1.4999997802078724e-05
+          },
+          {
+            "syndrome_weight": 10.0,
+            "total_weight": 7.0,
+            "weight_gap": 0.7174019607843137,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6604632910245244,
+            "decode_time": 2.019992098212242e-05
+          },
+          {
+            "syndrome_weight": 5.0,
+            "total_weight": 3.5,
+            "weight_gap": 0.7278186274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6728084816686298,
+            "decode_time": 1.3999990187585354e-05
+          },
+          {
+            "syndrome_weight": 11.0,
+            "total_weight": 7.999999999999999,
+            "weight_gap": 0.706030701754386,
+            "normalized_weight": 0.7272727272727272,
+            "confidence_score": 0.6475756855825555,
+            "decode_time": 2.0999927073717117e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.7299019607843138,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6752497383174116,
+            "decode_time": 1.379998866468668e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7319852941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6776815062162945,
+            "decode_time": 3.350002225488424e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 3.0999999999999996,
+            "weight_gap": 0.7050469483568076,
+            "normalized_weight": 0.7749999999999999,
+            "confidence_score": 0.6473283297084256,
+            "decode_time": 4.569999873638153e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 1.170008908957243e-05
+          },
+          {
+            "syndrome_weight": 7.0,
+            "total_weight": 4.8999999999999995,
+            "weight_gap": 0.7236519607843137,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6678978877279916,
+            "decode_time": 1.4699995517730713e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.7299019607843138,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6752497383174116,
+            "decode_time": 1.4099990949034691e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7340686274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6801036913505868,
+            "decode_time": 1.680001150816679e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.7299019607843138,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6752497383174116,
+            "decode_time": 2.0600040443241596e-05
+          },
+          {
+            "syndrome_weight": 5.0,
+            "total_weight": 3.8,
+            "weight_gap": 0.7077651515151515,
+            "normalized_weight": 0.76,
+            "confidence_score": 0.6504023116208343,
+            "decode_time": 1.8699909560382366e-05
+          },
+          {
+            "syndrome_weight": 6.0,
+            "total_weight": 4.199999999999999,
+            "weight_gap": 0.7257352941176471,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6703578321957112,
+            "decode_time": 1.650000922381878e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.7299019607843138,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6752497383174116,
+            "decode_time": 1.3399985618889332e-05
+          },
+          {
+            "syndrome_weight": 6.0,
+            "total_weight": 4.199999999999999,
+            "weight_gap": 0.7257352941176471,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6703578321957112,
+            "decode_time": 1.610000617802143e-05
+          },
+          {
+            "syndrome_weight": 15.0,
+            "total_weight": 10.5,
+            "weight_gap": 0.7069852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.647896072642286,
+            "decode_time": 2.5399960577487946e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7340686274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6801036913505868,
+            "decode_time": 1.2999982573091984e-05
+          },
+          {
+            "syndrome_weight": 10.0,
+            "total_weight": 7.3,
+            "weight_gap": 0.7072013487475916,
+            "normalized_weight": 0.73,
+            "confidence_score": 0.6490710152741392,
+            "decode_time": 2.6699970476329327e-05
+          },
+          {
+            "syndrome_weight": 9.0,
+            "total_weight": 6.6,
+            "weight_gap": 0.7081730769230768,
+            "normalized_weight": 0.7333333333333333,
+            "confidence_score": 0.650335172606436,
+            "decode_time": 2.1400046534836292e-05
+          },
+          {
+            "syndrome_weight": 1.0,
+            "total_weight": 0.7,
+            "weight_gap": 0.7361519607843138,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6825162016234215,
+            "decode_time": 1.2699980288743973e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7340686274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6801036913505868,
+            "decode_time": 1.2899981811642647e-05
+          },
+          {
+            "syndrome_weight": 8.0,
+            "total_weight": 5.6,
+            "weight_gap": 0.7215686274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6654287479901342,
+            "decode_time": 1.8900027498602867e-05
+          },
+          {
+            "syndrome_weight": 7.0,
+            "total_weight": 4.8999999999999995,
+            "weight_gap": 0.7236519607843137,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6678978877279916,
+            "decode_time": 1.5099998563528061e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7340686274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6801036913505868,
+            "decode_time": 6.57000346109271e-05
+          },
+          {
+            "syndrome_weight": 0.0,
+            "total_weight": 0.0,
+            "weight_gap": 1.0,
+            "normalized_weight": 0.0,
+            "confidence_score": 0.8807970779778823,
+            "decode_time": 2.95999925583601e-05
+          },
+          {
+            "syndrome_weight": 10.0,
+            "total_weight": 7.3,
+            "weight_gap": 0.7072013487475916,
+            "normalized_weight": 0.73,
+            "confidence_score": 0.6490710152741392,
+            "decode_time": 1.71000137925148e-05
+          },
+          {
+            "syndrome_weight": 6.0,
+            "total_weight": 4.199999999999999,
+            "weight_gap": 0.7257352941176471,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6703578321957112,
+            "decode_time": 1.479999627918005e-05
+          },
+          {
+            "syndrome_weight": 13.0,
+            "total_weight": 9.1,
+            "weight_gap": 0.7111519607843138,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.652948742086986,
+            "decode_time": 2.1700048819184303e-05
+          },
+          {
+            "syndrome_weight": 2.0,
+            "total_weight": 1.4,
+            "weight_gap": 0.7340686274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6801036913505868,
+            "decode_time": 1.309998333454132e-05
+          },
+          {
+            "syndrome_weight": 1.0,
+            "total_weight": 1.0,
+            "weight_gap": 0.6479166666666667,
+            "normalized_weight": 1.0,
+            "confidence_score": 0.5717240928009726,
+            "decode_time": 1.650000922381878e-05
+          },
+          {
+            "syndrome_weight": 11.0,
+            "total_weight": 7.699999999999999,
+            "weight_gap": 0.7153186274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6579671826379317,
+            "decode_time": 2.529995981603861e-05
+          },
+          {
+            "syndrome_weight": 3.0,
+            "total_weight": 2.0999999999999996,
+            "weight_gap": 0.7319852941176472,
+            "normalized_weight": 0.6999999999999998,
+            "confidence_score": 0.6776815062162945,
+            "decode_time": 1.379998866468668e-05
+          },
+          {
+            "syndrome_weight": 7.0,
+            "total_weight": 4.8999999999999995,
+            "weight_gap": 0.7236519607843137,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6678978877279916,
+            "decode_time": 1.5400000847876072e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.7299019607843138,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6752497383174116,
+            "decode_time": 1.479999627918005e-05
+          },
+          {
+            "syndrome_weight": 9.0,
+            "total_weight": 6.3,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 1.7999904230237007e-05
+          },
+          {
+            "syndrome_weight": 13.0,
+            "total_weight": 9.4,
+            "weight_gap": 0.7032738095238095,
+            "normalized_weight": 0.7230769230769231,
+            "confidence_score": 0.6440974135709573,
+            "decode_time": 2.7799978852272034e-05
+          },
+          {
+            "syndrome_weight": 9.0,
+            "total_weight": 6.3,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 6.079999729990959e-05
+          },
+          {
+            "syndrome_weight": 9.0,
+            "total_weight": 6.3,
+            "weight_gap": 0.7194852941176471,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6629505145931266,
+            "decode_time": 4.5599997974932194e-05
+          },
+          {
+            "syndrome_weight": 16.0,
+            "total_weight": 11.5,
+            "weight_gap": 0.6984848484848485,
+            "normalized_weight": 0.71875,
+            "confidence_score": 0.6380957290964488,
+            "decode_time": 2.519995905458927e-05
+          },
+          {
+            "syndrome_weight": 4.0,
+            "total_weight": 2.8,
+            "weight_gap": 0.7299019607843138,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6752497383174116,
+            "decode_time": 3.450002986937761e-05
+          },
+          {
+            "syndrome_weight": 10.0,
+            "total_weight": 7.0,
+            "weight_gap": 0.7174019607843137,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6604632910245244,
+            "decode_time": 2.1600048057734966e-05
+          },
+          {
+            "syndrome_weight": 7.0,
+            "total_weight": 4.8999999999999995,
+            "weight_gap": 0.7236519607843137,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6678978877279916,
+            "decode_time": 2.089992631226778e-05
+          },
+          {
+            "syndrome_weight": 8.0,
+            "total_weight": 5.6,
+            "weight_gap": 0.7215686274509804,
+            "normalized_weight": 0.7,
+            "confidence_score": 0.6654287479901342,
+            "decode_time": 2.1399930119514465e-05
+          }
+        ]
+      },
+      "reference": {
+        "ler_mwpm_helper": 0.01,
+        "reference_ler_shots": 300
+      },
+      "status": "ok"
+    }
+  ]
+}
