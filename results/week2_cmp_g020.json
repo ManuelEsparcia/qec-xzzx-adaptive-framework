@@ -1,0 +1,107 @@
+{
+  "metadata": {
+    "report_name": "week2_person1_decoder_comparison",
+    "timestamp_utc": "2026-02-15T12:28:53+00:00",
+    "num_cases": 3,
+    "shots_per_case": 1000,
+    "keep_soft_info_samples": 0,
+    "g_threshold": 0.2
+  },
+  "cases_summary": [
+    {
+      "case_name": "d3_r2_p0.005",
+      "distance": 3,
+      "rounds": 2,
+      "p": 0.005,
+      "noise_model": "depolarizing",
+      "logical_basis": "x",
+      "shots": 1000,
+      "mwpm_error_rate": 0.005,
+      "mwpm_avg_decode_time_sec": 1.6630999860353768e-05,
+      "uf_error_rate": 0.003,
+      "uf_avg_decode_time_sec": 2.9025502037256955e-05,
+      "uf_speedup_vs_mwpm": 0.5729788872904358,
+      "adaptive_error_rate": 0.008,
+      "adaptive_avg_decode_time_sec": 9.367399988695979e-05,
+      "adaptive_speedup_vs_mwpm": 0.17754125883834435,
+      "adaptive_switch_rate": 0.0,
+      "g_threshold": 0.2,
+      "num_detectors": 16,
+      "num_observables": 1,
+      "status": "ok",
+      "backend_info_uf": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      },
+      "samples_adaptive": []
+    },
+    {
+      "case_name": "d3_r3_p0.010",
+      "distance": 3,
+      "rounds": 3,
+      "p": 0.01,
+      "noise_model": "depolarizing",
+      "logical_basis": "x",
+      "shots": 1000,
+      "mwpm_error_rate": 0.028,
+      "mwpm_avg_decode_time_sec": 1.895649777725339e-05,
+      "uf_error_rate": 0.031,
+      "uf_avg_decode_time_sec": 3.099819947965443e-05,
+      "uf_speedup_vs_mwpm": 0.6115354470731574,
+      "adaptive_error_rate": 0.027,
+      "adaptive_avg_decode_time_sec": 9.444859705399721e-05,
+      "adaptive_speedup_vs_mwpm": 0.20070703396913106,
+      "adaptive_switch_rate": 0.0,
+      "g_threshold": 0.2,
+      "num_detectors": 24,
+      "num_observables": 1,
+      "status": "ok",
+      "backend_info_uf": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      },
+      "samples_adaptive": []
+    },
+    {
+      "case_name": "d5_r3_p0.010",
+      "distance": 5,
+      "rounds": 3,
+      "p": 0.01,
+      "noise_model": "depolarizing",
+      "logical_basis": "x",
+      "shots": 1000,
+      "mwpm_error_rate": 0.012,
+      "mwpm_avg_decode_time_sec": 2.001280104741454e-05,
+      "uf_error_rate": 0.014,
+      "uf_avg_decode_time_sec": 2.999739849474281e-05,
+      "uf_speedup_vs_mwpm": 0.6671512214941533,
+      "adaptive_error_rate": 0.014,
+      "adaptive_avg_decode_time_sec": 0.00010233679902739823,
+      "adaptive_speedup_vs_mwpm": 0.19555820816768552,
+      "adaptive_switch_rate": 0.0,
+      "g_threshold": 0.2,
+      "num_detectors": 72,
+      "num_observables": 1,
+      "status": "ok",
+      "backend_info_uf": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      },
+      "samples_adaptive": []
+    }
+  ],
+  "aggregates": {
+    "mean_mwpm_error_rate": 0.015,
+    "mean_uf_error_rate": 0.016,
+    "mean_adaptive_error_rate": 0.01633333333333333,
+    "mean_mwpm_avg_decode_time_sec": 1.8533432895007232e-05,
+    "mean_uf_avg_decode_time_sec": 3.0007033337218066e-05,
+    "mean_adaptive_avg_decode_time_sec": 9.681979865611841e-05,
+    "mean_uf_speedup_vs_mwpm": 0.6172218519525822,
+    "mean_adaptive_speedup_vs_mwpm": 0.19126883365838698,
+    "mean_adaptive_switch_rate": 0.0
+  }
+}

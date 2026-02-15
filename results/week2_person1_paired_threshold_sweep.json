@@ -1,0 +1,244 @@
+{
+  "metadata": {
+    "report_name": "week2_person1_paired_threshold_sweep",
+    "timestamp_utc": "2026-02-15T12:36:28+00:00",
+    "shots_per_case": 2000,
+    "thresholds": [
+      0.2,
+      0.35,
+      0.4,
+      0.6,
+      0.8
+    ],
+    "num_cases": 3
+  },
+  "cases_summary": [
+    {
+      "case_name": "d3_r2_p0.005",
+      "distance": 3,
+      "rounds": 2,
+      "p": 0.005,
+      "shots": 2000,
+      "num_detectors": 16,
+      "num_observables": 1,
+      "mwpm": {
+        "error_rate": 0.0035,
+        "avg_decode_time_sec": 1.5666501480154693e-05
+      },
+      "uf": {
+        "error_rate": 0.0035,
+        "avg_decode_time_sec": 2.3390348011162132e-05,
+        "speedup_vs_mwpm": 0.6697848818956633,
+        "backend_info": {
+          "matcher_build_mode": "default",
+          "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+          "is_union_find_backend": true
+        }
+      },
+      "adaptive_by_threshold": [
+        {
+          "g_threshold": 0.2,
+          "error_rate": 0.0035,
+          "avg_decode_time_sec": 7.871735218213872e-05,
+          "switch_rate": 0.0,
+          "speedup_vs_mwpm": 0.19902221106097476
+        },
+        {
+          "g_threshold": 0.35,
+          "error_rate": 0.0035,
+          "avg_decode_time_sec": 7.822885044151917e-05,
+          "switch_rate": 0.0,
+          "speedup_vs_mwpm": 0.2002650095423089
+        },
+        {
+          "g_threshold": 0.4,
+          "error_rate": 0.0035,
+          "avg_decode_time_sec": 7.862735172966496e-05,
+          "switch_rate": 0.002,
+          "speedup_vs_mwpm": 0.19925002095986846
+        },
+        {
+          "g_threshold": 0.6,
+          "error_rate": 0.0035,
+          "avg_decode_time_sec": 8.021054964046925e-05,
+          "switch_rate": 0.0225,
+          "speedup_vs_mwpm": 0.1953172188742907
+        },
+        {
+          "g_threshold": 0.8,
+          "error_rate": 0.0035,
+          "avg_decode_time_sec": 8.385239855851977e-05,
+          "switch_rate": 0.079,
+          "speedup_vs_mwpm": 0.18683426770697792
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "case_name": "d3_r3_p0.010",
+      "distance": 3,
+      "rounds": 3,
+      "p": 0.01,
+      "shots": 2000,
+      "num_detectors": 24,
+      "num_observables": 1,
+      "mwpm": {
+        "error_rate": 0.022,
+        "avg_decode_time_sec": 1.659365015802905e-05
+      },
+      "uf": {
+        "error_rate": 0.022,
+        "avg_decode_time_sec": 2.4306501378305258e-05,
+        "speedup_vs_mwpm": 0.6826836120824733,
+        "backend_info": {
+          "matcher_build_mode": "default",
+          "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+          "is_union_find_backend": true
+        }
+      },
+      "adaptive_by_threshold": [
+        {
+          "g_threshold": 0.2,
+          "error_rate": 0.022,
+          "avg_decode_time_sec": 8.719424996525049e-05,
+          "switch_rate": 0.0,
+          "speedup_vs_mwpm": 0.19030670215802206
+        },
+        {
+          "g_threshold": 0.35,
+          "error_rate": 0.022,
+          "avg_decode_time_sec": 8.636990166269243e-05,
+          "switch_rate": 0.0005,
+          "speedup_vs_mwpm": 0.1921230641529918
+        },
+        {
+          "g_threshold": 0.4,
+          "error_rate": 0.022,
+          "avg_decode_time_sec": 8.659234992228448e-05,
+          "switch_rate": 0.0055,
+          "speedup_vs_mwpm": 0.191629516613438
+        },
+        {
+          "g_threshold": 0.6,
+          "error_rate": 0.022,
+          "avg_decode_time_sec": 8.947094908216968e-05,
+          "switch_rate": 0.056,
+          "speedup_vs_mwpm": 0.1854641124102699
+        },
+        {
+          "g_threshold": 0.8,
+          "error_rate": 0.022,
+          "avg_decode_time_sec": 0.00010050899849738926,
+          "switch_rate": 0.217,
+          "speedup_vs_mwpm": 0.16509616458331414
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "case_name": "d5_r3_p0.010",
+      "distance": 5,
+      "rounds": 3,
+      "p": 0.01,
+      "shots": 2000,
+      "num_detectors": 72,
+      "num_observables": 1,
+      "mwpm": {
+        "error_rate": 0.0165,
+        "avg_decode_time_sec": 2.0605449797585605e-05
+      },
+      "uf": {
+        "error_rate": 0.0165,
+        "avg_decode_time_sec": 2.776210109004751e-05,
+        "speedup_vs_mwpm": 0.7422150697726727,
+        "backend_info": {
+          "matcher_build_mode": "default",
+          "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+          "is_union_find_backend": true
+        }
+      },
+      "adaptive_by_threshold": [
+        {
+          "g_threshold": 0.2,
+          "error_rate": 0.0165,
+          "avg_decode_time_sec": 9.91151500493288e-05,
+          "switch_rate": 0.0,
+          "speedup_vs_mwpm": 0.20789404836021982
+        },
+        {
+          "g_threshold": 0.35,
+          "error_rate": 0.0165,
+          "avg_decode_time_sec": 9.79161006398499e-05,
+          "switch_rate": 0.0,
+          "speedup_vs_mwpm": 0.21043985272019294
+        },
+        {
+          "g_threshold": 0.4,
+          "error_rate": 0.0165,
+          "avg_decode_time_sec": 9.824945015134289e-05,
+          "switch_rate": 0.0005,
+          "speedup_vs_mwpm": 0.20972585358844337
+        },
+        {
+          "g_threshold": 0.6,
+          "error_rate": 0.0165,
+          "avg_decode_time_sec": 9.97147504822351e-05,
+          "switch_rate": 0.0345,
+          "speedup_vs_mwpm": 0.20664394884342224
+        },
+        {
+          "g_threshold": 0.8,
+          "error_rate": 0.0165,
+          "avg_decode_time_sec": 0.0001317802484263666,
+          "switch_rate": 0.4825,
+          "speedup_vs_mwpm": 0.15636220179914964
+        }
+      ],
+      "status": "ok"
+    }
+  ],
+  "aggregates": {
+    "mean_mwpm_error_rate": 0.014,
+    "mean_uf_error_rate": 0.014,
+    "mean_mwpm_avg_decode_time_sec": 1.7621867145256448e-05,
+    "mean_uf_avg_decode_time_sec": 2.5152983493171633e-05,
+    "mean_uf_speedup_vs_mwpm": 0.6982278545836031,
+    "adaptive_means_by_threshold": [
+      {
+        "g_threshold": 0.2,
+        "mean_error_rate": 0.014,
+        "mean_avg_decode_time_sec": 8.834225073223934e-05,
+        "mean_switch_rate": 0.0,
+        "mean_speedup_vs_mwpm": 0.19907432052640556
+      },
+      {
+        "g_threshold": 0.35,
+        "mean_error_rate": 0.014,
+        "mean_avg_decode_time_sec": 8.750495091468717e-05,
+        "mean_switch_rate": 0.00016666666666666666,
+        "mean_speedup_vs_mwpm": 0.20094264213849788
+      },
+      {
+        "g_threshold": 0.4,
+        "mean_error_rate": 0.014,
+        "mean_avg_decode_time_sec": 8.782305060109744e-05,
+        "mean_switch_rate": 0.0026666666666666666,
+        "mean_speedup_vs_mwpm": 0.2002017970539166
+      },
+      {
+        "g_threshold": 0.6,
+        "mean_error_rate": 0.014,
+        "mean_avg_decode_time_sec": 8.9798749734958e-05,
+        "mean_switch_rate": 0.03766666666666667,
+        "mean_speedup_vs_mwpm": 0.1958084267093276
+      },
+      {
+        "g_threshold": 0.8,
+        "mean_error_rate": 0.014,
+        "mean_avg_decode_time_sec": 0.00010538054849409187,
+        "mean_switch_rate": 0.2595,
+        "mean_speedup_vs_mwpm": 0.1694308780298139
+      }
+    ]
+  }
+}

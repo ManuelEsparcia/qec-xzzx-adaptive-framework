@@ -1,0 +1,2630 @@
+{
+  "metadata": {
+    "report_name": "week2_person1_decoder_comparison",
+    "timestamp_utc": "2026-02-15T12:26:32+00:00",
+    "num_cases": 3,
+    "shots_per_case": 500,
+    "keep_soft_info_samples": 120,
+    "g_threshold": 0.65
+  },
+  "cases_summary": [
+    {
+      "case_name": "d3_r2_p0.005",
+      "distance": 3,
+      "rounds": 2,
+      "p": 0.005,
+      "noise_model": "depolarizing",
+      "logical_basis": "x",
+      "shots": 500,
+      "mwpm_error_rate": 0.006,
+      "mwpm_avg_decode_time_sec": 1.3979198411107063e-05,
+      "uf_error_rate": 0.004,
+      "uf_avg_decode_time_sec": 2.3236999521031977e-05,
+      "uf_speedup_vs_mwpm": 0.6015922321836082,
+      "adaptive_error_rate": 0.004,
+      "adaptive_avg_decode_time_sec": 7.980039948597551e-05,
+      "adaptive_speedup_vs_mwpm": 0.17517704799916234,
+      "adaptive_switch_rate": 0.052,
+      "g_threshold": 0.65,
+      "num_detectors": 16,
+      "num_observables": 1,
+      "status": "ok",
+      "backend_info_uf": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      },
+      "samples_adaptive": [
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 8.09000339359045e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.209996692836285e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.050007116049528e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.019995246082544e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.970006506890059e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.930006202310324e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.929994560778141e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.89999433234334e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.900005973875523e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.900005973875523e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8281397110344063,
+          "final_confidence_score": 0.8281397110344063,
+          "total_decode_time": 9.770004544407129e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.999995093792677e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.97999494150281e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.880005821585655e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.850005593150854e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.889994256198406e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8281397110344063,
+          "final_confidence_score": 0.8281397110344063,
+          "total_decode_time": 9.310001041740179e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.00999516993761e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.930006202310324e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6262704736237948,
+          "final_confidence_score": 0.6516887486793707,
+          "total_decode_time": 0.0001849000109359622
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8281397110344063,
+          "final_confidence_score": 0.8281397110344063,
+          "total_decode_time": 0.00026460003573447466
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 0.00017289991956204176
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.760000880807638e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.340009324252605e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.129996083676815e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.020006887614727e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.989995017647743e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.969994865357876e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.960006430745125e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8199856101203662,
+          "final_confidence_score": 0.8199856101203662,
+          "total_decode_time": 0.00010539998766034842
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.030006963759661e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.595781078771564,
+          "final_confidence_score": 0.613277729457477,
+          "total_decode_time": 0.00016419996973127127
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.595781078771564,
+          "final_confidence_score": 0.613277729457477,
+          "total_decode_time": 0.0001574999187141657
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.959994789212942e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.5181170650431814,
+          "final_confidence_score": 0.6629505145931266,
+          "total_decode_time": 0.00015620002523064613
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.00000673532486e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.949994713068008e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.939994636923075e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.940006278455257e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.880005821585655e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.879994180053473e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.889994256198406e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6262704736237948,
+          "final_confidence_score": 0.6516887486793707,
+          "total_decode_time": 0.0001580999232828617
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.38136700920253586,
+          "final_confidence_score": 0.6516887486793707,
+          "total_decode_time": 0.00015620002523064613
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.950006354600191e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.940006278455257e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.919994484633207e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6262704736237948,
+          "final_confidence_score": 0.6516887486793707,
+          "total_decode_time": 0.00015590002294629812
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.909994408488274e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.879994180053473e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.900005973875523e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.900005973875523e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.889994256198406e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.959994789212942e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.890005897730589e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.835998329345204,
+          "final_confidence_score": 0.835998329345204,
+          "total_decode_time": 9.129999671131372e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.835998329345204,
+          "final_confidence_score": 0.835998329345204,
+          "total_decode_time": 9.200000204145908e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.969994865357876e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.880005821585655e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8199856101203662,
+          "final_confidence_score": 0.8199856101203662,
+          "total_decode_time": 9.220000356435776e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8281397110344063,
+          "final_confidence_score": 0.8281397110344063,
+          "total_decode_time": 9.169999975711107e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.969994865357876e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.880005821585655e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.92000612616539e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6262704736237948,
+          "final_confidence_score": 0.6516887486793707,
+          "total_decode_time": 0.00015550001990050077
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.989995017647743e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8281397110344063,
+          "final_confidence_score": 0.8281397110344063,
+          "total_decode_time": 9.169999975711107e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.97999494150281e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8281397110344063,
+          "final_confidence_score": 0.8281397110344063,
+          "total_decode_time": 9.129999671131372e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.990006659179926e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.929994560778141e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.889994256198406e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.900005973875523e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8281397110344063,
+          "final_confidence_score": 0.8281397110344063,
+          "total_decode_time": 9.159999899566174e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.990006659179926e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.910006050020456e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.909994408488274e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.929994560778141e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.890005897730589e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.940006278455257e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.939994636923075e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.959994789212942e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.900005973875523e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.880005821585655e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8281397110344063,
+          "final_confidence_score": 0.8281397110344063,
+          "total_decode_time": 9.220000356435776e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.980006583034992e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.835998329345204,
+          "final_confidence_score": 0.835998329345204,
+          "total_decode_time": 9.109999518841505e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 0.00010250008199363947
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.89999433234334e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.835998329345204,
+          "final_confidence_score": 0.835998329345204,
+          "total_decode_time": 9.14999982342124e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.97999494150281e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.919994484633207e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6262704736237948,
+          "final_confidence_score": 0.6516887486793707,
+          "total_decode_time": 0.00015660002827644348
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.900005973875523e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.950006354600191e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.595781078771564,
+          "final_confidence_score": 0.613277729457477,
+          "total_decode_time": 0.0001580000389367342
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.959994789212942e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7989910002494707,
+          "final_confidence_score": 0.7989910002494707,
+          "total_decode_time": 9.289989247918129e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8281397110344063,
+          "final_confidence_score": 0.8281397110344063,
+          "total_decode_time": 9.240000508725643e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.019995246082544e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.5181170650431814,
+          "final_confidence_score": 0.6629505145931266,
+          "total_decode_time": 0.00015380000695586205
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.959994789212942e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.879994180053473e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.930006202310324e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6262704736237948,
+          "final_confidence_score": 0.6516887486793707,
+          "total_decode_time": 0.00015550001990050077
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.930006202310324e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.889994256198406e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.889994256198406e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7762160814591353,
+          "final_confidence_score": 0.7762160814591353,
+          "total_decode_time": 9.139999747276306e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.969994865357876e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.910006050020456e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.890005897730589e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.860005669295788e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.89999433234334e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.869994103908539e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.890005897730589e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.890005897730589e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.880005821585655e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.869994103908539e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.889994256198406e-05
+        }
+      ]
+    },
+    {
+      "case_name": "d3_r3_p0.010",
+      "distance": 3,
+      "rounds": 3,
+      "p": 0.01,
+      "noise_model": "depolarizing",
+      "logical_basis": "x",
+      "shots": 500,
+      "mwpm_error_rate": 0.02,
+      "mwpm_avg_decode_time_sec": 1.5986599260941148e-05,
+      "uf_error_rate": 0.016,
+      "uf_avg_decode_time_sec": 2.3496802197769285e-05,
+      "uf_speedup_vs_mwpm": 0.6803734025755585,
+      "adaptive_error_rate": 0.028,
+      "adaptive_avg_decode_time_sec": 9.108860138803721e-05,
+      "adaptive_speedup_vs_mwpm": 0.175506034973995,
+      "adaptive_switch_rate": 0.152,
+      "g_threshold": 0.65,
+      "num_detectors": 24,
+      "num_observables": 1,
+      "status": "ok",
+      "backend_info_uf": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      },
+      "samples_adaptive": [
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.589999586343765e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 8.880009409040213e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7794561686382467,
+          "final_confidence_score": 0.7794561686382467,
+          "total_decode_time": 8.449994493275881e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.309989839792252e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 8.369993884116411e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.2700011767447e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7794561686382467,
+          "final_confidence_score": 0.7794561686382467,
+          "total_decode_time": 8.110003545880318e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8385528819540173,
+          "final_confidence_score": 0.8385528819540173,
+          "total_decode_time": 8.060003165155649e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8227366964217431,
+          "final_confidence_score": 0.8227366964217431,
+          "total_decode_time": 8.410005830228329e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.150000263005495e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8090990545015856,
+          "final_confidence_score": 0.8090990545015856,
+          "total_decode_time": 0.00025949999690055847
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 9.410001803189516e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.890001870691776e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 8.739996701478958e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.319997530430555e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6092514149262421,
+          "final_confidence_score": 0.6250669087083595,
+          "total_decode_time": 0.00021680002100765705
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 0.0001708000199869275
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8385528819540173,
+          "final_confidence_score": 0.8385528819540173,
+          "total_decode_time": 9.630003478378057e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.179996464401484e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.929994560778141e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.910006050020456e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7104354810428752,
+          "final_confidence_score": 0.7104354810428752,
+          "total_decode_time": 9.760004468262196e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.049995474517345e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.909994408488274e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.880005821585655e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.860005669295788e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.919994484633207e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.89999433234334e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8281397110344063,
+          "final_confidence_score": 0.8281397110344063,
+          "total_decode_time": 9.309989400207996e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.939994636923075e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8281397110344063,
+          "final_confidence_score": 0.8281397110344063,
+          "total_decode_time": 9.210000280290842e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7231218051243898,
+          "final_confidence_score": 0.7231218051243898,
+          "total_decode_time": 9.460002183914185e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.969994865357876e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.889994256198406e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8281397110344063,
+          "final_confidence_score": 0.8281397110344063,
+          "total_decode_time": 9.26000066101551e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 9.190000128000975e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.5087491068802403,
+          "final_confidence_score": 0.6554622966417211,
+          "total_decode_time": 0.00015979993622750044
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6393398367530659,
+          "final_confidence_score": 0.6629505145931266,
+          "total_decode_time": 0.00015629990957677364
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8281397110344063,
+          "final_confidence_score": 0.8281397110344063,
+          "total_decode_time": 9.250000584870577e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8281397110344063,
+          "final_confidence_score": 0.8281397110344063,
+          "total_decode_time": 9.590003173798323e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.999995093792677e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.940006278455257e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.860005669295788e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8049461960842088,
+          "final_confidence_score": 0.8049461960842088,
+          "total_decode_time": 9.220000356435776e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.930006202310324e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 9.119999594986439e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8049461960842088,
+          "final_confidence_score": 0.8049461960842088,
+          "total_decode_time": 9.200000204145908e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8172013139908454,
+          "final_confidence_score": 0.8172013139908454,
+          "total_decode_time": 9.350001346319914e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.999995093792677e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.889994256198406e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.900005973875523e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.930006202310324e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.869994103908539e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 9.169999975711107e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6393398367530659,
+          "final_confidence_score": 0.6629505145931266,
+          "total_decode_time": 0.0001572000328451395
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7104354810428752,
+          "final_confidence_score": 0.7104354810428752,
+          "total_decode_time": 9.290000889450312e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.989995017647743e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 9.14999982342124e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7794561686382467,
+          "final_confidence_score": 0.7794561686382467,
+          "total_decode_time": 9.169999975711107e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.970006506890059e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.6656888003642767,
+          "final_confidence_score": 0.6656888003642767,
+          "total_decode_time": 9.310001041740179e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6393398367530659,
+          "final_confidence_score": 0.6629505145931266,
+          "total_decode_time": 0.0001550000160932541
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.940006278455257e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.860005669295788e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 9.049999061971903e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.970006506890059e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6393398367530659,
+          "final_confidence_score": 0.6629505145931266,
+          "total_decode_time": 0.00015300000086426735
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 8.220004383474588e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 8.260004688054323e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.230000872164965e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.089999806135893e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.029999349266291e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 8.14999220892787e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8281397110344063,
+          "final_confidence_score": 0.8281397110344063,
+          "total_decode_time": 8.240004535764456e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.6867567266439017,
+          "final_confidence_score": 0.6867567266439017,
+          "total_decode_time": 8.240004535764456e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.19000056758523e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6393398367530659,
+          "final_confidence_score": 0.6629505145931266,
+          "total_decode_time": 0.00013719999697059393
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.079999729990959e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.019999273121357e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.029999349266291e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.029999349266291e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 5.9999991208314896e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8281397110344063,
+          "final_confidence_score": 0.8281397110344063,
+          "total_decode_time": 8.25000461190939e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8385528819540173,
+          "final_confidence_score": 0.8385528819540173,
+          "total_decode_time": 8.120003622025251e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.7099928855896e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8385528819540173,
+          "final_confidence_score": 0.8385528819540173,
+          "total_decode_time": 8.029991295188665e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6092514149262421,
+          "final_confidence_score": 0.6250669087083595,
+          "total_decode_time": 0.00013760000001639128
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8385528819540173,
+          "final_confidence_score": 0.8385528819540173,
+          "total_decode_time": 8.000002708286047e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.6867567266439017,
+          "final_confidence_score": 0.6867567266439017,
+          "total_decode_time": 8.750008419156075e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 8.180004078894854e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.6867567266439017,
+          "final_confidence_score": 0.6867567266439017,
+          "total_decode_time": 8.220004383474588e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.39472346622515553,
+          "final_confidence_score": 0.6629505145931266,
+          "total_decode_time": 0.00013780000153928995
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.160000339150429e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 8.17000400274992e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6130141761393355,
+          "final_confidence_score": 0.6402548850354096,
+          "total_decode_time": 0.00014450005255639553
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 8.160003926604986e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8385528819540173,
+          "final_confidence_score": 0.8385528819540173,
+          "total_decode_time": 8.130003698170185e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8385528819540173,
+          "final_confidence_score": 0.8385528819540173,
+          "total_decode_time": 8.030002936720848e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.160000339150429e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6393398367530659,
+          "final_confidence_score": 0.6629505145931266,
+          "total_decode_time": 0.0001370999962091446
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8049461960842088,
+          "final_confidence_score": 0.8049461960842088,
+          "total_decode_time": 8.120003622025251e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.180000491440296e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.049999501556158e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.009999196976423e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.019999273121357e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.019999273121357e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8385528819540173,
+          "final_confidence_score": 0.8385528819540173,
+          "total_decode_time": 7.960002403706312e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.10999995842576e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.029999349266291e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.059999577701092e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6393398367530659,
+          "final_confidence_score": 0.6629505145931266,
+          "total_decode_time": 0.0001365999924018979
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7104354810428752,
+          "final_confidence_score": 0.7104354810428752,
+          "total_decode_time": 0.0001156999496743083
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8385528819540173,
+          "final_confidence_score": 0.8385528819540173,
+          "total_decode_time": 8.629995863884687e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8385528819540173,
+          "final_confidence_score": 0.8385528819540173,
+          "total_decode_time": 7.98999099060893e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 0.00012820004485547543
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.310001481324434e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8090990545015856,
+          "final_confidence_score": 0.8090990545015856,
+          "total_decode_time": 8.28000484034419e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.5087491068802403,
+          "final_confidence_score": 0.6554622966417211,
+          "total_decode_time": 0.00013860000763088465
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8385528819540173,
+          "final_confidence_score": 0.8385528819540173,
+          "total_decode_time": 8.039991371333599e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.150000263005495e-05
+        }
+      ]
+    },
+    {
+      "case_name": "d5_r3_p0.010",
+      "distance": 5,
+      "rounds": 3,
+      "p": 0.01,
+      "noise_model": "depolarizing",
+      "logical_basis": "x",
+      "shots": 500,
+      "mwpm_error_rate": 0.012,
+      "mwpm_avg_decode_time_sec": 1.9785600947216154e-05,
+      "uf_error_rate": 0.018,
+      "uf_avg_decode_time_sec": 2.8713997453451155e-05,
+      "uf_speedup_vs_mwpm": 0.6890576966613929,
+      "adaptive_error_rate": 0.012,
+      "adaptive_avg_decode_time_sec": 9.738739882595838e-05,
+      "adaptive_speedup_vs_mwpm": 0.20316387115519047,
+      "adaptive_switch_rate": 0.088,
+      "g_threshold": 0.65,
+      "num_detectors": 72,
+      "num_observables": 1,
+      "status": "ok",
+      "backend_info_uf": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      },
+      "samples_adaptive": [
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 8.210004307329655e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7354592830135424,
+          "final_confidence_score": 0.7354592830135424,
+          "total_decode_time": 9.729992598295212e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8402380030563309,
+          "final_confidence_score": 0.8402380030563309,
+          "total_decode_time": 8.9599983766675e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.630003917962313e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.6746556344466019,
+          "final_confidence_score": 0.6746556344466019,
+          "total_decode_time": 9.270000737160444e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8402380030563309,
+          "final_confidence_score": 0.8402380030563309,
+          "total_decode_time": 8.63000750541687e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7702989490466019,
+          "final_confidence_score": 0.7702989490466019,
+          "total_decode_time": 9.959994349628687e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 9.919994045048952e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8219656683746195,
+          "final_confidence_score": 0.8219656683746195,
+          "total_decode_time": 0.00010170007590204477
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7528607929137446,
+          "final_confidence_score": 0.7528607929137446,
+          "total_decode_time": 9.909993968904018e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8281397110344063,
+          "final_confidence_score": 0.8281397110344063,
+          "total_decode_time": 0.00010109995491802692
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7078572714244814,
+          "final_confidence_score": 0.7078572714244814,
+          "total_decode_time": 9.600003249943256e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8402380030563309,
+          "final_confidence_score": 0.8402380030563309,
+          "total_decode_time": 9.550002869218588e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.269997149705887e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8232829385281529,
+          "final_confidence_score": 0.8232829385281529,
+          "total_decode_time": 0.00010119995567947626
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8368534378594309,
+          "final_confidence_score": 0.8368534378594309,
+          "total_decode_time": 9.620003402233124e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8368534378594309,
+          "final_confidence_score": 0.8368534378594309,
+          "total_decode_time": 9.550002869218588e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 9.740004315972328e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8402380030563309,
+          "final_confidence_score": 0.8402380030563309,
+          "total_decode_time": 9.450002107769251e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8368534378594309,
+          "final_confidence_score": 0.8368534378594309,
+          "total_decode_time": 9.550002869218588e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8419088514898213,
+          "final_confidence_score": 0.8419088514898213,
+          "total_decode_time": 9.360001422464848e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8232829385281529,
+          "final_confidence_score": 0.8232829385281529,
+          "total_decode_time": 9.510002564638853e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.199996616691351e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7354592830135424,
+          "final_confidence_score": 0.7354592830135424,
+          "total_decode_time": 9.740004315972328e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6479408020806503,
+          "final_confidence_score": 0.6703578321957112,
+          "total_decode_time": 0.0001708000199869275
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.823827857809139,
+          "final_confidence_score": 0.823827857809139,
+          "total_decode_time": 9.710004087537527e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.5430183807243099,
+          "final_confidence_score": 0.6453571849489681,
+          "total_decode_time": 0.0001868000254034996
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7702989490466019,
+          "final_confidence_score": 0.7702989490466019,
+          "total_decode_time": 9.77999297901988e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8419088514898213,
+          "final_confidence_score": 0.8419088514898213,
+          "total_decode_time": 8.679996244609356e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.450002547353506e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8368534378594309,
+          "final_confidence_score": 0.8368534378594309,
+          "total_decode_time": 9.620003402233124e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8419088514898213,
+          "final_confidence_score": 0.8419088514898213,
+          "total_decode_time": 0.000125400023534894
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7121467777293562,
+          "final_confidence_score": 0.7121467777293562,
+          "total_decode_time": 9.990006219595671e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7428742536682791,
+          "final_confidence_score": 0.7428742536682791,
+          "total_decode_time": 0.00010059995111078024
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7078572714244814,
+          "final_confidence_score": 0.7078572714244814,
+          "total_decode_time": 9.570003021508455e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.824262841458951,
+          "final_confidence_score": 0.824262841458951,
+          "total_decode_time": 9.710004087537527e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7702989490466019,
+          "final_confidence_score": 0.7702989490466019,
+          "total_decode_time": 9.850005153566599e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8351396218469611,
+          "final_confidence_score": 0.8351396218469611,
+          "total_decode_time": 0.00010139995720237494
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7078572714244814,
+          "final_confidence_score": 0.7078572714244814,
+          "total_decode_time": 9.559991303831339e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7354592830135424,
+          "final_confidence_score": 0.7354592830135424,
+          "total_decode_time": 9.599991608411074e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 7.27000879123807e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8299114747646735,
+          "final_confidence_score": 0.8299114747646735,
+          "total_decode_time": 0.00011360005009919405
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8385528819540173,
+          "final_confidence_score": 0.8385528819540173,
+          "total_decode_time": 0.0006395999807864428
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.6974111143958823,
+          "final_confidence_score": 0.6974111143958823,
+          "total_decode_time": 0.0001911999424919486
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8419088514898213,
+          "final_confidence_score": 0.8419088514898213,
+          "total_decode_time": 9.870005305856466e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8402380030563309,
+          "final_confidence_score": 0.8402380030563309,
+          "total_decode_time": 9.999994654208422e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8385528819540173,
+          "final_confidence_score": 0.8385528819540173,
+          "total_decode_time": 9.409990161657333e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8368534378594309,
+          "final_confidence_score": 0.8368534378594309,
+          "total_decode_time": 9.350001346319914e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8334113864245404,
+          "final_confidence_score": 0.8334113864245404,
+          "total_decode_time": 9.370001498609781e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8385528819540173,
+          "final_confidence_score": 0.8385528819540173,
+          "total_decode_time": 9.270000737160444e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.6770739486108529,
+          "final_confidence_score": 0.6770739486108529,
+          "total_decode_time": 0.00012790004257112741
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7032986518994485,
+          "final_confidence_score": 0.7032986518994485,
+          "total_decode_time": 8.9899986051023e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.6875628683467083,
+          "final_confidence_score": 0.6875628683467083,
+          "total_decode_time": 8.41999426484108e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8385528819540173,
+          "final_confidence_score": 0.8385528819540173,
+          "total_decode_time": 8.25999304652214e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7428742536682791,
+          "final_confidence_score": 0.7428742536682791,
+          "total_decode_time": 8.709996473044157e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7078572714244814,
+          "final_confidence_score": 0.7078572714244814,
+          "total_decode_time": 8.169992361217737e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7702989490466019,
+          "final_confidence_score": 0.7702989490466019,
+          "total_decode_time": 8.439994417130947e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8299114747646735,
+          "final_confidence_score": 0.8299114747646735,
+          "total_decode_time": 8.589995559304953e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.260001100599766e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8368534378594309,
+          "final_confidence_score": 0.8368534378594309,
+          "total_decode_time": 8.159992285072803e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8368534378594309,
+          "final_confidence_score": 0.8368534378594309,
+          "total_decode_time": 8.459994569420815e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6479408020806503,
+          "final_confidence_score": 0.6703578321957112,
+          "total_decode_time": 0.0001476999605074525
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.762951295376913,
+          "final_confidence_score": 0.762951295376913,
+          "total_decode_time": 8.289993274956942e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6040813228693781,
+          "final_confidence_score": 0.6728084816686298,
+          "total_decode_time": 0.00014169991482049227
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.6746556344466019,
+          "final_confidence_score": 0.6746556344466019,
+          "total_decode_time": 8.769996929913759e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8402380030563309,
+          "final_confidence_score": 0.8402380030563309,
+          "total_decode_time": 8.190004155039787e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6387187999684281,
+          "final_confidence_score": 0.6440974135709573,
+          "total_decode_time": 0.00015490001533180475
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.210000719875097e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7354592830135424,
+          "final_confidence_score": 0.7354592830135424,
+          "total_decode_time": 8.459994569420815e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8402380030563309,
+          "final_confidence_score": 0.8402380030563309,
+          "total_decode_time": 8.239992894232273e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8402380030563309,
+          "final_confidence_score": 0.8402380030563309,
+          "total_decode_time": 8.130003698170185e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8402380030563309,
+          "final_confidence_score": 0.8402380030563309,
+          "total_decode_time": 8.17000400274992e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7078572714244814,
+          "final_confidence_score": 0.7078572714244814,
+          "total_decode_time": 8.640007581561804e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8204157352438874,
+          "final_confidence_score": 0.8204157352438874,
+          "total_decode_time": 8.240004535764456e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.6564468724566059,
+          "final_confidence_score": 0.6564468724566059,
+          "total_decode_time": 8.200004231184721e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.170000415295362e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8351396218469611,
+          "final_confidence_score": 0.8351396218469611,
+          "total_decode_time": 8.239992894232273e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7231218051243898,
+          "final_confidence_score": 0.7231218051243898,
+          "total_decode_time": 8.79000872373581e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8368534378594309,
+          "final_confidence_score": 0.8368534378594309,
+          "total_decode_time": 8.210004307329655e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.687159938942856,
+          "final_confidence_score": 0.687159938942856,
+          "total_decode_time": 8.460006210952997e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8419088514898213,
+          "final_confidence_score": 0.8419088514898213,
+          "total_decode_time": 8.060003165155649e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8419088514898213,
+          "final_confidence_score": 0.8419088514898213,
+          "total_decode_time": 7.950002327561378e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7354592830135424,
+          "final_confidence_score": 0.7354592830135424,
+          "total_decode_time": 8.349993731826544e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.762951295376913,
+          "final_confidence_score": 0.762951295376913,
+          "total_decode_time": 9.539991151541471e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.160000339150429e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6479408020806503,
+          "final_confidence_score": 0.6703578321957112,
+          "total_decode_time": 0.0001406000228598714
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8126771009197338,
+          "final_confidence_score": 0.8126771009197338,
+          "total_decode_time": 8.050003089010715e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.10999995842576e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.762951295376913,
+          "final_confidence_score": 0.762951295376913,
+          "total_decode_time": 8.649996016174555e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.130000110715628e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.762951295376913,
+          "final_confidence_score": 0.762951295376913,
+          "total_decode_time": 8.28000484034419e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8368534378594309,
+          "final_confidence_score": 0.8368534378594309,
+          "total_decode_time": 8.200004231184721e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6479408020806503,
+          "final_confidence_score": 0.6703578321957112,
+          "total_decode_time": 0.00014370004646480083
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8402380030563309,
+          "final_confidence_score": 0.8402380030563309,
+          "total_decode_time": 8.140003774315119e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.6974111143958823,
+          "final_confidence_score": 0.6974111143958823,
+          "total_decode_time": 8.810008876025677e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.6875628683467083,
+          "final_confidence_score": 0.6875628683467083,
+          "total_decode_time": 8.28000484034419e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6294183223809025,
+          "final_confidence_score": 0.650335172606436,
+          "total_decode_time": 0.00015400000847876072
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.6770739486108529,
+          "final_confidence_score": 0.6770739486108529,
+          "total_decode_time": 8.590007200837135e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7231218051243898,
+          "final_confidence_score": 0.7231218051243898,
+          "total_decode_time": 8.909997995942831e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7121467777293562,
+          "final_confidence_score": 0.7121467777293562,
+          "total_decode_time": 8.679996244609356e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.6974111143958823,
+          "final_confidence_score": 0.6974111143958823,
+          "total_decode_time": 8.379993960261345e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.6974111143958823,
+          "final_confidence_score": 0.6974111143958823,
+          "total_decode_time": 8.759996853768826e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8368534378594309,
+          "final_confidence_score": 0.8368534378594309,
+          "total_decode_time": 8.890009485185146e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8351396218469611,
+          "final_confidence_score": 0.8351396218469611,
+          "total_decode_time": 8.270004764199257e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8316686855695153,
+          "final_confidence_score": 0.8316686855695153,
+          "total_decode_time": 8.350005373358727e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6387187999684281,
+          "final_confidence_score": 0.6440974135709573,
+          "total_decode_time": 0.00015350000467151403
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8368534378594309,
+          "final_confidence_score": 0.8368534378594309,
+          "total_decode_time": 8.220004383474588e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8402380030563309,
+          "final_confidence_score": 0.8402380030563309,
+          "total_decode_time": 8.140003774315119e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.762951295376913,
+          "final_confidence_score": 0.762951295376913,
+          "total_decode_time": 8.359993807971478e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8351396218469611,
+          "final_confidence_score": 0.8351396218469611,
+          "total_decode_time": 8.330005221068859e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.6974111143958823,
+          "final_confidence_score": 0.6974111143958823,
+          "total_decode_time": 8.670007809996605e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8385528819540173,
+          "final_confidence_score": 0.8385528819540173,
+          "total_decode_time": 8.100003469735384e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.240000948309898e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.7354592830135424,
+          "final_confidence_score": 0.7354592830135424,
+          "total_decode_time": 8.109991904348135e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.6393398367530659,
+          "final_confidence_score": 0.6629505145931266,
+          "total_decode_time": 0.00015740003436803818
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.762951295376913,
+          "final_confidence_score": 0.762951295376913,
+          "total_decode_time": 8.320005144923925e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8316686855695153,
+          "final_confidence_score": 0.8316686855695153,
+          "total_decode_time": 9.480002336204052e-05
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.9168273035060777,
+          "final_confidence_score": 0.9168273035060777,
+          "total_decode_time": 6.180000491440296e-05
+        },
+        {
+          "selected_decoder": "mwpm",
+          "switched": true,
+          "fast_confidence_score": 0.5890404340586651,
+          "final_confidence_score": 0.6604632910245244,
+          "total_decode_time": 0.000156699912622571
+        },
+        {
+          "selected_decoder": "uf",
+          "switched": false,
+          "fast_confidence_score": 0.8368534378594309,
+          "final_confidence_score": 0.8368534378594309,
+          "total_decode_time": 8.909997995942831e-05
+        }
+      ]
+    }
+  ],
+  "aggregates": {
+    "mean_mwpm_error_rate": 0.012666666666666666,
+    "mean_uf_error_rate": 0.012666666666666666,
+    "mean_adaptive_error_rate": 0.014666666666666666,
+    "mean_mwpm_avg_decode_time_sec": 1.6583799539754787e-05,
+    "mean_uf_avg_decode_time_sec": 2.5149266390750807e-05,
+    "mean_adaptive_avg_decode_time_sec": 8.942546656665703e-05,
+    "mean_uf_speedup_vs_mwpm": 0.6570077771401865,
+    "mean_adaptive_speedup_vs_mwpm": 0.18461565137611594,
+    "mean_adaptive_switch_rate": 0.09733333333333333
+  }
+}
