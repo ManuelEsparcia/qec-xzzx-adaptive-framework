@@ -86,3 +86,50 @@ def test_invalid_inputs() -> None:
 
     with pytest.raises(ValueError):
         generate_xzzx_circuit(distance=3, rounds=2, noise_model="none", p=0.1, logical_basis="y")
+
+
+def test_custom_noise_object_accepts_apply_to_circuit_with_one_arg() -> None:
+    class OneArgNoise:
+        def __init__(self) -> None:
+            self.called = False
+
+        def apply_to_circuit(self, circuit: "stim.Circuit") -> "stim.Circuit":
+            self.called = True
+            return circuit
+
+    model = OneArgNoise()
+    circuit = generate_xzzx_circuit(
+        distance=3,
+        rounds=2,
+        noise_model=model,
+        p=0.02,
+        logical_basis="x",
+    )
+
+    assert isinstance(circuit, stim.Circuit)
+    assert model.called is True
+
+
+def test_custom_noise_object_accepts_apply_to_circuit_with_two_args() -> None:
+    class TwoArgNoise:
+        def __init__(self) -> None:
+            self.called = False
+            self.last_p = None
+
+        def apply_to_circuit(self, circuit: "stim.Circuit", p: float) -> "stim.Circuit":
+            self.called = True
+            self.last_p = float(p)
+            return circuit
+
+    model = TwoArgNoise()
+    circuit = generate_xzzx_circuit(
+        distance=3,
+        rounds=2,
+        noise_model=model,
+        p=0.03,
+        logical_basis="x",
+    )
+
+    assert isinstance(circuit, stim.Circuit)
+    assert model.called is True
+    assert model.last_p == pytest.approx(0.03)

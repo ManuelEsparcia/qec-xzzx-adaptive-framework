@@ -1,6 +1,7 @@
 # src/codes/xzzx_code.py
 from __future__ import annotations
 
+import inspect
 from dataclasses import dataclass
 from typing import Any, Callable, Dict, Optional, Protocol, Union
 
@@ -31,7 +32,7 @@ NoiseCallable = Callable[["stim.Circuit", float], Optional["stim.Circuit"]]
 
 
 class NoiseApplierProtocol(Protocol):
-    def apply_to_circuit(self, circuit: "stim.Circuit", p: float) -> Optional["stim.Circuit"]:
+    def apply_to_circuit(self, circuit: "stim.Circuit", p: float = ...) -> Optional["stim.Circuit"]:
         ...
 
 
@@ -157,6 +158,43 @@ def _is_custom_noise_model(noise_model: NoiseModel) -> bool:
     return hasattr(noise_model, "apply_to_circuit")
 
 
+def _apply_noise_object_compat(
+    noise_model: NoiseApplierProtocol,
+    circuit: "stim.Circuit",
+    p: float,
+) -> Optional["stim.Circuit"]:
+    """
+    Compatibilidad para dos contratos habituales:
+      - apply_to_circuit(circuit, p)
+      - apply_to_circuit(circuit)
+    """
+    apply_fn = noise_model.apply_to_circuit
+
+    try:
+        sig = inspect.signature(apply_fn)
+    except (TypeError, ValueError):
+        # Fallback defensivo cuando la firma no es introspectable
+        try:
+            return apply_fn(circuit, p)
+        except TypeError:
+            return apply_fn(circuit)
+
+    try:
+        sig.bind(circuit, p)
+        return apply_fn(circuit, p)
+    except TypeError:
+        pass
+
+    try:
+        sig.bind(circuit)
+        return apply_fn(circuit)
+    except TypeError as exc:
+        raise TypeError(
+            "El objeto noise_model debe exponer apply_to_circuit(circuit) "
+            "o apply_to_circuit(circuit, p)."
+        ) from exc
+
+
 # -----------------------------
 # Public API
 # -----------------------------
@@ -182,7 +220,7 @@ def generate_xzzx_circuit(
           - "depolarizing"
           - dict de kwargs para stim.Circuit.generated
           - callable(circuit, p) -> Optional[circuit]
-          - objeto con apply_to_circuit(circuit, p) -> Optional[circuit]
+          - objeto con apply_to_circuit(circuit[, p]) -> Optional[circuit]
     p : float
         Probabilidad de error físico.
     logical_basis : str
@@ -208,8 +246,8 @@ def generate_xzzx_circuit(
         if callable(noise_model):
             out = noise_model(base, cfg.p)
         else:
-            # objeto con apply_to_circuit
-            out = noise_model.apply_to_circuit(base, cfg.p)  # type: ignore[attr-defined]
+            # objeto con apply_to_circuit(circuit[, p])
+            out = _apply_noise_object_compat(noise_model, base, cfg.p)
 
         if out is None:
             return base

@@ -1,0 +1,5 @@
+﻿numpy
+stim
+pymatching
+pytest
+
