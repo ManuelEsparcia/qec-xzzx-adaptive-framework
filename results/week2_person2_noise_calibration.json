@@ -1,0 +1,2587 @@
+{
+  "metadata": {
+    "report_name": "noise_calibration_multi_model",
+    "timestamp_utc": "2026-02-16T15:36:51+00:00",
+    "script": "run_week2_person2_noise_calibration.py",
+    "shots": 300,
+    "seed": 2026,
+    "logical_basis": "x",
+    "objective": "min_ler"
+  },
+  "config": {
+    "shots": 300,
+    "seed": 2026,
+    "keep_soft_info_samples": 0
+  },
+  "selected_sweep_templates": [
+    {
+      "model_type": "depolarizing",
+      "param_name": "p",
+      "values": [
+        0.001,
+        0.0025,
+        0.005,
+        0.01,
+        0.02
+      ],
+      "base_params": {}
+    },
+    {
+      "model_type": "biased",
+      "param_name": "eta",
+      "values": [
+        1.5,
+        2.0,
+        4.0,
+        8.0,
+        12.0
+      ],
+      "base_params": {
+        "p": 0.01
+      }
+    },
+    {
+      "model_type": "circuit_level",
+      "param_name": "p",
+      "values": [
+        0.0025,
+        0.005,
+        0.01,
+        0.015,
+        0.02
+      ],
+      "base_params": {}
+    },
+    {
+      "model_type": "phenomenological",
+      "param_name": "p",
+      "values": [
+        0.0005,
+        0.001,
+        0.0025,
+        0.005,
+        0.01
+      ],
+      "base_params": {}
+    },
+    {
+      "model_type": "correlated",
+      "param_name": "p",
+      "values": [
+        0.001,
+        0.0025,
+        0.005,
+        0.01,
+        0.015
+      ],
+      "base_params": {
+        "correlation_strength": 0.35
+      }
+    }
+  ],
+  "num_sweeps": 5,
+  "sweeps_summary": [
+    {
+      "model_type": "depolarizing",
+      "param_name": "p",
+      "objective": "min_ler",
+      "best_value": 0.0025,
+      "mean_ler_at_best": 0.0,
+      "mean_avg_decode_time_sec_at_best": 1.004000013280246e-06
+    },
+    {
+      "model_type": "biased",
+      "param_name": "eta",
+      "objective": "min_ler",
+      "best_value": 1.5,
+      "mean_ler_at_best": 0.04,
+      "mean_avg_decode_time_sec_at_best": 3.251444367277954e-06
+    },
+    {
+      "model_type": "circuit_level",
+      "param_name": "p",
+      "objective": "min_ler",
+      "best_value": 0.0025,
+      "mean_ler_at_best": 0.0033333333333333335,
+      "mean_avg_decode_time_sec_at_best": 1.426888888494836e-06
+    },
+    {
+      "model_type": "phenomenological",
+      "param_name": "p",
+      "objective": "min_ler",
+      "best_value": 0.001,
+      "mean_ler_at_best": 0.0,
+      "mean_avg_decode_time_sec_at_best": 7.247776051776277e-07
+    },
+    {
+      "model_type": "correlated",
+      "param_name": "p",
+      "objective": "min_ler",
+      "best_value": 0.001,
+      "mean_ler_at_best": 0.0011111111111111111,
+      "mean_avg_decode_time_sec_at_best": 1.0491110798385407e-06
+    }
+  ],
+  "sweeps_reports": [
+    {
+      "metadata": {
+        "report_name": "noise_calibration_sweep",
+        "timestamp_utc": "2026-02-16T15:36:48+00:00"
+      },
+      "sweep": {
+        "model_type": "depolarizing",
+        "param_name": "p",
+        "values": [
+          0.001,
+          0.0025,
+          0.005,
+          0.01,
+          0.02
+        ],
+        "base_params": {},
+        "objective": "min_ler"
+      },
+      "config": {
+        "shots": 300,
+        "seed": 2026,
+        "keep_soft_info_samples": 0
+      },
+      "cases_summary": [
+        {
+          "case": {
+            "case_name": "d3_r2_p0.005",
+            "distance": 3,
+            "rounds": 2,
+            "p": 0.005,
+            "logical_basis": "x"
+          },
+          "points": [
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "depolarizing",
+              "model_spec": {
+                "type": "depolarizing",
+                "p": 0.001
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.001,
+              "shots": 300,
+              "seed": 10574,
+              "ler": 0.0033333333333333335,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00021810003090649843,
+              "avg_decode_time_sec": 7.270001030216614e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "depolarizing",
+              "model_spec": {
+                "type": "depolarizing",
+                "p": 0.0025
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.0025,
+              "shots": 300,
+              "seed": 11571,
+              "ler": 0.0,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00014570006169378757,
+              "avg_decode_time_sec": 4.856668723126252e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "depolarizing",
+              "model_spec": {
+                "type": "depolarizing",
+                "p": 0.005
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.005,
+              "shots": 300,
+              "seed": 12568,
+              "ler": 0.0033333333333333335,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00019809999503195286,
+              "avg_decode_time_sec": 6.603333167731762e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "depolarizing",
+              "model_spec": {
+                "type": "depolarizing",
+                "p": 0.01
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.01,
+              "shots": 300,
+              "seed": 13565,
+              "ler": 0.013333333333333334,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0002493000356480479,
+              "avg_decode_time_sec": 8.310001188268264e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "depolarizing",
+              "model_spec": {
+                "type": "depolarizing",
+                "p": 0.02
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.02,
+              "shots": 300,
+              "seed": 14562,
+              "ler": 0.06,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0004691999638453126,
+              "avg_decode_time_sec": 1.5639998794843752e-06,
+              "status": "ok"
+            }
+          ],
+          "best_point": {
+            "case_name": "d3_r2_p0.005",
+            "distance": 3,
+            "rounds": 2,
+            "logical_basis": "x",
+            "model_type": "depolarizing",
+            "model_spec": {
+              "type": "depolarizing",
+              "p": 0.0025
+            },
+            "sweep_param_name": "p",
+            "sweep_value": 0.0025,
+            "shots": 300,
+            "seed": 11571,
+            "ler": 0.0,
+            "num_detectors": 16,
+            "num_observables": 1,
+            "decode_total_time_sec": 0.00014570006169378757,
+            "avg_decode_time_sec": 4.856668723126252e-07,
+            "status": "ok"
+          },
+          "status": "ok"
+        },
+        {
+          "case": {
+            "case_name": "d3_r3_p0.010",
+            "distance": 3,
+            "rounds": 3,
+            "p": 0.01,
+            "logical_basis": "x"
+          },
+          "points": [
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "depolarizing",
+              "model_spec": {
+                "type": "depolarizing",
+                "p": 0.001
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.001,
+              "shots": 300,
+              "seed": 110574,
+              "ler": 0.0,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00016830000095069408,
+              "avg_decode_time_sec": 5.610000031689802e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "depolarizing",
+              "model_spec": {
+                "type": "depolarizing",
+                "p": 0.0025
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.0025,
+              "shots": 300,
+              "seed": 111571,
+              "ler": 0.0,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00019209994934499264,
+              "avg_decode_time_sec": 6.403331644833088e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "depolarizing",
+              "model_spec": {
+                "type": "depolarizing",
+                "p": 0.005
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.005,
+              "shots": 300,
+              "seed": 112568,
+              "ler": 0.006666666666666667,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00024449999909847975,
+              "avg_decode_time_sec": 8.149999969949325e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "depolarizing",
+              "model_spec": {
+                "type": "depolarizing",
+                "p": 0.01
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.01,
+              "shots": 300,
+              "seed": 113565,
+              "ler": 0.02666666666666667,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00035560003016144037,
+              "avg_decode_time_sec": 1.1853334338714679e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "depolarizing",
+              "model_spec": {
+                "type": "depolarizing",
+                "p": 0.02
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.02,
+              "shots": 300,
+              "seed": 114562,
+              "ler": 0.12666666666666668,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0006454999092966318,
+              "avg_decode_time_sec": 2.151666364322106e-06,
+              "status": "ok"
+            }
+          ],
+          "best_point": {
+            "case_name": "d3_r3_p0.010",
+            "distance": 3,
+            "rounds": 3,
+            "logical_basis": "x",
+            "model_type": "depolarizing",
+            "model_spec": {
+              "type": "depolarizing",
+              "p": 0.001
+            },
+            "sweep_param_name": "p",
+            "sweep_value": 0.001,
+            "shots": 300,
+            "seed": 110574,
+            "ler": 0.0,
+            "num_detectors": 24,
+            "num_observables": 1,
+            "decode_total_time_sec": 0.00016830000095069408,
+            "avg_decode_time_sec": 5.610000031689802e-07,
+            "status": "ok"
+          },
+          "status": "ok"
+        },
+        {
+          "case": {
+            "case_name": "d5_r3_p0.010",
+            "distance": 5,
+            "rounds": 3,
+            "p": 0.01,
+            "logical_basis": "x"
+          },
+          "points": [
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "depolarizing",
+              "model_spec": {
+                "type": "depolarizing",
+                "p": 0.001
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.001,
+              "shots": 300,
+              "seed": 210574,
+              "ler": 0.0,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0004659000551328063,
+              "avg_decode_time_sec": 1.553000183776021e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "depolarizing",
+              "model_spec": {
+                "type": "depolarizing",
+                "p": 0.0025
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.0025,
+              "shots": 300,
+              "seed": 211571,
+              "ler": 0.0,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0005658000009134412,
+              "avg_decode_time_sec": 1.886000003044804e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "depolarizing",
+              "model_spec": {
+                "type": "depolarizing",
+                "p": 0.005
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.005,
+              "shots": 300,
+              "seed": 212568,
+              "ler": 0.0,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0008134000236168504,
+              "avg_decode_time_sec": 2.711333412056168e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "depolarizing",
+              "model_spec": {
+                "type": "depolarizing",
+                "p": 0.01
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.01,
+              "shots": 300,
+              "seed": 213565,
+              "ler": 0.023333333333333334,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0013385000638663769,
+              "avg_decode_time_sec": 4.4616668795545895e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "depolarizing",
+              "model_spec": {
+                "type": "depolarizing",
+                "p": 0.02
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.02,
+              "shots": 300,
+              "seed": 214562,
+              "ler": 0.10333333333333333,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0024992000544443727,
+              "avg_decode_time_sec": 8.330666848147909e-06,
+              "status": "ok"
+            }
+          ],
+          "best_point": {
+            "case_name": "d5_r3_p0.010",
+            "distance": 5,
+            "rounds": 3,
+            "logical_basis": "x",
+            "model_type": "depolarizing",
+            "model_spec": {
+              "type": "depolarizing",
+              "p": 0.001
+            },
+            "sweep_param_name": "p",
+            "sweep_value": 0.001,
+            "shots": 300,
+            "seed": 210574,
+            "ler": 0.0,
+            "num_detectors": 72,
+            "num_observables": 1,
+            "decode_total_time_sec": 0.0004659000551328063,
+            "avg_decode_time_sec": 1.553000183776021e-06,
+            "status": "ok"
+          },
+          "status": "ok"
+        }
+      ],
+      "aggregates": {
+        "num_cases": 3,
+        "per_value_summary": [
+          {
+            "sweep_value": 0.001,
+            "num_points": 3,
+            "mean_ler": 0.0011111111111111111,
+            "mean_avg_decode_time_sec": 9.470000966555543e-07
+          },
+          {
+            "sweep_value": 0.0025,
+            "num_points": 3,
+            "mean_ler": 0.0,
+            "mean_avg_decode_time_sec": 1.004000013280246e-06
+          },
+          {
+            "sweep_value": 0.005,
+            "num_points": 3,
+            "mean_ler": 0.0033333333333333335,
+            "mean_avg_decode_time_sec": 1.3955555752747588e-06
+          },
+          {
+            "sweep_value": 0.01,
+            "num_points": 3,
+            "mean_ler": 0.021111111111111112,
+            "mean_avg_decode_time_sec": 2.159333477417628e-06
+          },
+          {
+            "sweep_value": 0.02,
+            "num_points": 3,
+            "mean_ler": 0.09666666666666668,
+            "mean_avg_decode_time_sec": 4.015444363984797e-06
+          }
+        ],
+        "global_best": {
+          "sweep_value": 0.0025,
+          "num_points": 3,
+          "mean_ler": 0.0,
+          "mean_avg_decode_time_sec": 1.004000013280246e-06
+        },
+        "mean_best_case_ler": 0.0,
+        "mean_best_case_avg_decode_time_sec": 8.665556864192089e-07
+      },
+      "status": "ok"
+    },
+    {
+      "metadata": {
+        "report_name": "noise_calibration_sweep",
+        "timestamp_utc": "2026-02-16T15:36:49+00:00"
+      },
+      "sweep": {
+        "model_type": "biased",
+        "param_name": "eta",
+        "values": [
+          1.5,
+          2.0,
+          4.0,
+          8.0,
+          12.0
+        ],
+        "base_params": {
+          "p": 0.01
+        },
+        "objective": "min_ler"
+      },
+      "config": {
+        "shots": 300,
+        "seed": 2026,
+        "keep_soft_info_samples": 0
+      },
+      "cases_summary": [
+        {
+          "case": {
+            "case_name": "d3_r2_p0.005",
+            "distance": 3,
+            "rounds": 2,
+            "p": 0.005,
+            "logical_basis": "x"
+          },
+          "points": [
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "biased",
+              "model_spec": {
+                "type": "biased",
+                "p": 0.01,
+                "eta": 1.5
+              },
+              "sweep_param_name": "eta",
+              "sweep_value": 1.5,
+              "shots": 300,
+              "seed": 4814,
+              "ler": 0.04666666666666667,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00034359993878751993,
+              "avg_decode_time_sec": 1.145333129291733e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "biased",
+              "model_spec": {
+                "type": "biased",
+                "p": 0.01,
+                "eta": 2.0
+              },
+              "sweep_param_name": "eta",
+              "sweep_value": 2.0,
+              "shots": 300,
+              "seed": 5811,
+              "ler": 0.04,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0003458999563008547,
+              "avg_decode_time_sec": 1.1529998543361822e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "biased",
+              "model_spec": {
+                "type": "biased",
+                "p": 0.01,
+                "eta": 4.0
+              },
+              "sweep_param_name": "eta",
+              "sweep_value": 4.0,
+              "shots": 300,
+              "seed": 6808,
+              "ler": 0.06,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0003524000057950616,
+              "avg_decode_time_sec": 1.1746666859835386e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "biased",
+              "model_spec": {
+                "type": "biased",
+                "p": 0.01,
+                "eta": 8.0
+              },
+              "sweep_param_name": "eta",
+              "sweep_value": 8.0,
+              "shots": 300,
+              "seed": 7805,
+              "ler": 0.06333333333333334,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0003040999872609973,
+              "avg_decode_time_sec": 1.0136666242033243e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "biased",
+              "model_spec": {
+                "type": "biased",
+                "p": 0.01,
+                "eta": 12.0
+              },
+              "sweep_param_name": "eta",
+              "sweep_value": 12.0,
+              "shots": 300,
+              "seed": 8802,
+              "ler": 0.05,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0003336000954732299,
+              "avg_decode_time_sec": 1.1120003182440996e-06,
+              "status": "ok"
+            }
+          ],
+          "best_point": {
+            "case_name": "d3_r2_p0.005",
+            "distance": 3,
+            "rounds": 2,
+            "logical_basis": "x",
+            "model_type": "biased",
+            "model_spec": {
+              "type": "biased",
+              "p": 0.01,
+              "eta": 2.0
+            },
+            "sweep_param_name": "eta",
+            "sweep_value": 2.0,
+            "shots": 300,
+            "seed": 5811,
+            "ler": 0.04,
+            "num_detectors": 16,
+            "num_observables": 1,
+            "decode_total_time_sec": 0.0003458999563008547,
+            "avg_decode_time_sec": 1.1529998543361822e-06,
+            "status": "ok"
+          },
+          "status": "ok"
+        },
+        {
+          "case": {
+            "case_name": "d3_r3_p0.010",
+            "distance": 3,
+            "rounds": 3,
+            "p": 0.01,
+            "logical_basis": "x"
+          },
+          "points": [
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "biased",
+              "model_spec": {
+                "type": "biased",
+                "p": 0.01,
+                "eta": 1.5
+              },
+              "sweep_param_name": "eta",
+              "sweep_value": 1.5,
+              "shots": 300,
+              "seed": 104814,
+              "ler": 0.02666666666666667,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0005301000783219934,
+              "avg_decode_time_sec": 1.767000261073311e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "biased",
+              "model_spec": {
+                "type": "biased",
+                "p": 0.01,
+                "eta": 2.0
+              },
+              "sweep_param_name": "eta",
+              "sweep_value": 2.0,
+              "shots": 300,
+              "seed": 105811,
+              "ler": 0.03666666666666667,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0005035999929532409,
+              "avg_decode_time_sec": 1.6786666431774696e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "biased",
+              "model_spec": {
+                "type": "biased",
+                "p": 0.01,
+                "eta": 4.0
+              },
+              "sweep_param_name": "eta",
+              "sweep_value": 4.0,
+              "shots": 300,
+              "seed": 106808,
+              "ler": 0.06333333333333334,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0004805000498890877,
+              "avg_decode_time_sec": 1.6016668329636256e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "biased",
+              "model_spec": {
+                "type": "biased",
+                "p": 0.01,
+                "eta": 8.0
+              },
+              "sweep_param_name": "eta",
+              "sweep_value": 8.0,
+              "shots": 300,
+              "seed": 107805,
+              "ler": 0.06,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0005025999853387475,
+              "avg_decode_time_sec": 1.6753332844624918e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "biased",
+              "model_spec": {
+                "type": "biased",
+                "p": 0.01,
+                "eta": 12.0
+              },
+              "sweep_param_name": "eta",
+              "sweep_value": 12.0,
+              "shots": 300,
+              "seed": 108802,
+              "ler": 0.08666666666666667,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0005053000058978796,
+              "avg_decode_time_sec": 1.684333352992932e-06,
+              "status": "ok"
+            }
+          ],
+          "best_point": {
+            "case_name": "d3_r3_p0.010",
+            "distance": 3,
+            "rounds": 3,
+            "logical_basis": "x",
+            "model_type": "biased",
+            "model_spec": {
+              "type": "biased",
+              "p": 0.01,
+              "eta": 1.5
+            },
+            "sweep_param_name": "eta",
+            "sweep_value": 1.5,
+            "shots": 300,
+            "seed": 104814,
+            "ler": 0.02666666666666667,
+            "num_detectors": 24,
+            "num_observables": 1,
+            "decode_total_time_sec": 0.0005301000783219934,
+            "avg_decode_time_sec": 1.767000261073311e-06,
+            "status": "ok"
+          },
+          "status": "ok"
+        },
+        {
+          "case": {
+            "case_name": "d5_r3_p0.010",
+            "distance": 5,
+            "rounds": 3,
+            "p": 0.01,
+            "logical_basis": "x"
+          },
+          "points": [
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "biased",
+              "model_spec": {
+                "type": "biased",
+                "p": 0.01,
+                "eta": 1.5
+              },
+              "sweep_param_name": "eta",
+              "sweep_value": 1.5,
+              "shots": 300,
+              "seed": 204814,
+              "ler": 0.04666666666666667,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0020525999134406447,
+              "avg_decode_time_sec": 6.841999711468816e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "biased",
+              "model_spec": {
+                "type": "biased",
+                "p": 0.01,
+                "eta": 2.0
+              },
+              "sweep_param_name": "eta",
+              "sweep_value": 2.0,
+              "shots": 300,
+              "seed": 205811,
+              "ler": 0.07666666666666666,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.001985899987630546,
+              "avg_decode_time_sec": 6.619666625435154e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "biased",
+              "model_spec": {
+                "type": "biased",
+                "p": 0.01,
+                "eta": 4.0
+              },
+              "sweep_param_name": "eta",
+              "sweep_value": 4.0,
+              "shots": 300,
+              "seed": 206808,
+              "ler": 0.06666666666666667,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0020216000266373158,
+              "avg_decode_time_sec": 6.738666755457719e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "biased",
+              "model_spec": {
+                "type": "biased",
+                "p": 0.01,
+                "eta": 8.0
+              },
+              "sweep_param_name": "eta",
+              "sweep_value": 8.0,
+              "shots": 300,
+              "seed": 207805,
+              "ler": 0.08,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.002099099918268621,
+              "avg_decode_time_sec": 6.9969997275620695e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "biased",
+              "model_spec": {
+                "type": "biased",
+                "p": 0.01,
+                "eta": 12.0
+              },
+              "sweep_param_name": "eta",
+              "sweep_value": 12.0,
+              "shots": 300,
+              "seed": 208802,
+              "ler": 0.07666666666666666,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0020077000372111797,
+              "avg_decode_time_sec": 6.692333457370599e-06,
+              "status": "ok"
+            }
+          ],
+          "best_point": {
+            "case_name": "d5_r3_p0.010",
+            "distance": 5,
+            "rounds": 3,
+            "logical_basis": "x",
+            "model_type": "biased",
+            "model_spec": {
+              "type": "biased",
+              "p": 0.01,
+              "eta": 1.5
+            },
+            "sweep_param_name": "eta",
+            "sweep_value": 1.5,
+            "shots": 300,
+            "seed": 204814,
+            "ler": 0.04666666666666667,
+            "num_detectors": 72,
+            "num_observables": 1,
+            "decode_total_time_sec": 0.0020525999134406447,
+            "avg_decode_time_sec": 6.841999711468816e-06,
+            "status": "ok"
+          },
+          "status": "ok"
+        }
+      ],
+      "aggregates": {
+        "num_cases": 3,
+        "per_value_summary": [
+          {
+            "sweep_value": 1.5,
+            "num_points": 3,
+            "mean_ler": 0.04,
+            "mean_avg_decode_time_sec": 3.251444367277954e-06
+          },
+          {
+            "sweep_value": 2.0,
+            "num_points": 3,
+            "mean_ler": 0.05111111111111111,
+            "mean_avg_decode_time_sec": 3.1504443743162687e-06
+          },
+          {
+            "sweep_value": 4.0,
+            "num_points": 3,
+            "mean_ler": 0.06333333333333334,
+            "mean_avg_decode_time_sec": 3.171666758134961e-06
+          },
+          {
+            "sweep_value": 8.0,
+            "num_points": 3,
+            "mean_ler": 0.06777777777777778,
+            "mean_avg_decode_time_sec": 3.2286665454092954e-06
+          },
+          {
+            "sweep_value": 12.0,
+            "num_points": 3,
+            "mean_ler": 0.07111111111111111,
+            "mean_avg_decode_time_sec": 3.16288904286921e-06
+          }
+        ],
+        "global_best": {
+          "sweep_value": 1.5,
+          "num_points": 3,
+          "mean_ler": 0.04,
+          "mean_avg_decode_time_sec": 3.251444367277954e-06
+        },
+        "mean_best_case_ler": 0.03777777777777778,
+        "mean_best_case_avg_decode_time_sec": 3.25399994229277e-06
+      },
+      "status": "ok"
+    },
+    {
+      "metadata": {
+        "report_name": "noise_calibration_sweep",
+        "timestamp_utc": "2026-02-16T15:36:49+00:00"
+      },
+      "sweep": {
+        "model_type": "circuit_level",
+        "param_name": "p",
+        "values": [
+          0.0025,
+          0.005,
+          0.01,
+          0.015,
+          0.02
+        ],
+        "base_params": {},
+        "objective": "min_ler"
+      },
+      "config": {
+        "shots": 300,
+        "seed": 2026,
+        "keep_soft_info_samples": 0
+      },
+      "cases_summary": [
+        {
+          "case": {
+            "case_name": "d3_r2_p0.005",
+            "distance": 3,
+            "rounds": 2,
+            "p": 0.005,
+            "logical_basis": "x"
+          },
+          "points": [
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "circuit_level",
+              "model_spec": {
+                "type": "circuit_level",
+                "p": 0.0025
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.0025,
+              "shots": 300,
+              "seed": 11868,
+              "ler": 0.0033333333333333335,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00017330003902316093,
+              "avg_decode_time_sec": 5.776667967438698e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "circuit_level",
+              "model_spec": {
+                "type": "circuit_level",
+                "p": 0.005
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.005,
+              "shots": 300,
+              "seed": 12865,
+              "ler": 0.03,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0002242999617010355,
+              "avg_decode_time_sec": 7.476665390034517e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "circuit_level",
+              "model_spec": {
+                "type": "circuit_level",
+                "p": 0.01
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.01,
+              "shots": 300,
+              "seed": 13862,
+              "ler": 0.05333333333333334,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0004015999147668481,
+              "avg_decode_time_sec": 1.3386663825561604e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "circuit_level",
+              "model_spec": {
+                "type": "circuit_level",
+                "p": 0.015
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.015,
+              "shots": 300,
+              "seed": 14859,
+              "ler": 0.08,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00048209994565695524,
+              "avg_decode_time_sec": 1.6069998188565174e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "circuit_level",
+              "model_spec": {
+                "type": "circuit_level",
+                "p": 0.02
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.02,
+              "shots": 300,
+              "seed": 15856,
+              "ler": 0.12,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0005449999589473009,
+              "avg_decode_time_sec": 1.8166665298243364e-06,
+              "status": "ok"
+            }
+          ],
+          "best_point": {
+            "case_name": "d3_r2_p0.005",
+            "distance": 3,
+            "rounds": 2,
+            "logical_basis": "x",
+            "model_type": "circuit_level",
+            "model_spec": {
+              "type": "circuit_level",
+              "p": 0.0025
+            },
+            "sweep_param_name": "p",
+            "sweep_value": 0.0025,
+            "shots": 300,
+            "seed": 11868,
+            "ler": 0.0033333333333333335,
+            "num_detectors": 16,
+            "num_observables": 1,
+            "decode_total_time_sec": 0.00017330003902316093,
+            "avg_decode_time_sec": 5.776667967438698e-07,
+            "status": "ok"
+          },
+          "status": "ok"
+        },
+        {
+          "case": {
+            "case_name": "d3_r3_p0.010",
+            "distance": 3,
+            "rounds": 3,
+            "p": 0.01,
+            "logical_basis": "x"
+          },
+          "points": [
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "circuit_level",
+              "model_spec": {
+                "type": "circuit_level",
+                "p": 0.0025
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.0025,
+              "shots": 300,
+              "seed": 111868,
+              "ler": 0.006666666666666667,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00035310001112520695,
+              "avg_decode_time_sec": 1.177000037084023e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "circuit_level",
+              "model_spec": {
+                "type": "circuit_level",
+                "p": 0.005
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.005,
+              "shots": 300,
+              "seed": 112865,
+              "ler": 0.023333333333333334,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00033870001789182425,
+              "avg_decode_time_sec": 1.1290000596394142e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "circuit_level",
+              "model_spec": {
+                "type": "circuit_level",
+                "p": 0.01
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.01,
+              "shots": 300,
+              "seed": 113862,
+              "ler": 0.08,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0005644001066684723,
+              "avg_decode_time_sec": 1.8813336888949076e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "circuit_level",
+              "model_spec": {
+                "type": "circuit_level",
+                "p": 0.015
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.015,
+              "shots": 300,
+              "seed": 114859,
+              "ler": 0.16333333333333333,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0007340000011026859,
+              "avg_decode_time_sec": 2.4466666703422862e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "circuit_level",
+              "model_spec": {
+                "type": "circuit_level",
+                "p": 0.02
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.02,
+              "shots": 300,
+              "seed": 115856,
+              "ler": 0.2,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0008906000293791294,
+              "avg_decode_time_sec": 2.968666764597098e-06,
+              "status": "ok"
+            }
+          ],
+          "best_point": {
+            "case_name": "d3_r3_p0.010",
+            "distance": 3,
+            "rounds": 3,
+            "logical_basis": "x",
+            "model_type": "circuit_level",
+            "model_spec": {
+              "type": "circuit_level",
+              "p": 0.0025
+            },
+            "sweep_param_name": "p",
+            "sweep_value": 0.0025,
+            "shots": 300,
+            "seed": 111868,
+            "ler": 0.006666666666666667,
+            "num_detectors": 24,
+            "num_observables": 1,
+            "decode_total_time_sec": 0.00035310001112520695,
+            "avg_decode_time_sec": 1.177000037084023e-06,
+            "status": "ok"
+          },
+          "status": "ok"
+        },
+        {
+          "case": {
+            "case_name": "d5_r3_p0.010",
+            "distance": 5,
+            "rounds": 3,
+            "p": 0.01,
+            "logical_basis": "x"
+          },
+          "points": [
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "circuit_level",
+              "model_spec": {
+                "type": "circuit_level",
+                "p": 0.0025
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.0025,
+              "shots": 300,
+              "seed": 211868,
+              "ler": 0.0,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0007577999494969845,
+              "avg_decode_time_sec": 2.525999831656615e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "circuit_level",
+              "model_spec": {
+                "type": "circuit_level",
+                "p": 0.005
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.005,
+              "shots": 300,
+              "seed": 212865,
+              "ler": 0.016666666666666666,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.001180000021122396,
+              "avg_decode_time_sec": 3.93333340374132e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "circuit_level",
+              "model_spec": {
+                "type": "circuit_level",
+                "p": 0.01
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.01,
+              "shots": 300,
+              "seed": 213862,
+              "ler": 0.11,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0023964999709278345,
+              "avg_decode_time_sec": 7.988333236426114e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "circuit_level",
+              "model_spec": {
+                "type": "circuit_level",
+                "p": 0.015
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.015,
+              "shots": 300,
+              "seed": 214859,
+              "ler": 0.20333333333333334,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0037192999152466655,
+              "avg_decode_time_sec": 1.239766638415555e-05,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "circuit_level",
+              "model_spec": {
+                "type": "circuit_level",
+                "p": 0.02
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.02,
+              "shots": 300,
+              "seed": 215856,
+              "ler": 0.2633333333333333,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0040732999332249165,
+              "avg_decode_time_sec": 1.3577666444083054e-05,
+              "status": "ok"
+            }
+          ],
+          "best_point": {
+            "case_name": "d5_r3_p0.010",
+            "distance": 5,
+            "rounds": 3,
+            "logical_basis": "x",
+            "model_type": "circuit_level",
+            "model_spec": {
+              "type": "circuit_level",
+              "p": 0.0025
+            },
+            "sweep_param_name": "p",
+            "sweep_value": 0.0025,
+            "shots": 300,
+            "seed": 211868,
+            "ler": 0.0,
+            "num_detectors": 72,
+            "num_observables": 1,
+            "decode_total_time_sec": 0.0007577999494969845,
+            "avg_decode_time_sec": 2.525999831656615e-06,
+            "status": "ok"
+          },
+          "status": "ok"
+        }
+      ],
+      "aggregates": {
+        "num_cases": 3,
+        "per_value_summary": [
+          {
+            "sweep_value": 0.0025,
+            "num_points": 3,
+            "mean_ler": 0.0033333333333333335,
+            "mean_avg_decode_time_sec": 1.426888888494836e-06
+          },
+          {
+            "sweep_value": 0.005,
+            "num_points": 3,
+            "mean_ler": 0.02333333333333333,
+            "mean_avg_decode_time_sec": 1.9366666674613953e-06
+          },
+          {
+            "sweep_value": 0.01,
+            "num_points": 3,
+            "mean_ler": 0.08111111111111112,
+            "mean_avg_decode_time_sec": 3.7361111026257273e-06
+          },
+          {
+            "sweep_value": 0.015,
+            "num_points": 3,
+            "mean_ler": 0.14888888888888888,
+            "mean_avg_decode_time_sec": 5.483777624451452e-06
+          },
+          {
+            "sweep_value": 0.02,
+            "num_points": 3,
+            "mean_ler": 0.19444444444444442,
+            "mean_avg_decode_time_sec": 6.12099991283483e-06
+          }
+        ],
+        "global_best": {
+          "sweep_value": 0.0025,
+          "num_points": 3,
+          "mean_ler": 0.0033333333333333335,
+          "mean_avg_decode_time_sec": 1.426888888494836e-06
+        },
+        "mean_best_case_ler": 0.0033333333333333335,
+        "mean_best_case_avg_decode_time_sec": 1.426888888494836e-06
+      },
+      "status": "ok"
+    },
+    {
+      "metadata": {
+        "report_name": "noise_calibration_sweep",
+        "timestamp_utc": "2026-02-16T15:36:50+00:00"
+      },
+      "sweep": {
+        "model_type": "phenomenological",
+        "param_name": "p",
+        "values": [
+          0.0005,
+          0.001,
+          0.0025,
+          0.005,
+          0.01
+        ],
+        "base_params": {},
+        "objective": "min_ler"
+      },
+      "config": {
+        "shots": 300,
+        "seed": 2026,
+        "keep_soft_info_samples": 0
+      },
+      "cases_summary": [
+        {
+          "case": {
+            "case_name": "d3_r2_p0.005",
+            "distance": 3,
+            "rounds": 2,
+            "p": 0.005,
+            "logical_basis": "x"
+          },
+          "points": [
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "phenomenological",
+              "model_spec": {
+                "type": "phenomenological",
+                "p": 0.0005
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.0005,
+              "shots": 300,
+              "seed": 16467,
+              "ler": 0.0,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00011209992226213217,
+              "avg_decode_time_sec": 3.7366640754044056e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "phenomenological",
+              "model_spec": {
+                "type": "phenomenological",
+                "p": 0.001
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.001,
+              "shots": 300,
+              "seed": 17464,
+              "ler": 0.0,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00011619995348155499,
+              "avg_decode_time_sec": 3.8733317827184993e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "phenomenological",
+              "model_spec": {
+                "type": "phenomenological",
+                "p": 0.0025
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.0025,
+              "shots": 300,
+              "seed": 18461,
+              "ler": 0.0,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00012679991777986288,
+              "avg_decode_time_sec": 4.2266639259954294e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "phenomenological",
+              "model_spec": {
+                "type": "phenomenological",
+                "p": 0.005
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.005,
+              "shots": 300,
+              "seed": 19458,
+              "ler": 0.0,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00018390000332146883,
+              "avg_decode_time_sec": 6.130000110715628e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "phenomenological",
+              "model_spec": {
+                "type": "phenomenological",
+                "p": 0.01
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.01,
+              "shots": 300,
+              "seed": 20455,
+              "ler": 0.0033333333333333335,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00017389992717653513,
+              "avg_decode_time_sec": 5.796664239217838e-07,
+              "status": "ok"
+            }
+          ],
+          "best_point": {
+            "case_name": "d3_r2_p0.005",
+            "distance": 3,
+            "rounds": 2,
+            "logical_basis": "x",
+            "model_type": "phenomenological",
+            "model_spec": {
+              "type": "phenomenological",
+              "p": 0.0005
+            },
+            "sweep_param_name": "p",
+            "sweep_value": 0.0005,
+            "shots": 300,
+            "seed": 16467,
+            "ler": 0.0,
+            "num_detectors": 16,
+            "num_observables": 1,
+            "decode_total_time_sec": 0.00011209992226213217,
+            "avg_decode_time_sec": 3.7366640754044056e-07,
+            "status": "ok"
+          },
+          "status": "ok"
+        },
+        {
+          "case": {
+            "case_name": "d3_r3_p0.010",
+            "distance": 3,
+            "rounds": 3,
+            "p": 0.01,
+            "logical_basis": "x"
+          },
+          "points": [
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "phenomenological",
+              "model_spec": {
+                "type": "phenomenological",
+                "p": 0.0005
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.0005,
+              "shots": 300,
+              "seed": 116467,
+              "ler": 0.0,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00013639999087899923,
+              "avg_decode_time_sec": 4.546666362633308e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "phenomenological",
+              "model_spec": {
+                "type": "phenomenological",
+                "p": 0.001
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.001,
+              "shots": 300,
+              "seed": 117464,
+              "ler": 0.0,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00014939997345209122,
+              "avg_decode_time_sec": 4.979999115069707e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "phenomenological",
+              "model_spec": {
+                "type": "phenomenological",
+                "p": 0.0025
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.0025,
+              "shots": 300,
+              "seed": 118461,
+              "ler": 0.0,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0001583000412210822,
+              "avg_decode_time_sec": 5.27666804070274e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "phenomenological",
+              "model_spec": {
+                "type": "phenomenological",
+                "p": 0.005
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.005,
+              "shots": 300,
+              "seed": 119458,
+              "ler": 0.0033333333333333335,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00018660002388060093,
+              "avg_decode_time_sec": 6.22000079602003e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "phenomenological",
+              "model_spec": {
+                "type": "phenomenological",
+                "p": 0.01
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.01,
+              "shots": 300,
+              "seed": 120455,
+              "ler": 0.006666666666666667,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00025589996948838234,
+              "avg_decode_time_sec": 8.529998982946078e-07,
+              "status": "ok"
+            }
+          ],
+          "best_point": {
+            "case_name": "d3_r3_p0.010",
+            "distance": 3,
+            "rounds": 3,
+            "logical_basis": "x",
+            "model_type": "phenomenological",
+            "model_spec": {
+              "type": "phenomenological",
+              "p": 0.0005
+            },
+            "sweep_param_name": "p",
+            "sweep_value": 0.0005,
+            "shots": 300,
+            "seed": 116467,
+            "ler": 0.0,
+            "num_detectors": 24,
+            "num_observables": 1,
+            "decode_total_time_sec": 0.00013639999087899923,
+            "avg_decode_time_sec": 4.546666362633308e-07,
+            "status": "ok"
+          },
+          "status": "ok"
+        },
+        {
+          "case": {
+            "case_name": "d5_r3_p0.010",
+            "distance": 5,
+            "rounds": 3,
+            "p": 0.01,
+            "logical_basis": "x"
+          },
+          "points": [
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "phenomenological",
+              "model_spec": {
+                "type": "phenomenological",
+                "p": 0.0005
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.0005,
+              "shots": 300,
+              "seed": 216467,
+              "ler": 0.0,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0004120999947190285,
+              "avg_decode_time_sec": 1.3736666490634283e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "phenomenological",
+              "model_spec": {
+                "type": "phenomenological",
+                "p": 0.001
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.001,
+              "shots": 300,
+              "seed": 217464,
+              "ler": 0.0,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0003866999177262187,
+              "avg_decode_time_sec": 1.2889997257540624e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "phenomenological",
+              "model_spec": {
+                "type": "phenomenological",
+                "p": 0.0025
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.0025,
+              "shots": 300,
+              "seed": 218461,
+              "ler": 0.0,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0004123999970033765,
+              "avg_decode_time_sec": 1.3746666566779217e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "phenomenological",
+              "model_spec": {
+                "type": "phenomenological",
+                "p": 0.005
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.005,
+              "shots": 300,
+              "seed": 219458,
+              "ler": 0.0,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0005298000760376453,
+              "avg_decode_time_sec": 1.7660002534588177e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "phenomenological",
+              "model_spec": {
+                "type": "phenomenological",
+                "p": 0.01
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.01,
+              "shots": 300,
+              "seed": 220455,
+              "ler": 0.0033333333333333335,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0006542999763041735,
+              "avg_decode_time_sec": 2.1809999210139117e-06,
+              "status": "ok"
+            }
+          ],
+          "best_point": {
+            "case_name": "d5_r3_p0.010",
+            "distance": 5,
+            "rounds": 3,
+            "logical_basis": "x",
+            "model_type": "phenomenological",
+            "model_spec": {
+              "type": "phenomenological",
+              "p": 0.001
+            },
+            "sweep_param_name": "p",
+            "sweep_value": 0.001,
+            "shots": 300,
+            "seed": 217464,
+            "ler": 0.0,
+            "num_detectors": 72,
+            "num_observables": 1,
+            "decode_total_time_sec": 0.0003866999177262187,
+            "avg_decode_time_sec": 1.2889997257540624e-06,
+            "status": "ok"
+          },
+          "status": "ok"
+        }
+      ],
+      "aggregates": {
+        "num_cases": 3,
+        "per_value_summary": [
+          {
+            "sweep_value": 0.0005,
+            "num_points": 3,
+            "mean_ler": 0.0,
+            "mean_avg_decode_time_sec": 7.339998976223998e-07
+          },
+          {
+            "sweep_value": 0.001,
+            "num_points": 3,
+            "mean_ler": 0.0,
+            "mean_avg_decode_time_sec": 7.247776051776277e-07
+          },
+          {
+            "sweep_value": 0.0025,
+            "num_points": 3,
+            "mean_ler": 0.0,
+            "mean_avg_decode_time_sec": 7.749999511159128e-07
+          },
+          {
+            "sweep_value": 0.005,
+            "num_points": 3,
+            "mean_ler": 0.0011111111111111111,
+            "mean_avg_decode_time_sec": 1.0003334480441278e-06
+          },
+          {
+            "sweep_value": 0.01,
+            "num_points": 3,
+            "mean_ler": 0.0044444444444444444,
+            "mean_avg_decode_time_sec": 1.204555414410101e-06
+          }
+        ],
+        "global_best": {
+          "sweep_value": 0.001,
+          "num_points": 3,
+          "mean_ler": 0.0,
+          "mean_avg_decode_time_sec": 7.247776051776277e-07
+        },
+        "mean_best_case_ler": 0.0,
+        "mean_best_case_avg_decode_time_sec": 7.057775898526112e-07
+      },
+      "status": "ok"
+    },
+    {
+      "metadata": {
+        "report_name": "noise_calibration_sweep",
+        "timestamp_utc": "2026-02-16T15:36:51+00:00"
+      },
+      "sweep": {
+        "model_type": "correlated",
+        "param_name": "p",
+        "values": [
+          0.001,
+          0.0025,
+          0.005,
+          0.01,
+          0.015
+        ],
+        "base_params": {
+          "correlation_strength": 0.35
+        },
+        "objective": "min_ler"
+      },
+      "config": {
+        "shots": 300,
+        "seed": 2026,
+        "keep_soft_info_samples": 0
+      },
+      "cases_summary": [
+        {
+          "case": {
+            "case_name": "d3_r2_p0.005",
+            "distance": 3,
+            "rounds": 2,
+            "p": 0.005,
+            "logical_basis": "x"
+          },
+          "points": [
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "correlated",
+              "model_spec": {
+                "type": "correlated",
+                "p": 0.001,
+                "correlation_strength": 0.35
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.001,
+              "shots": 300,
+              "seed": 7926,
+              "ler": 0.0,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0001569000305607915,
+              "avg_decode_time_sec": 5.23000101869305e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "correlated",
+              "model_spec": {
+                "type": "correlated",
+                "p": 0.0025,
+                "correlation_strength": 0.35
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.0025,
+              "shots": 300,
+              "seed": 8923,
+              "ler": 0.016666666666666666,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00018019997514784336,
+              "avg_decode_time_sec": 6.006665838261445e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "correlated",
+              "model_spec": {
+                "type": "correlated",
+                "p": 0.005,
+                "correlation_strength": 0.35
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.005,
+              "shots": 300,
+              "seed": 9920,
+              "ler": 0.04666666666666667,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00027920003049075603,
+              "avg_decode_time_sec": 9.306667683025201e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "correlated",
+              "model_spec": {
+                "type": "correlated",
+                "p": 0.01,
+                "correlation_strength": 0.35
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.01,
+              "shots": 300,
+              "seed": 10917,
+              "ler": 0.17,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0007901000790297985,
+              "avg_decode_time_sec": 2.6336669300993286e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r2_p0.005",
+              "distance": 3,
+              "rounds": 2,
+              "logical_basis": "x",
+              "model_type": "correlated",
+              "model_spec": {
+                "type": "correlated",
+                "p": 0.015,
+                "correlation_strength": 0.35
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.015,
+              "shots": 300,
+              "seed": 11914,
+              "ler": 0.24666666666666667,
+              "num_detectors": 16,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0006257999921217561,
+              "avg_decode_time_sec": 2.085999973739187e-06,
+              "status": "ok"
+            }
+          ],
+          "best_point": {
+            "case_name": "d3_r2_p0.005",
+            "distance": 3,
+            "rounds": 2,
+            "logical_basis": "x",
+            "model_type": "correlated",
+            "model_spec": {
+              "type": "correlated",
+              "p": 0.001,
+              "correlation_strength": 0.35
+            },
+            "sweep_param_name": "p",
+            "sweep_value": 0.001,
+            "shots": 300,
+            "seed": 7926,
+            "ler": 0.0,
+            "num_detectors": 16,
+            "num_observables": 1,
+            "decode_total_time_sec": 0.0001569000305607915,
+            "avg_decode_time_sec": 5.23000101869305e-07,
+            "status": "ok"
+          },
+          "status": "ok"
+        },
+        {
+          "case": {
+            "case_name": "d3_r3_p0.010",
+            "distance": 3,
+            "rounds": 3,
+            "p": 0.01,
+            "logical_basis": "x"
+          },
+          "points": [
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "correlated",
+              "model_spec": {
+                "type": "correlated",
+                "p": 0.001,
+                "correlation_strength": 0.35
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.001,
+              "shots": 300,
+              "seed": 107926,
+              "ler": 0.0033333333333333335,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00023689994122833014,
+              "avg_decode_time_sec": 7.896664707611005e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "correlated",
+              "model_spec": {
+                "type": "correlated",
+                "p": 0.0025,
+                "correlation_strength": 0.35
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.0025,
+              "shots": 300,
+              "seed": 108923,
+              "ler": 0.03,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.00026189989876002073,
+              "avg_decode_time_sec": 8.729996625334025e-07,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "correlated",
+              "model_spec": {
+                "type": "correlated",
+                "p": 0.005,
+                "correlation_strength": 0.35
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.005,
+              "shots": 300,
+              "seed": 109920,
+              "ler": 0.10666666666666667,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0003855000250041485,
+              "avg_decode_time_sec": 1.2850000833471617e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "correlated",
+              "model_spec": {
+                "type": "correlated",
+                "p": 0.01,
+                "correlation_strength": 0.35
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.01,
+              "shots": 300,
+              "seed": 110917,
+              "ler": 0.20333333333333334,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.000601499923504889,
+              "avg_decode_time_sec": 2.0049997450162966e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d3_r3_p0.010",
+              "distance": 3,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "correlated",
+              "model_spec": {
+                "type": "correlated",
+                "p": 0.015,
+                "correlation_strength": 0.35
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.015,
+              "shots": 300,
+              "seed": 111914,
+              "ler": 0.30333333333333334,
+              "num_detectors": 24,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0008628000505268574,
+              "avg_decode_time_sec": 2.8760001684228577e-06,
+              "status": "ok"
+            }
+          ],
+          "best_point": {
+            "case_name": "d3_r3_p0.010",
+            "distance": 3,
+            "rounds": 3,
+            "logical_basis": "x",
+            "model_type": "correlated",
+            "model_spec": {
+              "type": "correlated",
+              "p": 0.001,
+              "correlation_strength": 0.35
+            },
+            "sweep_param_name": "p",
+            "sweep_value": 0.001,
+            "shots": 300,
+            "seed": 107926,
+            "ler": 0.0033333333333333335,
+            "num_detectors": 24,
+            "num_observables": 1,
+            "decode_total_time_sec": 0.00023689994122833014,
+            "avg_decode_time_sec": 7.896664707611005e-07,
+            "status": "ok"
+          },
+          "status": "ok"
+        },
+        {
+          "case": {
+            "case_name": "d5_r3_p0.010",
+            "distance": 5,
+            "rounds": 3,
+            "p": 0.01,
+            "logical_basis": "x"
+          },
+          "points": [
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "correlated",
+              "model_spec": {
+                "type": "correlated",
+                "p": 0.001,
+                "correlation_strength": 0.35
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.001,
+              "shots": 300,
+              "seed": 207926,
+              "ler": 0.0,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0005504000000655651,
+              "avg_decode_time_sec": 1.834666666885217e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "correlated",
+              "model_spec": {
+                "type": "correlated",
+                "p": 0.0025,
+                "correlation_strength": 0.35
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.0025,
+              "shots": 300,
+              "seed": 208923,
+              "ler": 0.006666666666666667,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.0009165999945253134,
+              "avg_decode_time_sec": 3.055333315084378e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "correlated",
+              "model_spec": {
+                "type": "correlated",
+                "p": 0.005,
+                "correlation_strength": 0.35
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.005,
+              "shots": 300,
+              "seed": 209920,
+              "ler": 0.1,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.001777100027538836,
+              "avg_decode_time_sec": 5.923666758462787e-06,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "correlated",
+              "model_spec": {
+                "type": "correlated",
+                "p": 0.01,
+                "correlation_strength": 0.35
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.01,
+              "shots": 300,
+              "seed": 210917,
+              "ler": 0.2733333333333333,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.003548000007867813,
+              "avg_decode_time_sec": 1.182666669289271e-05,
+              "status": "ok"
+            },
+            {
+              "case_name": "d5_r3_p0.010",
+              "distance": 5,
+              "rounds": 3,
+              "logical_basis": "x",
+              "model_type": "correlated",
+              "model_spec": {
+                "type": "correlated",
+                "p": 0.015,
+                "correlation_strength": 0.35
+              },
+              "sweep_param_name": "p",
+              "sweep_value": 0.015,
+              "shots": 300,
+              "seed": 211914,
+              "ler": 0.4533333333333333,
+              "num_detectors": 72,
+              "num_observables": 1,
+              "decode_total_time_sec": 0.004478699993342161,
+              "avg_decode_time_sec": 1.4928999977807204e-05,
+              "status": "ok"
+            }
+          ],
+          "best_point": {
+            "case_name": "d5_r3_p0.010",
+            "distance": 5,
+            "rounds": 3,
+            "logical_basis": "x",
+            "model_type": "correlated",
+            "model_spec": {
+              "type": "correlated",
+              "p": 0.001,
+              "correlation_strength": 0.35
+            },
+            "sweep_param_name": "p",
+            "sweep_value": 0.001,
+            "shots": 300,
+            "seed": 207926,
+            "ler": 0.0,
+            "num_detectors": 72,
+            "num_observables": 1,
+            "decode_total_time_sec": 0.0005504000000655651,
+            "avg_decode_time_sec": 1.834666666885217e-06,
+            "status": "ok"
+          },
+          "status": "ok"
+        }
+      ],
+      "aggregates": {
+        "num_cases": 3,
+        "per_value_summary": [
+          {
+            "sweep_value": 0.001,
+            "num_points": 3,
+            "mean_ler": 0.0011111111111111111,
+            "mean_avg_decode_time_sec": 1.0491110798385407e-06
+          },
+          {
+            "sweep_value": 0.0025,
+            "num_points": 3,
+            "mean_ler": 0.017777777777777778,
+            "mean_avg_decode_time_sec": 1.5096665204813083e-06
+          },
+          {
+            "sweep_value": 0.005,
+            "num_points": 3,
+            "mean_ler": 0.08444444444444445,
+            "mean_avg_decode_time_sec": 2.713111203370823e-06
+          },
+          {
+            "sweep_value": 0.01,
+            "num_points": 3,
+            "mean_ler": 0.21555555555555558,
+            "mean_avg_decode_time_sec": 5.4884444560027784e-06
+          },
+          {
+            "sweep_value": 0.015,
+            "num_points": 3,
+            "mean_ler": 0.3344444444444445,
+            "mean_avg_decode_time_sec": 6.6303333733230835e-06
+          }
+        ],
+        "global_best": {
+          "sweep_value": 0.001,
+          "num_points": 3,
+          "mean_ler": 0.0011111111111111111,
+          "mean_avg_decode_time_sec": 1.0491110798385407e-06
+        },
+        "mean_best_case_ler": 0.0011111111111111111,
+        "mean_best_case_avg_decode_time_sec": 1.0491110798385407e-06
+      },
+      "status": "ok"
+    }
+  ]
+}
