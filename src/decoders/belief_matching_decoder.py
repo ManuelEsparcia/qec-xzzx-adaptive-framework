@@ -1,6 +1,6 @@
-# src/decoders/union_find_decoder.py
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from time import perf_counter
 from typing import Any, Dict, List, Optional, Sequence, Tuple
@@ -23,45 +23,45 @@ except Exception as exc:  # pragma: no cover
 else:
     _PYMATCHING_IMPORT_ERROR = None
 
+try:
+    import beliefmatching  # type: ignore[import-not-found]
+except Exception as exc:  # pragma: no cover
+    beliefmatching = None  # type: ignore[assignment]
+    _BELIEFMATCHING_IMPORT_ERROR = exc
+else:
+    _BELIEFMATCHING_IMPORT_ERROR = None
+
 
 @dataclass(frozen=True)
-class UFConfidenceConfig:
+class BMConfidenceConfig:
     """
-    Confidence heuristic configuration for Union-Find.
+    Confidence heuristic for the BP/BM decoder.
+    """
 
-    confidence = sigmoid(
-        a_cluster * clustering_quality
-        - b_norm_weight * normalized_weight
-        - c_density * syndrome_density
-        - d_merge * merge_ratio
-        + e_backend * backend_bonus
-        + bias
-    )
-    """
-    a_cluster: float = 2.2
+    a_agreement: float = 2.0
+    a_sparse: float = 1.2
     b_norm_weight: float = 1.1
-    c_density: float = 0.9
-    d_merge: float = 0.8
-    e_backend: float = 0.2
+    c_entropy: float = 0.8
+    d_backend: float = 0.3
     bias: float = 0.0
     eps: float = 1e-12
 
 
-class UnionFindDecoderWithSoftInfo:
+class BeliefMatchingDecoderWithSoftInfo:
     """
-    Fast decoder with a Union-Find-style interface and soft information.
+    Belief-Propagation / Belief-Matching decoder with robust fallback.
 
-    Important note:
-    - It tries to use a UF backend when the environment/API supports it.
-    - If unavailable, it falls back to the default matcher decode and sets
-      `is_union_find_backend=False` in soft_info for transparency.
+    Backend priority:
+    1) `beliefmatching` package (if available with compatible API),
+    2) `pymatching` with BP kwargs if the installed version supports it,
+    3) default `pymatching`.
     """
 
     def __init__(
         self,
         circuit: "stim.Circuit",
-        confidence_config: Optional[UFConfidenceConfig] = None,
-        prefer_union_find: bool = True,
+        confidence_config: Optional[BMConfidenceConfig] = None,
+        prefer_belief_propagation: bool = True,
     ) -> None:
         self._require_stim()
         self._require_pymatching()
@@ -72,8 +72,7 @@ class UnionFindDecoderWithSoftInfo:
             )
 
         self.circuit = circuit
-        self.conf_cfg = confidence_config or UFConfidenceConfig()
-
+        self.conf_cfg = confidence_config or BMConfidenceConfig()
         self.dem = self.circuit.detector_error_model(decompose_errors=True)
         self.num_detectors = int(getattr(self.circuit, "num_detectors", 0))
         self.num_observables = int(getattr(self.circuit, "num_observables", 0))
@@ -82,16 +81,15 @@ class UnionFindDecoderWithSoftInfo:
             raise ValueError("Circuit has no detectors (num_detectors <= 0).")
 
         self.matcher, self.matcher_build_mode = self._build_matcher(
-            self.dem, prefer_union_find=prefer_union_find
+            self.dem, prefer_belief_propagation=prefer_belief_propagation
         )
         self.decode_kwargs, self.decode_mode = self._select_decode_mode(
-            self.matcher, self.num_detectors, prefer_union_find=prefer_union_find
+            self.matcher,
+            self.num_detectors,
+            prefer_belief_propagation=prefer_belief_propagation,
         )
         self.sampler = self.circuit.compile_detector_sampler()
 
-    # ------------------------------------------------------------------
-    # Import checks
-    # ------------------------------------------------------------------
     @staticmethod
     def _require_stim() -> None:
         if stim is None:
@@ -108,82 +106,80 @@ class UnionFindDecoderWithSoftInfo:
                 "Install with: pip install pymatching"
             ) from _PYMATCHING_IMPORT_ERROR
 
-    # ------------------------------------------------------------------
-    # Matcher/decode mode selection
-    # ------------------------------------------------------------------
     @staticmethod
     def _build_matcher(
         dem: "stim.DetectorErrorModel",
-        prefer_union_find: bool = True,
-    ) -> Tuple["pymatching.Matching", str]:
-        """
-        Try to construct a matcher in UF mode if the API supports it.
-        Otherwise, fall back to the default constructor.
-        """
-        if not prefer_union_find:
-            return pymatching.Matching.from_detector_error_model(dem), "default"
+        prefer_belief_propagation: bool = True,
+    ) -> Tuple[Any, str]:
+        if not prefer_belief_propagation:
+            return pymatching.Matching.from_detector_error_model(dem), "pymatching_default"
+
+        # Try dedicated beliefmatching backend first.
+        if beliefmatching is not None:
+            matching_cls = getattr(beliefmatching, "Matching", None)
+            if matching_cls is not None and hasattr(matching_cls, "from_detector_error_model"):
+                try:
+                    m = matching_cls.from_detector_error_model(dem)
+                    return m, "beliefmatching_from_dem"
+                except Exception:
+                    pass
 
         candidate_kwargs = [
-            {"decoder": "union_find"},
-            {"decoder": "uf"},
-            {"algorithm": "union_find"},
-            {"algorithm": "uf"},
-            {"method": "union_find"},
-            {"decode_method": "union_find"},
+            {"decoder": "belief_propagation"},
+            {"decoder": "bp"},
+            {"decoder": "belief_matching"},
+            {"decoder": "bm"},
+            {"algorithm": "belief_propagation"},
+            {"algorithm": "bp"},
+            {"method": "belief_propagation"},
+            {"decode_method": "belief_propagation"},
         ]
 
         for kw in candidate_kwargs:
             try:
                 m = pymatching.Matching.from_detector_error_model(dem, **kw)
-                return m, f"union_find_via_from_dem:{kw}"
+                return m, f"bp_via_from_dem:{kw}"
             except (TypeError, ValueError):
                 continue
 
-        # Safe fallback
-        return pymatching.Matching.from_detector_error_model(dem), "default"
+        return pymatching.Matching.from_detector_error_model(dem), "pymatching_default"
 
     @staticmethod
     def _select_decode_mode(
-        matcher: "pymatching.Matching",
+        matcher: Any,
         num_detectors: int,
-        prefer_union_find: bool = True,
+        prefer_belief_propagation: bool = True,
     ) -> Tuple[Dict[str, Any], str]:
-        """
-        Try to discover decode(...) kwargs that enable UF at runtime.
-        """
         zero = np.zeros(num_detectors, dtype=np.uint8)
 
-        if not prefer_union_find:
-            # Default decode
+        if not prefer_belief_propagation:
             _ = matcher.decode(zero)
             return {}, "default_decode"
 
         candidate_kwargs = [
-            {"decoder": "union_find"},
-            {"decoder": "uf"},
-            {"algorithm": "union_find"},
-            {"algorithm": "uf"},
-            {"method": "union_find"},
-            {"decode_method": "union_find"},
-            {},  # fallback
+            {"decoder": "belief_propagation"},
+            {"decoder": "bp"},
+            {"decoder": "belief_matching"},
+            {"decoder": "bm"},
+            {"algorithm": "belief_propagation"},
+            {"algorithm": "bp"},
+            {"method": "belief_propagation"},
+            {"decode_method": "belief_propagation"},
+            {},
         ]
 
         for kw in candidate_kwargs:
             try:
                 _ = matcher.decode(zero, **kw)
                 if kw:
-                    return kw, f"union_find_via_decode:{kw}"
+                    return kw, f"bp_via_decode:{kw}"
                 return {}, "default_decode"
             except (TypeError, ValueError):
                 continue
 
-        # In a very rare case, try plain decode without kwargs.
         _ = matcher.decode(zero)
         return {}, "default_decode"
 
-    # ------------------------------------------------------------------
-    # Internal utilities
-    # ------------------------------------------------------------------
     @staticmethod
     def _sigmoid(x: float) -> float:
         if x >= 0:
@@ -194,19 +190,16 @@ class UnionFindDecoderWithSoftInfo:
 
     def _ensure_syndrome_vector(self, syndrome: Sequence[int] | np.ndarray) -> np.ndarray:
         arr = np.asarray(syndrome, dtype=np.uint8)
-
         if arr.ndim != 1:
             raise ValueError(
-                f"syndrome must be vector 1D de tamaño num_detectors={self.num_detectors}. "
+                f"syndrome must be vector 1D de tamano num_detectors={self.num_detectors}. "
                 f"syndrome must be a 1D vector of size num_detectors={self.num_detectors}. "
                 f"Received shape: {arr.shape}"
             )
-
         if arr.size != self.num_detectors:
             raise ValueError(
                 f"Invalid syndrome size. Expected: {self.num_detectors}, received: {arr.size}"
             )
-
         return (arr & 1).astype(np.uint8)
 
     @staticmethod
@@ -219,78 +212,52 @@ class UnionFindDecoderWithSoftInfo:
         return (pred & 1).astype(np.uint8)
 
     @staticmethod
-    def _cluster_stats_from_syndrome(s: np.ndarray) -> Tuple[int, int, float, float]:
-        """
-        UF clustering heuristic using the 1D structure of active detector indices:
-        - n_clusters: contiguous segments of active detectors
-        - merge_count: active - n_clusters
-        - clustering_quality in [0,1]: n_clusters / active
-        - merge_ratio in [0,1]: merge_count / active
-        """
-        active = np.flatnonzero(s)
-        active_count = int(active.size)
-
-        if active_count == 0:
-            return 0, 0, 1.0, 0.0
-
-        diffs = np.diff(active)
-        # New cluster when indices are not contiguous (gap > 1)
-        n_clusters = int(1 + np.sum(diffs > 1))
-        merge_count = int(max(0, active_count - n_clusters))
-
-        clustering_quality = float(n_clusters / max(1, active_count))
-        merge_ratio = float(merge_count / max(1, active_count))
-        return n_clusters, merge_count, clustering_quality, merge_ratio
+    def _binary_entropy(x: float, eps: float) -> float:
+        x = float(max(0.0, min(1.0, x)))
+        if x <= eps or x >= 1.0 - eps:
+            return 0.0
+        return float(-(x * math.log(x + eps) + (1.0 - x) * math.log(1.0 - x + eps)))
 
     def _estimate_total_weight(self, s: np.ndarray, pred: np.ndarray) -> float:
         syndrome_weight = float(np.sum(s))
         pred_weight = float(np.sum(pred))
-        # Stable blend, similar in spirit to this project's MWPM decoder.
-        total_weight = 0.65 * syndrome_weight + 0.35 * pred_weight
-        return float(max(0.0, total_weight))
+        return float(max(0.0, 0.6 * syndrome_weight + 0.4 * pred_weight))
+
+    def _is_bp_backend(self) -> bool:
+        text = f"{self.matcher_build_mode} | {self.decode_mode}".lower()
+        return ("belief" in text) or (" bp" in text) or ("'bp'" in text)
+
+    def _decode_backend(self, syndrome: np.ndarray) -> np.ndarray:
+        try:
+            pred_raw = self.matcher.decode(syndrome, **self.decode_kwargs)
+        except TypeError:
+            pred_raw = self.matcher.decode(syndrome)
+        return self._normalize_prediction(pred_raw)
 
     def _compute_confidence(
         self,
-        clustering_quality: float,
-        normalized_weight: float,
+        agreement_score: float,
         syndrome_density: float,
-        merge_ratio: float,
-        is_union_backend: bool,
+        normalized_weight: float,
+        entropy_proxy: float,
+        is_bp_backend: bool,
     ) -> float:
         c = self.conf_cfg
-        backend_bonus = 1.0 if is_union_backend else -0.2
-
+        backend_bonus = 1.0 if is_bp_backend else -0.2
         raw = (
-            c.a_cluster * float(clustering_quality)
+            c.a_agreement * float(agreement_score)
+            + c.a_sparse * float(1.0 - syndrome_density)
             - c.b_norm_weight * float(normalized_weight)
-            - c.c_density * float(syndrome_density)
-            - c.d_merge * float(merge_ratio)
-            + c.e_backend * float(backend_bonus)
+            - c.c_entropy * float(entropy_proxy)
+            + c.d_backend * float(backend_bonus)
             + c.bias
         )
         conf = self._sigmoid(raw)
         return float(max(0.0, min(1.0, conf)))
 
-    def _decode_backend(self, syndrome: np.ndarray) -> np.ndarray:
-        pred_raw = self.matcher.decode(syndrome, **self.decode_kwargs)
-        return self._normalize_prediction(pred_raw)
-
-    def _is_union_find_backend(self) -> bool:
-        text = f"{self.matcher_build_mode} | {self.decode_mode}".lower()
-        return "union_find" in text or "'uf'" in text or " uf" in text
-
-    # ------------------------------------------------------------------
-    # Public API
-    # ------------------------------------------------------------------
     def decode_with_confidence(
         self, syndrome: Sequence[int] | np.ndarray
     ) -> Tuple[np.ndarray, Dict[str, float], float]:
-        """
-        Decode one syndrome and return:
-        - prediction (binary np.ndarray)
-        - soft_info (dict)
-        - decode_time (float, seconds)
-        """
         s = self._ensure_syndrome_vector(syndrome)
 
         t0 = perf_counter()
@@ -298,36 +265,37 @@ class UnionFindDecoderWithSoftInfo:
         decode_time = float(perf_counter() - t0)
 
         syndrome_weight = float(np.sum(s))
+        pred_weight = float(np.sum(pred))
         total_weight = self._estimate_total_weight(s, pred)
         normalized_weight = float(total_weight / max(1.0, syndrome_weight))
         syndrome_density = float(syndrome_weight / max(1.0, float(self.num_detectors)))
 
-        n_clusters, merge_count, clustering_quality, merge_ratio = self._cluster_stats_from_syndrome(s)
-        is_uf = self._is_union_find_backend()
+        prediction_density = float(pred_weight / max(1.0, float(max(1, pred.size))))
+        agreement_score = float(max(0.0, 1.0 - abs(syndrome_density - prediction_density)))
+        entropy_proxy = self._binary_entropy(syndrome_density, self.conf_cfg.eps)
+        is_bp = self._is_bp_backend()
 
         confidence_score = self._compute_confidence(
-            clustering_quality=clustering_quality,
-            normalized_weight=normalized_weight,
+            agreement_score=agreement_score,
             syndrome_density=syndrome_density,
-            merge_ratio=merge_ratio,
-            is_union_backend=is_uf,
+            normalized_weight=normalized_weight,
+            entropy_proxy=entropy_proxy,
+            is_bp_backend=is_bp,
         )
 
         soft_info: Dict[str, float] = {
             "syndrome_weight": float(syndrome_weight),
+            "prediction_weight": float(pred_weight),
             "total_weight": float(total_weight),
             "normalized_weight": float(normalized_weight),
-            "clustering_quality": float(clustering_quality),
-            "merge_count": float(merge_count),
-            "n_clusters": float(n_clusters),
             "syndrome_density": float(syndrome_density),
-            "merge_ratio": float(merge_ratio),
+            "prediction_density": float(prediction_density),
+            "agreement_score": float(agreement_score),
+            "entropy_proxy": float(entropy_proxy),
             "confidence_score": float(confidence_score),
             "decode_time": float(decode_time),
-            # Traceability flags (numeric for easier serialization/analysis).
-            "is_union_find_backend": float(1.0 if is_uf else 0.0),
+            "is_bp_backend": float(1.0 if is_bp else 0.0),
         }
-
         return pred, soft_info, decode_time
 
     def benchmark(
@@ -335,12 +303,6 @@ class UnionFindDecoderWithSoftInfo:
         shots: int = 1000,
         keep_soft_info_samples: Optional[int] = None,
     ) -> Dict[str, Any]:
-        """
-        Benchmark for the UF-like decoder:
-        - error_rate
-        - avg_decode_time
-        - soft_info_samples
-        """
         if not isinstance(shots, int) or shots <= 0:
             raise ValueError(f"shots must be int > 0. Received: {shots}")
 
@@ -348,14 +310,12 @@ class UnionFindDecoderWithSoftInfo:
             sampled = self.sampler.sample(shots=shots, separate_observables=True)
         except TypeError as exc:
             raise RuntimeError(
-                "Tu versión de stim does not support sample(..., separate_observables=True). "
+                "Your stim version does not support sample(..., separate_observables=True). "
                 "Update stim to use benchmark with error_rate."
             ) from exc
 
         if not isinstance(sampled, tuple) or len(sampled) != 2:
-            raise RuntimeError(
-                "Expected Stim to return (detector_samples, observable_flips)."
-            )
+            raise RuntimeError("Expected Stim to return (detector_samples, observable_flips).")
 
         dets, obs = sampled
         dets = np.asarray(dets, dtype=np.uint8)
@@ -378,20 +338,17 @@ class UnionFindDecoderWithSoftInfo:
 
         for i in range(shots):
             pred, s_info, dt = self.decode_with_confidence(dets[i])
-
             decode_times.append(float(dt))
             if keep_soft_info_samples is None or len(soft_infos) < keep_soft_info_samples:
                 soft_infos.append(s_info)
 
             obs_i = (obs[i] & 1).astype(np.uint8)
             pred_i = (pred & 1).astype(np.uint8)
-
             n = min(obs_i.size, pred_i.size)
             if n == 0:
                 failures.append(False)
             else:
-                fail_i = bool(np.any(pred_i[:n] != obs_i[:n]))
-                failures.append(fail_i)
+                failures.append(bool(np.any(pred_i[:n] != obs_i[:n])))
 
         error_rate = float(np.mean(failures)) if failures else float("nan")
         avg_decode_time = float(np.mean(decode_times)) if decode_times else 0.0
@@ -406,9 +363,10 @@ class UnionFindDecoderWithSoftInfo:
             "backend_info": {
                 "matcher_build_mode": self.matcher_build_mode,
                 "decode_mode": self.decode_mode,
-                "is_union_find_backend": bool(self._is_union_find_backend()),
+                "is_bp_backend": bool(self._is_bp_backend()),
+                "beliefmatching_available": bool(beliefmatching is not None),
             },
         }
 
 
-__all__ = ["UFConfidenceConfig", "UnionFindDecoderWithSoftInfo"]
+__all__ = ["BMConfidenceConfig", "BeliefMatchingDecoderWithSoftInfo"]

@@ -20,7 +20,7 @@ def _script_path() -> Path:
 
 def _run_cmd(args: list[str], timeout: int = 180) -> subprocess.CompletedProcess:
     env = os.environ.copy()
-    # Refuerza imports tipo "from src...."
+    # Reinforce imports like "from src...."
     env["PYTHONPATH"] = str(_repo_root()) + os.pathsep + env.get("PYTHONPATH", "")
     return subprocess.run(
         args,
@@ -34,15 +34,15 @@ def _run_cmd(args: list[str], timeout: int = 180) -> subprocess.CompletedProcess
 
 def test_script_exists() -> None:
     script = _script_path()
-    assert script.exists(), f"No existe el script: {script}"
+    assert script.exists(), f"Script does not exist: {script}"
 
 
 def test_noise_benchmark_script_smoke(tmp_path: Path) -> None:
     """
     Smoke test:
-    - Ejecuta el benchmark con pocos shots
-    - Verifica que termina bien
-    - Verifica contrato mínimo del JSON de salida
+    - Run benchmark with few shots
+    - Verify successful completion
+    - Verify minimum output JSON contract
     """
     output = tmp_path / "week1_person2_noise_benchmark_smoke.json"
 
@@ -62,20 +62,20 @@ def test_noise_benchmark_script_smoke(tmp_path: Path) -> None:
     result = _run_cmd(cmd, timeout=240)
 
     assert result.returncode == 0, (
-        "El script falló.\n"
+        "Script failed.\n"
         f"STDOUT:\n{result.stdout}\n\n"
         f"STDERR:\n{result.stderr}"
     )
 
-    assert output.exists(), "No se generó el JSON de salida."
+    assert output.exists(), "Output JSON was not generated."
 
     with output.open("r", encoding="utf-8") as f:
         data = json.load(f)
 
-    # Contrato top-level
+    # Top-level contract
     assert isinstance(data, dict)
     for k in ("metadata", "cases_summary", "aggregates", "status"):
-        assert k in data, f"Falta clave top-level: {k}"
+        assert k in data, f"Missing top-level key: {k}"
 
     assert data["status"] == "ok"
 
@@ -109,7 +109,7 @@ def test_noise_benchmark_script_smoke(tmp_path: Path) -> None:
             "models",
             "delta_ler_correlated_minus_depolarizing",
         ):
-            assert key in c, f"Falta clave en caso {c.get('case_name')}: {key}"
+            assert key in c, f"Missing key in case {c.get('case_name')}: {key}"
 
         models = c["models"]
         assert isinstance(models, list)
@@ -129,7 +129,7 @@ def test_noise_benchmark_script_smoke(tmp_path: Path) -> None:
                 "num_detectors",
                 "num_observables",
             ):
-                assert mk in m, f"Falta clave '{mk}' en modelo {m.get('model_name')}"
+                assert mk in m, f"Missing key '{mk}' in model {m.get('model_name')}"
 
             assert 0.0 <= float(m["ler"]) <= 1.0
             assert float(m["avg_decode_time_sec"]) >= 0.0
@@ -147,7 +147,7 @@ def test_noise_benchmark_script_smoke(tmp_path: Path) -> None:
 
 def test_invalid_shots_fail(tmp_path: Path) -> None:
     """
-    Debe fallar con shots inválido (<=0).
+    Must fail with invalid shots (<=0).
     """
     output = tmp_path / "should_not_exist.json"
     cmd = [
@@ -161,11 +161,11 @@ def test_invalid_shots_fail(tmp_path: Path) -> None:
     ]
     result = _run_cmd(cmd)
 
-    assert result.returncode != 0, "Se esperaba error con shots=0 y no falló."
+    assert result.returncode != 0, "Expected error with shots=0, but command did not fail."
 
     merged = (result.stdout + "\n" + result.stderr).lower()
     assert ("shots" in merged) or ("valueerror" in merged), (
-        "No aparece mensaje de error esperado.\n"
+        "Expected error message not found.\n"
         f"STDOUT:\n{result.stdout}\n\n"
         f"STDERR:\n{result.stderr}"
     )

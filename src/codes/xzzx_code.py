@@ -53,16 +53,16 @@ class _InputConfig:
 def _require_stim() -> None:
     if stim is None:
         raise ImportError(
-            "stim no está instalado o falló su importación. "
-            "Instala con: pip install stim"
+            "stim is not installed or failed to import. "
+            "Install with: pip install stim"
         ) from _STIM_IMPORT_ERROR
 
 
 def _require_pymatching() -> None:
     if pymatching is None:
         raise ImportError(
-            "pymatching no está instalado o falló su importación. "
-            "Instala con: pip install pymatching"
+            "pymatching is not installed or failed to import. "
+            "Install with: pip install pymatching"
         ) from _PYMATCHING_IMPORT_ERROR
 
 
@@ -73,26 +73,26 @@ def _validate_inputs(
     logical_basis: str,
 ) -> _InputConfig:
     if not isinstance(distance, int):
-        raise TypeError(f"distance debe ser int, recibido: {type(distance).__name__}")
+        raise TypeError(f"distance must be int, received: {type(distance).__name__}")
     if distance < 3 or distance % 2 == 0:
-        raise ValueError(f"distance debe ser impar y >= 3. Recibido: {distance}")
+        raise ValueError(f"distance must be odd and >= 3. Received: {distance}")
 
     if not isinstance(rounds, int):
-        raise TypeError(f"rounds debe ser int, recibido: {type(rounds).__name__}")
+        raise TypeError(f"rounds must be int, received: {type(rounds).__name__}")
     if rounds < 1:
-        raise ValueError(f"rounds debe ser >= 1. Recibido: {rounds}")
+        raise ValueError(f"rounds must be >= 1. Received: {rounds}")
 
     if not isinstance(p, (int, float)):
-        raise TypeError(f"p debe ser float/int, recibido: {type(p).__name__}")
+        raise TypeError(f"p must be float/int, received: {type(p).__name__}")
     p_float = float(p)
     if not (0.0 <= p_float <= 1.0):
-        raise ValueError(f"p debe estar en [0, 1]. Recibido: {p_float}")
+        raise ValueError(f"p must be in [0, 1]. Received: {p_float}")
 
     if not isinstance(logical_basis, str):
-        raise TypeError(f"logical_basis debe ser str, recibido: {type(logical_basis).__name__}")
+        raise TypeError(f"logical_basis must be str, received: {type(logical_basis).__name__}")
     lb = logical_basis.lower().strip()
     if lb not in {"x", "z"}:
-        raise ValueError(f"logical_basis debe ser 'x' o 'z'. Recibido: {logical_basis}")
+        raise ValueError(f"logical_basis must be 'x' or 'z'. Received: {logical_basis}")
 
     return _InputConfig(
         distance=distance,
@@ -104,8 +104,8 @@ def _validate_inputs(
 
 def _task_name(logical_basis: str) -> str:
     """
-    Usa el generador builtin de Stim para rotated memory code.
-    Para Semana 1, esta es la vía más robusta para arrancar.
+    Use Stim's built-in rotated memory code generator.
+    For Week 1, this is the most robust startup path.
     """
     if logical_basis == "x":
         return "surface_code:rotated_memory_x"
@@ -114,12 +114,12 @@ def _task_name(logical_basis: str) -> str:
 
 def _stim_noise_kwargs(noise_model: NoiseModel, p: float) -> Dict[str, float]:
     """
-    Traduce noise_model -> kwargs compatibles con stim.Circuit.generated(...).
+    Traduce noise_model -> kwargs compatibles with stim.Circuit.generated(...).
 
     Soportado:
-      - None / "none" / "ideal": sin ruido
-      - "depolarizing": ruido sencillo uniforme
-      - dict: se pasa tal cual (validando tipo numérico)
+      - None / "none" / "ideal": without noise
+      - "depolarizing": simple uniform noise
+      - dict: is pasa tal cual (validando tipo numérico)
     """
     if noise_model is None:
         return {}
@@ -129,26 +129,26 @@ def _stim_noise_kwargs(noise_model: NoiseModel, p: float) -> Dict[str, float]:
         if nm in {"none", "ideal", "no_noise"}:
             return {}
         if nm in {"depolarizing", "depolarising", "uniform"}:
-            # Ajuste simple para Semana 1:
+            # Ajuste simple for Week 1:
             # - after_clifford_depolarization controla la tasa principal.
             # Puedes endurecer/afinar después.
             return {"after_clifford_depolarization": float(p)}
         raise ValueError(
-            f"noise_model string no soportado: {noise_model!r}. "
-            "Usa 'none', 'depolarizing', dict, callable, o objeto con apply_to_circuit."
+            f"Unsupported noise_model string: {noise_model!r}. "
+            "Use 'none', 'depolarizing', dict, callable, or an object with apply_to_circuit."
         )
 
     if isinstance(noise_model, dict):
         clean: Dict[str, float] = {}
         for k, v in noise_model.items():
             if not isinstance(k, str):
-                raise TypeError(f"Clave de noise dict inválida: {k!r} (debe ser str)")
+                raise TypeError(f"Invalid noise dict key: {k!r} (must be str)")
             if not isinstance(v, (int, float)):
-                raise TypeError(f"Valor de noise dict inválido en {k!r}: {v!r} (debe ser numérico)")
+                raise TypeError(f"Invalid noise dict value at {k!r}: {v!r} (must be numeric)")
             clean[k] = float(v)
         return clean
 
-    # callable u objeto con apply_to_circuit se manejan fuera (post construcción base)
+    # callable or object with apply_to_circuit is handled after base construction
     return {}
 
 
@@ -164,7 +164,7 @@ def _apply_noise_object_compat(
     p: float,
 ) -> Optional["stim.Circuit"]:
     """
-    Compatibilidad para dos contratos habituales:
+    Compatibility with two common contracts:
       - apply_to_circuit(circuit, p)
       - apply_to_circuit(circuit)
     """
@@ -173,7 +173,7 @@ def _apply_noise_object_compat(
     try:
         sig = inspect.signature(apply_fn)
     except (TypeError, ValueError):
-        # Fallback defensivo cuando la firma no es introspectable
+        # Fallback defensivo cuando la firma not es introspectable
         try:
             return apply_fn(circuit, p)
         except TypeError:
@@ -190,8 +190,8 @@ def _apply_noise_object_compat(
         return apply_fn(circuit)
     except TypeError as exc:
         raise TypeError(
-            "El objeto noise_model debe exponer apply_to_circuit(circuit) "
-            "o apply_to_circuit(circuit, p)."
+            "noise_model object must expose apply_to_circuit(circuit) "
+            "or apply_to_circuit(circuit, p)."
         ) from exc
 
 
@@ -206,25 +206,25 @@ def generate_xzzx_circuit(
     logical_basis: str = "x",
 ) -> "stim.Circuit":
     """
-    Genera circuito XZZX (arranque robusto de Semana 1 usando template rotated_memory_* de Stim).
+    Generate XZZX circuit (robust Week 1 startup using Stim rotated_memory_* templates).
 
-    Parámetros
+    Parameters
     ----------
     distance : int
-        Distancia del código (impar >= 3).
+        Code distance (odd >= 3).
     rounds : int
-        Número de rondas de corrección.
+        Number of correction rounds.
     noise_model : NoiseModel
-        Puede ser:
+        Can be:
           - "none" / "ideal"
           - "depolarizing"
-          - dict de kwargs para stim.Circuit.generated
+          - dict de kwargs for stim.Circuit.generated
           - callable(circuit, p) -> Optional[circuit]
-          - objeto con apply_to_circuit(circuit[, p]) -> Optional[circuit]
+          - object with apply_to_circuit(circuit[, p]) -> Optional[circuit]
     p : float
-        Probabilidad de error físico.
+        Physical error probability.
     logical_basis : str
-        'x' o 'z', elige template rotated_memory_x o rotated_memory_z.
+        'x' or 'z', chooses rotated_memory_x or rotated_memory_z.
 
     Returns
     -------
@@ -235,29 +235,29 @@ def generate_xzzx_circuit(
 
     task = _task_name(cfg.logical_basis)
 
-    # 1) Construcción base (sin ruido custom)
+    # 1) Base construction (without custom noise)
     if _is_custom_noise_model(noise_model):
         base = stim.Circuit.generated(
             task,
             distance=cfg.distance,
             rounds=cfg.rounds,
         )
-        # 2) Aplicación custom
+        # 2) Custom application
         if callable(noise_model):
             out = noise_model(base, cfg.p)
         else:
-            # objeto con apply_to_circuit(circuit[, p])
+            # object with apply_to_circuit(circuit[, p])
             out = _apply_noise_object_compat(noise_model, base, cfg.p)
 
         if out is None:
             return base
         if not isinstance(out, stim.Circuit):
             raise TypeError(
-                "El noise model custom debe devolver stim.Circuit o None."
+                "El noise model custom must devolver stim.Circuit o None."
             )
         return out
 
-    # noise_model estándar (none/depolarizing/dict)
+    # Standard noise_model (none/depolarizing/dict)
     kwargs = _stim_noise_kwargs(noise_model, cfg.p)
     if kwargs:
         return stim.Circuit.generated(
@@ -275,13 +275,13 @@ def generate_xzzx_circuit(
 
 def build_mwpm_matcher(circuit: "stim.Circuit") -> "pymatching.Matching":
     """
-    Construye matcher MWPM desde detector error model del circuito.
+    Build an MWPM matcher from the circuit detector error model.
     """
     _require_stim()
     _require_pymatching()
 
     if not isinstance(circuit, stim.Circuit):
-        raise TypeError(f"circuit debe ser stim.Circuit, recibido: {type(circuit).__name__}")
+        raise TypeError(f"circuit must be stim.Circuit, received: {type(circuit).__name__}")
 
     dem = circuit.detector_error_model(decompose_errors=True)
     matcher = pymatching.Matching.from_detector_error_model(dem)
@@ -293,17 +293,17 @@ def _decode_batch_compat(
     dets: np.ndarray,
 ) -> np.ndarray:
     """
-    Compatibilidad con distintas versiones de PyMatching:
-    - si existe decode_batch, lo usa;
-    - si no, fallback por shot.
-    Devuelve array shape (shots, n_obs_pred).
+    Compatibility with different PyMatching versions:
+    - if decode_batch exists, use it;
+    - if not, fallback by shot.
+    Returns an array with shape (shots, n_obs_pred).
     """
     dets = np.asarray(dets, dtype=np.uint8)
 
     if dets.ndim != 2:
-        raise ValueError(f"dets debe tener shape (shots, num_detectors). Recibido: {dets.shape}")
+        raise ValueError(f"dets must have shape (shots, num_detectors). Received: {dets.shape}")
 
-    # Ruta preferida (rápida)
+    # Preferred path (fast)
     if hasattr(matcher, "decode_batch"):
         preds = matcher.decode_batch(dets)
         preds = np.asarray(preds, dtype=np.uint8)
@@ -315,7 +315,7 @@ def _decode_batch_compat(
             rows.append(np.asarray(pred_i, dtype=np.uint8))
         preds = np.asarray(rows, dtype=np.uint8)
 
-    # Normalizar forma a 2D
+    # Normalize shape to 2D
     if preds.ndim == 1:
         preds = preds[:, np.newaxis]
     return preds
@@ -326,18 +326,18 @@ def logical_error_rate_mwpm(
     shots: int = 1000,
 ) -> float:
     """
-    Estima logical error rate usando MWPM.
+    Estimate logical error rate using MWPM.
 
-    Requiere que Stim pueda muestrear observables separadamente:
+    Requires Stim to sample observables separately:
       sampler.sample(shots, separate_observables=True) -> (dets, obs)
     """
     _require_stim()
     _require_pymatching()
 
     if not isinstance(circuit, stim.Circuit):
-        raise TypeError(f"circuit debe ser stim.Circuit, recibido: {type(circuit).__name__}")
+        raise TypeError(f"circuit must be stim.Circuit, received: {type(circuit).__name__}")
     if not isinstance(shots, int) or shots <= 0:
-        raise ValueError(f"shots debe ser int > 0. Recibido: {shots}")
+        raise ValueError(f"shots must be int > 0. Received: {shots}")
 
     matcher = build_mwpm_matcher(circuit)
     sampler = circuit.compile_detector_sampler()
@@ -346,13 +346,13 @@ def logical_error_rate_mwpm(
         sampled = sampler.sample(shots=shots, separate_observables=True)
     except TypeError as exc:
         raise RuntimeError(
-            "Tu versión de Stim no soporta sample(..., separate_observables=True). "
-            "Actualiza stim para calcular LER de forma directa."
+            "Your Stim version does not support sample(..., separate_observables=True). "
+            "Update stim to compute LER directly."
         ) from exc
 
     if not isinstance(sampled, tuple) or len(sampled) != 2:
         raise RuntimeError(
-            "Se esperaba que Stim devolviera (detector_samples, observable_flips)."
+            "Expected Stim to return (detector_samples, observable_flips)."
         )
 
     dets, obs = sampled
@@ -366,14 +366,14 @@ def logical_error_rate_mwpm(
 
     if preds.shape[0] != obs.shape[0]:
         raise RuntimeError(
-            f"Mismatch de shots entre preds ({preds.shape[0]}) y obs ({obs.shape[0]})."
+            f"Shot mismatch between preds ({preds.shape[0]}) and obs ({obs.shape[0]})."
         )
 
     n = min(preds.shape[1], obs.shape[1])
     if n == 0:
-        # No observables declarados -> no se puede medir LER de forma estándar.
+        # No declared observables -> standard LER cannot be measured.
         raise RuntimeError(
-            "El circuito no parece exponer observables lógicos para evaluar logical error rate."
+            "The circuit does not expose logical observables needed to evaluate logical error rate."
         )
 
     logical_fail = np.any((preds[:, :n] & 1) != (obs[:, :n] & 1), axis=1)
@@ -382,12 +382,12 @@ def logical_error_rate_mwpm(
 
 def circuit_summary(circuit: "stim.Circuit") -> Dict[str, Any]:
     """
-    Resumen rápido del circuito para debugging/validación.
+    Quick circuit summary for debugging/validation.
     """
     _require_stim()
 
     if not isinstance(circuit, stim.Circuit):
-        raise TypeError(f"circuit debe ser stim.Circuit, recibido: {type(circuit).__name__}")
+        raise TypeError(f"circuit must be stim.Circuit, received: {type(circuit).__name__}")
 
     summary: Dict[str, Any] = {
         "num_qubits": int(getattr(circuit, "num_qubits", -1)),
@@ -397,7 +397,7 @@ def circuit_summary(circuit: "stim.Circuit") -> Dict[str, Any]:
         "stim_version": getattr(stim, "__version__", "unknown"),
     }
 
-    # Detector Error Model stats (si están disponibles)
+    # Detector Error Model stats (if available)
     try:
         dem = circuit.detector_error_model(decompose_errors=True)
         summary["dem_num_detectors"] = int(getattr(dem, "num_detectors", -1))

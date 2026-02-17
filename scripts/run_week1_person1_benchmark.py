@@ -9,7 +9,7 @@ from pathlib import Path
 from statistics import mean
 from typing import Any, Dict, List
 
-# Asegura import de "src" al ejecutar como script suelto
+# Ensure "src" import works when running this script directly.
 import sys
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -38,7 +38,7 @@ def utc_now_iso() -> str:
 
 def default_cases() -> List[BenchmarkCase]:
     """
-    Casos base recomendados para evidencia de Semana 1.
+    Recommended base cases for Week 1 evidence.
     """
     return [
         BenchmarkCase(name="case_d3_r2_p0.005", distance=3, rounds=2, p=0.005),
@@ -98,7 +98,7 @@ def run_cases(
         }
         summary_rows.append(row)
 
-    # Agregados globales
+    # Global aggregates
     mean_bench_er = mean([r["benchmark_error_rate"] for r in summary_rows]) if summary_rows else float("nan")
     mean_ref_er = mean([r["reference_ler_helper"] for r in summary_rows]) if summary_rows else float("nan")
     mean_delta = mean([r["abs_delta_benchmark_vs_reference"] for r in summary_rows]) if summary_rows else float("nan")
@@ -120,7 +120,7 @@ def run_cases(
             "mean_abs_delta_benchmark_vs_reference": mean_delta,
             "mean_avg_decode_time_sec": mean_decode_time,
         },
-        # Guardamos resultados completos por trazabilidad de Semana 1:
+        # Store full results for Week 1 traceability:
         "full_results": full_results,
     }
     return report
@@ -137,7 +137,7 @@ def print_summary_table(report: Dict[str, Any]) -> None:
     rows = report.get("cases_summary", [])
     print("\n=== Week 1 Person 1 - Baseline Benchmark ===")
     if not rows:
-        print("No hay casos para mostrar.")
+        print("No cases to show.")
         return
 
     header = (
@@ -175,25 +175,25 @@ def parse_args() -> argparse.Namespace:
         "--shots",
         type=int,
         default=300,
-        help="Shots por caso para benchmark (default: 300).",
+        help="Shots per case for benchmark (default: 300).",
     )
     parser.add_argument(
         "--ref-shots",
         type=int,
         default=300,
-        help="Shots por caso para LER de referencia helper (default: 300).",
+        help="Shots per case for reference helper LER (default: 300).",
     )
     parser.add_argument(
         "--keep-soft",
         type=int,
         default=100,
-        help="Número de soft_info_samples a conservar por caso (default: 100).",
+        help="Number of soft_info_samples to keep per case (default: 100).",
     )
     parser.add_argument(
         "--output",
         type=str,
         default="results/week1_person1_baseline.json",
-        help="Ruta del JSON de salida (default: results/week1_person1_baseline.json).",
+        help="Output JSON path (default: results/week1_person1_baseline.json).",
     )
     return parser.parse_args()
 
@@ -202,11 +202,11 @@ def main() -> None:
     args = parse_args()
 
     if args.shots <= 0:
-        raise ValueError(f"--shots debe ser > 0. Recibido: {args.shots}")
+        raise ValueError(f"--shots must be > 0. Received: {args.shots}")
     if args.ref_shots <= 0:
-        raise ValueError(f"--ref-shots debe ser > 0. Recibido: {args.ref_shots}")
+        raise ValueError(f"--ref-shots must be > 0. Received: {args.ref_shots}")
     if args.keep_soft < 0:
-        raise ValueError(f"--keep-soft debe ser >= 0. Recibido: {args.keep_soft}")
+        raise ValueError(f"--keep-soft must be >= 0. Received: {args.keep_soft}")
 
     cases = default_cases()
     report = run_cases(
@@ -220,7 +220,7 @@ def main() -> None:
     saved = save_json(report, output_path)
 
     print_summary_table(report)
-    print(f"\nJSON guardado en: {saved}")
+    print(f"\nJSON saved at: {saved}")
 
 
 if __name__ == "__main__":

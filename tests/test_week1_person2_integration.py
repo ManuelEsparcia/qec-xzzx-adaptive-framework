@@ -21,7 +21,7 @@ from src.noise.noise_models import (
 
 
 def _maybe_extract_circuit(obj) -> Optional[stim.Circuit]:
-    """Permite builders que devuelvan Circuit o tupla/dict con Circuit."""
+    """Allow builders that return Circuit or tuple/dict containing Circuit."""
     if isinstance(obj, stim.Circuit):
         return obj
 
@@ -46,7 +46,7 @@ def _call_builder_with_flexible_signature(
     logical_basis: str,
 ) -> Optional[stim.Circuit]:
     """
-    Intenta llamar al builder de xzzx con varias convenciones de firma.
+    Try calling the XZZX builder with multiple signature conventions.
     """
     sig = inspect.signature(fn)
     kwargs = {}
@@ -62,7 +62,7 @@ def _call_builder_with_flexible_signature(
         "logical_basis": logical_basis,
         "basis": logical_basis,
         "memory_basis": logical_basis,
-        # Forzar ideal/no-noise si el builder acepta estos campos
+        # Force ideal/no-noise if the builder accepts these fields
         "p": 0.0,
         "error_rate": 0.0,
         "noise_strength": 0.0,
@@ -83,7 +83,7 @@ def _call_builder_with_flexible_signature(
     except Exception:
         pass
 
-    # Fallback posicional mínimo
+    # Minimal positional fallback
     try:
         out = fn(distance, rounds)
         c = _maybe_extract_circuit(out)
@@ -102,8 +102,8 @@ def _build_base_xzzx_circuit(
     logical_basis: str = "x",
 ) -> stim.Circuit:
     """
-    Busca dinámicamente el builder en src.codes.xzzx_code para evitar acoplarse
-    a un nombre exacto de función.
+    Dynamically find the builder in src.codes.xzzx_code to avoid coupling
+    to an exact function name.
     """
     from src.codes import xzzx_code as xc
 
@@ -118,7 +118,7 @@ def _build_base_xzzx_circuit(
         "create_xzzx_circuit",
     ]
 
-    # 1) Intento por nombres preferidos
+    # 1) Attempt preferred names
     for name in preferred_names:
         fn = getattr(xc, name, None)
         if callable(fn):
@@ -131,7 +131,7 @@ def _build_base_xzzx_circuit(
             if c is not None:
                 return c
 
-    # 2) Fallback: explorar callables del módulo con "xzzx" y "circuit" en nombre
+    # 2) Fallback: explore module callables with "xzzx" and "circuit" in name
     for name in dir(xc):
         if "xzzx" not in name.lower() or "circuit" not in name.lower():
             continue
@@ -147,7 +147,7 @@ def _build_base_xzzx_circuit(
                 return c
 
     pytest.skip(
-        "No se encontró builder de circuito XZZX compatible en src.codes.xzzx_code."
+        "No compatible XZZX circuit builder found in src.codes.xzzx_code."
     )
 
 
@@ -161,7 +161,7 @@ def _sample_det_obs(
     data = sampler.sample(shots=shots, separate_observables=True)
     if not isinstance(data, tuple) or len(data) != 2:
         raise RuntimeError(
-            "Stim no devolvió (detectors, observables) con separate_observables=True."
+            "Stim did not return (detectors, observables) with separate_observables=True."
         )
     dets, obs = data
     return dets, obs
@@ -180,14 +180,14 @@ def _estimate_ler(
 
     pred = matcher.decode_batch(dets)
 
-    # Normalizar shape a (shots, num_obs)
+    # Normalize shape to (shots, num_obs)
     if getattr(pred, "ndim", 1) == 1:
         pred = pred.reshape(-1, 1)
     if getattr(obs, "ndim", 1) == 1:
         obs = obs.reshape(-1, 1)
 
     if obs.shape[1] < 1:
-        pytest.skip("El circuito no expone observables lógicos (num_observables=0).")
+        pytest.skip("Circuit does not expose logical observables (num_observables=0).")
 
     ler = float((pred[:, 0] != obs[:, 0]).mean())
     return {
@@ -235,8 +235,8 @@ def test_all_noise_models_run_without_breaking_contract() -> None:
 
 def test_correlated_noise_not_better_than_independent_on_average() -> None:
     """
-    En promedio y con parámetros suficientemente agresivos, el correlado
-    no debería mejorar al independiente comparable.
+    On average and with sufficiently aggressive parameters, correlated noise
+    should not outperform a comparable independent baseline.
     """
     base = _build_base_xzzx_circuit(distance=3, rounds=3, logical_basis="x")
 
@@ -263,8 +263,8 @@ def test_correlated_noise_not_better_than_independent_on_average() -> None:
     mean_indep = statistics.fmean(indep_lers)
     mean_corr = statistics.fmean(corr_lers)
 
-    # Tolerancia pequeña para evitar fragilidad estadística.
+    # Small tolerance to avoid statistical fragility.
     assert mean_corr >= mean_indep - 0.01, (
-        f"Inesperado: correlado mejora demasiado al independiente. "
+        f"Unexpected: correlated model improves too much over independent baseline. "
         f"mean_corr={mean_corr:.4f}, mean_indep={mean_indep:.4f}"
     )

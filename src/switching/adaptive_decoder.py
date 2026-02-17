@@ -22,18 +22,18 @@ from src.decoders.union_find_decoder import UnionFindDecoderWithSoftInfo
 @dataclass(frozen=True)
 class AdaptiveConfig:
     """
-    Configuración del decoder adaptativo.
+    Adaptive decoder configuration.
     """
     g_threshold: float = 0.65
-    # Si True, benchmark también mide referencia MWPM pura para calcular speedup.
+    # If True, benchmark also measures pure MWPM reference to compute speedup.
     compare_against_mwpm_in_benchmark: bool = True
 
 
 class AdaptiveDecoder:
     """
-    Decoder adaptativo:
-      1) Decodifica con decoder rápido (UF por defecto).
-      2) Si confidence_score < g_threshold, hace fallback al decoder preciso (MWPM por defecto).
+    Adaptive decoder:
+      1) Decode with a fast decoder (UF by default).
+      2) If confidence_score < g_threshold, falls back to the accurate decoder (MWPM by default).
     """
 
     def __init__(
@@ -47,7 +47,7 @@ class AdaptiveDecoder:
 
         if not isinstance(circuit, stim.Circuit):
             raise TypeError(
-                f"circuit debe ser stim.Circuit, recibido: {type(circuit).__name__}"
+                f"circuit must be stim.Circuit, received: {type(circuit).__name__}"
             )
 
         self.circuit = circuit
@@ -55,11 +55,11 @@ class AdaptiveDecoder:
 
         self._validate_threshold(self.config.g_threshold)
 
-        # Decoders por defecto si no se inyectan
+        # Default decoders if none are injected
         self.fast_decoder = fast_decoder or UnionFindDecoderWithSoftInfo(circuit)
         self.accurate_decoder = accurate_decoder or MWPMDecoderWithSoftInfo(circuit)
 
-        # Validación de interfaz mínima
+        # Minimal interface validation
         self._validate_decoder_interface(self.fast_decoder, "fast_decoder")
         self._validate_decoder_interface(self.accurate_decoder, "accurate_decoder")
 
@@ -68,30 +68,30 @@ class AdaptiveDecoder:
         self.num_observables = int(getattr(self.circuit, "num_observables", 0))
 
         if self.num_detectors <= 0:
-            raise ValueError("El circuito no tiene detectores (num_detectors <= 0).")
+            raise ValueError("Circuit has no detectors (num_detectors <= 0).")
 
     # ------------------------------------------------------------------
-    # Validaciones
+    # Validation
     # ------------------------------------------------------------------
     @staticmethod
     def _require_stim() -> None:
         if stim is None:
             raise ImportError(
-                "stim no está instalado o falló su importación. "
-                "Instala con: pip install stim"
+                "stim is not installed or failed to import. "
+                "Install with: pip install stim"
             ) from _STIM_IMPORT_ERROR
 
     @staticmethod
     def _validate_threshold(g_threshold: float) -> None:
         if not isinstance(g_threshold, (float, int)):
-            raise TypeError(f"g_threshold debe ser numérico. Recibido: {type(g_threshold)}")
+            raise TypeError(f"g_threshold must be numeric. Received: {type(g_threshold)}")
         if not (0.0 <= float(g_threshold) <= 1.0):
-            raise ValueError(f"g_threshold debe estar en [0,1]. Recibido: {g_threshold}")
+            raise ValueError(f"g_threshold must be in [0,1]. Received: {g_threshold}")
 
     @staticmethod
     def _validate_decoder_interface(decoder: Any, name: str) -> None:
         if not hasattr(decoder, "decode_with_confidence"):
-            raise TypeError(f"{name} no implementa decode_with_confidence(...)")
+            raise TypeError(f"{name} does not implement decode_with_confidence(...)")
 
     @staticmethod
     def _normalize_prediction(prediction: Any) -> np.ndarray:
@@ -103,7 +103,7 @@ class AdaptiveDecoder:
         return (pred & 1).astype(np.uint8)
 
     # ------------------------------------------------------------------
-    # API pública
+    # Public API
     # ------------------------------------------------------------------
     def set_threshold(self, g_threshold: float) -> None:
         self._validate_threshold(g_threshold)
@@ -118,9 +118,9 @@ class AdaptiveDecoder:
         g_threshold: Optional[float] = None,
     ) -> Tuple[np.ndarray, Dict[str, Any], float]:
         """
-        Decodificación adaptativa en 2 etapas:
-          - UF (rápido)
-          - fallback a MWPM si confianza insuficiente
+        Two-stage adaptive decoding:
+          - UF (fast)
+          - fallback a MWPM if insufficient confidence
         """
         threshold = float(self.config.g_threshold if g_threshold is None else g_threshold)
         self._validate_threshold(threshold)
@@ -153,10 +153,10 @@ class AdaptiveDecoder:
             "fast_decode_time": float(t_fast),
             "accurate_decode_time": float(t_acc),
             "total_decode_time": float(total_decode_time),
-            # Soft info útil del decoder finalmente seleccionado
+            # Useful soft info from the finally selected decoder.
             "final_confidence_score": float(soft_final.get("confidence_score", fast_conf)),
             "final_soft_info": soft_final,
-            # Para trazabilidad (puede servir para análisis posteriores)
+            # For traceability (useful for later analysis).
             "fast_soft_info": soft_fast,
         }
 
@@ -170,15 +170,15 @@ class AdaptiveDecoder:
         compare_against_mwpm: Optional[bool] = None,
     ) -> Dict[str, Any]:
         """
-        Benchmark del adaptive decoder.
-        Devuelve:
+        Benchmark for the adaptive decoder.
+        Returns:
           - error_rate_adaptive
           - avg_decode_time_adaptive
           - switch_rate
-          - (opcional) referencia MWPM y speedup
+          - (optional) MWPM reference and speedup
         """
         if not isinstance(shots, int) or shots <= 0:
-            raise ValueError(f"shots debe ser int > 0. Recibido: {shots}")
+            raise ValueError(f"shots must be int > 0. Received: {shots}")
 
         threshold = float(self.config.g_threshold if g_threshold is None else g_threshold)
         self._validate_threshold(threshold)
@@ -193,13 +193,14 @@ class AdaptiveDecoder:
             sampled = self.sampler.sample(shots=shots, separate_observables=True)
         except TypeError as exc:
             raise RuntimeError(
-                "Tu versión de stim no soporta sample(..., separate_observables=True). "
-                "Actualiza stim para usar benchmark con error_rate."
+                "Tu versión de stim does not support sample(..., separate_observables=True). "
+                "Update stim to use benchmark with error_rate."
             ) from exc
 
         if not isinstance(sampled, tuple) or len(sampled) != 2:
             raise RuntimeError(
-                "Se esperaba que Stim devolviera (detector_samples, observable_flips)."
+                "Expected que Stim devolviera (detector_samples, observable_flips)."
+                "Expected Stim to return (detector_samples, observable_flips)."
             )
 
         dets, obs = sampled
@@ -207,14 +208,14 @@ class AdaptiveDecoder:
         obs = np.asarray(obs, dtype=np.uint8)
 
         if dets.ndim != 2:
-            raise RuntimeError(f"Detector samples con shape inválido: {dets.shape}")
+            raise RuntimeError(f"Invalid detector sample shape: {dets.shape}")
         if obs.ndim == 1:
             obs = obs[:, np.newaxis]
         if obs.ndim != 2:
-            raise RuntimeError(f"Observable samples con shape inválido: {obs.shape}")
+            raise RuntimeError(f"Invalid observable sample shape: {obs.shape}")
         if dets.shape[0] != obs.shape[0]:
             raise RuntimeError(
-                f"Mismatch en número de shots: dets={dets.shape[0]}, obs={obs.shape[0]}"
+                f"Shot count mismatch: dets={dets.shape[0]}, obs={obs.shape[0]}"
             )
 
         failures_adapt: List[bool] = []
@@ -222,7 +223,7 @@ class AdaptiveDecoder:
         switch_count = 0
         samples: List[Dict[str, Any]] = []
 
-        # Referencia opcional MWPM
+        # Optional MWPM reference
         failures_mwpm: List[bool] = []
         decode_times_mwpm: List[float] = []
 

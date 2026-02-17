@@ -36,7 +36,7 @@ def _instruction_names(circuit: stim.Circuit) -> List[str]:
 @pytest.fixture
 def sample_circuit() -> stim.Circuit:
     """
-    Circuito pequeño con:
+    Circuit pequeño with:
       - reset
       - gate 1q
       - gate 2q
@@ -116,9 +116,9 @@ def test_each_model_injects_expected_noise(
     noisy = model.apply_to_circuit(sample_circuit)
     names = set(_instruction_names(noisy))
 
-    # Debe aparecer al menos uno de los esperados; en práctica suelen aparecer todos.
+    # At least one expected gate must appear; in practice they usually all appear.
     assert any(g in names for g in expected_gates), (
-        f"No se detectaron puertas de ruido esperadas {expected_gates}. "
+        f"Expected noise gates were not detected: {expected_gates}. "
         f"Encontradas: {sorted(names)}"
     )
 
@@ -149,7 +149,7 @@ def test_repeat_block_supported() -> None:
     )
     noisy = DepolarizingNoise(p=0.01).apply_to_circuit(c)
     names = _instruction_names(noisy)
-    assert "DEPOLARIZE1" in names  # ruido insertado dentro del bloque
+    assert "DEPOLARIZE1" in names  # noise insertado dentro del bloque
 
 
 def test_correlated_neighbors_line() -> None:

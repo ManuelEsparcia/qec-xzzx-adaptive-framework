@@ -7,7 +7,7 @@ from typing import Any, Dict, Sequence, Tuple
 import numpy as np
 import pytest
 
-# Dependencias requeridas por los decoders reales
+# Dependencias requeridas by los decoders reales
 pytest.importorskip("stim")
 pytest.importorskip("pymatching")
 
@@ -17,7 +17,7 @@ from src.switching.adaptive_decoder import AdaptiveConfig, AdaptiveDecoder
 
 class _DummyDecoder:
     """
-    Decoder mínimo para tests deterministas de lógica de switching.
+    Decoder mínimo for tests deterministas de lógica de switching.
     """
 
     def __init__(self, pred_bit: int, confidence: float, decode_time: float = 1e-6) -> None:
@@ -37,7 +37,7 @@ class _DummyDecoder:
 
 
 class _BadDecoder:
-    """No implementa decode_with_confidence -> debe fallar al construir AdaptiveDecoder."""
+    """Not implementa decode_with_confidence -> must fail when constructing AdaptiveDecoder."""
     pass
 
 
@@ -148,7 +148,7 @@ def test_decode_adaptive_switches_when_confidence_below_threshold() -> None:
 
     assert info["switched"] is True
     assert info["selected_decoder"] == "mwpm"
-    # Debe usar la predicción del decoder preciso (accurate)
+    # Must use la predicción del decoder preciso (accurate)
     assert pred[0] == 1
 
 
@@ -170,7 +170,7 @@ def test_decode_adaptive_keeps_fast_when_confidence_above_threshold() -> None:
 
     assert info["switched"] is False
     assert info["selected_decoder"] == "uf"
-    # Debe usar la predicción del decoder rápido (fast)
+    # Must use the fast decoder prediction
     assert pred[0] == 0
 
 
@@ -247,11 +247,11 @@ def test_benchmark_adaptive_without_reference_key() -> None:
 
 def test_benchmark_threshold_controls_switch_rate_deterministically() -> None:
     """
-    Test determinista de switch_rate usando decoders dummy.
+    Deterministic switch_rate test using dummy decoders.
     """
     circuit = _build_circuit(distance=3, rounds=2, p=0.01)
 
-    # Fast siempre con confianza 0.4
+    # Fast decoder always with confidence 0.4
     fast = _DummyDecoder(pred_bit=0, confidence=0.4, decode_time=1e-6)
     accurate = _DummyDecoder(pred_bit=1, confidence=0.9, decode_time=2e-6)
 

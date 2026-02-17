@@ -19,15 +19,15 @@ def _run_cmd(cmd: list[str], timeout: int = 240) -> subprocess.CompletedProcess[
 
 def test_script_exists() -> None:
     script = Path("scripts/run_week2_person2_noise_calibration.py")
-    assert script.exists(), f"No existe el script: {script}"
+    assert script.exists(), f"Script does not exist: {script}"
 
 
 def test_noise_calibration_script_smoke(tmp_path: Path) -> None:
     """
     Smoke test:
-    - Ejecuta el script con una configuración pequeña.
-    - Verifica que termina correctamente.
-    - Verifica contrato mínimo del JSON de salida.
+    - Run script with a small configuration.
+    - Verify successful completion.
+    - Verify minimum output JSON contract.
     """
     output = tmp_path / "week2_person2_noise_calibration_smoke.json"
 
@@ -50,19 +50,19 @@ def test_noise_calibration_script_smoke(tmp_path: Path) -> None:
     result = _run_cmd(cmd, timeout=300)
 
     assert result.returncode == 0, (
-        "El script falló.\n"
+        "Script failed.\n"
         f"STDOUT:\n{result.stdout}\n\n"
         f"STDERR:\n{result.stderr}"
     )
 
-    assert output.exists(), "No se creó el JSON de salida."
+    assert output.exists(), "Output JSON was not created."
 
     payload = json.loads(output.read_text(encoding="utf-8"))
-    assert isinstance(payload, dict), "El JSON debe ser un objeto."
+    assert isinstance(payload, dict), "JSON must be an object."
 
-    # Contrato mínimo robusto
+    # Robust minimum contract
     metadata = payload.get("metadata", {})
-    assert isinstance(metadata, dict), "metadata debe ser dict."
+    assert isinstance(metadata, dict), "metadata must be dict."
     assert metadata.get("script") == "run_week2_person2_noise_calibration.py"
     assert int(metadata.get("shots", -1)) == 40
 
@@ -70,7 +70,7 @@ def test_noise_calibration_script_smoke(tmp_path: Path) -> None:
     assert isinstance(payload["selected_sweep_templates"], list)
     assert len(payload["selected_sweep_templates"]) >= 1
 
-    # Aceptamos cualquiera de estas estructuras según implementación interna
+    # Accept any of these structures depending on internal implementation
     has_summary = isinstance(payload.get("sweeps_summary"), list)
     has_reports = isinstance(payload.get("sweeps_reports"), list)
     has_raw = "raw_report" in payload
@@ -81,7 +81,7 @@ def test_noise_calibration_script_smoke(tmp_path: Path) -> None:
 
 def test_invalid_shots_fail(tmp_path: Path) -> None:
     """
-    Si shots <= 0, el script debe fallar con código != 0.
+    If shots <= 0, script must fail with return code != 0.
     """
     output = tmp_path / "should_not_exist.json"
 
@@ -97,7 +97,7 @@ def test_invalid_shots_fail(tmp_path: Path) -> None:
     result = _run_cmd(cmd, timeout=120)
 
     assert result.returncode != 0, (
-        "Se esperaba fallo con shots=0, pero terminó con código 0.\n"
+        "Expected failure with shots=0, but returned code 0.\n"
         f"STDOUT:\n{result.stdout}\n\n"
         f"STDERR:\n{result.stderr}"
     )
@@ -105,7 +105,7 @@ def test_invalid_shots_fail(tmp_path: Path) -> None:
 
 def test_invalid_models_fail(tmp_path: Path) -> None:
     """
-    Modelos desconocidos deben fallar en parseo/validación.
+    Unknown models must fail during parsing/validation.
     """
     output = tmp_path / "should_not_exist_2.json"
 
@@ -116,14 +116,14 @@ def test_invalid_models_fail(tmp_path: Path) -> None:
         "--shots",
         "20",
         "--models",
-        "depolarizing,modelo_inexistente",
+        "depolarizing,model_inexistente",
         "--output",
         str(output),
     ]
     result = _run_cmd(cmd, timeout=120)
 
     assert result.returncode != 0, (
-        "Se esperaba fallo por modelo inválido, pero terminó con código 0.\n"
+        "Expected failure for invalid model, but returned code 0.\n"
         f"STDOUT:\n{result.stdout}\n\n"
         f"STDERR:\n{result.stderr}"
     )

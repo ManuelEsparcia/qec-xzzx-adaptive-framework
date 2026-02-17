@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-# Si faltan dependencias, se salta el archivo completo.
+# If dependencies are missing, skip the whole file.
 pytest.importorskip("stim")
 pytest.importorskip("pymatching")
 
@@ -21,10 +21,10 @@ from src.pipelines.week1_person1_pipeline import (
 
 def test_pipeline_e2e_output_contract() -> None:
     """
-    Test E2E principal:
-    - El pipeline ejecuta de extremo a extremo
-    - Devuelve estructura esperada
-    - Métricas en rangos válidos
+    Main E2E test:
+    - Pipeline runs end-to-end
+    - Returns expected structure
+    - Metrics stay within valid ranges
     """
     cfg = Week1Person1PipelineConfig(
         distance=3,
@@ -42,7 +42,7 @@ def test_pipeline_e2e_output_contract() -> None:
     assert isinstance(result, dict)
     assert result.get("status") == "ok"
 
-    # Bloques principales
+    # Main blocks
     assert "metadata" in result
     assert "config" in result
     assert "circuit_summary" in result
@@ -54,7 +54,7 @@ def test_pipeline_e2e_output_contract() -> None:
     assert metadata["pipeline"] == "week1_person1_pipeline"
     assert "timestamp_utc" in metadata
 
-    # Config eco
+    # Echoed config
     config_out = result["config"]
     assert config_out["distance"] == 3
     assert config_out["rounds"] == 2
@@ -99,7 +99,7 @@ def test_pipeline_e2e_output_contract() -> None:
 
 def test_pipeline_with_noise_dict_runs() -> None:
     """
-    Verifica compatibilidad con noise_model tipo dict (kwargs de Stim).
+    Verify compatibility with dict-type noise_model (Stim kwargs).
     """
     cfg = Week1Person1PipelineConfig(
         distance=3,
@@ -119,8 +119,8 @@ def test_pipeline_with_noise_dict_runs() -> None:
 
 def test_pipeline_ideal_noise_is_low_error() -> None:
     """
-    En caso ideal (sin ruido), la tasa de error lógico debería ser muy baja/cercana a 0.
-    Dejamos margen pequeño para robustez de entorno.
+    In the ideal case (no noise), logical error rate should be very low/near zero.
+    Keep a small margin for environment robustness.
     """
     cfg = Week1Person1PipelineConfig(
         distance=3,
@@ -137,17 +137,17 @@ def test_pipeline_ideal_noise_is_low_error() -> None:
     bench_er = result["benchmark"]["error_rate"]
     ref_er = result["reference"]["ler_mwpm_helper"]
 
-    # En ideal debería ser prácticamente 0
+    # In ideal conditions this should be near 0
     assert bench_er <= 0.05
     assert ref_er <= 0.05
 
 
 def test_pipeline_invalid_distance_raises() -> None:
     """
-    distance par debe propagar ValueError desde generate_xzzx_circuit.
+    Even distance should propagate ValueError from generate_xzzx_circuit.
     """
     cfg = Week1Person1PipelineConfig(
-        distance=4,  # inválido (debe ser impar >=3)
+        distance=4,  # invalid (must be odd >= 3)
         rounds=2,
         noise_model="depolarizing",
         p=0.01,
@@ -163,7 +163,7 @@ def test_pipeline_invalid_distance_raises() -> None:
 
 def test_save_pipeline_result_creates_json(tmp_path: Path) -> None:
     """
-    save_pipeline_result debe crear un JSON válido en disco.
+    save_pipeline_result must create a valid JSON file on disk.
     """
     cfg = Week1Person1PipelineConfig(
         distance=3,
@@ -193,7 +193,7 @@ def test_save_pipeline_result_creates_json(tmp_path: Path) -> None:
 
 def test_run_and_save_pipeline_wrapper(tmp_path: Path) -> None:
     """
-    run_and_save_week1_person1_pipeline debe ejecutar y guardar en una sola llamada.
+    run_and_save_week1_person1_pipeline must run and save in one call.
     """
     cfg = Week1Person1PipelineConfig(
         distance=3,

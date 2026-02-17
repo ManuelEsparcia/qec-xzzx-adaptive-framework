@@ -13,12 +13,12 @@ from src.noise.noise_models import build_noise_model
 
 
 # =============================================================================
-# Dataclasses públicas
+# Public dataclasses
 # =============================================================================
 @dataclass(frozen=True)
 class CalibrationCase:
     """
-    Define un caso base de calibración sobre el que barrer parámetros de ruido.
+    Defines a base calibration case over which noise parameters are swept.
     """
     case_name: str
     distance: int
@@ -29,22 +29,22 @@ class CalibrationCase:
     def __post_init__(self) -> None:
         if self.distance < 3 or self.distance % 2 == 0:
             raise ValueError(
-                f"distance debe ser impar y >= 3. Recibido: {self.distance}"
+                f"distance must be odd and >= 3. Received: {self.distance}"
             )
         if self.rounds <= 0:
-            raise ValueError(f"rounds debe ser > 0. Recibido: {self.rounds}")
+            raise ValueError(f"rounds must be > 0. Received: {self.rounds}")
         if not (0.0 <= self.p <= 1.0):
-            raise ValueError(f"p debe estar en [0,1]. Recibido: {self.p}")
+            raise ValueError(f"p must be in [0,1]. Received: {self.p}")
         if self.logical_basis not in {"x", "z"}:
             raise ValueError(
-                f"logical_basis debe ser 'x' o 'z'. Recibido: {self.logical_basis}"
+                f"logical_basis must be 'x' or 'z'. Received: {self.logical_basis}"
             )
 
 
 @dataclass(frozen=True)
 class SweepSpec:
     """
-    Especifica un barrido 1D de un parámetro sobre un noise model.
+    Specifies a 1D sweep of one parameter over a noise model.
     """
     model_type: str
     param_name: str
@@ -54,21 +54,21 @@ class SweepSpec:
 
     def __post_init__(self) -> None:
         if not self.model_type or not isinstance(self.model_type, str):
-            raise ValueError("model_type debe ser un string no vacío.")
+            raise ValueError("model_type must be a non-empty string.")
         if not self.param_name or not isinstance(self.param_name, str):
-            raise ValueError("param_name debe ser un string no vacío.")
+            raise ValueError("param_name must be a non-empty string.")
         if not self.values:
-            raise ValueError("values no puede estar vacío.")
+            raise ValueError("values cannot be empty.")
         if self.objective not in {"min_ler", "min_time"}:
             raise ValueError(
-                f"objective inválido: {self.objective}. Usa 'min_ler' o 'min_time'."
+                f"Invalid objective: {self.objective}. Use 'min_ler' or 'min_time'."
             )
 
 
 @dataclass(frozen=True)
 class CalibrationConfig:
     """
-    Config global de calibración.
+    Global calibration config.
     """
     shots: int = 500
     seed: int = 20260216
@@ -76,16 +76,16 @@ class CalibrationConfig:
 
     def __post_init__(self) -> None:
         if self.shots <= 0:
-            raise ValueError(f"shots debe ser > 0. Recibido: {self.shots}")
+            raise ValueError(f"shots must be > 0. Received: {self.shots}")
         if self.keep_soft_info_samples < 0:
             raise ValueError(
-                "keep_soft_info_samples debe ser >= 0. "
-                f"Recibido: {self.keep_soft_info_samples}"
+                "keep_soft_info_samples must be >= 0. "
+                f"Received: {self.keep_soft_info_samples}"
             )
 
 
 # =============================================================================
-# Builder flexible del circuito base XZZX
+# Flexible base XZZX circuit builder
 # =============================================================================
 def _maybe_extract_circuit(obj: Any) -> Optional[stim.Circuit]:
     if isinstance(obj, stim.Circuit):
@@ -127,7 +127,7 @@ def _call_builder_with_flexible_signature(
         "logical_basis": logical_basis,
         "basis": logical_basis,
         "memory_basis": logical_basis,
-        # Intento ideal/no-noise si el builder lo expone:
+        # Intento ideal/not-noise if el builder lo expone:
         "p": 0.0,
         "error_rate": 0.0,
         "noise_strength": 0.0,
@@ -140,7 +140,7 @@ def _call_builder_with_flexible_signature(
         if pname in name_map:
             kwargs[pname] = name_map[pname]
 
-    # Intento con kwargs compatibles
+    # Intento with kwargs compatibles
     try:
         out = fn(**kwargs)
         c = _maybe_extract_circuit(out)
@@ -168,7 +168,7 @@ def build_base_xzzx_circuit(
     logical_basis: str = "x",
 ) -> stim.Circuit:
     """
-    Construye el circuito base XZZX usando discovery flexible sobre src.codes.xzzx_code.
+    Build el circuit base XZZX using discovery flexible sobre src.codes.xzzx_code.
     """
     from src.codes import xzzx_code as xc
 
@@ -183,7 +183,7 @@ def build_base_xzzx_circuit(
         "create_xzzx_circuit",
     ]
 
-    # 1) Intento por nombres esperados
+    # 1) Attempt expected names
     for name in preferred_names:
         fn = getattr(xc, name, None)
         if callable(fn):
@@ -213,16 +213,16 @@ def build_base_xzzx_circuit(
                 return c
 
     raise RuntimeError(
-        "No se encontró un builder de circuito XZZX compatible en src.codes.xzzx_code."
+        "No compatible XZZX circuit builder found in src.codes.xzzx_code."
     )
 
 
 # =============================================================================
-# Core de simulación / decodificación
+# Simulation / decoding core
 # =============================================================================
 def _stable_name_seed(name: str) -> int:
     """
-    Hash estable (independiente de hash randomization de Python).
+    Stable hash (independent of Python hash randomization).
     """
     return sum((i + 1) * ord(ch) for i, ch in enumerate(name))
 
@@ -232,9 +232,9 @@ def _validate_probability_like(name: str, value: Any) -> None:
         try:
             v = float(value)
         except Exception as exc:
-            raise ValueError(f"{name} debe ser numérico. Recibido: {value!r}") from exc
+            raise ValueError(f"{name} must be numeric. Received: {value!r}") from exc
         if not (0.0 <= v <= 1.0):
-            raise ValueError(f"{name} debe estar en [0,1]. Recibido: {v}")
+            raise ValueError(f"{name} must be in [0,1]. Received: {v}")
 
 
 def estimate_ler_and_time(
@@ -245,14 +245,14 @@ def estimate_ler_and_time(
     keep_soft_info_samples: int = 0,
 ) -> Dict[str, Any]:
     """
-    Estima Logical Error Rate (LER) y tiempo medio de decode.
+    Estimate logical error rate (LER) and mean decode time.
     """
     if shots <= 0:
-        raise ValueError(f"shots debe ser > 0. Recibido: {shots}")
+        raise ValueError(f"shots must be > 0. Received: {shots}")
     if keep_soft_info_samples < 0:
         raise ValueError(
-            "keep_soft_info_samples debe ser >= 0. "
-            f"Recibido: {keep_soft_info_samples}"
+            "keep_soft_info_samples must be >= 0. "
+            f"Received: {keep_soft_info_samples}"
         )
 
     dem = circuit.detector_error_model(decompose_errors=True)
@@ -273,7 +273,7 @@ def estimate_ler_and_time(
         obs = obs.reshape(-1, 1)
 
     if obs.shape[1] < 1:
-        raise RuntimeError("El circuito no contiene observables lógicos (OBSERVABLE_INCLUDE).")
+        raise RuntimeError("Circuit has no logical observables (OBSERVABLE_INCLUDE).")
 
     ler = float((pred[:, 0] != obs[:, 0]).mean())
 
@@ -288,8 +288,8 @@ def estimate_ler_and_time(
     if keep_soft_info_samples > 0:
         k = min(keep_soft_info_samples, shots)
         samples: List[Dict[str, float]] = []
-        # Soft proxy simple y barato (sin tocar internals del decoder):
-        # peso del síndrome = número de detectores activos
+        # Simple and cheap soft proxy (without touching decoder internals):
+        # syndrome weight = number of active detectors
         for i in range(k):
             sw = float(dets[i].sum())
             samples.append({"syndrome_weight": sw})
@@ -312,7 +312,7 @@ def _build_model_spec(
 
     spec[sweep_param_name] = sweep_value
 
-    # Validaciones ligeras de parámetros probability-like
+    # Light validation of probability-like parameters
     for k, v in spec.items():
         _validate_probability_like(k, v)
 
@@ -331,7 +331,7 @@ def run_single_calibration_point(
     base_circuit: Optional[stim.Circuit] = None,
 ) -> Dict[str, Any]:
     """
-    Ejecuta un punto de calibración:
+    Run one calibration point:
       (case, model_type, sweep_param_name=sweep_value).
     """
     if base_circuit is None:
@@ -381,13 +381,13 @@ def _select_best_point(
     objective: str,
 ) -> Dict[str, Any]:
     if not points:
-        raise ValueError("No hay puntos para seleccionar best_point.")
+        raise ValueError("No points available to select best_point.")
 
     if objective == "min_time":
-        # Tie-break por LER
+        # Tie-break by LER
         return min(points, key=lambda x: (float(x["avg_decode_time_sec"]), float(x["ler"])))
 
-    # Default: min_ler, tie-break por tiempo
+    # Default: min_ler, tie-break by time
     return min(points, key=lambda x: (float(x["ler"]), float(x["avg_decode_time_sec"])))
 
 
@@ -405,18 +405,18 @@ def run_noise_sweep(
     config: CalibrationConfig,
 ) -> Dict[str, Any]:
     """
-    Ejecuta un barrido 1D de parámetro de ruido para un modelo.
+    Run a 1D sweep of a noise parameter for one model.
 
-    Devuelve un reporte JSON-friendly con:
-    - resultados por caso y valor,
-    - mejor valor por caso,
-    - agregados globales por valor,
-    - mejor valor global.
+    Returns a JSON-friendly report with:
+    - results by case and value,
+    - best value by case,
+    - global aggregates by value,
+    - global best value.
     """
     if not cases:
-        raise ValueError("cases no puede estar vacío.")
+        raise ValueError("cases cannot be empty.")
 
-    # Build base circuits una sola vez por caso (evita overhead)
+    # Build base circuits once per case (avoids overhead).
     base_by_case: Dict[str, stim.Circuit] = {}
     for c in cases:
         base_by_case[c.case_name] = build_base_xzzx_circuit(
@@ -459,7 +459,7 @@ def run_noise_sweep(
             }
         )
 
-    # Agregados por valor de sweep
+    # Aggregates by sweep value
     per_value_summary: List[Dict[str, Any]] = []
     for value in sweep.values:
         pts = value_buckets[value]
@@ -520,11 +520,11 @@ def run_multi_model_calibration(
     config: CalibrationConfig,
 ) -> Dict[str, Any]:
     """
-    Ejecuta múltiples sweeps (posiblemente distintos modelos/parámetros)
-    y devuelve un reporte unificado.
+    Run multiple sweeps (possibly with different models/parameters)
+    and return a unified report.
     """
     if not sweeps:
-        raise ValueError("sweeps no puede estar vacío.")
+        raise ValueError("sweeps cannot be empty.")
 
     sweep_reports: List[Dict[str, Any]] = []
     for sw in sweeps:
@@ -536,7 +536,7 @@ def run_multi_model_calibration(
             )
         )
 
-    # Resumen compacto
+    # Compact summary
     compact: List[Dict[str, Any]] = []
     for rep in sweep_reports:
         sw = rep["sweep"]
@@ -566,11 +566,11 @@ def run_multi_model_calibration(
 
 
 # =============================================================================
-# IO utilidades
+# I/O utilities
 # =============================================================================
 def save_calibration_report(report: Mapping[str, Any], output_path: str | Path) -> Path:
     """
-    Guarda un reporte (dict JSON-friendly) en disco.
+    Save a report (JSON-friendly dict) to disk.
     """
     path = Path(output_path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -585,7 +585,7 @@ def save_calibration_report(report: Mapping[str, Any], output_path: str | Path) 
 
 def load_calibration_report(input_path: str | Path) -> Dict[str, Any]:
     """
-    Carga un reporte JSON de calibración.
+    Load a calibration JSON report.
     """
     path = Path(input_path)
     import json

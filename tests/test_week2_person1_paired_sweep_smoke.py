@@ -16,7 +16,7 @@ SCRIPT = REPO_ROOT / "scripts" / "run_week2_person1_paired_threshold_sweep.py"
 
 
 def test_script_exists() -> None:
-    assert SCRIPT.exists(), f"No existe el script esperado: {SCRIPT}"
+    assert SCRIPT.exists(), f"Expected script does not exist: {SCRIPT}"
 
 
 def test_paired_sweep_script_smoke(tmp_path: Path) -> None:
@@ -40,9 +40,9 @@ def test_paired_sweep_script_smoke(tmp_path: Path) -> None:
     )
 
     assert proc.returncode == 0, (
-        f"Script falló.\nSTDOUT:\n{proc.stdout}\n\nSTDERR:\n{proc.stderr}"
+        f"Script failed.\nSTDOUT:\n{proc.stdout}\n\nSTDERR:\n{proc.stderr}"
     )
-    assert out.exists(), "No se generó el JSON de salida."
+    assert out.exists(), "Output JSON was not generated."
 
     data = json.loads(out.read_text(encoding="utf-8"))
 
@@ -52,7 +52,7 @@ def test_paired_sweep_script_smoke(tmp_path: Path) -> None:
     assert md.get("shots_per_case") == 40
     assert md.get("thresholds") == [0.2, 0.6]
 
-    # Casos
+    # Cases
     cases = data.get("cases_summary", [])
     assert len(cases) == 3
 
@@ -78,7 +78,7 @@ def test_paired_sweep_script_smoke(tmp_path: Path) -> None:
             assert t >= 0.0
             assert 0.0 <= sw <= 1.0
 
-    # Agregados mínimos
+    # Minimum aggregates
     agg = data.get("aggregates", {})
     assert "mean_mwpm_error_rate" in agg
     assert "mean_uf_error_rate" in agg
@@ -94,7 +94,7 @@ def test_invalid_thresholds_fail(tmp_path: Path) -> None:
         "--shots",
         "10",
         "--thresholds",
-        "1.2",  # inválido
+        "1.2",  # invalid
         "--output",
         str(out),
     ]

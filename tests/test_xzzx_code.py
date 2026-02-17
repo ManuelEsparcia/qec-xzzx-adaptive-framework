@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import pytest
 
-# Si faltan dependencias, se salta el archivo completo de tests.
+# If dependencies are missing, skip the whole file de tests.
 stim = pytest.importorskip("stim")
 pytest.importorskip("pymatching")
 
@@ -24,7 +24,7 @@ from src.codes.xzzx_code import (
 )
 def test_circuit_generation(distance: int, rounds: int, logical_basis: str) -> None:
     """
-    Test 1: el circuito se genera correctamente.
+    Test 1: el circuit is genera correctamente.
     """
     circuit = generate_xzzx_circuit(
         distance=distance,
@@ -45,13 +45,13 @@ def test_circuit_generation(distance: int, rounds: int, logical_basis: str) -> N
 
 def test_detector_count_consistency() -> None:
     """
-    Test 2: consistencia del número de detectores.
-    No asumimos una fórmula cerrada (depende del task), pero sí consistencia interna.
+    Test 2: consistency del número de detectores.
+    Not asumimos una fórmula cerrada (depende del task), pero sí internal consistency.
     """
     c = generate_xzzx_circuit(distance=5, rounds=3, noise_model="none", p=0.0, logical_basis="x")
     dem = c.detector_error_model(decompose_errors=True)
 
-    # Consistencia entre circuito y DEM
+    # Consistency entre circuit and DEM
     assert c.num_detectors == dem.num_detectors
     assert c.num_detectors > 0
 
@@ -62,7 +62,7 @@ def test_detector_count_consistency() -> None:
 
 def test_perfect_decoding_no_noise() -> None:
     """
-    Test 3: sin ruido, el decoding debe ser perfecto (LER ~ 0).
+    Test 3: without noise, el decoding must be perfecto (LER ~ 0).
     """
     c = generate_xzzx_circuit(distance=3, rounds=3, noise_model="none", p=0.0, logical_basis="x")
     ler = logical_error_rate_mwpm(c, shots=500)
@@ -73,16 +73,16 @@ def test_perfect_decoding_no_noise() -> None:
 
 def test_invalid_inputs() -> None:
     """
-    Validaciones básicas de entrada.
+    Validation básicas de input.
     """
     with pytest.raises(ValueError):
         generate_xzzx_circuit(distance=4, rounds=2, noise_model="none", p=0.0)  # distance par
 
     with pytest.raises(ValueError):
-        generate_xzzx_circuit(distance=3, rounds=0, noise_model="none", p=0.0)  # rounds inválido
+        generate_xzzx_circuit(distance=3, rounds=0, noise_model="none", p=0.0)  # invalid rounds
 
     with pytest.raises(ValueError):
-        generate_xzzx_circuit(distance=3, rounds=2, noise_model="none", p=-0.1)  # p fuera de rango
+        generate_xzzx_circuit(distance=3, rounds=2, noise_model="none", p=-0.1)  # p out of range
 
     with pytest.raises(ValueError):
         generate_xzzx_circuit(distance=3, rounds=2, noise_model="none", p=0.1, logical_basis="y")

@@ -4,7 +4,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-# Si faltan dependencias, se salta el archivo completo.
+# If dependencies are missing, skip the whole file.
 pytest.importorskip("stim")
 pytest.importorskip("pymatching")
 

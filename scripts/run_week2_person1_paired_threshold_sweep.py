@@ -12,7 +12,7 @@ from typing import Any, Dict, List
 
 import numpy as np
 
-# Permitir import "src" al ejecutar como script suelto
+# Ensure "src" import works when running this script directly.
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
@@ -53,11 +53,11 @@ def parse_thresholds(raw: str) -> List[float]:
             continue
         v = float(x)
         if not (0.0 <= v <= 1.0):
-            raise ValueError(f"Threshold fuera de [0,1]: {v}")
+            raise ValueError(f"Threshold out of [0,1]: {v}")
         vals.append(v)
     if not vals:
-        raise ValueError("No se ha proporcionado ningún threshold válido.")
-    # eliminamos duplicados manteniendo orden
+        raise ValueError("No valid threshold was provided.")
+    # Remove duplicates while preserving order
     out = []
     seen = set()
     for v in vals:
@@ -91,7 +91,7 @@ def run_case_paired(case: Case, shots: int, thresholds: List[float]) -> Dict[str
         logical_basis=case.logical_basis,
     )
 
-    # Muestra única para todos los decoders (paired comparison)
+    # Single sample for all decoders (paired comparison)
     sampler = circuit.compile_detector_sampler()
     dets, obs = sampler.sample(shots=shots, separate_observables=True)
 
@@ -109,13 +109,13 @@ def run_case_paired(case: Case, shots: int, thresholds: List[float]) -> Dict[str
         config=AdaptiveConfig(g_threshold=0.5, compare_against_mwpm_in_benchmark=False),
     )
 
-    # Acumuladores base
+    # Base accumulators
     mwpm_fails: List[bool] = []
     uf_fails: List[bool] = []
     mwpm_times: List[float] = []
     uf_times: List[float] = []
 
-    # Acumuladores por threshold
+    # Accumulators by threshold
     adp_fails: Dict[float, List[bool]] = {g: [] for g in thresholds}
     adp_times: Dict[float, List[float]] = {g: [] for g in thresholds}
     adp_switches: Dict[float, int] = {g: 0 for g in thresholds}
@@ -134,7 +134,7 @@ def run_case_paired(case: Case, shots: int, thresholds: List[float]) -> Dict[str
         uf_fails.append(logical_fail(pu, o))
         uf_times.append(float(tu))
 
-        # Adaptive barrido thresholds
+        # Adaptive sweep thresholds
         for g in thresholds:
             pa, info_a, ta = adaptive.decode_adaptive(s, g_threshold=g)
             adp_fails[g].append(logical_fail(pa, o))
@@ -265,18 +265,18 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Paired threshold sweep for MWPM/UF/Adaptive (same sampled syndromes)."
     )
-    parser.add_argument("--shots", type=int, default=2000, help="Shots por caso")
+    parser.add_argument("--shots", type=int, default=2000, help="Shots per case")
     parser.add_argument(
         "--thresholds",
         type=str,
         default="0.20,0.35,0.40,0.60,0.80",
-        help="Lista coma-separada de umbrales",
+        help="Comma-separated threshold list",
     )
     parser.add_argument(
         "--output",
         type=str,
         default="results/week2_person1_paired_threshold_sweep.json",
-        help="JSON de salida",
+        help="Output JSON path",
     )
     return parser.parse_args()
 
@@ -284,7 +284,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     if args.shots <= 0:
-        raise ValueError("--shots debe ser > 0")
+        raise ValueError("--shots must be > 0")
     thresholds = parse_thresholds(args.thresholds)
 
     cases = default_cases()
@@ -303,7 +303,7 @@ def main() -> None:
 
     save_json(report, Path(args.output))
     print_summary(report)
-    print(f"\nJSON guardado en: {args.output}")
+    print(f"\nJSON saved at: {args.output}")
 
 
 if __name__ == "__main__":

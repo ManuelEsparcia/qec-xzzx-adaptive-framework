@@ -12,9 +12,9 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
 # ---------------------------------------------------------------------
-# Bootstrap de ruta para permitir ejecutar:
+# Path bootstrap to allow running:
 #   py -3.10 scripts/run_week1_person2_noise_benchmark.py
-# además de:
+# as well as:
 #   py -3.10 -m scripts.run_week1_person2_noise_benchmark
 # ---------------------------------------------------------------------
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,7 +29,7 @@ from src.noise.noise_models import build_noise_model
 
 def _configure_stdio_utf8() -> None:
     """
-    Evita errores de impresión Unicode en Windows (cp1252).
+    Avoid Unicode printing issues on Windows (cp1252).
     """
     try:
         if hasattr(sys.stdout, "reconfigure"):
@@ -37,12 +37,12 @@ def _configure_stdio_utf8() -> None:
         if hasattr(sys.stderr, "reconfigure"):
             sys.stderr.reconfigure(encoding="utf-8", errors="replace")
     except Exception:
-        # Si no se puede reconfigurar, continuamos igualmente.
+        # If reconfiguration is unavailable, continue anyway.
         pass
 
 
 # ---------------------------------------------------------------------
-# Utilidades de descubrimiento de builder XZZX
+# XZZX builder discovery utilities
 # ---------------------------------------------------------------------
 def _maybe_extract_circuit(obj: Any) -> Optional[stim.Circuit]:
     if isinstance(obj, stim.Circuit):
@@ -82,7 +82,7 @@ def _call_builder_with_flexible_signature(
         "logical_basis": logical_basis,
         "basis": logical_basis,
         "memory_basis": logical_basis,
-        # Intenta forzar ideal/no-noise si el builder lo admite:
+        # Try to force ideal/no-noise if the builder supports it:
         "p": 0.0,
         "error_rate": 0.0,
         "noise_strength": 0.0,
@@ -95,7 +95,7 @@ def _call_builder_with_flexible_signature(
         if pname in name_map:
             kwargs[pname] = name_map[pname]
 
-    # Llamada con kwargs compatibles
+    # Call with compatible kwargs
     try:
         out = fn(**kwargs)
         c = _maybe_extract_circuit(out)
@@ -104,7 +104,7 @@ def _call_builder_with_flexible_signature(
     except Exception:
         pass
 
-    # Fallback posicional mínimo
+    # Minimal positional fallback
     try:
         out = fn(distance, rounds)
         c = _maybe_extract_circuit(out)
@@ -135,7 +135,7 @@ def build_base_xzzx_circuit(
         "create_xzzx_circuit",
     ]
 
-    # 1) Intento por nombres preferidos
+    # 1) Attempt preferred names
     for name in preferred_names:
         fn = getattr(xc, name, None)
         if callable(fn):
@@ -148,7 +148,7 @@ def build_base_xzzx_circuit(
             if c is not None:
                 return c
 
-    # 2) Exploración amplia de callables del módulo
+    # 2) Broad callable exploration inside the module
     for name in dir(xc):
         lname = name.lower()
         if "xzzx" not in lname or "circuit" not in lname:
@@ -165,12 +165,12 @@ def build_base_xzzx_circuit(
                 return c
 
     raise RuntimeError(
-        "No se encontró un builder de circuito XZZX compatible en src.codes.xzzx_code."
+        "No compatible XZZX circuit builder found in src.codes.xzzx_code."
     )
 
 
 # ---------------------------------------------------------------------
-# Métricas de benchmark
+# Benchmark metrics
 # ---------------------------------------------------------------------
 def estimate_ler_and_time(
     circuit: stim.Circuit,
@@ -179,7 +179,7 @@ def estimate_ler_and_time(
     seed: int,
 ) -> Dict[str, Any]:
     if shots <= 0:
-        raise ValueError(f"shots debe ser > 0. Recibido: {shots}")
+        raise ValueError(f"shots must be > 0. Received: {shots}")
 
     dem = circuit.detector_error_model(decompose_errors=True)
     matcher = pymatching.Matching.from_detector_error_model(dem)
@@ -197,7 +197,7 @@ def estimate_ler_and_time(
         obs = obs.reshape(-1, 1)
 
     if obs.shape[1] < 1:
-        raise RuntimeError("El circuito no contiene observables lógicos para medir LER.")
+        raise RuntimeError("Circuit does not contain logical observables for LER measurement.")
 
     ler = float((pred[:, 0] != obs[:, 0]).mean())
 
@@ -251,7 +251,7 @@ def run_case(
         seed = base_seed + idx * 97
         model_name = str(spec["name"])
 
-        # build_noise_model no acepta "name"; se usa solo como etiqueta de reporte
+        # build_noise_model does not accept "name"; it is used only as report label.
         model_spec = {k: v for k, v in spec.items() if k != "name"}
 
         model = build_noise_model(model_spec)
@@ -352,38 +352,38 @@ def print_table(cases: List[Dict[str, Any]]) -> None:
 def _positive_int(value: str) -> int:
     iv = int(value)
     if iv <= 0:
-        raise argparse.ArgumentTypeError("Debe ser un entero > 0.")
+        raise argparse.ArgumentTypeError("Must be an integer > 0.")
     return iv
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Week1 Person2 benchmark de modelos de ruido."
+        description="Week1 Person2 benchmark of noise models."
     )
     parser.add_argument(
         "--shots",
         type=_positive_int,
         default=400,
-        help="Número de shots por caso/modelo (default: 400).",
+        help="Number of shots per case/model (default: 400).",
     )
     parser.add_argument(
         "--logical-basis",
         type=str,
         default="x",
         choices=["x", "z"],
-        help="Base lógica para el circuito XZZX (default: x).",
+        help="Logical basis for the XZZX circuit (default: x).",
     )
     parser.add_argument(
         "--output",
         type=str,
         default="results/week1_person2_noise_benchmark.json",
-        help="Ruta JSON de salida.",
+        help="Output JSON path.",
     )
     parser.add_argument(
         "--seed",
         type=int,
         default=20260216,
-        help="Semilla base para muestreo.",
+        help="Base seed for sampling.",
     )
     return parser.parse_args()
 
@@ -448,7 +448,7 @@ def main() -> None:
     with out_path.open("w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False)
 
-    print(f"\nJSON guardado en: {out_path.as_posix()}")
+    print(f"\nJSON saved at: {out_path.as_posix()}")
 
 
 if __name__ == "__main__":

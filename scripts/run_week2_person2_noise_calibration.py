@@ -13,10 +13,10 @@ from typing import Any, Dict, List, Mapping, Optional, Sequence
 
 def _ensure_project_root_on_path() -> None:
     """
-    Permite ejecutar:
+    Allows running:
       - python scripts/run_week2_person2_noise_calibration.py
       - python -m scripts.run_week2_person2_noise_calibration
-    sin errores de import de `src`.
+    without `src` import errors.
     """
     script_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.abspath(os.path.join(script_dir, ".."))
@@ -40,7 +40,7 @@ ALLOWED_MODELS = {
 
 
 # ---------------------------------------------------------------------------
-# Utilidades
+# Utilities
 # ---------------------------------------------------------------------------
 
 def _utc_now_iso() -> str:
@@ -65,7 +65,7 @@ def _fmt_float(value: Any, ndigits: int = 6) -> str:
 
 def _call_with_supported_kwargs(func: Any, kwargs: Dict[str, Any]) -> Any:
     """
-    Llama a `func` filtrando kwargs según su firma.
+    Call `func` while filtering kwargs based on its signature.
     """
     sig = inspect.signature(func)
     accepted = {}
@@ -73,15 +73,15 @@ def _call_with_supported_kwargs(func: Any, kwargs: Dict[str, Any]) -> Any:
         if name in kwargs:
             accepted[name] = kwargs[name]
         elif param.kind == inspect.Parameter.VAR_KEYWORD:
-            # si acepta **kwargs, pasamos todo
+            # If **kwargs is accepted, pass everything.
             return func(**kwargs)
     return func(**accepted)
 
 
 def _build_obj_if_class(cls: Any, values: Dict[str, Any]) -> Any:
     """
-    Construye dataclass/objeto con las claves que acepte su __init__.
-    Si falla, devuelve el dict original.
+    Build a dataclass/object with keys accepted by __init__.
+    If it fails, return the original dict.
     """
     if cls is None:
         return values
@@ -94,12 +94,12 @@ def _build_obj_if_class(cls: Any, values: Dict[str, Any]) -> Any:
 
 
 # ---------------------------------------------------------------------------
-# Casos y sweeps por defecto
+# Default cases and sweeps
 # ---------------------------------------------------------------------------
 
 def default_cases() -> List[Dict[str, Any]]:
     """
-    Casos base usados en semanas 1-2 del roadmap.
+    Base cases used in weeks 1-2 of the roadmap.
     """
     return [
         {"case_name": "d3_r2_p0.005", "distance": 3, "rounds": 2, "p": 0.005},
@@ -110,7 +110,7 @@ def default_cases() -> List[Dict[str, Any]]:
 
 def default_sweep_templates(fast: bool = False) -> Dict[str, Dict[str, Any]]:
     """
-    Plantillas de barrido por modelo.
+    Sweep templates by model.
     """
     if fast:
         return {
@@ -146,7 +146,7 @@ def default_sweep_templates(fast: bool = False) -> Dict[str, Dict[str, Any]]:
             },
         }
 
-    # Modo completo
+    # Full mode
     return {
         "depolarizing": {
             "model_type": "depolarizing",
@@ -182,19 +182,19 @@ def default_sweep_templates(fast: bool = False) -> Dict[str, Dict[str, Any]]:
 
 
 # ---------------------------------------------------------------------------
-# Parseo CLI
+# CLI parsing
 # ---------------------------------------------------------------------------
 
 def _parse_models_csv(models_csv: str) -> List[str]:
     models = [m.strip().lower() for m in models_csv.split(",") if m.strip()]
     if not models:
-        raise ValueError("La lista de modelos está vacía.")
+        raise ValueError("Model list is empty.")
     bad = [m for m in models if m not in ALLOWED_MODELS]
     if bad:
         raise ValueError(
-            f"Modelos no válidos: {bad}. Permitidos: {sorted(ALLOWED_MODELS)}"
+            f"Invalid models: {bad}. Allowed: {sorted(ALLOWED_MODELS)}"
         )
-    # Conservar orden sin duplicados
+    # Keep order without duplicates
     unique: List[str] = []
     seen = set()
     for m in models:
@@ -212,56 +212,56 @@ def build_arg_parser() -> argparse.ArgumentParser:
         "--shots",
         type=int,
         default=300,
-        help="Número de shots por punto de calibración (default: 300).",
+        help="Number of shots per calibration point (default: 300).",
     )
     parser.add_argument(
         "--seed",
         type=int,
         default=2026,
-        help="Semilla base para reproducibilidad.",
+        help="Base seed for reproducibility.",
     )
     parser.add_argument(
         "--logical-basis",
         type=str,
         default="x",
         choices=["x", "z"],
-        help="Base lógica del código XZZX.",
+        help="Logical basis for the XZZX code.",
     )
     parser.add_argument(
         "--models",
         type=str,
         default="depolarizing,biased,circuit_level,phenomenological,correlated",
-        help="CSV de modelos a calibrar.",
+        help="CSV of models to calibrate.",
     )
     parser.add_argument(
         "--objective",
         type=str,
         default="min_ler",
         choices=["min_ler", "min_time"],
-        help="Objetivo de optimización del sweep.",
+        help="Sweep optimization objective.",
     )
     parser.add_argument(
         "--keep-soft",
         type=int,
         default=0,
-        help="Número de muestras soft a conservar por punto.",
+        help="Number of soft samples to keep per point.",
     )
     parser.add_argument(
         "--fast",
         action="store_true",
-        help="Usa barridos más cortos para ejecución rápida.",
+        help="Use shorter sweeps for faster execution.",
     )
     parser.add_argument(
         "--output",
         type=str,
         default="results/week2_person2_noise_calibration.json",
-        help="Ruta del JSON de salida.",
+        help="Output JSON path.",
     )
     return parser
 
 
 # ---------------------------------------------------------------------------
-# Integración con src.noise.noise_calibration
+# Integration with src.noise.noise_calibration
 # ---------------------------------------------------------------------------
 
 def _import_noise_calibration_module():
@@ -269,8 +269,8 @@ def _import_noise_calibration_module():
         return importlib.import_module("src.noise.noise_calibration")
     except Exception as exc:
         raise RuntimeError(
-            "No se pudo importar src.noise.noise_calibration. "
-            "Revisa estructura del repo y PYTHONPATH."
+            "Could not import src.noise.noise_calibration. "
+            "Check repository structure and PYTHONPATH."
         ) from exc
 
 
@@ -283,8 +283,8 @@ def _prepare_inputs(
     keep_soft_info_samples: int,
 ) -> Dict[str, Any]:
     """
-    Crea objetos usando las clases del módulo si existen;
-    si no, deja dicts (compatibilidad).
+    Build objects using module classes when available;
+    otherwise keep dicts (compatibility).
     """
     CalibrationCase = getattr(nc, "CalibrationCase", None)
     SweepSpec = getattr(nc, "SweepSpec", None)
@@ -313,7 +313,7 @@ def _run_multi_model_calibration(
     objective: str,
 ) -> Dict[str, Any]:
     """
-    Invoca run_multi_model_calibration de forma robusta a cambios de firma.
+    Call run_multi_model_calibration robustly against signature changes.
     """
     fn = getattr(nc, "run_multi_model_calibration", None)
     if fn is None:
@@ -360,7 +360,7 @@ def _run_multi_model_calibration(
         except Exception as exc:
             last_exc = exc
 
-    # Último intento posicional
+    # Last positional attempt
     try:
         out = fn(cases, sweeps, config, logical_basis=logical_basis)
         if isinstance(out, dict):
@@ -369,13 +369,13 @@ def _run_multi_model_calibration(
     except Exception as exc:
         if last_exc is not None:
             raise RuntimeError(
-                f"Fallo al ejecutar run_multi_model_calibration. Último error: {last_exc}"
+                f"Failed to run run_multi_model_calibration. Last error: {last_exc}"
             ) from exc
         raise
 
 
 # ---------------------------------------------------------------------------
-# Normalización de reporte / impresión
+# Report normalization / printing
 # ---------------------------------------------------------------------------
 
 def _infer_sweeps_summary_from_reports(
@@ -401,7 +401,7 @@ def _infer_sweeps_summary_from_reports(
             "mean_time",
         )
 
-        # Fallback: calcular medias a partir de best_point por caso
+        # Fallback: compute means from best_point by case
         if (mean_ler is None or mean_t is None) and isinstance(cases_summary, list) and cases_summary:
             lers: List[float] = []
             times: List[float] = []
@@ -470,19 +470,19 @@ def normalize_report(
         "selected_sweep_templates": list(selected_templates),
     }
 
-    # Claves estándar
+    # Standard keys
     for k in ("num_sweeps", "sweeps_summary", "sweeps_reports"):
         if k in raw_report:
             report[k] = raw_report[k]
 
-    # Fallback de nombres alternativos
+    # Fallback for alternate key names
     if "sweeps_reports" not in report:
         if "reports" in raw_report and isinstance(raw_report["reports"], list):
             report["sweeps_reports"] = raw_report["reports"]
         elif "sweeps" in raw_report and isinstance(raw_report["sweeps"], list):
             report["sweeps_reports"] = raw_report["sweeps"]
 
-    # Si no viene summary, inferirla
+    # If summary is missing, infer it
     if "sweeps_summary" not in report and isinstance(report.get("sweeps_reports"), list):
         report["sweeps_summary"] = _infer_sweeps_summary_from_reports(report["sweeps_reports"])
 
@@ -494,7 +494,7 @@ def normalize_report(
         else:
             report["num_sweeps"] = len(selected_templates)
 
-    # Guardar raw si no hay estructura estándar
+    # Keep raw report if no standard structure exists
     if "sweeps_summary" not in report and "sweeps_reports" not in report:
         report["raw_report"] = raw_report
 
@@ -554,9 +554,9 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     args = parser.parse_args(argv)
 
     if args.shots <= 0:
-        parser.error("--shots debe ser > 0")
+        parser.error("--shots must be > 0")
     if args.keep_soft < 0:
-        parser.error("--keep-soft debe ser >= 0")
+        parser.error("--keep-soft must be >= 0")
 
     try:
         selected_models = _parse_models_csv(args.models)

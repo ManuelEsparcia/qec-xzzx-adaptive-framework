@@ -18,11 +18,11 @@ from src.decoders.mwpm_decoder import MWPMDecoderWithSoftInfo
 @dataclass(frozen=True)
 class Week1Person1PipelineConfig:
     """
-    Configuración del pipeline de integración (Semana 1, Persona 1).
+    Integration pipeline configuration (Week 1, Person 1).
     """
     distance: int = 3
     rounds: int = 3
-    noise_model: Any = "depolarizing"  # str | dict | callable | objeto con apply_to_circuit
+    noise_model: Any = "depolarizing"  # str | dict | callable | object with apply_to_circuit
     p: float = 0.01
     logical_basis: str = "x"
     shots: int = 300
@@ -38,15 +38,15 @@ def run_week1_person1_pipeline(
     config: Week1Person1PipelineConfig,
 ) -> Dict[str, Any]:
     """
-    Ejecuta pipeline completo de integración:
-      1) Genera circuito XZZX
-      2) Construye decoder MWPM con soft-info
-      3) Ejecuta benchmark
-      4) Calcula LER de referencia con helper de xzzx_code
+    Run the full integration pipeline:
+      1) Generate XZZX circuit
+      2) Build decoder MWPM with soft-info
+      3) Run benchmark
+      4) Compute reference LER with xzzx_code helper
 
     Returns
     -------
-    dict con:
+    dict with:
       - metadata
       - config
       - circuit_summary
@@ -54,7 +54,7 @@ def run_week1_person1_pipeline(
       - reference
       - status
     """
-    # 1) Circuito
+    # 1) Circuit
     circuit = generate_xzzx_circuit(
         distance=config.distance,
         rounds=config.rounds,
@@ -63,17 +63,17 @@ def run_week1_person1_pipeline(
         logical_basis=config.logical_basis,
     )
 
-    # 2) Summary rápido del circuito
+    # 2) Quick circuit summary
     c_summary = circuit_summary(circuit)
 
-    # 3) Decoder + benchmark integrado
+    # 3) Decoder + integrated benchmark
     decoder = MWPMDecoderWithSoftInfo(circuit)
     bench = decoder.benchmark(
         shots=config.shots,
         keep_soft_info_samples=config.keep_soft_info_samples,
     )
 
-    # 4) LER referencia por helper directo (consistencia cruzada)
+    # 4) Reference LER via direct helper (cross-consistency)
     ref_shots = int(max(1, config.reference_ler_shots))
     ler_ref = float(logical_error_rate_mwpm(circuit, shots=ref_shots))
 
@@ -96,7 +96,7 @@ def run_week1_person1_pipeline(
 
 def save_pipeline_result(result: Dict[str, Any], output_path: str | Path) -> Path:
     """
-    Guarda resultado del pipeline en JSON.
+    Save pipeline result to JSON.
     """
     path = Path(output_path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -112,7 +112,7 @@ def run_and_save_week1_person1_pipeline(
     output_path: str | Path,
 ) -> Dict[str, Any]:
     """
-    Conveniencia: ejecuta pipeline y guarda JSON.
+    Convenience wrapper: run pipeline and save JSON.
     """
     result = run_week1_person1_pipeline(config)
     save_pipeline_result(result, output_path)
@@ -120,7 +120,7 @@ def run_and_save_week1_person1_pipeline(
 
 
 if __name__ == "__main__":
-    # Ejecución rápida manual:
+    # Quick manual run:
     # py -3.10 src/pipelines/week1_person1_pipeline.py
     cfg = Week1Person1PipelineConfig(
         distance=3,

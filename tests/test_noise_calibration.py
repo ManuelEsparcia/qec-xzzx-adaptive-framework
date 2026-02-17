@@ -22,7 +22,7 @@ from src.noise.noise_calibration import (
 
 
 # =============================================================================
-# Validaciones de dataclasses
+# Validation de dataclasses
 # =============================================================================
 def test_calibration_case_valid() -> None:
     c = CalibrationCase(case_name="d3r2", distance=3, rounds=2, p=0.01, logical_basis="x")
@@ -112,7 +112,7 @@ def test_calibration_config_invalid_raises(kwargs: Dict[str, Any]) -> None:
 
 
 # =============================================================================
-# Smoke real del builder / simulación
+# Real builder/simulation smoke test
 # =============================================================================
 def test_build_base_xzzx_circuit_smoke() -> None:
     circuit = build_base_xzzx_circuit(distance=3, rounds=2, logical_basis="x")
@@ -180,7 +180,7 @@ def test_run_single_calibration_point_invalid_probability_raises() -> None:
 
 
 # =============================================================================
-# run_noise_sweep (mockeado para ser determinista y rápido)
+# run_noise_sweep (mocked to be deterministic and fast)
 # =============================================================================
 def test_run_noise_sweep_contract_min_ler(monkeypatch: pytest.MonkeyPatch) -> None:
     import src.noise.noise_calibration as nc
@@ -244,7 +244,7 @@ def test_run_noise_sweep_contract_min_ler(monkeypatch: pytest.MonkeyPatch) -> No
     assert len(report["cases_summary"]) == 2
     assert len(report["aggregates"]["per_value_summary"]) == 3
 
-    # Mejor valor global debe ser 0.20 (con nuestra función fake)
+    # Mejor valor global must be 0.20 (with nuestra función fake)
     assert report["aggregates"]["global_best"]["sweep_value"] == 0.20
 
 

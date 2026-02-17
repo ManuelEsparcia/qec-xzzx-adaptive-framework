@@ -1,5 +1,4 @@
-# scripts/run_week2_person1_decoder_comparison.py
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import argparse
 import json
@@ -10,12 +9,13 @@ from pathlib import Path
 from statistics import mean
 from typing import Any, Dict, List
 
-# Asegura import de "src" al ejecutar como script suelto
+# Ensure "src" import works when running this script directly.
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.codes.xzzx_code import generate_xzzx_circuit  # noqa: E402
+from src.decoders.belief_matching_decoder import BeliefMatchingDecoderWithSoftInfo  # noqa: E402
 from src.decoders.mwpm_decoder import MWPMDecoderWithSoftInfo  # noqa: E402
 from src.decoders.union_find_decoder import UnionFindDecoderWithSoftInfo  # noqa: E402
 from src.switching.adaptive_decoder import AdaptiveConfig, AdaptiveDecoder  # noqa: E402
@@ -36,7 +36,6 @@ def utc_now_iso() -> str:
 
 
 def default_cases() -> List[ComparisonCase]:
-    # Base robusta y rápida para evidencia de Persona 1 en Semana 2
     return [
         ComparisonCase(name="d3_r2_p0.005", distance=3, rounds=2, p=0.005),
         ComparisonCase(name="d3_r3_p0.010", distance=3, rounds=3, p=0.010),
@@ -66,19 +65,21 @@ def run_one_case(
 
     mwpm = MWPMDecoderWithSoftInfo(circuit)
     uf = UnionFindDecoderWithSoftInfo(circuit, prefer_union_find=True)
+    bm = BeliefMatchingDecoderWithSoftInfo(circuit, prefer_belief_propagation=True)
+
     adaptive = AdaptiveDecoder(
         circuit=circuit,
         fast_decoder=uf,
         accurate_decoder=mwpm,
         config=AdaptiveConfig(
             g_threshold=g_threshold,
-            compare_against_mwpm_in_benchmark=False,  # referencia MWPM ya la medimos aparte
+            compare_against_mwpm_in_benchmark=False,
         ),
     )
 
-    # Benchmarks independientes
     mwpm_res = mwpm.benchmark(shots=shots, keep_soft_info_samples=keep_soft)
     uf_res = uf.benchmark(shots=shots, keep_soft_info_samples=keep_soft)
+    bm_res = bm.benchmark(shots=shots, keep_soft_info_samples=keep_soft)
     adp_res = adaptive.benchmark_adaptive(
         shots=shots,
         g_threshold=g_threshold,
@@ -92,6 +93,9 @@ def run_one_case(
     uf_er = float(uf_res["error_rate"])
     uf_t = float(uf_res["avg_decode_time"])
 
+    bm_er = float(bm_res["error_rate"])
+    bm_t = float(bm_res["avg_decode_time"])
+
     adp_er = float(adp_res["error_rate_adaptive"])
     adp_t = float(adp_res["avg_decode_time_adaptive"])
     switch_rate = float(adp_res["switch_rate"])
@@ -104,27 +108,26 @@ def run_one_case(
         "noise_model": case.noise_model,
         "logical_basis": case.logical_basis,
         "shots": shots,
-
         "mwpm_error_rate": mwpm_er,
         "mwpm_avg_decode_time_sec": mwpm_t,
-
         "uf_error_rate": uf_er,
         "uf_avg_decode_time_sec": uf_t,
         "uf_speedup_vs_mwpm": safe_speedup(mwpm_t, uf_t),
-
+        "bm_error_rate": bm_er,
+        "bm_avg_decode_time_sec": bm_t,
+        "bm_speedup_vs_mwpm": safe_speedup(mwpm_t, bm_t),
         "adaptive_error_rate": adp_er,
         "adaptive_avg_decode_time_sec": adp_t,
         "adaptive_speedup_vs_mwpm": safe_speedup(mwpm_t, adp_t),
         "adaptive_switch_rate": switch_rate,
         "g_threshold": g_threshold,
-
         "num_detectors": int(adp_res["num_detectors"]),
         "num_observables": int(adp_res["num_observables"]),
         "status": "ok",
     }
 
-    # Guardamos también trozos útiles de trazabilidad
     row["backend_info_uf"] = uf_res.get("backend_info", {})
+    row["backend_info_bm"] = bm_res.get("backend_info", {})
     row["samples_adaptive"] = adp_res.get("samples", [])
     return row
 
@@ -150,13 +153,14 @@ def run_comparison(
     agg: Dict[str, Any] = {
         "mean_mwpm_error_rate": mean([r["mwpm_error_rate"] for r in rows]) if rows else float("nan"),
         "mean_uf_error_rate": mean([r["uf_error_rate"] for r in rows]) if rows else float("nan"),
+        "mean_bm_error_rate": mean([r["bm_error_rate"] for r in rows]) if rows else float("nan"),
         "mean_adaptive_error_rate": mean([r["adaptive_error_rate"] for r in rows]) if rows else float("nan"),
-
         "mean_mwpm_avg_decode_time_sec": mean([r["mwpm_avg_decode_time_sec"] for r in rows]) if rows else float("nan"),
         "mean_uf_avg_decode_time_sec": mean([r["uf_avg_decode_time_sec"] for r in rows]) if rows else float("nan"),
+        "mean_bm_avg_decode_time_sec": mean([r["bm_avg_decode_time_sec"] for r in rows]) if rows else float("nan"),
         "mean_adaptive_avg_decode_time_sec": mean([r["adaptive_avg_decode_time_sec"] for r in rows]) if rows else float("nan"),
-
         "mean_uf_speedup_vs_mwpm": mean([r["uf_speedup_vs_mwpm"] for r in rows]) if rows else float("nan"),
+        "mean_bm_speedup_vs_mwpm": mean([r["bm_speedup_vs_mwpm"] for r in rows]) if rows else float("nan"),
         "mean_adaptive_speedup_vs_mwpm": mean([r["adaptive_speedup_vs_mwpm"] for r in rows]) if rows else float("nan"),
         "mean_adaptive_switch_rate": mean([r["adaptive_switch_rate"] for r in rows]) if rows else float("nan"),
     }
@@ -185,16 +189,16 @@ def save_json(data: Dict[str, Any], output_path: Path) -> Path:
 
 def print_table(report: Dict[str, Any]) -> None:
     rows = report.get("cases_summary", [])
-    print("\n=== Week 2 Person 1 - Decoder Comparison (MWPM vs UF vs Adaptive) ===")
+    print("\n=== Week 2 Person 1 - Decoder Comparison (MWPM vs UF vs BM vs Adaptive) ===")
     if not rows:
-        print("No hay casos para mostrar.")
+        print("No cases to show.")
         return
 
     header = (
         f"{'CASE':<15} {'d':>2} {'r':>2} {'p':>7} "
-        f"{'ER_MWPM':>9} {'ER_UF':>9} {'ER_ADP':>9} "
-        f"{'t_MWPM':>10} {'t_UF':>10} {'t_ADP':>10} "
-        f"{'spd_UF':>8} {'spd_ADP':>8} {'sw%':>7}"
+        f"{'ER_MWPM':>9} {'ER_UF':>9} {'ER_BM':>9} {'ER_ADP':>9} "
+        f"{'t_MWPM':>10} {'t_UF':>10} {'t_BM':>10} {'t_ADP':>10} "
+        f"{'spd_UF':>8} {'spd_BM':>8} {'spd_ADP':>8} {'sw%':>7}"
     )
     print(header)
     print("-" * len(header))
@@ -207,11 +211,14 @@ def print_table(report: Dict[str, Any]) -> None:
             f"{r['p']:>7.4f} "
             f"{r['mwpm_error_rate']:>9.4f} "
             f"{r['uf_error_rate']:>9.4f} "
+            f"{r['bm_error_rate']:>9.4f} "
             f"{r['adaptive_error_rate']:>9.4f} "
             f"{r['mwpm_avg_decode_time_sec']:>10.6f} "
             f"{r['uf_avg_decode_time_sec']:>10.6f} "
+            f"{r['bm_avg_decode_time_sec']:>10.6f} "
             f"{r['adaptive_avg_decode_time_sec']:>10.6f} "
             f"{r['uf_speedup_vs_mwpm']:>8.3f} "
+            f"{r['bm_speedup_vs_mwpm']:>8.3f} "
             f"{r['adaptive_speedup_vs_mwpm']:>8.3f} "
             f"{100.0 * r['adaptive_switch_rate']:>6.2f}%"
         )
@@ -227,16 +234,16 @@ def print_table(report: Dict[str, Any]) -> None:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Run Week 2 Person 1 decoder comparison: MWPM vs UF vs Adaptive"
+        description="Run Week 2 Person 1 decoder comparison: MWPM vs UF vs BM vs Adaptive"
     )
-    parser.add_argument("--shots", type=int, default=300, help="Shots por caso (default: 300)")
-    parser.add_argument("--keep-soft", type=int, default=80, help="Muestras soft-info guardadas (default: 80)")
-    parser.add_argument("--g-threshold", type=float, default=0.65, help="Umbral adaptativo (default: 0.65)")
+    parser.add_argument("--shots", type=int, default=300, help="Shots per case (default: 300)")
+    parser.add_argument("--keep-soft", type=int, default=80, help="Saved soft-info samples (default: 80)")
+    parser.add_argument("--g-threshold", type=float, default=0.65, help="Adaptive threshold (default: 0.65)")
     parser.add_argument(
         "--output",
         type=str,
         default="results/week2_person1_decoder_comparison.json",
-        help="Ruta JSON de salida",
+        help="Output JSON path",
     )
     return parser.parse_args()
 
@@ -245,11 +252,11 @@ def main() -> None:
     args = parse_args()
 
     if args.shots <= 0:
-        raise ValueError(f"--shots debe ser > 0. Recibido: {args.shots}")
+        raise ValueError(f"--shots must be > 0. Received: {args.shots}")
     if args.keep_soft < 0:
-        raise ValueError(f"--keep-soft debe ser >= 0. Recibido: {args.keep_soft}")
+        raise ValueError(f"--keep-soft must be >= 0. Received: {args.keep_soft}")
     if not (0.0 <= args.g_threshold <= 1.0):
-        raise ValueError(f"--g-threshold debe estar en [0,1]. Recibido: {args.g_threshold}")
+        raise ValueError(f"--g-threshold must be in [0,1]. Received: {args.g_threshold}")
 
     report = run_comparison(
         cases=default_cases(),
@@ -259,7 +266,7 @@ def main() -> None:
     )
     saved = save_json(report, Path(args.output))
     print_table(report)
-    print(f"\nJSON guardado en: {saved}")
+    print(f"\nJSON saved at: {saved}")
 
 
 if __name__ == "__main__":

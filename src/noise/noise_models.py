@@ -12,7 +12,7 @@ NoiseSpec = Tuple[str, List[Any], NoiseArg]
 
 
 # ---------------------------------------------------------------------
-# Utilidades internas
+# Internal utilities
 # ---------------------------------------------------------------------
 META_GATES = {
     "DETECTOR",
@@ -42,7 +42,7 @@ RESET_GATES = {
     "RZ",
 }
 
-# Conjunto razonable de compuertas 2q para tratar targets por pares
+# Reasonable set of 2q gates to process targets by pairs
 TWO_QUBIT_GATES = {
     "CX",
     "CY",
@@ -64,18 +64,18 @@ TWO_QUBIT_GATES = {
 
 def _validate_prob(name: str, value: float) -> None:
     if not (0.0 <= float(value) <= 1.0):
-        raise ValueError(f"{name} debe estar en [0,1]. Recibido: {value}")
+        raise ValueError(f"{name} must be in [0,1]. Received: {value}")
 
 
 def _extract_qubit_targets(targets: Sequence[Any]) -> List[int]:
-    """Extrae índices de qubits de una lista de targets de stim."""
+    """Extract qubit indices from a stim target list."""
     out: List[int] = []
     seen = set()
 
     for t in targets:
         q: Optional[int] = None
 
-        # GateTarget de stim
+        # stim GateTarget
         if hasattr(t, "is_qubit_target") and getattr(t, "is_qubit_target"):
             if hasattr(t, "value"):
                 q = int(getattr(t, "value"))
@@ -85,7 +85,7 @@ def _extract_qubit_targets(targets: Sequence[Any]) -> List[int]:
                 except Exception:
                     q = None
         else:
-            # Entero "crudo" (por compatibilidad)
+            # Raw integer target (for compatibility)
             if isinstance(t, int) and t >= 0:
                 q = int(t)
 
@@ -108,7 +108,7 @@ def _collect_qubits(circuit: stim.Circuit) -> List[int]:
 
 
 def _paired_qubits_for_two_qubit_gate(gate: str, qubits: List[int]) -> List[Tuple[int, int]]:
-    """Devuelve pares (q0,q1), (q2,q3), ... si parece instrucción 2q en broadcast."""
+    """Return pairs (q0,q1), (q2,q3), ... when a 2q gate is broadcast."""
     if len(qubits) < 2:
         return []
 
@@ -124,7 +124,7 @@ def _paired_qubits_for_two_qubit_gate(gate: str, qubits: List[int]) -> List[Tupl
 def _is_measurement_gate(gate: str) -> bool:
     if gate in MEASUREMENT_GATES:
         return True
-    # Soporte adicional por prefijo
+    # Extra support by prefix
     return gate.startswith("M")
 
 
@@ -146,12 +146,12 @@ def _append_noise_spec(out: stim.Circuit, spec: NoiseSpec) -> None:
 
 
 # ---------------------------------------------------------------------
-# API de modelos de ruido
+# Noise model API
 # ---------------------------------------------------------------------
 @dataclass
 class NoiseModel:
     """
-    Clase base de modelo de ruido.
+    Base class for noise models.
 
     Contrato principal:
       - apply_to_circuit(circuit) -> stim.Circuit
@@ -159,7 +159,7 @@ class NoiseModel:
     """
 
     p: float = 0.001
-    seed: Optional[int] = None  # reservado (si en futuro se usa ruido dependiente de seed)
+    seed: Optional[int] = None  # reservado (si en futuro se usa noise dependiente de seed)
 
     def __post_init__(self) -> None:
         _validate_prob("p", self.p)
@@ -186,7 +186,7 @@ class NoiseModel:
 
     def apply_to_circuit(self, circuit: stim.Circuit) -> stim.Circuit:
         if not isinstance(circuit, stim.Circuit):
-            raise TypeError(f"circuit debe ser stim.Circuit. Recibido: {type(circuit)}")
+            raise TypeError(f"circuit must be stim.Circuit. Received: {type(circuit)}")
         all_qubits = _collect_qubits(circuit)
         return self._transform_circuit(circuit, all_qubits=all_qubits)
 
@@ -194,7 +194,7 @@ class NoiseModel:
         out = stim.Circuit()
 
         for op in circuit:
-            # Repeat block (recursivo)
+            # Repeat block (recursive)
             if hasattr(op, "body_copy"):
                 repeat_count = int(op.repeat_count)
                 body = op.body_copy()
@@ -202,13 +202,13 @@ class NoiseModel:
                 out.append(stim.CircuitRepeatBlock(repeat_count, body_noisy))
                 continue
 
-            # Instrucción normal
+            # Regular instruction
             gate = op.name
             targets = op.targets_copy()
             gate_args = list(op.gate_args_copy())
             qubits = _extract_qubit_targets(targets)
 
-            # Ruido pre
+            # Noise pre
             for spec in self.pre_noise_specs(
                 gate=gate,
                 qubits=qubits,
@@ -217,10 +217,10 @@ class NoiseModel:
             ):
                 _append_noise_spec(out, spec)
 
-            # Instrucción original
+            # Original instruction
             out.append(gate, targets, gate_args)
 
-            # Ruido post
+            # Noise post
             for spec in self.post_noise_specs(
                 gate=gate,
                 qubits=qubits,
@@ -234,7 +234,7 @@ class NoiseModel:
 
 @dataclass
 class DepolarizingNoise(NoiseModel):
-    """Ruido depolarizante uniforme tras operaciones de datos."""
+    """Uniform depolarizing noise after data operations."""
 
     def post_noise_specs(
         self,
@@ -264,8 +264,8 @@ class DepolarizingNoise(NoiseModel):
 @dataclass
 class BiasedNoise(NoiseModel):
     """
-    Ruido sesgado hacia Z.
-    eta >= 1 normalmente (eta grande => más peso en Z).
+    Z-biased noise.
+    eta >= 1 is typical (larger eta => more Z weight).
     """
 
     eta: float = 100.0
@@ -273,7 +273,7 @@ class BiasedNoise(NoiseModel):
     def __post_init__(self) -> None:
         super().__post_init__()
         if self.eta <= 0:
-            raise ValueError(f"eta debe ser > 0. Recibido: {self.eta}")
+            raise ValueError(f"eta must be > 0. Received: {self.eta}")
 
     @property
     def px(self) -> float:
@@ -310,11 +310,11 @@ class BiasedNoise(NoiseModel):
 @dataclass
 class CircuitLevelNoise(NoiseModel):
     """
-    Ruido por nivel de circuito:
-      - p1 para gates 1q
-      - p2 para gates 2q
-      - pm para error de lectura (X_ERROR antes de medir)
-      - pr para error tras reset
+    Circuit-level noise:
+      - p1 for gates 1q
+      - p2 for gates 2q
+      - pm for readout error (X_ERROR before measurement)
+      - pr for post-reset error
     """
 
     p1: Optional[float] = None
@@ -343,7 +343,7 @@ class CircuitLevelNoise(NoiseModel):
         gate_args: List[float],
         all_qubits: List[int],
     ) -> List[NoiseSpec]:
-        # Error de medida: aproximación como X_ERROR antes de medición
+        # Measurement error: approximated as X_ERROR before measurement
         if _is_measurement_gate(gate) and qubits and self.pm > 0:
             return [("X_ERROR", [q], self.pm) for q in qubits]
         return []
@@ -380,9 +380,9 @@ class CircuitLevelNoise(NoiseModel):
 @dataclass
 class PhenomenologicalNoise(NoiseModel):
     """
-    Ruido fenomenológico simplificado:
+    Simplified phenomenological noise:
       - p_meas: X_ERROR antes de medir
-      - p_idle: Z_ERROR tras TICK (sobre qubits del circuito)
+      - p_idle: Z_ERROR tras TICK (sobre qubits del circuit)
       - p_reset: X_ERROR tras reset
       - p_data: Z_ERROR tras operaciones de datos (opcional)
     """
@@ -452,9 +452,9 @@ class PhenomenologicalNoise(NoiseModel):
 @dataclass
 class CorrelatedNoise(NoiseModel):
     """
-    Ruido correlado (aproximado):
-      1) Error base independiente en qubits activos: <PAULI>_ERROR(p)
-      2) Errores correlados de pares vecinos: CORRELATED_ERROR(p_pair) P(q_i) P(q_j)
+    Approximate correlated noise:
+      1) Base independent error on active qubits: <PAULI>_ERROR(p)
+      2) Correlated errors on neighboring pairs: CORRELATED_ERROR(p_pair) P(q_i) P(q_j)
 
     p_pair = p * correlation_strength / distance, truncado a [0,1].
     """
@@ -468,16 +468,16 @@ class CorrelatedNoise(NoiseModel):
         super().__post_init__()
         if self.correlation_length < 1:
             raise ValueError(
-                f"correlation_length debe ser >= 1. Recibido: {self.correlation_length}"
+                f"correlation_length must be >= 1. Received: {self.correlation_length}"
             )
         _validate_prob("correlation_strength", self.correlation_strength)
         self.topology = self.topology.lower().strip()
         if self.topology not in {"line", "grid"}:
-            raise ValueError(f"topology debe ser 'line' o 'grid'. Recibido: {self.topology}")
+            raise ValueError(f"topology must be 'line' or 'grid'. Received: {self.topology}")
 
         self.pauli = self.pauli.upper().strip()
         if self.pauli not in {"X", "Y", "Z"}:
-            raise ValueError(f"pauli debe ser X/Y/Z. Recibido: {self.pauli}")
+            raise ValueError(f"pauli must be X/Y/Z. Received: {self.pauli}")
 
     @property
     def pauli_error_gate(self) -> str:
@@ -498,7 +498,7 @@ class CorrelatedNoise(NoiseModel):
         n_qubits: int,
     ) -> List[Tuple[int, int]]:
         """
-        Devuelve lista de (neighbor, distancia) hasta max_distance.
+        Return a list of (neighbor, distance) up to max_distance.
         """
         if n_qubits <= 0 or max_distance < 1:
             return []
@@ -544,18 +544,18 @@ class CorrelatedNoise(NoiseModel):
 
         specs: List[NoiseSpec] = []
 
-        # 1) Error base independiente en qubits activos
+        # 1) Base independent error on active qubits
         if self.p > 0:
             for q in qubits:
                 specs.append((self.pauli_error_gate, [q], self.p))
 
-        # 2) Correlación por pares cercanos
+        # 2) Correlation by nearby pairs
         if self.correlation_strength <= 0:
             return specs
 
         n_qubits = (max(all_qubits) + 1) if all_qubits else (max(qubits) + 1)
 
-        # map pair -> min distance encontrada
+        # map pair -> minimum observed distance
         pair_dist: Dict[Tuple[int, int], int] = {}
         for q in qubits:
             for nb, dist in self.get_neighbors(
@@ -575,7 +575,7 @@ class CorrelatedNoise(NoiseModel):
             if p_pair <= 0:
                 continue
 
-            # CORRELATED_ERROR requiere targets Pauli (X/Y/Z target)
+            # CORRELATED_ERROR requires Pauli targets (X/Y/Z target)
             targets = [self._pauli_target(a), self._pauli_target(b)]
             specs.append(("CORRELATED_ERROR", targets, p_pair))
 
@@ -583,14 +583,14 @@ class CorrelatedNoise(NoiseModel):
 
 
 # ---------------------------------------------------------------------
-# Factoría / helpers públicos
+# Public factory / helpers
 # ---------------------------------------------------------------------
 NoiseModelLike = Union[str, Dict[str, Any], NoiseModel]
 
 
 def build_noise_model(model: NoiseModelLike, **kwargs: Any) -> NoiseModel:
     """
-    Construye un NoiseModel desde:
+    Build a NoiseModel from:
       - instancia NoiseModel
       - string ("depolarizing", "biased", "circuit_level", "phenomenological", "correlated")
       - dict {"type": "...", ...params...}
@@ -602,7 +602,7 @@ def build_noise_model(model: NoiseModelLike, **kwargs: Any) -> NoiseModel:
 
     if isinstance(model, dict):
         if "type" not in model:
-            raise ValueError("Si model es dict, debe incluir clave 'type'.")
+            raise ValueError("If model is dict, it must include key 'type'.")
         mtype = str(model["type"]).strip().lower()
         model_params = {k: v for k, v in model.items() if k != "type"}
         params = {**model_params, **params}
@@ -610,8 +610,8 @@ def build_noise_model(model: NoiseModelLike, **kwargs: Any) -> NoiseModel:
         mtype = model.strip().lower()
     else:
         raise TypeError(
-            "model debe ser NoiseModel | str | dict. "
-            f"Recibido: {type(model)}"
+            "model must be NoiseModel | str | dict. "
+            f"Received: {type(model)}"
         )
 
     aliases = {
@@ -640,7 +640,7 @@ def build_noise_model(model: NoiseModelLike, **kwargs: Any) -> NoiseModel:
         return CorrelatedNoise(**params)
 
     valid = ", ".join(sorted(set(aliases.values())))
-    raise ValueError(f"Modelo de ruido desconocido: '{mtype}'. Válidos: {valid}")
+    raise ValueError(f"Unknown noise model: '{mtype}'. Valid options: {valid}")
 
 
 def apply_noise_model(
@@ -649,7 +649,7 @@ def apply_noise_model(
     **kwargs: Any,
 ) -> stim.Circuit:
     """
-    Helper de conveniencia:
+    Convenience helper:
       noisy_circuit = apply_noise_model(circuit, model="biased", p=0.01, eta=100)
     """
     noise_model = build_noise_model(model, **kwargs)
