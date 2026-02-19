@@ -16,6 +16,8 @@
 
 ### Results
 - `results/week3_person2_threshold_scan_quick.json`
+- `results/week3_person2_threshold_scan_verify.json`
+- `results/week3_person2_threshold_scan_full.json`
 
 ## 3) Implemented roadmap behaviors
 - Grid scan over:
@@ -59,5 +61,33 @@ Use:
 - `--shots 300`
 - `--checkpoint-every 24`
 
-## 7) Status
-Week 3 Person 2 code deliverable is implemented, tested, and ready for full-scale execution.
+## 7) Full run closure (executed)
+Execution date:
+- **2026-02-19**
+
+Command used:
+- `python -m scripts.run_week3_person2_threshold_scan --distances 3,5,7 --p-values 0.001,0.002,0.003,0.005,0.0075,0.01,0.015,0.02 --decoders mwpm,uf,bm,adaptive --noise-models depolarizing,biased_eta10,biased_eta100,biased_eta500,circuit_level,correlated --shots 300 --checkpoint-every 24 --adaptive-fast-mode --output results/week3_person2_threshold_scan_full.json`
+
+Full-run output:
+- `results/week3_person2_threshold_scan_full.json`
+
+Closure metrics:
+- total points: `576`
+- threshold estimates: `24`
+- point status: `576/576 ok`
+- metadata partial flag: `False`
+
+Validated config in output:
+- distances: `3,5,7`
+- p-values: `0.001,0.002,0.003,0.005,0.0075,0.01,0.015,0.02`
+- decoders: `mwpm,uf,bm,adaptive`
+- noise models: `depolarizing,biased_eta10,biased_eta100,biased_eta500,circuit_level,correlated`
+- shots: `300`
+- rounds: `3`
+
+Post-run test check:
+- `python -m pytest -q -p no:cacheprovider tests/test_week3_person2_threshold_scan_smoke.py`
+  - **3 passed**
+
+## 8) Status
+Week 3 Person 2 is now fully completed (implementation + validation + full-scale execution evidence).
