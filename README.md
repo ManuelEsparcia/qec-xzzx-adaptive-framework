@@ -111,6 +111,12 @@ python -m scripts.run_week3_person1_profile_adaptive --distance 7 --rounds 5 --p
 python -m scripts.run_week3_person1_scaling_benchmark --shots 300 --repeats 2 --g-threshold 0.35
 ```
 
+### Week 3 - person 2 threshold scan (massive simulations)
+
+```bash
+python -m scripts.run_week3_person2_threshold_scan --distances 3,5,7 --p-values 0.001,0.002,0.003,0.005,0.0075,0.01,0.015,0.02 --decoders mwpm,uf,bm,adaptive --noise-models depolarizing,biased_eta10,biased_eta100,biased_eta500,circuit_level,correlated --shots 300
+```
+
 ## Results
 
 JSON outputs are written under `results/`.
