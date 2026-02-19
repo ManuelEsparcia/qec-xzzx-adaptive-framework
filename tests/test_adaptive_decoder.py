@@ -242,6 +242,7 @@ def test_benchmark_adaptive_without_reference_key() -> None:
 
     assert "reference_mwpm" not in res
     assert "speedup_vs_mwpm" not in res
+    assert res["fast_mode"] is False
     assert 0.0 <= float(res["switch_rate"]) <= 1.0
 
 
@@ -269,6 +270,51 @@ def test_benchmark_threshold_controls_switch_rate_deterministically() -> None:
 
     assert float(res_low["switch_rate"]) == 0.0
     assert float(res_high["switch_rate"]) == 1.0
+
+    # Same behavior in fast mode.
+    res_low_fast = ad.benchmark_adaptive(
+        shots=25,
+        g_threshold=0.3,
+        compare_against_mwpm=False,
+        fast_mode=True,
+    )
+    res_high_fast = ad.benchmark_adaptive(
+        shots=25,
+        g_threshold=0.8,
+        compare_against_mwpm=False,
+        fast_mode=True,
+    )
+    assert res_low_fast["fast_mode"] is True
+    assert res_high_fast["fast_mode"] is True
+    assert float(res_low_fast["switch_rate"]) == 0.0
+    assert float(res_high_fast["switch_rate"]) == 1.0
+
+
+def test_benchmark_adaptive_fast_mode_sample_contract() -> None:
+    circuit = _build_circuit(distance=3, rounds=2, p=0.01)
+    ad = AdaptiveDecoder(
+        circuit,
+        config=AdaptiveConfig(g_threshold=0.65, compare_against_mwpm_in_benchmark=False),
+    )
+
+    res = ad.benchmark_adaptive(
+        shots=20,
+        keep_samples=5,
+        compare_against_mwpm=False,
+        fast_mode=True,
+    )
+
+    assert res["fast_mode"] is True
+    assert "reference_mwpm" not in res
+    assert "speedup_vs_mwpm" not in res
+    assert isinstance(res["samples"], list)
+    assert len(res["samples"]) <= 5
+    if res["samples"]:
+        s0 = res["samples"][0]
+        assert "selected_decoder" in s0
+        assert "switched" in s0
+        assert "fast_confidence_score" in s0
+        assert "total_decode_time" in s0
 
 
 def test_benchmark_invalid_shots_raises() -> None:

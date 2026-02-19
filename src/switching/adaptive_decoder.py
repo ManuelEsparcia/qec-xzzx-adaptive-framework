@@ -168,6 +168,7 @@ class AdaptiveDecoder:
         g_threshold: Optional[float] = None,
         keep_samples: Optional[int] = 100,
         compare_against_mwpm: Optional[bool] = None,
+        fast_mode: bool = False,
     ) -> Dict[str, Any]:
         """
         Benchmark for the adaptive decoder.
@@ -231,12 +232,21 @@ class AdaptiveDecoder:
             syndrome_i = dets[i]
             obs_i = (obs[i] & 1).astype(np.uint8)
 
-            pred_a, info_a, dt_a = self.decode_adaptive(syndrome_i, g_threshold=threshold)
-            pred_a = (pred_a & 1).astype(np.uint8)
-
-            decode_times_adapt.append(float(dt_a))
-            if bool(info_a.get("switched", False)):
-                switch_count += 1
+            if fast_mode:
+                pred_a, switched, selected_decoder, fast_conf, dt_a = self._decode_adaptive_fastpath(
+                    syndrome_i,
+                    threshold=threshold,
+                )
+                pred_a = (pred_a & 1).astype(np.uint8)
+                decode_times_adapt.append(float(dt_a))
+                if switched:
+                    switch_count += 1
+            else:
+                pred_a, info_a, dt_a = self.decode_adaptive(syndrome_i, g_threshold=threshold)
+                pred_a = (pred_a & 1).astype(np.uint8)
+                decode_times_adapt.append(float(dt_a))
+                if bool(info_a.get("switched", False)):
+                    switch_count += 1
 
             n_a = min(obs_i.size, pred_a.size)
             if n_a == 0:
@@ -246,15 +256,25 @@ class AdaptiveDecoder:
             failures_adapt.append(fail_a)
 
             if keep_samples is None or len(samples) < keep_samples:
-                samples.append(
-                    {
-                        "selected_decoder": info_a.get("selected_decoder", "unknown"),
-                        "switched": bool(info_a.get("switched", False)),
-                        "fast_confidence_score": float(info_a.get("fast_confidence_score", 0.0)),
-                        "final_confidence_score": float(info_a.get("final_confidence_score", 0.0)),
-                        "total_decode_time": float(info_a.get("total_decode_time", dt_a)),
-                    }
-                )
+                if fast_mode:
+                    samples.append(
+                        {
+                            "selected_decoder": selected_decoder,
+                            "switched": bool(switched),
+                            "fast_confidence_score": float(fast_conf),
+                            "total_decode_time": float(dt_a),
+                        }
+                    )
+                else:
+                    samples.append(
+                        {
+                            "selected_decoder": info_a.get("selected_decoder", "unknown"),
+                            "switched": bool(info_a.get("switched", False)),
+                            "fast_confidence_score": float(info_a.get("fast_confidence_score", 0.0)),
+                            "final_confidence_score": float(info_a.get("final_confidence_score", 0.0)),
+                            "total_decode_time": float(info_a.get("total_decode_time", dt_a)),
+                        }
+                    )
 
             if do_compare:
                 pred_m, _, dt_m = self.accurate_decoder.decode_with_confidence(syndrome_i)
@@ -281,6 +301,7 @@ class AdaptiveDecoder:
             "avg_decode_time_adaptive": avg_time_adapt,
             "switch_rate": switch_rate,
             "samples": samples,
+            "fast_mode": bool(fast_mode),
             "status": "ok",
         }
 
@@ -300,6 +321,34 @@ class AdaptiveDecoder:
             result["speedup_vs_mwpm"] = speedup_vs_mwpm
 
         return result
+
+    def _decode_adaptive_fastpath(
+        self,
+        syndrome: np.ndarray,
+        *,
+        threshold: float,
+    ) -> Tuple[np.ndarray, bool, str, float, float]:
+        """
+        Low-overhead adaptive path for benchmark loops:
+        avoids constructing the full adaptive_info dictionary.
+        """
+        t0 = perf_counter()
+
+        pred_fast, soft_fast, _ = self.fast_decoder.decode_with_confidence(syndrome)
+        pred_fast = self._normalize_prediction(pred_fast)
+        fast_conf = float(soft_fast.get("confidence_score", 0.0))
+
+        switched = bool(fast_conf < threshold)
+        if switched:
+            pred_final, _, _ = self.accurate_decoder.decode_with_confidence(syndrome)
+            pred_final = self._normalize_prediction(pred_final)
+            selected_decoder = "mwpm"
+        else:
+            pred_final = pred_fast
+            selected_decoder = "uf"
+
+        total_decode_time = float(perf_counter() - t0)
+        return pred_final, switched, selected_decoder, fast_conf, total_decode_time
 
 
 __all__ = ["AdaptiveConfig", "AdaptiveDecoder"]
