@@ -19,7 +19,7 @@ Build a reproducible pipeline for:
   - Union-Find with soft-info: implemented
   - Belief-Matching/BP with soft-info: implemented (robust fallback included)
   - Adaptive (UF -> MWPM switch by threshold): implemented
-- Test suite: passing (`118 passed` in local conda environment `qec-xzzx`)
+- Test suite: passing in local conda environment `qec-xzzx`
 
 ## Repository Structure
 
@@ -91,6 +91,24 @@ python -m scripts.run_week2_person1_paired_threshold_sweep --shots 2000 --thresh
 
 ```bash
 python -m scripts.run_week2_person2_noise_calibration --quick
+```
+
+### Week 3 - adaptive fast_mode benchmark
+
+```bash
+python -m scripts.run_week3_person1_fastmode_benchmark --shots 400 --repeats 3 --g-threshold 0.35
+```
+
+### Week 3 - adaptive profile (cProfile)
+
+```bash
+python -m scripts.run_week3_person1_profile_adaptive --distance 7 --rounds 5 --p 0.01 --shots 500 --g-threshold 0.35
+```
+
+### Week 3 - scaling benchmark (larger d/rounds)
+
+```bash
+python -m scripts.run_week3_person1_scaling_benchmark --shots 300 --repeats 2 --g-threshold 0.35
 ```
 
 ## Results

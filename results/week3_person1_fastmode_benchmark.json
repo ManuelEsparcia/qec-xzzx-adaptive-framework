@@ -1,0 +1,271 @@
+{
+  "metadata": {
+    "report_name": "week3_person1_fastmode_benchmark",
+    "timestamp_utc": "2026-02-19T21:46:51+00:00",
+    "shots": 200,
+    "repeats": 3,
+    "seed": 2026,
+    "g_threshold": 0.35,
+    "num_cases": 3,
+    "keep_samples": 10
+  },
+  "cases_summary": [
+    {
+      "case_name": "d3_r2_p0.005",
+      "distance": 3,
+      "rounds": 2,
+      "p": 0.005,
+      "shots": 200,
+      "repeats": 3,
+      "g_threshold": 0.35,
+      "num_detectors": 16,
+      "num_observables": 1,
+      "means": {
+        "standard_error_rate": 0.0016666666666666668,
+        "fast_error_rate": 0.0016666666666666668,
+        "standard_avg_decode_time_sec": 0.00010324166311571995,
+        "fast_avg_decode_time_sec": 0.00011041716672480106,
+        "standard_switch_rate": 0.0,
+        "fast_switch_rate": 0.0,
+        "time_speedup_fast_vs_standard": 0.9350146012443425,
+        "delta_error_rate_fast_minus_standard": 0.0,
+        "delta_switch_rate_fast_minus_standard": 0.0
+      },
+      "repeats_summary": [
+        {
+          "repeat_index": 0,
+          "sampler_seed": 5211,
+          "standard": {
+            "error_rate": 0.0,
+            "avg_decode_time_sec": 0.00011485850089229643,
+            "switch_rate": 0.0,
+            "fast_mode": false
+          },
+          "fast": {
+            "error_rate": 0.0,
+            "avg_decode_time_sec": 0.00012580999871715902,
+            "switch_rate": 0.0,
+            "fast_mode": true
+          },
+          "time_speedup_fast_vs_standard": 0.9129520869840934,
+          "delta_error_rate_fast_minus_standard": 0.0,
+          "delta_switch_rate_fast_minus_standard": 0.0
+        },
+        {
+          "repeat_index": 1,
+          "sampler_seed": 15218,
+          "standard": {
+            "error_rate": 0.005,
+            "avg_decode_time_sec": 7.856100331991911e-05,
+            "switch_rate": 0.0,
+            "fast_mode": false
+          },
+          "fast": {
+            "error_rate": 0.005,
+            "avg_decode_time_sec": 0.00011302050552330911,
+            "switch_rate": 0.0,
+            "fast_mode": true
+          },
+          "time_speedup_fast_vs_standard": 0.6951039809649131,
+          "delta_error_rate_fast_minus_standard": 0.0,
+          "delta_switch_rate_fast_minus_standard": 0.0
+        },
+        {
+          "repeat_index": 2,
+          "sampler_seed": 25225,
+          "standard": {
+            "error_rate": 0.0,
+            "avg_decode_time_sec": 0.00011630548513494432,
+            "switch_rate": 0.0,
+            "fast_mode": false
+          },
+          "fast": {
+            "error_rate": 0.0,
+            "avg_decode_time_sec": 9.242099593393505e-05,
+            "switch_rate": 0.0,
+            "fast_mode": true
+          },
+          "time_speedup_fast_vs_standard": 1.2584314198267517,
+          "delta_error_rate_fast_minus_standard": 0.0,
+          "delta_switch_rate_fast_minus_standard": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "case_name": "d3_r3_p0.010",
+      "distance": 3,
+      "rounds": 3,
+      "p": 0.01,
+      "shots": 200,
+      "repeats": 3,
+      "g_threshold": 0.35,
+      "num_detectors": 24,
+      "num_observables": 1,
+      "means": {
+        "standard_error_rate": 0.018333333333333333,
+        "fast_error_rate": 0.018333333333333333,
+        "standard_avg_decode_time_sec": 0.00010091033997014165,
+        "fast_avg_decode_time_sec": 0.00011697850190103055,
+        "standard_switch_rate": 0.0,
+        "fast_switch_rate": 0.0,
+        "time_speedup_fast_vs_standard": 0.8626400435142917,
+        "delta_error_rate_fast_minus_standard": 0.0,
+        "delta_switch_rate_fast_minus_standard": 0.0
+      },
+      "repeats_summary": [
+        {
+          "repeat_index": 0,
+          "sampler_seed": 1005311,
+          "standard": {
+            "error_rate": 0.02,
+            "avg_decode_time_sec": 9.360150783322751e-05,
+            "switch_rate": 0.0,
+            "fast_mode": false
+          },
+          "fast": {
+            "error_rate": 0.02,
+            "avg_decode_time_sec": 0.0001329130050726235,
+            "switch_rate": 0.0,
+            "fast_mode": true
+          },
+          "time_speedup_fast_vs_standard": 0.7042313713551489,
+          "delta_error_rate_fast_minus_standard": 0.0,
+          "delta_switch_rate_fast_minus_standard": 0.0
+        },
+        {
+          "repeat_index": 1,
+          "sampler_seed": 1015318,
+          "standard": {
+            "error_rate": 0.02,
+            "avg_decode_time_sec": 0.00010169149725697935,
+            "switch_rate": 0.0,
+            "fast_mode": false
+          },
+          "fast": {
+            "error_rate": 0.02,
+            "avg_decode_time_sec": 0.00011674849782139062,
+            "switch_rate": 0.0,
+            "fast_mode": true
+          },
+          "time_speedup_fast_vs_standard": 0.8710304556770705,
+          "delta_error_rate_fast_minus_standard": 0.0,
+          "delta_switch_rate_fast_minus_standard": 0.0
+        },
+        {
+          "repeat_index": 2,
+          "sampler_seed": 1025325,
+          "standard": {
+            "error_rate": 0.015,
+            "avg_decode_time_sec": 0.00010743801482021809,
+            "switch_rate": 0.0,
+            "fast_mode": false
+          },
+          "fast": {
+            "error_rate": 0.015,
+            "avg_decode_time_sec": 0.00010127400280907751,
+            "switch_rate": 0.0,
+            "fast_mode": true
+          },
+          "time_speedup_fast_vs_standard": 1.060864702096954,
+          "delta_error_rate_fast_minus_standard": 0.0,
+          "delta_switch_rate_fast_minus_standard": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "case_name": "d5_r3_p0.010",
+      "distance": 5,
+      "rounds": 3,
+      "p": 0.01,
+      "shots": 200,
+      "repeats": 3,
+      "g_threshold": 0.35,
+      "num_detectors": 72,
+      "num_observables": 1,
+      "means": {
+        "standard_error_rate": 0.018333333333333333,
+        "fast_error_rate": 0.018333333333333333,
+        "standard_avg_decode_time_sec": 0.00012817000465778012,
+        "fast_avg_decode_time_sec": 0.00012625366255330543,
+        "standard_switch_rate": 0.0,
+        "fast_switch_rate": 0.0,
+        "time_speedup_fast_vs_standard": 1.0151785070287809,
+        "delta_error_rate_fast_minus_standard": 0.0,
+        "delta_switch_rate_fast_minus_standard": 0.0
+      },
+      "repeats_summary": [
+        {
+          "repeat_index": 0,
+          "sampler_seed": 2007308,
+          "standard": {
+            "error_rate": 0.03,
+            "avg_decode_time_sec": 0.00011853550095111131,
+            "switch_rate": 0.0,
+            "fast_mode": false
+          },
+          "fast": {
+            "error_rate": 0.03,
+            "avg_decode_time_sec": 0.00014075549086555838,
+            "switch_rate": 0.0,
+            "fast_mode": true
+          },
+          "time_speedup_fast_vs_standard": 0.8421376688198237,
+          "delta_error_rate_fast_minus_standard": 0.0,
+          "delta_switch_rate_fast_minus_standard": 0.0
+        },
+        {
+          "repeat_index": 1,
+          "sampler_seed": 2017315,
+          "standard": {
+            "error_rate": 0.015,
+            "avg_decode_time_sec": 0.0001385770074557513,
+            "switch_rate": 0.0,
+            "fast_mode": false
+          },
+          "fast": {
+            "error_rate": 0.015,
+            "avg_decode_time_sec": 0.00011667850310914218,
+            "switch_rate": 0.0,
+            "fast_mode": true
+          },
+          "time_speedup_fast_vs_standard": 1.187682424466185,
+          "delta_error_rate_fast_minus_standard": 0.0,
+          "delta_switch_rate_fast_minus_standard": 0.0
+        },
+        {
+          "repeat_index": 2,
+          "sampler_seed": 2027322,
+          "standard": {
+            "error_rate": 0.01,
+            "avg_decode_time_sec": 0.00012739750556647777,
+            "switch_rate": 0.0,
+            "fast_mode": false
+          },
+          "fast": {
+            "error_rate": 0.01,
+            "avg_decode_time_sec": 0.0001213269936852157,
+            "switch_rate": 0.0,
+            "fast_mode": true
+          },
+          "time_speedup_fast_vs_standard": 1.0500343056139023,
+          "delta_error_rate_fast_minus_standard": 0.0,
+          "delta_switch_rate_fast_minus_standard": 0.0
+        }
+      ],
+      "status": "ok"
+    }
+  ],
+  "aggregates": {
+    "mean_standard_error_rate": 0.012777777777777779,
+    "mean_fast_error_rate": 0.012777777777777779,
+    "mean_standard_avg_decode_time_sec": 0.00011077400258121391,
+    "mean_fast_avg_decode_time_sec": 0.00011788311039304568,
+    "mean_standard_switch_rate": 0.0,
+    "mean_fast_switch_rate": 0.0,
+    "mean_time_speedup_fast_vs_standard": 0.9376110505958051,
+    "mean_delta_error_rate_fast_minus_standard": 0.0,
+    "mean_delta_switch_rate_fast_minus_standard": 0.0
+  }
+}
