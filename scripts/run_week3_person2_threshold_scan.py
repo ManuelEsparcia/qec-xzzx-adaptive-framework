@@ -33,6 +33,17 @@ NOISE_ALLOWED = {
     "correlated",
 }
 
+Q1_FULL_DISTANCES = [3, 5, 7, 9, 11, 13]
+Q1_FULL_DECODERS = ["mwpm", "uf", "bm", "adaptive"]
+Q1_FULL_NOISE_MODELS = [
+    "depolarizing",
+    "biased_eta10",
+    "biased_eta100",
+    "biased_eta500",
+    "circuit_level",
+    "correlated",
+]
+
 
 @dataclass(frozen=True)
 class ScanPoint:
@@ -71,6 +82,13 @@ def parse_csv_ints(raw: str) -> List[int]:
     if not vals:
         raise ValueError("Empty int list.")
     return vals
+
+
+def linspace_closed(start: float, stop: float, n: int) -> List[float]:
+    if n <= 1:
+        return [float(start)]
+    step = (float(stop) - float(start)) / float(n - 1)
+    return [float(start + i * step) for i in range(n)]
 
 
 def parse_decoders_csv(raw: str) -> List[str]:

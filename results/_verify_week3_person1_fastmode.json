@@ -1,0 +1,214 @@
+{
+  "metadata": {
+    "report_name": "week3_person1_fastmode_benchmark",
+    "timestamp_utc": "2026-02-19T22:05:36+00:00",
+    "shots": 80,
+    "repeats": 2,
+    "seed": 4040,
+    "g_threshold": 0.35,
+    "num_cases": 3,
+    "keep_samples": 5
+  },
+  "cases_summary": [
+    {
+      "case_name": "d3_r2_p0.005",
+      "distance": 3,
+      "rounds": 2,
+      "p": 0.005,
+      "shots": 80,
+      "repeats": 2,
+      "g_threshold": 0.35,
+      "num_detectors": 16,
+      "num_observables": 1,
+      "means": {
+        "standard_error_rate": 0.0,
+        "fast_error_rate": 0.0,
+        "standard_avg_decode_time_sec": 0.0001945075098774396,
+        "fast_avg_decode_time_sec": 0.00018521625170251355,
+        "standard_switch_rate": 0.0,
+        "fast_switch_rate": 0.0,
+        "time_speedup_fast_vs_standard": 1.0501643786088992,
+        "delta_error_rate_fast_minus_standard": 0.0,
+        "delta_switch_rate_fast_minus_standard": 0.0
+      },
+      "repeats_summary": [
+        {
+          "repeat_index": 0,
+          "sampler_seed": 7225,
+          "standard": {
+            "error_rate": 0.0,
+            "avg_decode_time_sec": 0.00020216125703882427,
+            "switch_rate": 0.0,
+            "fast_mode": false
+          },
+          "fast": {
+            "error_rate": 0.0,
+            "avg_decode_time_sec": 0.00016539999342057854,
+            "switch_rate": 0.0,
+            "fast_mode": true
+          },
+          "time_speedup_fast_vs_standard": 1.2222567417204746,
+          "delta_error_rate_fast_minus_standard": 0.0,
+          "delta_switch_rate_fast_minus_standard": 0.0
+        },
+        {
+          "repeat_index": 1,
+          "sampler_seed": 17232,
+          "standard": {
+            "error_rate": 0.0,
+            "avg_decode_time_sec": 0.00018685376271605493,
+            "switch_rate": 0.0,
+            "fast_mode": false
+          },
+          "fast": {
+            "error_rate": 0.0,
+            "avg_decode_time_sec": 0.00020503250998444856,
+            "switch_rate": 0.0,
+            "fast_mode": true
+          },
+          "time_speedup_fast_vs_standard": 0.9113372446653827,
+          "delta_error_rate_fast_minus_standard": 0.0,
+          "delta_switch_rate_fast_minus_standard": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "case_name": "d3_r3_p0.010",
+      "distance": 3,
+      "rounds": 3,
+      "p": 0.01,
+      "shots": 80,
+      "repeats": 2,
+      "g_threshold": 0.35,
+      "num_detectors": 24,
+      "num_observables": 1,
+      "means": {
+        "standard_error_rate": 0.0125,
+        "fast_error_rate": 0.0125,
+        "standard_avg_decode_time_sec": 0.00020231375092407688,
+        "fast_avg_decode_time_sec": 0.0002157549941330217,
+        "standard_switch_rate": 0.0,
+        "fast_switch_rate": 0.0,
+        "time_speedup_fast_vs_standard": 0.9377013576767649,
+        "delta_error_rate_fast_minus_standard": 0.0,
+        "delta_switch_rate_fast_minus_standard": 0.0
+      },
+      "repeats_summary": [
+        {
+          "repeat_index": 0,
+          "sampler_seed": 1007325,
+          "standard": {
+            "error_rate": 0.0125,
+            "avg_decode_time_sec": 0.00020618375856429338,
+            "switch_rate": 0.0,
+            "fast_mode": false
+          },
+          "fast": {
+            "error_rate": 0.0125,
+            "avg_decode_time_sec": 0.0002024837420322001,
+            "switch_rate": 0.0,
+            "fast_mode": true
+          },
+          "time_speedup_fast_vs_standard": 1.0182731536614178,
+          "delta_error_rate_fast_minus_standard": 0.0,
+          "delta_switch_rate_fast_minus_standard": 0.0
+        },
+        {
+          "repeat_index": 1,
+          "sampler_seed": 1017332,
+          "standard": {
+            "error_rate": 0.0125,
+            "avg_decode_time_sec": 0.00019844374328386037,
+            "switch_rate": 0.0,
+            "fast_mode": false
+          },
+          "fast": {
+            "error_rate": 0.0125,
+            "avg_decode_time_sec": 0.00022902624623384328,
+            "switch_rate": 0.0,
+            "fast_mode": true
+          },
+          "time_speedup_fast_vs_standard": 0.8664672566883135,
+          "delta_error_rate_fast_minus_standard": 0.0,
+          "delta_switch_rate_fast_minus_standard": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "case_name": "d5_r3_p0.010",
+      "distance": 5,
+      "rounds": 3,
+      "p": 0.01,
+      "shots": 80,
+      "repeats": 2,
+      "g_threshold": 0.35,
+      "num_detectors": 72,
+      "num_observables": 1,
+      "means": {
+        "standard_error_rate": 0.0,
+        "fast_error_rate": 0.0,
+        "standard_avg_decode_time_sec": 0.0002476287554600276,
+        "fast_avg_decode_time_sec": 0.000274400002672337,
+        "standard_switch_rate": 0.0,
+        "fast_switch_rate": 0.0,
+        "time_speedup_fast_vs_standard": 0.9024371466778841,
+        "delta_error_rate_fast_minus_standard": 0.0,
+        "delta_switch_rate_fast_minus_standard": 0.0
+      },
+      "repeats_summary": [
+        {
+          "repeat_index": 0,
+          "sampler_seed": 2009322,
+          "standard": {
+            "error_rate": 0.0,
+            "avg_decode_time_sec": 0.0002485362580046058,
+            "switch_rate": 0.0,
+            "fast_mode": false
+          },
+          "fast": {
+            "error_rate": 0.0,
+            "avg_decode_time_sec": 0.0002907362504629418,
+            "switch_rate": 0.0,
+            "fast_mode": true
+          },
+          "time_speedup_fast_vs_standard": 0.8548512874086371,
+          "delta_error_rate_fast_minus_standard": 0.0,
+          "delta_switch_rate_fast_minus_standard": 0.0
+        },
+        {
+          "repeat_index": 1,
+          "sampler_seed": 2019329,
+          "standard": {
+            "error_rate": 0.0,
+            "avg_decode_time_sec": 0.0002467212529154494,
+            "switch_rate": 0.0,
+            "fast_mode": false
+          },
+          "fast": {
+            "error_rate": 0.0,
+            "avg_decode_time_sec": 0.00025806375488173215,
+            "switch_rate": 0.0,
+            "fast_mode": true
+          },
+          "time_speedup_fast_vs_standard": 0.9560476752286237,
+          "delta_error_rate_fast_minus_standard": 0.0,
+          "delta_switch_rate_fast_minus_standard": 0.0
+        }
+      ],
+      "status": "ok"
+    }
+  ],
+  "aggregates": {
+    "mean_standard_error_rate": 0.004166666666666667,
+    "mean_fast_error_rate": 0.004166666666666667,
+    "mean_standard_avg_decode_time_sec": 0.00021481667208718137,
+    "mean_fast_avg_decode_time_sec": 0.0002251237495026241,
+    "mean_standard_switch_rate": 0.0,
+    "mean_fast_switch_rate": 0.0,
+    "mean_time_speedup_fast_vs_standard": 0.9634342943211828,
+    "mean_delta_error_rate_fast_minus_standard": 0.0,
+    "mean_delta_switch_rate_fast_minus_standard": 0.0
+  }
+}
