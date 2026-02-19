@@ -564,7 +564,13 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         parser.error(str(exc))
 
     templates = default_sweep_templates(fast=args.fast)
-    selected_templates = [templates[m] for m in selected_models]
+    selected_templates = [
+        {
+            **templates[m],
+            "objective": args.objective,
+        }
+        for m in selected_models
+    ]
 
     nc = _import_noise_calibration_module()
     cases_dicts = default_cases()

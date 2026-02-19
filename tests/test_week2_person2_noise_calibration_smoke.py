@@ -127,3 +127,48 @@ def test_invalid_models_fail(tmp_path: Path) -> None:
         f"STDOUT:\n{result.stdout}\n\n"
         f"STDERR:\n{result.stderr}"
     )
+
+
+def test_objective_min_time_is_applied_to_sweeps(tmp_path: Path) -> None:
+    """
+    Regression check:
+    --objective must be propagated to each sweep definition.
+    """
+    output = tmp_path / "week2_person2_noise_calibration_min_time.json"
+
+    cmd = [
+        sys.executable,
+        "-m",
+        "scripts.run_week2_person2_noise_calibration",
+        "--shots",
+        "20",
+        "--seed",
+        "12345",
+        "--logical-basis",
+        "x",
+        "--models",
+        "depolarizing",
+        "--objective",
+        "min_time",
+        "--fast",
+        "--output",
+        str(output),
+    ]
+    result = _run_cmd(cmd, timeout=300)
+
+    assert result.returncode == 0, (
+        "Script failed.\n"
+        f"STDOUT:\n{result.stdout}\n\n"
+        f"STDERR:\n{result.stderr}"
+    )
+    assert output.exists(), "Output JSON was not created."
+
+    payload = json.loads(output.read_text(encoding="utf-8"))
+    assert payload.get("metadata", {}).get("objective") == "min_time"
+
+    sweeps_reports = payload.get("sweeps_reports", [])
+    assert isinstance(sweeps_reports, list) and sweeps_reports, (
+        "Expected non-empty sweeps_reports."
+    )
+    for rep in sweeps_reports:
+        assert rep.get("sweep", {}).get("objective") == "min_time"
