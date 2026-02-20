@@ -39,6 +39,8 @@ def test_week3_person2_threshold_scan_smoke(tmp_path: Path) -> None:
         "depolarizing,biased_eta10",
         "--shots",
         "20",
+        "--repeats",
+        "2",
         "--seed",
         "12345",
         "--g-threshold",
@@ -62,12 +64,25 @@ def test_week3_person2_threshold_scan_smoke(tmp_path: Path) -> None:
     cfg = payload.get("config", {})
     assert md.get("report_name") == "week3_person2_threshold_scan"
     assert cfg.get("adaptive_fast_mode") is True
+    assert cfg.get("repeats") == 2
 
     points = payload.get("points", [])
     assert isinstance(points, list) and points
     p0 = points[0]
     for k in ("decoder", "noise_model", "distance", "p_phys", "error_rate", "avg_decode_time_sec"):
         assert k in p0
+    for k in (
+        "repeats",
+        "repeat_runs",
+        "error_rate_std",
+        "error_rate_ci95_half_width",
+        "avg_decode_time_sec_std",
+        "avg_decode_time_sec_ci95_half_width",
+    ):
+        assert k in p0
+    assert int(p0["repeats"]) == 2
+    assert isinstance(p0["repeat_runs"], list)
+    assert len(p0["repeat_runs"]) == 2
 
     # threshold estimates may be empty for very small stochastic runs,
     # but the key must exist by contract.
@@ -91,6 +106,27 @@ def test_invalid_decoder_fails(tmp_path: Path) -> None:
     result = _run_cmd(cmd, timeout=180)
     assert result.returncode != 0, (
         "Expected failure with invalid decoder, but got return code 0.\n"
+        f"STDOUT:\n{result.stdout}\n\n"
+        f"STDERR:\n{result.stderr}"
+    )
+
+
+def test_invalid_repeats_fails(tmp_path: Path) -> None:
+    output = tmp_path / "week3_person2_threshold_scan_invalid_repeats.json"
+    cmd = [
+        sys.executable,
+        "-m",
+        "scripts.run_week3_person2_threshold_scan",
+        "--repeats",
+        "0",
+        "--shots",
+        "20",
+        "--output",
+        str(output),
+    ]
+    result = _run_cmd(cmd, timeout=180)
+    assert result.returncode != 0, (
+        "Expected failure with invalid repeats, but got return code 0.\n"
         f"STDOUT:\n{result.stdout}\n\n"
         f"STDERR:\n{result.stderr}"
     )

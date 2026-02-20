@@ -7,7 +7,7 @@ import sys
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from statistics import mean
+from statistics import mean, stdev
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 # Ensure "src" import works when running this script directly.
@@ -145,6 +145,29 @@ def _safe_speedup(ref: float, cand: float) -> float:
     return float(ref / cand)
 
 
+def _summary_stats(values: Sequence[float], *, clamp_01: bool = False) -> Dict[str, float]:
+    if not values:
+        raise ValueError("values must be non-empty")
+    vals = [float(v) for v in values]
+    n = len(vals)
+    m = float(mean(vals))
+    sd = float(stdev(vals)) if n > 1 else 0.0
+    ci_hw = float(1.96 * sd / math.sqrt(n)) if n > 1 else 0.0
+    lo = float(m - ci_hw)
+    hi = float(m + ci_hw)
+    if clamp_01:
+        lo = float(max(0.0, lo))
+        hi = float(min(1.0, hi))
+    return {
+        "n": float(n),
+        "mean": m,
+        "std": sd,
+        "ci95_half_width": ci_hw,
+        "ci95_low": lo,
+        "ci95_high": hi,
+    }
+
+
 def _benchmark_decoder(
     *,
     circuit: Any,
@@ -216,13 +239,15 @@ def _benchmark_decoder(
     raise ValueError(f"Unknown decoder: {decoder}")
 
 
-def run_point(
+def run_point_once(
     point: ScanPoint,
     *,
     logical_basis: str,
     g_threshold: float,
     adaptive_fast_mode: bool,
+    seed_override: Optional[int] = None,
 ) -> Dict[str, Any]:
+    run_seed = int(point.seed if seed_override is None else seed_override)
     base = generate_xzzx_circuit(
         distance=point.distance,
         rounds=point.rounds,
@@ -235,7 +260,7 @@ def run_point(
         circuit=noisy,
         decoder=point.decoder,
         shots=point.shots,
-        seed=point.seed,
+        seed=run_seed,
         g_threshold=g_threshold,
         adaptive_fast_mode=adaptive_fast_mode,
     )
@@ -247,13 +272,87 @@ def run_point(
         "rounds": int(point.rounds),
         "p_phys": float(point.p_phys),
         "shots": int(point.shots),
-        "seed": int(point.seed),
+        "seed": run_seed,
         "error_rate": float(metrics["error_rate"]),
         "avg_decode_time_sec": float(metrics["avg_decode_time_sec"]),
         "switch_rate": float(metrics.get("switch_rate", 0.0)),
         "status": "ok",
         **({"backend_info": metrics["backend_info"]} if "backend_info" in metrics else {}),
         **({"fast_mode": metrics["fast_mode"]} if "fast_mode" in metrics else {}),
+    }
+
+
+def run_point(
+    point: ScanPoint,
+    *,
+    logical_basis: str,
+    g_threshold: float,
+    adaptive_fast_mode: bool,
+    repeats: int,
+) -> Dict[str, Any]:
+    if not isinstance(repeats, int) or repeats <= 0:
+        raise ValueError("repeats must be int > 0")
+
+    per_repeat: List[Dict[str, Any]] = []
+    for r_idx in range(repeats):
+        run_seed = int(point.seed + r_idx * 10007)
+        out = run_point_once(
+            point,
+            logical_basis=logical_basis,
+            g_threshold=g_threshold,
+            adaptive_fast_mode=adaptive_fast_mode,
+            seed_override=run_seed,
+        )
+        per_repeat.append(out)
+
+    er_stats = _summary_stats([float(x["error_rate"]) for x in per_repeat], clamp_01=True)
+    t_stats = _summary_stats([float(x["avg_decode_time_sec"]) for x in per_repeat], clamp_01=False)
+    sw_stats = _summary_stats([float(x.get("switch_rate", 0.0)) for x in per_repeat], clamp_01=True)
+
+    sample0 = per_repeat[0]
+    repeat_runs: List[Dict[str, Any]] = []
+    for i, x in enumerate(per_repeat):
+        repeat_runs.append(
+            {
+                "repeat_index": int(i),
+                "seed": int(x["seed"]),
+                "error_rate": float(x["error_rate"]),
+                "avg_decode_time_sec": float(x["avg_decode_time_sec"]),
+                "switch_rate": float(x.get("switch_rate", 0.0)),
+            }
+        )
+
+    return {
+        "decoder": point.decoder,
+        "noise_model": point.noise_model,
+        "distance": int(point.distance),
+        "rounds": int(point.rounds),
+        "p_phys": float(point.p_phys),
+        "shots": int(point.shots),
+        "seed": int(point.seed),
+        "repeats": int(repeats),
+        "repeat_seeds": [int(x["seed"]) for x in per_repeat],
+        # Keep legacy keys as means for backward compatibility.
+        "error_rate": float(er_stats["mean"]),
+        "avg_decode_time_sec": float(t_stats["mean"]),
+        "switch_rate": float(sw_stats["mean"]),
+        # New uncertainty fields for error bars / CIs.
+        "error_rate_std": float(er_stats["std"]),
+        "error_rate_ci95_half_width": float(er_stats["ci95_half_width"]),
+        "error_rate_ci95_low": float(er_stats["ci95_low"]),
+        "error_rate_ci95_high": float(er_stats["ci95_high"]),
+        "avg_decode_time_sec_std": float(t_stats["std"]),
+        "avg_decode_time_sec_ci95_half_width": float(t_stats["ci95_half_width"]),
+        "avg_decode_time_sec_ci95_low": float(t_stats["ci95_low"]),
+        "avg_decode_time_sec_ci95_high": float(t_stats["ci95_high"]),
+        "switch_rate_std": float(sw_stats["std"]),
+        "switch_rate_ci95_half_width": float(sw_stats["ci95_half_width"]),
+        "switch_rate_ci95_low": float(sw_stats["ci95_low"]),
+        "switch_rate_ci95_high": float(sw_stats["ci95_high"]),
+        "repeat_runs": repeat_runs,
+        "status": "ok",
+        **({"backend_info": sample0["backend_info"]} if "backend_info" in sample0 else {}),
+        **({"fast_mode": sample0["fast_mode"]} if "fast_mode" in sample0 else {}),
     }
 
 
@@ -408,6 +507,7 @@ def build_report(
     decoders: Sequence[str],
     noise_models: Sequence[str],
     shots: int,
+    repeats: int,
     rounds: int,
     seed: int,
     g_threshold: float,
@@ -427,6 +527,7 @@ def build_report(
             "decoders": list(decoders),
             "noise_models": list(noise_models),
             "shots": int(shots),
+            "repeats": int(repeats),
             "rounds": int(rounds),
             "seed": int(seed),
             "g_threshold": float(g_threshold),
@@ -480,6 +581,7 @@ def parse_args() -> argparse.Namespace:
         help="CSV noise models.",
     )
     parser.add_argument("--shots", type=int, default=300, help="Shots per point.")
+    parser.add_argument("--repeats", type=int, default=1, help="Number of repeated runs per point for CI/error bars.")
     parser.add_argument("--seed", type=int, default=2026, help="Base seed.")
     parser.add_argument("--g-threshold", type=float, default=0.35, help="Adaptive threshold.")
     parser.add_argument(
@@ -511,6 +613,8 @@ def main() -> None:
         raise ValueError("--rounds must be > 0")
     if args.shots <= 0:
         raise ValueError("--shots must be > 0")
+    if args.repeats <= 0:
+        raise ValueError("--repeats must be > 0")
     if args.checkpoint_every < 0:
         raise ValueError("--checkpoint-every must be >= 0")
     if not (0.0 <= args.g_threshold <= 1.0):
@@ -541,11 +645,13 @@ def main() -> None:
                         logical_basis=args.logical_basis,
                         g_threshold=float(args.g_threshold),
                         adaptive_fast_mode=bool(args.adaptive_fast_mode),
+                        repeats=int(args.repeats),
                     )
                     rows.append(row)
                     print(
                         f"[{idx}/{total}] {decoder} | {noise} | d={d} | p={p:.6f} | "
-                        f"ER={row['error_rate']:.6f} | t={row['avg_decode_time_sec']:.6f}s"
+                        f"ER={row['error_rate']:.6f}+/-{row['error_rate_ci95_half_width']:.6f} | "
+                        f"t={row['avg_decode_time_sec']:.6f}+/-{row['avg_decode_time_sec_ci95_half_width']:.6f}s"
                     )
 
                     if args.checkpoint_every > 0 and (idx % args.checkpoint_every == 0):
@@ -556,6 +662,7 @@ def main() -> None:
                             decoders=decoders,
                             noise_models=noise_models,
                             shots=int(args.shots),
+                            repeats=int(args.repeats),
                             rounds=int(args.rounds),
                             seed=int(args.seed),
                             g_threshold=float(args.g_threshold),
@@ -572,6 +679,7 @@ def main() -> None:
         decoders=decoders,
         noise_models=noise_models,
         shots=int(args.shots),
+        repeats=int(args.repeats),
         rounds=int(args.rounds),
         seed=int(args.seed),
         g_threshold=float(args.g_threshold),
