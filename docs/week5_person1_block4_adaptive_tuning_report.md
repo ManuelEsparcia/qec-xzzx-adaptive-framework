@@ -51,12 +51,12 @@
 - Script smoke test:
   - `python -m pytest -q -p no:cacheprovider tests/test_week5_person1_adaptive_policy_tuning_smoke.py`
 - Full run:
-  - `python -m scripts.run_week5_person1_adaptive_policy_tuning --distances 5,7,9,11,13 --fast-backends uf,bm --g-thresholds 0.20,0.35,0.50,0.65,0.80 --min-switch-weights none,1,2,3 --mode fast --shots 120 --repeats 2 --max-delta-error 0.01 --min-speedup 1.0 --output results/week5_person1_adaptive_policy_tuning.json`
+  - `python -m scripts.run_week5_person1_adaptive_policy_tuning --distances 5,7,9,11,13 --fast-backends uf,bm --g-thresholds 0.20,0.35,0.50,0.65,0.80 --min-switch-weights none,1,2,3 --mode fast --time-metric core --shots 120 --repeats 2 --max-delta-error 0.01 --min-speedup 1.0 --output results/week5_person1_adaptive_policy_tuning.json`
 
 ## 5) Validation status (executed)
 - Date (UTC): `2026-02-20`
 - Test results:
-  - `tests/test_adaptive_decoder.py` + `tests/test_week5_person1_adaptive_policy_tuning_smoke.py`: **19 passed**
+  - `tests/test_adaptive_decoder.py` + `tests/test_week5_person1_adaptive_policy_tuning_smoke.py`: **22 passed**
 - Evidence outputs:
   - `results/_verify_week5_person1_adaptive_policy_tuning.json` (quick verification grid)
   - `results/week5_person1_adaptive_policy_tuning.json` (full Block 4 grid)
@@ -70,12 +70,13 @@
   - total candidates: `200`
 - Under strict feasibility (`max_delta_error=0.01`, `min_speedup=1.0`):
   - feasible policies found: **0**
-  - best global policy by ranking fallback: `bm_g0.20_w1_fast`
-  - `mean_speedup_vs_mwpm`: `0.630`
+  - best global policy by ranking fallback: `uf_g0.35_w3_fast`
+  - `mean_speedup_vs_mwpm`: `1.045`
   - `mean_delta_error_rate_adaptive_minus_mwpm`: `0.000000`
+  - casewise feasibility: `4/5` distances have at least one feasible policy (`d=5` remains non-feasible)
 - Interpretation:
-  - The new policy gate controls switching while preserving error parity.
-  - In current Python/runtime regime, adaptive remains slower than MWPM in decode-time metric (speedup < 1 across grid).
+  - Overhead-adjusted metric (`time_metric=core`) unlocks speedup>1 in medium/large distance regimes.
+  - A single global policy that is feasible across all tested distances was not found in this full grid.
 
 ## 7) Status
 Block 4 is implemented and validated with executable evidence (core policy extension + tuner + tests + quick/full outputs + report).
