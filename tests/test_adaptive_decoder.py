@@ -75,6 +75,18 @@ def test_invalid_threshold_in_config_raises() -> None:
         AdaptiveDecoder(circuit, config=bad_cfg)
 
 
+def test_invalid_min_syndrome_weight_in_config_raises() -> None:
+    circuit = _build_circuit()
+
+    bad_cfg_neg = AdaptiveConfig(min_syndrome_weight_for_switch=-1)
+    with pytest.raises(ValueError):
+        AdaptiveDecoder(circuit, config=bad_cfg_neg)
+
+    bad_cfg_type = AdaptiveConfig(min_syndrome_weight_for_switch=1.5)  # type: ignore[arg-type]
+    with pytest.raises(TypeError):
+        AdaptiveDecoder(circuit, config=bad_cfg_type)
+
+
 def test_invalid_decoder_interface_raises() -> None:
     circuit = _build_circuit()
 
@@ -94,6 +106,20 @@ def test_set_threshold_updates_value() -> None:
 
     with pytest.raises(ValueError):
         ad.set_threshold(-0.1)
+
+
+def test_set_min_syndrome_weight_updates_value() -> None:
+    circuit = _build_circuit()
+    ad = AdaptiveDecoder(circuit, config=AdaptiveConfig(min_syndrome_weight_for_switch=None))
+
+    ad.set_min_syndrome_weight_for_switch(3)
+    assert ad.config.min_syndrome_weight_for_switch == 3
+
+    ad.set_min_syndrome_weight_for_switch(None)
+    assert ad.config.min_syndrome_weight_for_switch is None
+
+    with pytest.raises(ValueError):
+        ad.set_min_syndrome_weight_for_switch(-2)
 
 
 def test_decode_adaptive_output_contract_real_decoders() -> None:
@@ -126,6 +152,7 @@ def test_decode_adaptive_output_contract_real_decoders() -> None:
     assert isinstance(info["switched"], bool)
     assert 0.0 <= float(info["g_threshold"]) <= 1.0
     assert 0.0 <= float(info["fast_confidence_score"]) <= 1.0
+    assert int(info["syndrome_weight"]) >= 0
     assert dt >= 0.0
     assert float(info["total_decode_time"]) >= 0.0
 
@@ -150,6 +177,35 @@ def test_decode_adaptive_switches_when_confidence_below_threshold() -> None:
     assert info["selected_decoder"] == "mwpm"
     # Must use la predicción del decoder preciso (accurate)
     assert pred[0] == 1
+
+
+def test_decode_adaptive_min_weight_gate_blocks_switch() -> None:
+    circuit = _build_circuit(distance=3, rounds=2, p=0.01)
+
+    fast = _DummyDecoder(pred_bit=0, confidence=0.2)
+    accurate = _DummyDecoder(pred_bit=1, confidence=0.95)
+
+    ad = AdaptiveDecoder(
+        circuit,
+        fast_decoder=fast,
+        accurate_decoder=accurate,
+        config=AdaptiveConfig(
+            g_threshold=0.5,
+            compare_against_mwpm_in_benchmark=False,
+            min_syndrome_weight_for_switch=2,
+        ),
+    )
+
+    # confidence is low (would normally switch), but syndrome weight is only 1.
+    syndrome = np.zeros(ad.num_detectors, dtype=np.uint8)
+    syndrome[0] = 1
+    pred, info, _ = ad.decode_adaptive(syndrome)
+
+    assert info["switched"] is False
+    assert info["selected_decoder"] == "uf"
+    assert int(info["syndrome_weight"]) == 1
+    assert info["min_syndrome_weight_for_switch"] == 2
+    assert pred[0] == 0
 
 
 def test_decode_adaptive_keeps_fast_when_confidence_above_threshold() -> None:
@@ -307,6 +363,7 @@ def test_benchmark_adaptive_fast_mode_sample_contract() -> None:
     assert res["fast_mode"] is True
     assert "reference_mwpm" not in res
     assert "speedup_vs_mwpm" not in res
+    assert res["min_syndrome_weight_for_switch"] is None
     assert isinstance(res["samples"], list)
     assert len(res["samples"]) <= 5
     if res["samples"]:
@@ -314,6 +371,7 @@ def test_benchmark_adaptive_fast_mode_sample_contract() -> None:
         assert "selected_decoder" in s0
         assert "switched" in s0
         assert "fast_confidence_score" in s0
+        assert "syndrome_weight" in s0
         assert "total_decode_time" in s0
 
 

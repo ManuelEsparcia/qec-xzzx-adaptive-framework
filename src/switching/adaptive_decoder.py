@@ -27,6 +27,9 @@ class AdaptiveConfig:
     g_threshold: float = 0.65
     # If True, benchmark also measures pure MWPM reference to compute speedup.
     compare_against_mwpm_in_benchmark: bool = True
+    # Optional policy gate: only switch to accurate decoder when syndrome weight
+    # is at least this value. If None, no syndrome-weight gate is applied.
+    min_syndrome_weight_for_switch: Optional[int] = None
 
 
 class AdaptiveDecoder:
@@ -54,6 +57,7 @@ class AdaptiveDecoder:
         self.config = config or AdaptiveConfig()
 
         self._validate_threshold(self.config.g_threshold)
+        self._validate_min_syndrome_weight(self.config.min_syndrome_weight_for_switch)
 
         # Default decoders if none are injected
         self.fast_decoder = fast_decoder or UnionFindDecoderWithSoftInfo(circuit)
@@ -89,6 +93,21 @@ class AdaptiveDecoder:
             raise ValueError(f"g_threshold must be in [0,1]. Received: {g_threshold}")
 
     @staticmethod
+    def _validate_min_syndrome_weight(min_weight: Optional[int]) -> None:
+        if min_weight is None:
+            return
+        if not isinstance(min_weight, int):
+            raise TypeError(
+                "min_syndrome_weight_for_switch must be int or None. "
+                f"Received: {type(min_weight)}"
+            )
+        if min_weight < 0:
+            raise ValueError(
+                "min_syndrome_weight_for_switch must be >= 0 or None. "
+                f"Received: {min_weight}"
+            )
+
+    @staticmethod
     def _validate_decoder_interface(decoder: Any, name: str) -> None:
         if not hasattr(decoder, "decode_with_confidence"):
             raise TypeError(f"{name} does not implement decode_with_confidence(...)")
@@ -110,7 +129,32 @@ class AdaptiveDecoder:
         self.config = AdaptiveConfig(
             g_threshold=float(g_threshold),
             compare_against_mwpm_in_benchmark=self.config.compare_against_mwpm_in_benchmark,
+            min_syndrome_weight_for_switch=self.config.min_syndrome_weight_for_switch,
         )
+
+    def set_min_syndrome_weight_for_switch(self, min_weight: Optional[int]) -> None:
+        self._validate_min_syndrome_weight(min_weight)
+        self.config = AdaptiveConfig(
+            g_threshold=float(self.config.g_threshold),
+            compare_against_mwpm_in_benchmark=self.config.compare_against_mwpm_in_benchmark,
+            min_syndrome_weight_for_switch=min_weight,
+        )
+
+    def _should_switch(
+        self,
+        *,
+        syndrome: Sequence[int] | np.ndarray,
+        fast_confidence: float,
+        threshold: float,
+    ) -> Tuple[bool, int]:
+        syndrome_arr = np.asarray(syndrome, dtype=np.uint8)
+        syndrome_weight = int(np.count_nonzero(syndrome_arr))
+
+        switch_by_confidence = bool(float(fast_confidence) < float(threshold))
+        min_weight = self.config.min_syndrome_weight_for_switch
+        switch_by_weight = True if min_weight is None else bool(syndrome_weight >= int(min_weight))
+
+        return bool(switch_by_confidence and switch_by_weight), syndrome_weight
 
     def decode_adaptive(
         self,
@@ -124,6 +168,7 @@ class AdaptiveDecoder:
         """
         threshold = float(self.config.g_threshold if g_threshold is None else g_threshold)
         self._validate_threshold(threshold)
+        self._validate_min_syndrome_weight(self.config.min_syndrome_weight_for_switch)
 
         t0 = perf_counter()
 
@@ -131,7 +176,11 @@ class AdaptiveDecoder:
         pred_fast = self._normalize_prediction(pred_fast)
 
         fast_conf = float(soft_fast.get("confidence_score", 0.0))
-        switched = bool(fast_conf < threshold)
+        switched, syndrome_weight = self._should_switch(
+            syndrome=syndrome,
+            fast_confidence=fast_conf,
+            threshold=threshold,
+        )
 
         if switched:
             pred_final, soft_final, t_acc = self.accurate_decoder.decode_with_confidence(syndrome)
@@ -150,6 +199,12 @@ class AdaptiveDecoder:
             "switched": switched,
             "g_threshold": float(threshold),
             "fast_confidence_score": fast_conf,
+            "syndrome_weight": int(syndrome_weight),
+            "min_syndrome_weight_for_switch": (
+                None
+                if self.config.min_syndrome_weight_for_switch is None
+                else int(self.config.min_syndrome_weight_for_switch)
+            ),
             "fast_decode_time": float(t_fast),
             "accurate_decode_time": float(t_acc),
             "total_decode_time": float(total_decode_time),
@@ -183,6 +238,7 @@ class AdaptiveDecoder:
 
         threshold = float(self.config.g_threshold if g_threshold is None else g_threshold)
         self._validate_threshold(threshold)
+        self._validate_min_syndrome_weight(self.config.min_syndrome_weight_for_switch)
 
         do_compare = (
             self.config.compare_against_mwpm_in_benchmark
@@ -233,7 +289,7 @@ class AdaptiveDecoder:
             obs_i = (obs[i] & 1).astype(np.uint8)
 
             if fast_mode:
-                pred_a, switched, selected_decoder, fast_conf, dt_a = self._decode_adaptive_fastpath(
+                pred_a, switched, selected_decoder, fast_conf, syn_weight, dt_a = self._decode_adaptive_fastpath(
                     syndrome_i,
                     threshold=threshold,
                 )
@@ -262,6 +318,7 @@ class AdaptiveDecoder:
                             "selected_decoder": selected_decoder,
                             "switched": bool(switched),
                             "fast_confidence_score": float(fast_conf),
+                            "syndrome_weight": int(syn_weight),
                             "total_decode_time": float(dt_a),
                         }
                     )
@@ -271,6 +328,7 @@ class AdaptiveDecoder:
                             "selected_decoder": info_a.get("selected_decoder", "unknown"),
                             "switched": bool(info_a.get("switched", False)),
                             "fast_confidence_score": float(info_a.get("fast_confidence_score", 0.0)),
+                            "syndrome_weight": int(info_a.get("syndrome_weight", 0)),
                             "final_confidence_score": float(info_a.get("final_confidence_score", 0.0)),
                             "total_decode_time": float(info_a.get("total_decode_time", dt_a)),
                         }
@@ -295,6 +353,11 @@ class AdaptiveDecoder:
         result: Dict[str, Any] = {
             "shots": int(shots),
             "g_threshold": float(threshold),
+            "min_syndrome_weight_for_switch": (
+                None
+                if self.config.min_syndrome_weight_for_switch is None
+                else int(self.config.min_syndrome_weight_for_switch)
+            ),
             "num_detectors": int(self.num_detectors),
             "num_observables": int(self.num_observables),
             "error_rate_adaptive": error_rate_adapt,
@@ -327,7 +390,7 @@ class AdaptiveDecoder:
         syndrome: np.ndarray,
         *,
         threshold: float,
-    ) -> Tuple[np.ndarray, bool, str, float, float]:
+    ) -> Tuple[np.ndarray, bool, str, float, int, float]:
         """
         Low-overhead adaptive path for benchmark loops:
         avoids constructing the full adaptive_info dictionary.
@@ -338,7 +401,11 @@ class AdaptiveDecoder:
         pred_fast = self._normalize_prediction(pred_fast)
         fast_conf = float(soft_fast.get("confidence_score", 0.0))
 
-        switched = bool(fast_conf < threshold)
+        switched, syndrome_weight = self._should_switch(
+            syndrome=syndrome,
+            fast_confidence=fast_conf,
+            threshold=threshold,
+        )
         if switched:
             pred_final, _, _ = self.accurate_decoder.decode_with_confidence(syndrome)
             pred_final = self._normalize_prediction(pred_final)
@@ -348,7 +415,7 @@ class AdaptiveDecoder:
             selected_decoder = "uf"
 
         total_decode_time = float(perf_counter() - t0)
-        return pred_final, switched, selected_decoder, fast_conf, total_decode_time
+        return pred_final, switched, selected_decoder, fast_conf, syndrome_weight, total_decode_time
 
 
 __all__ = ["AdaptiveConfig", "AdaptiveDecoder"]
