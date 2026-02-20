@@ -186,6 +186,7 @@ def run_case_policy(
     base_seed: int,
     max_delta_error: float,
     min_speedup: float,
+    time_metric: str,
 ) -> Dict[str, Any]:
     circuit = _build_circuit(case)
     mwpm = MWPMDecoderWithSoftInfo(circuit)
@@ -220,6 +221,7 @@ def run_case_policy(
             keep_samples=0,
             compare_against_mwpm=True,
             fast_mode=policy.fast_mode,
+            time_metric=str(time_metric),
         )
         ref = out["reference_mwpm"]
         er_a = float(out["error_rate_adaptive"])
@@ -285,6 +287,7 @@ def run_case_policy(
         },
         "shots": int(shots),
         "repeats": int(repeats),
+        "time_metric": str(time_metric),
         "base_seed": int(base_seed),
         "metrics": metrics,
         "within_error_budget": within_error_budget,
@@ -395,7 +398,7 @@ def print_summary(report: Dict[str, Any]) -> None:
         f"distances={cfg['distances']} | fast_backends={cfg['fast_backends']} | "
         f"g_thresholds={cfg['g_thresholds']} | "
         f"min_switch_weights={cfg['min_switch_weights']} | mode={cfg['mode']} | "
-        f"shots={cfg['shots']} | repeats={cfg['repeats']}"
+        f"time_metric={cfg['time_metric']} | shots={cfg['shots']} | repeats={cfg['repeats']}"
     )
     print(
         f"constraints: max_delta_error={cfg['max_delta_error']:.6f}, "
@@ -462,6 +465,13 @@ def parse_args() -> argparse.Namespace:
         choices=["standard", "fast"],
         default="fast",
         help="Adaptive benchmark mode.",
+    )
+    parser.add_argument(
+        "--time-metric",
+        type=str,
+        choices=["core", "wall"],
+        default="core",
+        help="Time metric used in adaptive benchmark (core decode time or wall path time).",
     )
     parser.add_argument(
         "--max-delta-error",
@@ -552,6 +562,7 @@ def main() -> None:
                 base_seed=base_seed,
                 max_delta_error=float(args.max_delta_error),
                 min_speedup=float(args.min_speedup),
+                time_metric=str(args.time_metric),
             )
             rows.append(row)
             print(
@@ -591,6 +602,7 @@ def main() -> None:
                 None if w is None else int(w) for w in min_switch_weights
             ],
             "mode": str(args.mode),
+            "time_metric": str(args.time_metric),
             "max_delta_error": float(args.max_delta_error),
             "min_speedup": float(args.min_speedup),
         },

@@ -49,6 +49,8 @@ def test_week5_adaptive_policy_tuning_smoke(tmp_path: Path) -> None:
         "none,2",
         "--mode",
         "fast",
+        "--time-metric",
+        "core",
         "--max-delta-error",
         "0.05",
         "--min-speedup",
@@ -66,6 +68,7 @@ def test_week5_adaptive_policy_tuning_smoke(tmp_path: Path) -> None:
 
     payload = json.loads(output.read_text(encoding="utf-8"))
     assert payload.get("metadata", {}).get("report_name") == "week5_person1_adaptive_policy_tuning"
+    assert payload.get("config", {}).get("time_metric") == "core"
 
     rows = payload.get("rows", [])
     assert isinstance(rows, list) and rows

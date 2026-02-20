@@ -122,6 +122,20 @@ def test_set_min_syndrome_weight_updates_value() -> None:
         ad.set_min_syndrome_weight_for_switch(-2)
 
 
+def test_set_benchmark_time_metric_updates_value() -> None:
+    circuit = _build_circuit()
+    ad = AdaptiveDecoder(circuit, config=AdaptiveConfig(benchmark_time_metric="core"))
+
+    ad.set_benchmark_time_metric("wall")
+    assert ad.config.benchmark_time_metric == "wall"
+
+    ad.set_benchmark_time_metric("core")
+    assert ad.config.benchmark_time_metric == "core"
+
+    with pytest.raises(ValueError):
+        ad.set_benchmark_time_metric("invalid")
+
+
 def test_decode_adaptive_output_contract_real_decoders() -> None:
     circuit = _build_circuit(distance=3, rounds=2, p=0.01)
     ad = AdaptiveDecoder(circuit, config=AdaptiveConfig(g_threshold=0.65))
@@ -142,6 +156,8 @@ def test_decode_adaptive_output_contract_real_decoders() -> None:
         "fast_decode_time",
         "accurate_decode_time",
         "total_decode_time",
+        "total_decode_time_core",
+        "total_decode_time_wall",
         "final_confidence_score",
         "final_soft_info",
         "fast_soft_info",
@@ -248,10 +264,13 @@ def test_benchmark_adaptive_output_contract_with_reference() -> None:
     expected = {
         "shots",
         "g_threshold",
+        "time_metric",
         "num_detectors",
         "num_observables",
         "error_rate_adaptive",
         "avg_decode_time_adaptive",
+        "avg_decode_time_adaptive_core",
+        "avg_decode_time_adaptive_wall",
         "switch_rate",
         "samples",
         "status",
@@ -262,6 +281,7 @@ def test_benchmark_adaptive_output_contract_with_reference() -> None:
 
     assert res["shots"] == 30
     assert res["status"] == "ok"
+    assert res["time_metric"] in {"core", "wall"}
 
     er = float(res["error_rate_adaptive"])
     assert (0.0 <= er <= 1.0) or np.isnan(er)
@@ -281,6 +301,8 @@ def test_benchmark_adaptive_output_contract_with_reference() -> None:
     ref = res["reference_mwpm"]
     assert "error_rate_mwpm" in ref
     assert "avg_decode_time_mwpm" in ref
+    assert "avg_decode_time_mwpm_core" in ref
+    assert "avg_decode_time_mwpm_wall" in ref
     assert isinstance(ref["avg_decode_time_mwpm"], float)
 
 
@@ -299,6 +321,7 @@ def test_benchmark_adaptive_without_reference_key() -> None:
     assert "reference_mwpm" not in res
     assert "speedup_vs_mwpm" not in res
     assert res["fast_mode"] is False
+    assert res["time_metric"] == "core"
     assert 0.0 <= float(res["switch_rate"]) <= 1.0
 
 
@@ -361,6 +384,7 @@ def test_benchmark_adaptive_fast_mode_sample_contract() -> None:
     )
 
     assert res["fast_mode"] is True
+    assert res["time_metric"] == "core"
     assert "reference_mwpm" not in res
     assert "speedup_vs_mwpm" not in res
     assert res["min_syndrome_weight_for_switch"] is None
@@ -373,6 +397,34 @@ def test_benchmark_adaptive_fast_mode_sample_contract() -> None:
         assert "fast_confidence_score" in s0
         assert "syndrome_weight" in s0
         assert "total_decode_time" in s0
+        assert "total_decode_time_core" in s0
+        assert "total_decode_time_wall" in s0
+
+
+def test_benchmark_adaptive_wall_metric_override() -> None:
+    circuit = _build_circuit(distance=3, rounds=2, p=0.01)
+    ad = AdaptiveDecoder(
+        circuit,
+        config=AdaptiveConfig(g_threshold=0.65, compare_against_mwpm_in_benchmark=False),
+    )
+
+    res = ad.benchmark_adaptive(
+        shots=20,
+        keep_samples=0,
+        compare_against_mwpm=False,
+        fast_mode=True,
+        time_metric="wall",
+    )
+    assert res["time_metric"] == "wall"
+    assert float(res["avg_decode_time_adaptive"]) == float(res["avg_decode_time_adaptive_wall"])
+
+
+def test_benchmark_invalid_time_metric_raises() -> None:
+    circuit = _build_circuit(distance=3, rounds=2, p=0.01)
+    ad = AdaptiveDecoder(circuit)
+
+    with pytest.raises(ValueError):
+        ad.benchmark_adaptive(shots=10, compare_against_mwpm=False, time_metric="invalid")
 
 
 def test_benchmark_invalid_shots_raises() -> None:

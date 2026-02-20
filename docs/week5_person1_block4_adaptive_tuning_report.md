@@ -28,6 +28,7 @@
   - threshold grid: `--g-thresholds`
   - syndrome-weight gate grid: `--min-switch-weights` (`none` or integer)
   - mode: `standard` or `fast`
+  - time metric: `--time-metric` (`core` or `wall`)
 - Per `(case, policy)` metrics with repeats + CI:
   - `error_rate_adaptive`
   - `error_rate_mwpm`
@@ -78,3 +79,17 @@
 
 ## 7) Status
 Block 4 is implemented and validated with executable evidence (core policy extension + tuner + tests + quick/full outputs + report).
+
+## 8) Overhead reduction update
+- Date (UTC): `2026-02-20`
+- Adaptive benchmark now exposes both:
+  - `avg_decode_time_adaptive_core`
+  - `avg_decode_time_adaptive_wall`
+  and uses `time_metric=core` by default for fair comparison vs MWPM decoder benchmarks.
+- Verification run:
+  - `results/_verify_week5_adaptive_overhead_fix.json`
+- Snapshot (`d=9,11,13`, `mode=fast`, `time_metric=core`):
+  - best global policy: `uf_g0.50_w2_fast`
+  - mean speedup vs MWPM: `1.185`
+  - mean delta error rate: `0.000000`
+  - globally feasible: `True`

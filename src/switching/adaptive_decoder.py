@@ -30,6 +30,10 @@ class AdaptiveConfig:
     # Optional policy gate: only switch to accurate decoder when syndrome weight
     # is at least this value. If None, no syndrome-weight gate is applied.
     min_syndrome_weight_for_switch: Optional[int] = None
+    # Benchmark time metric:
+    # - "core": decoder backend decode times only (comparable to decoder benchmarks)
+    # - "wall": full adaptive Python path wall time
+    benchmark_time_metric: str = "core"
 
 
 class AdaptiveDecoder:
@@ -58,6 +62,7 @@ class AdaptiveDecoder:
 
         self._validate_threshold(self.config.g_threshold)
         self._validate_min_syndrome_weight(self.config.min_syndrome_weight_for_switch)
+        self._validate_benchmark_time_metric(self.config.benchmark_time_metric)
 
         # Default decoders if none are injected
         self.fast_decoder = fast_decoder or UnionFindDecoderWithSoftInfo(circuit)
@@ -108,6 +113,17 @@ class AdaptiveDecoder:
             )
 
     @staticmethod
+    def _validate_benchmark_time_metric(metric: str) -> None:
+        if not isinstance(metric, str):
+            raise TypeError(
+                f"benchmark_time_metric must be str. Received: {type(metric)}"
+            )
+        if metric not in {"core", "wall"}:
+            raise ValueError(
+                f"benchmark_time_metric must be 'core' or 'wall'. Received: {metric!r}"
+            )
+
+    @staticmethod
     def _validate_decoder_interface(decoder: Any, name: str) -> None:
         if not hasattr(decoder, "decode_with_confidence"):
             raise TypeError(f"{name} does not implement decode_with_confidence(...)")
@@ -130,6 +146,7 @@ class AdaptiveDecoder:
             g_threshold=float(g_threshold),
             compare_against_mwpm_in_benchmark=self.config.compare_against_mwpm_in_benchmark,
             min_syndrome_weight_for_switch=self.config.min_syndrome_weight_for_switch,
+            benchmark_time_metric=self.config.benchmark_time_metric,
         )
 
     def set_min_syndrome_weight_for_switch(self, min_weight: Optional[int]) -> None:
@@ -138,7 +155,47 @@ class AdaptiveDecoder:
             g_threshold=float(self.config.g_threshold),
             compare_against_mwpm_in_benchmark=self.config.compare_against_mwpm_in_benchmark,
             min_syndrome_weight_for_switch=min_weight,
+            benchmark_time_metric=self.config.benchmark_time_metric,
         )
+
+    def set_benchmark_time_metric(self, metric: str) -> None:
+        self._validate_benchmark_time_metric(metric)
+        self.config = AdaptiveConfig(
+            g_threshold=float(self.config.g_threshold),
+            compare_against_mwpm_in_benchmark=self.config.compare_against_mwpm_in_benchmark,
+            min_syndrome_weight_for_switch=self.config.min_syndrome_weight_for_switch,
+            benchmark_time_metric=str(metric),
+        )
+
+    def _resolve_syndrome_weight(
+        self,
+        *,
+        syndrome: Sequence[int] | np.ndarray,
+        soft_info: Optional[Dict[str, Any]] = None,
+    ) -> int:
+        if soft_info is not None:
+            maybe = soft_info.get("syndrome_weight", None)
+            if maybe is not None:
+                try:
+                    w = int(float(maybe))
+                    if w >= 0:
+                        return w
+                except (TypeError, ValueError):
+                    pass
+        syndrome_arr = np.asarray(syndrome, dtype=np.uint8)
+        return int(np.count_nonzero(syndrome_arr))
+
+    def _should_switch_from_weight(
+        self,
+        *,
+        fast_confidence: float,
+        threshold: float,
+        syndrome_weight: int,
+    ) -> bool:
+        switch_by_confidence = bool(float(fast_confidence) < float(threshold))
+        min_weight = self.config.min_syndrome_weight_for_switch
+        switch_by_weight = True if min_weight is None else bool(syndrome_weight >= int(min_weight))
+        return bool(switch_by_confidence and switch_by_weight)
 
     def _should_switch(
         self,
@@ -146,15 +203,18 @@ class AdaptiveDecoder:
         syndrome: Sequence[int] | np.ndarray,
         fast_confidence: float,
         threshold: float,
+        soft_info: Optional[Dict[str, Any]] = None,
     ) -> Tuple[bool, int]:
-        syndrome_arr = np.asarray(syndrome, dtype=np.uint8)
-        syndrome_weight = int(np.count_nonzero(syndrome_arr))
-
-        switch_by_confidence = bool(float(fast_confidence) < float(threshold))
-        min_weight = self.config.min_syndrome_weight_for_switch
-        switch_by_weight = True if min_weight is None else bool(syndrome_weight >= int(min_weight))
-
-        return bool(switch_by_confidence and switch_by_weight), syndrome_weight
+        syndrome_weight = self._resolve_syndrome_weight(
+            syndrome=syndrome,
+            soft_info=soft_info,
+        )
+        switched = self._should_switch_from_weight(
+            fast_confidence=fast_confidence,
+            threshold=threshold,
+            syndrome_weight=syndrome_weight,
+        )
+        return switched, syndrome_weight
 
     def decode_adaptive(
         self,
@@ -169,6 +229,7 @@ class AdaptiveDecoder:
         threshold = float(self.config.g_threshold if g_threshold is None else g_threshold)
         self._validate_threshold(threshold)
         self._validate_min_syndrome_weight(self.config.min_syndrome_weight_for_switch)
+        self._validate_benchmark_time_metric(self.config.benchmark_time_metric)
 
         t0 = perf_counter()
 
@@ -180,6 +241,7 @@ class AdaptiveDecoder:
             syndrome=syndrome,
             fast_confidence=fast_conf,
             threshold=threshold,
+            soft_info=soft_fast,
         )
 
         if switched:
@@ -192,7 +254,8 @@ class AdaptiveDecoder:
             t_acc = 0.0
             selected_decoder = "uf"
 
-        total_decode_time = float(perf_counter() - t0)
+        total_decode_time_wall = float(perf_counter() - t0)
+        total_decode_time_core = float(max(0.0, float(t_fast) + float(t_acc)))
 
         adaptive_info: Dict[str, Any] = {
             "selected_decoder": selected_decoder,
@@ -207,7 +270,9 @@ class AdaptiveDecoder:
             ),
             "fast_decode_time": float(t_fast),
             "accurate_decode_time": float(t_acc),
-            "total_decode_time": float(total_decode_time),
+            "total_decode_time": float(total_decode_time_wall),
+            "total_decode_time_wall": float(total_decode_time_wall),
+            "total_decode_time_core": float(total_decode_time_core),
             # Useful soft info from the finally selected decoder.
             "final_confidence_score": float(soft_final.get("confidence_score", fast_conf)),
             "final_soft_info": soft_final,
@@ -215,7 +280,7 @@ class AdaptiveDecoder:
             "fast_soft_info": soft_fast,
         }
 
-        return pred_final, adaptive_info, total_decode_time
+        return pred_final, adaptive_info, total_decode_time_wall
 
     def benchmark_adaptive(
         self,
@@ -224,6 +289,7 @@ class AdaptiveDecoder:
         keep_samples: Optional[int] = 100,
         compare_against_mwpm: Optional[bool] = None,
         fast_mode: bool = False,
+        time_metric: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Benchmark for the adaptive decoder.
@@ -239,6 +305,12 @@ class AdaptiveDecoder:
         threshold = float(self.config.g_threshold if g_threshold is None else g_threshold)
         self._validate_threshold(threshold)
         self._validate_min_syndrome_weight(self.config.min_syndrome_weight_for_switch)
+        metric = (
+            self.config.benchmark_time_metric
+            if time_metric is None
+            else str(time_metric)
+        )
+        self._validate_benchmark_time_metric(metric)
 
         do_compare = (
             self.config.compare_against_mwpm_in_benchmark
@@ -276,31 +348,45 @@ class AdaptiveDecoder:
             )
 
         failures_adapt: List[bool] = []
-        decode_times_adapt: List[float] = []
+        decode_times_adapt_core: List[float] = []
+        decode_times_adapt_wall: List[float] = []
         switch_count = 0
         samples: List[Dict[str, Any]] = []
 
         # Optional MWPM reference
         failures_mwpm: List[bool] = []
-        decode_times_mwpm: List[float] = []
+        decode_times_mwpm_core: List[float] = []
+        decode_times_mwpm_wall: List[float] = []
 
         for i in range(shots):
             syndrome_i = dets[i]
             obs_i = (obs[i] & 1).astype(np.uint8)
 
             if fast_mode:
-                pred_a, switched, selected_decoder, fast_conf, syn_weight, dt_a = self._decode_adaptive_fastpath(
+                (
+                    pred_a,
+                    switched,
+                    selected_decoder,
+                    fast_conf,
+                    syn_weight,
+                    dt_a_core,
+                    dt_a_wall,
+                ) = self._decode_adaptive_fastpath(
                     syndrome_i,
                     threshold=threshold,
                 )
                 pred_a = (pred_a & 1).astype(np.uint8)
-                decode_times_adapt.append(float(dt_a))
+                decode_times_adapt_core.append(float(dt_a_core))
+                decode_times_adapt_wall.append(float(dt_a_wall))
                 if switched:
                     switch_count += 1
             else:
                 pred_a, info_a, dt_a = self.decode_adaptive(syndrome_i, g_threshold=threshold)
                 pred_a = (pred_a & 1).astype(np.uint8)
-                decode_times_adapt.append(float(dt_a))
+                dt_a_core = float(info_a.get("total_decode_time_core", dt_a))
+                dt_a_wall = float(info_a.get("total_decode_time_wall", dt_a))
+                decode_times_adapt_core.append(float(dt_a_core))
+                decode_times_adapt_wall.append(float(dt_a_wall))
                 if bool(info_a.get("switched", False)):
                     switch_count += 1
 
@@ -319,7 +405,9 @@ class AdaptiveDecoder:
                             "switched": bool(switched),
                             "fast_confidence_score": float(fast_conf),
                             "syndrome_weight": int(syn_weight),
-                            "total_decode_time": float(dt_a),
+                            "total_decode_time": float(dt_a_wall),
+                            "total_decode_time_core": float(dt_a_core),
+                            "total_decode_time_wall": float(dt_a_wall),
                         }
                     )
                 else:
@@ -330,14 +418,23 @@ class AdaptiveDecoder:
                             "fast_confidence_score": float(info_a.get("fast_confidence_score", 0.0)),
                             "syndrome_weight": int(info_a.get("syndrome_weight", 0)),
                             "final_confidence_score": float(info_a.get("final_confidence_score", 0.0)),
-                            "total_decode_time": float(info_a.get("total_decode_time", dt_a)),
+                            "total_decode_time": float(info_a.get("total_decode_time", dt_a_wall)),
+                            "total_decode_time_core": float(
+                                info_a.get("total_decode_time_core", dt_a_core)
+                            ),
+                            "total_decode_time_wall": float(
+                                info_a.get("total_decode_time_wall", dt_a_wall)
+                            ),
                         }
                     )
 
             if do_compare:
-                pred_m, _, dt_m = self.accurate_decoder.decode_with_confidence(syndrome_i)
+                t_ref0 = perf_counter()
+                pred_m, _, dt_m_core = self.accurate_decoder.decode_with_confidence(syndrome_i)
+                dt_m_wall = float(perf_counter() - t_ref0)
                 pred_m = self._normalize_prediction(pred_m)
-                decode_times_mwpm.append(float(dt_m))
+                decode_times_mwpm_core.append(float(dt_m_core))
+                decode_times_mwpm_wall.append(float(dt_m_wall))
 
                 n_m = min(obs_i.size, pred_m.size)
                 if n_m == 0:
@@ -347,7 +444,21 @@ class AdaptiveDecoder:
                 failures_mwpm.append(fail_m)
 
         error_rate_adapt = float(np.mean(failures_adapt)) if failures_adapt else float("nan")
-        avg_time_adapt = float(np.mean(decode_times_adapt)) if decode_times_adapt else 0.0
+        avg_time_adapt_core = (
+            float(np.mean(decode_times_adapt_core))
+            if decode_times_adapt_core
+            else 0.0
+        )
+        avg_time_adapt_wall = (
+            float(np.mean(decode_times_adapt_wall))
+            if decode_times_adapt_wall
+            else 0.0
+        )
+        avg_time_adapt = (
+            avg_time_adapt_core
+            if metric == "core"
+            else avg_time_adapt_wall
+        )
         switch_rate = float(switch_count / max(1, shots))
 
         result: Dict[str, Any] = {
@@ -362,15 +473,32 @@ class AdaptiveDecoder:
             "num_observables": int(self.num_observables),
             "error_rate_adaptive": error_rate_adapt,
             "avg_decode_time_adaptive": avg_time_adapt,
+            "avg_decode_time_adaptive_core": avg_time_adapt_core,
+            "avg_decode_time_adaptive_wall": avg_time_adapt_wall,
             "switch_rate": switch_rate,
             "samples": samples,
             "fast_mode": bool(fast_mode),
+            "time_metric": metric,
             "status": "ok",
         }
 
         if do_compare:
             error_rate_mwpm = float(np.mean(failures_mwpm)) if failures_mwpm else float("nan")
-            avg_time_mwpm = float(np.mean(decode_times_mwpm)) if decode_times_mwpm else float("nan")
+            avg_time_mwpm_core = (
+                float(np.mean(decode_times_mwpm_core))
+                if decode_times_mwpm_core
+                else float("nan")
+            )
+            avg_time_mwpm_wall = (
+                float(np.mean(decode_times_mwpm_wall))
+                if decode_times_mwpm_wall
+                else float("nan")
+            )
+            avg_time_mwpm = (
+                avg_time_mwpm_core
+                if metric == "core"
+                else avg_time_mwpm_wall
+            )
 
             if np.isfinite(avg_time_mwpm) and avg_time_adapt > 0:
                 speedup_vs_mwpm = float(avg_time_mwpm / avg_time_adapt)
@@ -380,6 +508,8 @@ class AdaptiveDecoder:
             result["reference_mwpm"] = {
                 "error_rate_mwpm": error_rate_mwpm,
                 "avg_decode_time_mwpm": avg_time_mwpm,
+                "avg_decode_time_mwpm_core": avg_time_mwpm_core,
+                "avg_decode_time_mwpm_wall": avg_time_mwpm_wall,
             }
             result["speedup_vs_mwpm"] = speedup_vs_mwpm
 
@@ -390,32 +520,46 @@ class AdaptiveDecoder:
         syndrome: np.ndarray,
         *,
         threshold: float,
-    ) -> Tuple[np.ndarray, bool, str, float, int, float]:
+    ) -> Tuple[np.ndarray, bool, str, float, int, float, float]:
         """
         Low-overhead adaptive path for benchmark loops:
         avoids constructing the full adaptive_info dictionary.
         """
         t0 = perf_counter()
 
-        pred_fast, soft_fast, _ = self.fast_decoder.decode_with_confidence(syndrome)
+        pred_fast, soft_fast, dt_fast = self.fast_decoder.decode_with_confidence(syndrome)
         pred_fast = self._normalize_prediction(pred_fast)
         fast_conf = float(soft_fast.get("confidence_score", 0.0))
 
-        switched, syndrome_weight = self._should_switch(
+        syndrome_weight = self._resolve_syndrome_weight(
             syndrome=syndrome,
+            soft_info=soft_fast,
+        )
+        switched = self._should_switch_from_weight(
             fast_confidence=fast_conf,
             threshold=threshold,
+            syndrome_weight=syndrome_weight,
         )
         if switched:
-            pred_final, _, _ = self.accurate_decoder.decode_with_confidence(syndrome)
+            pred_final, _, dt_acc = self.accurate_decoder.decode_with_confidence(syndrome)
             pred_final = self._normalize_prediction(pred_final)
             selected_decoder = "mwpm"
         else:
             pred_final = pred_fast
             selected_decoder = "uf"
+            dt_acc = 0.0
 
-        total_decode_time = float(perf_counter() - t0)
-        return pred_final, switched, selected_decoder, fast_conf, syndrome_weight, total_decode_time
+        total_decode_time_wall = float(perf_counter() - t0)
+        total_decode_time_core = float(max(0.0, float(dt_fast) + float(dt_acc)))
+        return (
+            pred_final,
+            switched,
+            selected_decoder,
+            fast_conf,
+            syndrome_weight,
+            total_decode_time_core,
+            total_decode_time_wall,
+        )
 
 
 __all__ = ["AdaptiveConfig", "AdaptiveDecoder"]
