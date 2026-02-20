@@ -96,6 +96,97 @@ def test_week5_hardware_target_model_smoke(tmp_path: Path) -> None:
         assert "target_model_ratio" in arch
 
 
+def test_week5_hardware_target_model_trace_calibration_smoke(tmp_path: Path) -> None:
+    output_json = tmp_path / "week5_hardware_target_model_trace_smoke.json"
+    output_fig = tmp_path / "week5_hardware_target_model_trace_smoke.png"
+    trace_json = tmp_path / "trace_rows.json"
+    trace_rows = [
+        {
+            "architecture": "GoogleSuperconducting",
+            "backend": "mwpm",
+            "distance": 3,
+            "observed_decode_time_sec": 2.1e-6,
+        },
+        {
+            "architecture": "GoogleSuperconducting",
+            "backend": "uf",
+            "distance": 3,
+            "observed_decode_time_sec": 1.6e-6,
+        },
+        {
+            "architecture": "GoogleSuperconducting",
+            "backend": "mwpm",
+            "distance": 5,
+            "observed_decode_time_sec": 3.3e-6,
+        },
+        {
+            "architecture": "GoogleSuperconducting",
+            "backend": "adaptive",
+            "distance": 5,
+            "switch_rate": 0.3,
+            "observed_decode_time_sec": 2.7e-6,
+        },
+    ]
+    trace_json.write_text(json.dumps(trace_rows, indent=2), encoding="utf-8")
+
+    cmd = [
+        sys.executable,
+        "-m",
+        "scripts.run_week5_person2_hardware_target_model",
+        "--benchmark-distances",
+        "3,5",
+        "--distances",
+        "3,5",
+        "--rounds-mode",
+        "fixed",
+        "--rounds",
+        "2",
+        "--adaptive-thresholds",
+        "0.40",
+        "--shots",
+        "16",
+        "--repeats",
+        "1",
+        "--seed",
+        "12345",
+        "--noise-model",
+        "depolarizing",
+        "--p-phys",
+        "0.01",
+        "--adaptive-fast-mode",
+        "--adaptive-fast-backend",
+        "uf",
+        "--trace-input",
+        str(trace_json),
+        "--output",
+        str(output_json),
+        "--figure-output",
+        str(output_fig),
+    ]
+    result = _run_cmd(cmd, timeout=420)
+    assert result.returncode == 0, (
+        "Script failed with trace calibration.\n"
+        f"STDOUT:\n{result.stdout}\n\n"
+        f"STDERR:\n{result.stderr}"
+    )
+
+    payload = json.loads(output_json.read_text(encoding="utf-8"))
+    cfg = payload.get("config", {})
+    trace_observations = payload.get("trace_observations", [])
+    trace_cal = payload.get("trace_calibration", {})
+    arch_rows = trace_cal.get("architectures", [])
+
+    assert cfg.get("trace_input") == str(trace_json)
+    assert len(trace_observations) == len(trace_rows)
+    assert trace_cal.get("enabled") is True
+    assert trace_cal.get("num_trace_rows") == len(trace_rows)
+    google_row = next(
+        row for row in arch_rows if row.get("architecture") == "GoogleSuperconducting"
+    )
+    assert google_row.get("calibrated") is True
+    assert any(bool(row.get("calibrated")) for row in arch_rows)
+
+
 def test_invalid_ops_factor_fails(tmp_path: Path) -> None:
     output_json = tmp_path / "invalid_ops_factor.json"
     cmd = [

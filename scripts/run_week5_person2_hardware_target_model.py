@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import math
 import sys
@@ -91,6 +92,15 @@ class SwitchRateModel:
     intercept: float
 
 
+@dataclass(frozen=True)
+class TraceObservation:
+    architecture: str
+    backend: str
+    distance: int
+    observed_decode_time_sec: float
+    switch_rate: Optional[float] = None
+
+
 def utc_now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
@@ -127,6 +137,104 @@ def parse_min_switch_weight(raw: str) -> Optional[int]:
     if val < 0:
         raise ValueError("min switch weight must be >= 0 or none")
     return val
+
+
+def _normalize_backend_label(raw: str) -> str:
+    txt = str(raw).strip().lower()
+    if txt.startswith("adaptive"):
+        return "adaptive"
+    if txt in {"mwpm", "uf", "bm", "adaptive"}:
+        return txt
+    raise ValueError(f"unsupported backend label in trace row: {raw!r}")
+
+
+def _normalize_architecture_name(raw: str, known: Sequence[str]) -> str:
+    txt = str(raw).strip()
+    if not txt:
+        raise ValueError("architecture name must be non-empty")
+    by_lower = {k.lower(): k for k in known}
+    return by_lower.get(txt.lower(), txt)
+
+
+def _read_trace_payload(path: Path) -> List[Dict[str, Any]]:
+    suffix = path.suffix.lower()
+    if suffix == ".json":
+        obj = json.loads(path.read_text(encoding="utf-8"))
+        if isinstance(obj, list):
+            return [dict(x) for x in obj]
+        if isinstance(obj, dict):
+            rows = obj.get("traces", None)
+            if isinstance(rows, list):
+                return [dict(x) for x in rows]
+        raise ValueError("trace JSON must be a list or an object with key 'traces' (list)")
+    if suffix == ".csv":
+        rows: List[Dict[str, Any]] = []
+        with path.open("r", encoding="utf-8", newline="") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                rows.append(dict(row))
+        return rows
+    raise ValueError("unsupported trace file format; use .json or .csv")
+
+
+def load_trace_observations(
+    *,
+    trace_input: Optional[str],
+    known_architectures: Sequence[str],
+) -> List[TraceObservation]:
+    if trace_input is None or not str(trace_input).strip():
+        return []
+    path = Path(str(trace_input))
+    if not path.exists():
+        raise FileNotFoundError(f"trace input not found: {path}")
+
+    raw_rows = _read_trace_payload(path)
+    out: List[TraceObservation] = []
+    for i, row in enumerate(raw_rows):
+        if not isinstance(row, dict):
+            raise ValueError(f"invalid trace row at index {i}: expected object")
+
+        arch_raw = row.get("architecture", row.get("arch", ""))
+        backend_raw = row.get("backend", row.get("decoder_backend", row.get("decoder", "")))
+        dist_raw = row.get("distance", row.get("d", None))
+        lat_raw = row.get(
+            "observed_decode_time_sec",
+            row.get("latency_sec", row.get("decode_time_sec", None)),
+        )
+        switch_raw = row.get("switch_rate", None)
+
+        if dist_raw is None or lat_raw is None:
+            raise ValueError(
+                "trace row requires distance and observed_decode_time_sec "
+                f"(row index {i})"
+            )
+
+        arch = _normalize_architecture_name(str(arch_raw), known_architectures)
+        backend = _normalize_backend_label(str(backend_raw))
+        distance = int(dist_raw)
+        if distance <= 0:
+            raise ValueError(f"trace distance must be > 0 (row index {i})")
+        observed = float(lat_raw)
+        if observed <= 0.0:
+            raise ValueError(f"trace observed_decode_time_sec must be > 0 (row index {i})")
+        switch_rate: Optional[float]
+        if switch_raw is None or str(switch_raw).strip() == "":
+            switch_rate = None
+        else:
+            switch_rate = float(switch_raw)
+            if switch_rate < 0.0 or switch_rate > 1.0:
+                raise ValueError(f"trace switch_rate must be in [0,1] (row index {i})")
+
+        out.append(
+            TraceObservation(
+                architecture=str(arch),
+                backend=str(backend),
+                distance=int(distance),
+                observed_decode_time_sec=float(observed),
+                switch_rate=switch_rate,
+            )
+        )
+    return out
 
 
 def format_seconds(x: float) -> str:
@@ -471,6 +579,19 @@ def predict_switch_rate(
     return float(min(1.0, max(0.0, raw)))
 
 
+def build_adaptive_switch_rate_by_distance(rows: Sequence[Dict[str, Any]]) -> Dict[int, float]:
+    acc: Dict[int, List[float]] = {}
+    for row in rows:
+        if str(row.get("backend", "")) != "adaptive":
+            continue
+        d = int(row["distance"])
+        acc.setdefault(d, []).append(float(row.get("mean_switch_rate", 0.0)))
+    out: Dict[int, float] = {}
+    for d, vals in sorted(acc.items()):
+        out[d] = float(np.clip(np.mean(vals), 0.0, 1.0))
+    return out
+
+
 def compute_workload_features(
     *,
     distances: Sequence[int],
@@ -499,6 +620,172 @@ def compute_workload_features(
             )
         )
     return out
+
+
+def calibrate_arch_models_from_traces(
+    *,
+    trace_rows: Sequence[TraceObservation],
+    default_models: Sequence[TargetArchModel],
+    workload: Sequence[WorkloadFeatures],
+    adaptive_fast_backend: str,
+    adaptive_switch_rate_by_distance: Mapping[int, float],
+    ops_factor_mwpm: float,
+    ops_factor_uf: float,
+    ops_factor_bm: float,
+    ops_adaptive_dispatch: float,
+) -> Tuple[List[TargetArchModel], Dict[str, Any]]:
+    by_distance = {int(w.distance): w for w in workload}
+    by_arch: Dict[str, List[TraceObservation]] = {}
+    for tr in trace_rows:
+        by_arch.setdefault(str(tr.architecture), []).append(tr)
+
+    calibrated_models: List[TargetArchModel] = []
+    calibration_arch_rows: List[Dict[str, Any]] = []
+
+    for base in default_models:
+        rows = by_arch.get(base.name, [])
+        if len(rows) < 3:
+            calibrated_models.append(base)
+            calibration_arch_rows.append(
+                {
+                    "architecture": base.name,
+                    "num_trace_rows": int(len(rows)),
+                    "calibrated": False,
+                    "reason": "insufficient_trace_rows",
+                    "fitted_ops_per_sec": float(base.ops_per_sec),
+                    "fitted_fixed_overhead_sec": float(base.fixed_overhead_sec),
+                    "fitted_detector_penalty_sec": float(base.detector_penalty_sec),
+                    "rmse_sec": None,
+                    "r2": None,
+                }
+            )
+            continue
+
+        x_rows: List[List[float]] = []
+        y_rows: List[float] = []
+        skipped = 0
+        for tr in rows:
+            w = by_distance.get(int(tr.distance))
+            if w is None:
+                skipped += 1
+                continue
+            if tr.backend == "adaptive":
+                if tr.switch_rate is None:
+                    sw = float(adaptive_switch_rate_by_distance.get(int(tr.distance), 0.0))
+                else:
+                    sw = float(tr.switch_rate)
+                ops_fast = proxy_ops_for_backend(
+                    backend=adaptive_fast_backend,
+                    features=w,
+                    mwpm_factor=float(ops_factor_mwpm),
+                    uf_factor=float(ops_factor_uf),
+                    bm_factor=float(ops_factor_bm),
+                )
+                ops_mwpm = proxy_ops_for_backend(
+                    backend="mwpm",
+                    features=w,
+                    mwpm_factor=float(ops_factor_mwpm),
+                    uf_factor=float(ops_factor_uf),
+                    bm_factor=float(ops_factor_bm),
+                )
+                ops = float(ops_adaptive_dispatch + (1.0 - sw) * ops_fast + sw * ops_mwpm)
+            else:
+                ops = proxy_ops_for_backend(
+                    backend=str(tr.backend),
+                    features=w,
+                    mwpm_factor=float(ops_factor_mwpm),
+                    uf_factor=float(ops_factor_uf),
+                    bm_factor=float(ops_factor_bm),
+                )
+            x_rows.append([1.0, float(w.num_detectors), float(ops)])
+            y_rows.append(float(tr.observed_decode_time_sec))
+
+        if len(y_rows) < 3:
+            calibrated_models.append(base)
+            calibration_arch_rows.append(
+                {
+                    "architecture": base.name,
+                    "num_trace_rows": int(len(rows)),
+                    "num_used_rows": int(len(y_rows)),
+                    "num_skipped_rows": int(skipped),
+                    "calibrated": False,
+                    "reason": "insufficient_matched_rows",
+                    "fitted_ops_per_sec": float(base.ops_per_sec),
+                    "fitted_fixed_overhead_sec": float(base.fixed_overhead_sec),
+                    "fitted_detector_penalty_sec": float(base.detector_penalty_sec),
+                    "rmse_sec": None,
+                    "r2": None,
+                }
+            )
+            continue
+
+        x = np.asarray(x_rows, dtype=float)
+        y = np.asarray(y_rows, dtype=float)
+        beta, *_ = np.linalg.lstsq(x, y, rcond=None)
+        b0 = float(max(0.0, beta[0]))
+        b1 = float(max(0.0, beta[1]))
+        b2 = float(max(1e-15, beta[2]))
+        fitted_ops_per_sec = float(1.0 / b2)
+
+        y_hat = x @ np.asarray([b0, b1, b2], dtype=float)
+        rmse = float(np.sqrt(np.mean((y - y_hat) ** 2)))
+        ss_res = float(np.sum((y - y_hat) ** 2))
+        ss_tot = float(np.sum((y - float(np.mean(y))) ** 2))
+        r2 = 1.0 - ss_res / ss_tot if ss_tot > 0.0 else 1.0
+
+        model = TargetArchModel(
+            name=base.name,
+            ops_per_sec=float(fitted_ops_per_sec),
+            fixed_overhead_sec=float(b0),
+            detector_penalty_sec=float(b1),
+        )
+        calibrated_models.append(model)
+        calibration_arch_rows.append(
+            {
+                "architecture": base.name,
+                "num_trace_rows": int(len(rows)),
+                "num_used_rows": int(len(y_rows)),
+                "num_skipped_rows": int(skipped),
+                "calibrated": True,
+                "reason": "ok",
+                "fitted_ops_per_sec": float(model.ops_per_sec),
+                "fitted_fixed_overhead_sec": float(model.fixed_overhead_sec),
+                "fitted_detector_penalty_sec": float(model.detector_penalty_sec),
+                "rmse_sec": float(rmse),
+                "r2": float(r2),
+            }
+        )
+
+    return calibrated_models, {
+        "enabled": bool(len(trace_rows) > 0),
+        "num_trace_rows": int(len(trace_rows)),
+        "architectures": calibration_arch_rows,
+    }
+
+
+def default_trace_calibration_report(
+    arch_models: Sequence[TargetArchModel],
+) -> Dict[str, Any]:
+    return {
+        "enabled": False,
+        "num_trace_rows": 0,
+        "architectures": [
+            {
+                "architecture": m.name,
+                "num_trace_rows": 0,
+                "num_used_rows": 0,
+                "num_skipped_rows": 0,
+                "calibrated": False,
+                "reason": "no_trace_input",
+                "fitted_ops_per_sec": float(m.ops_per_sec),
+                "fitted_fixed_overhead_sec": float(m.fixed_overhead_sec),
+                "fitted_detector_penalty_sec": float(m.detector_penalty_sec),
+                "rmse_sec": None,
+                "r2": None,
+            }
+            for m in arch_models
+        ],
+    }
 
 
 def proxy_ops_for_backend(
@@ -756,6 +1043,8 @@ def build_report(
     python_predicted_rows: Sequence[Dict[str, Any]],
     switch_models: Mapping[str, SwitchRateModel],
     workload_features: Sequence[WorkloadFeatures],
+    trace_observations: Sequence[TraceObservation],
+    trace_calibration: Dict[str, Any],
     target_arch_models: Sequence[TargetArchModel],
     target_predicted_rows: Sequence[Dict[str, Any]],
     compatibility: Dict[str, Any],
@@ -790,6 +1079,7 @@ def build_report(
             "ops_rate_scale": float(args.ops_rate_scale),
             "fixed_overhead_scale": float(args.fixed_overhead_scale),
             "detector_penalty_scale": float(args.detector_penalty_scale),
+            "trace_input": args.trace_input,
             "figure_output": args.figure_output,
         },
         "benchmark_rows": list(benchmark_rows),
@@ -808,6 +1098,17 @@ def build_report(
             }
             for w in workload_features
         ],
+        "trace_observations": [
+            {
+                "architecture": str(t.architecture),
+                "backend": str(t.backend),
+                "distance": int(t.distance),
+                "observed_decode_time_sec": float(t.observed_decode_time_sec),
+                "switch_rate": None if t.switch_rate is None else float(t.switch_rate),
+            }
+            for t in trace_observations
+        ],
+        "trace_calibration": dict(trace_calibration),
         "target_arch_models": [
             {
                 "name": m.name,
@@ -835,6 +1136,17 @@ def print_summary(report: Dict[str, Any]) -> None:
         f"uf={cfg['ops_factor_uf']:.3f}, bm={cfg['ops_factor_bm']:.3f}), "
         f"dispatch_ops={cfg['ops_adaptive_dispatch']:.3f}"
     )
+    trace_cal = report.get("trace_calibration", {})
+    if bool(trace_cal.get("enabled", False)):
+        arch_rows = list(trace_cal.get("architectures", []))
+        calibrated = int(sum(1 for row in arch_rows if bool(row.get("calibrated", False))))
+        total = int(len(arch_rows))
+        print(
+            f"trace calibration: enabled | rows={trace_cal.get('num_trace_rows', 0)} | "
+            f"calibrated_arch={calibrated}/{total}"
+        )
+    else:
+        print("trace calibration: disabled (no --trace-input provided)")
 
     print("\n--- Compatibility delta (target vs python) ---")
     for a in report["compatibility"]["architectures"]:
@@ -882,6 +1194,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ops-rate-scale", type=float, default=1.0, help="Global multiplier on target ops/s.")
     parser.add_argument("--fixed-overhead-scale", type=float, default=1.0, help="Global multiplier on fixed overhead.")
     parser.add_argument("--detector-penalty-scale", type=float, default=1.0, help="Global multiplier on detector penalty.")
+    parser.add_argument(
+        "--trace-input",
+        type=str,
+        default=None,
+        help=(
+            "Optional SDK/HW trace path (.json/.csv) with rows containing "
+            "architecture, backend, distance, observed_decode_time_sec, [switch_rate]."
+        ),
+    )
     parser.add_argument(
         "--output",
         type=str,
@@ -983,7 +1304,28 @@ def main() -> None:
         rounds_fixed=int(args.rounds),
         logical_basis=args.logical_basis,
     )
-    target_arch_models = default_target_arch_models()
+    base_target_arch_models = default_target_arch_models()
+    trace_observations = load_trace_observations(
+        trace_input=args.trace_input,
+        known_architectures=[m.name for m in base_target_arch_models],
+    )
+    if trace_observations:
+        adaptive_switch_rate_by_distance = build_adaptive_switch_rate_by_distance(benchmark_rows)
+        target_arch_models, trace_calibration = calibrate_arch_models_from_traces(
+            trace_rows=trace_observations,
+            default_models=base_target_arch_models,
+            workload=workload_features,
+            adaptive_fast_backend=str(args.adaptive_fast_backend),
+            adaptive_switch_rate_by_distance=adaptive_switch_rate_by_distance,
+            ops_factor_mwpm=float(args.ops_factor_mwpm),
+            ops_factor_uf=float(args.ops_factor_uf),
+            ops_factor_bm=float(args.ops_factor_bm),
+            ops_adaptive_dispatch=float(args.ops_adaptive_dispatch),
+        )
+    else:
+        target_arch_models = base_target_arch_models
+        trace_calibration = default_trace_calibration_report(base_target_arch_models)
+
     target_predicted_rows = build_target_predictions(
         row_specs=row_specs,
         workload=workload_features,
@@ -1019,6 +1361,8 @@ def main() -> None:
         python_predicted_rows=python_predicted_rows,
         switch_models=switch_models,
         workload_features=workload_features,
+        trace_observations=trace_observations,
+        trace_calibration=trace_calibration,
         target_arch_models=target_arch_models,
         target_predicted_rows=target_predicted_rows,
         compatibility=compatibility,

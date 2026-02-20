@@ -6,6 +6,10 @@
   - fixed overhead
   - detector-size penalty
   - proxy operation throughput (`ops/s`)
+- Added optional trace-driven recalibration from SDK/HW-like data:
+  - input via `--trace-input` (`.json` or `.csv`)
+  - per-architecture least-squares fit on observed decode times
+  - automatic fallback to defaults when trace data is missing/insufficient
 - Added side-by-side compatibility comparison:
   - `python_runtime` baseline (Week 4-style)
   - `target_model` (implementation-oriented)
@@ -33,17 +37,23 @@
     - `bm`: `k * dem_terms * log2(dem_terms)`
     - `adaptive`: weighted mix by predicted switch rate + dispatch ops
 - Architecture-wise compatibility matrices for both models and delta summary.
+- Trace-aware calibration path:
+  - parses trace rows: `architecture`, `backend`, `distance`, `observed_decode_time_sec`, optional `switch_rate`
+  - calibrates `ops_per_sec`, `fixed_overhead_sec`, `detector_penalty_sec` by architecture
+  - stores calibration diagnostics (`enabled`, rows used, RMSE, R²) in output JSON
 
 ## 4) Validation commands
 - Smoke test:
   - `python -m pytest -q -p no:cacheprovider tests/test_week5_person2_hardware_target_model_smoke.py`
 - Full run:
   - `python -m scripts.run_week5_person2_hardware_target_model --include-bm --adaptive-fast-mode --adaptive-fast-backend bm --output results/week5_person2_hardware_target_model.json --figure-output figures/week5_person2_hardware_target_model_heatmaps.png`
+- Trace-calibrated run (example):
+  - `python -m scripts.run_week5_person2_hardware_target_model --trace-input results/sdk_hw_traces.json --include-bm --adaptive-fast-mode --adaptive-fast-backend bm --output results/week5_person2_hardware_target_model.json --figure-output figures/week5_person2_hardware_target_model_heatmaps.png`
 
 ## 5) Validation status (executed)
 - Date (UTC): `2026-02-20`
 - Smoke test result:
-  - `tests/test_week5_person2_hardware_target_model_smoke.py`: **3 passed**
+  - `tests/test_week5_person2_hardware_target_model_smoke.py`: **4 passed**
 - Full-run artifacts generated:
   - `results/week5_person2_hardware_target_model.json`
   - `figures/week5_person2_hardware_target_model_heatmaps.png`
@@ -66,3 +76,11 @@ Interpretation:
 
 ## 7) Status
 Block 5 is implemented and validated with executable evidence (script + tests + full JSON/figure + report).
+
+## 8) Trace recalibration status
+- The script now supports hardware/SDK trace ingestion and uses it to recalibrate architecture coefficients before compatibility analysis.
+- Output JSON now includes:
+  - `config.trace_input`
+  - `trace_observations`
+  - `trace_calibration`
+- If no trace file is provided, the script keeps previous default architecture parameters and marks calibration as disabled.
