@@ -392,6 +392,33 @@ def _estimate_threshold_for_pair(
     }
 
 
+def _build_threshold_estimate_row(
+    *,
+    decoder: str,
+    noise_model: str,
+    d_small: int,
+    d_large: int,
+    p_common: List[float],
+    er_small: List[float],
+    er_large: List[float],
+    pair_scope: str,
+) -> Dict[str, Any]:
+    est = _estimate_threshold_for_pair(p_common, er_small, er_large)
+    method = str(est["method"])
+    return {
+        "decoder": decoder,
+        "noise_model": noise_model,
+        "distance_pair": [int(d_small), int(d_large)],
+        "distance_gap": int(d_large - d_small),
+        "pair_scope": pair_scope,
+        "crossing_detected": bool(method in {"exact_point", "linear_crossing"}),
+        "p_values": p_common,
+        "error_rate_small_distance": er_small,
+        "error_rate_large_distance": er_large,
+        **est,
+    }
+
+
 def estimate_thresholds(rows: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
     grouped: Dict[Tuple[str, str], List[Dict[str, Any]]] = {}
     for r in rows:
@@ -404,38 +431,61 @@ def estimate_thresholds(rows: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
         if len(distances) < 2:
             continue
 
-        # Use first and last distance as a stable coarse threshold estimate.
-        d_small = distances[0]
-        d_large = distances[-1]
-
-        small = [r for r in items if int(r["distance"]) == d_small]
-        large = [r for r in items if int(r["distance"]) == d_large]
-
-        p_common = sorted({float(r["p_phys"]) for r in small}.intersection(float(r["p_phys"]) for r in large))
-        if len(p_common) < 2:
-            continue
-
         def _er_at(arr: Sequence[Dict[str, Any]], p: float) -> float:
             vals = [float(x["error_rate"]) for x in arr if math.isclose(float(x["p_phys"]), p, rel_tol=0.0, abs_tol=1e-12)]
             return float(mean(vals)) if vals else float("nan")
 
-        er_small = [_er_at(small, p) for p in p_common]
-        er_large = [_er_at(large, p) for p in p_common]
-        if any(not math.isfinite(x) for x in er_small + er_large):
-            continue
+        by_distance: Dict[int, List[Dict[str, Any]]] = {
+            d: [r for r in items if int(r["distance"]) == d] for d in distances
+        }
 
-        est = _estimate_threshold_for_pair(p_common, er_small, er_large)
-        out.append(
-            {
-                "decoder": decoder,
-                "noise_model": noise_model,
-                "distance_pair": [d_small, d_large],
-                "p_values": p_common,
-                "error_rate_small_distance": er_small,
-                "error_rate_large_distance": er_large,
-                **est,
-            }
+        pair_candidates: List[Tuple[int, int, str]] = []
+        for i in range(len(distances) - 1):
+            pair_candidates.append((int(distances[i]), int(distances[i + 1]), "adjacent"))
+        if len(distances) >= 2:
+            pair_candidates.append((int(distances[0]), int(distances[-1]), "extreme"))
+
+        seen_pairs: set[Tuple[int, int, str]] = set()
+        for d_small, d_large, pair_scope in pair_candidates:
+            pair_key = (int(d_small), int(d_large), str(pair_scope))
+            if pair_key in seen_pairs:
+                continue
+            seen_pairs.add(pair_key)
+
+            small = by_distance[int(d_small)]
+            large = by_distance[int(d_large)]
+            p_common = sorted(
+                {float(r["p_phys"]) for r in small}.intersection(float(r["p_phys"]) for r in large)
+            )
+            if len(p_common) < 2:
+                continue
+
+            er_small = [_er_at(small, p) for p in p_common]
+            er_large = [_er_at(large, p) for p in p_common]
+            if any(not math.isfinite(x) for x in er_small + er_large):
+                continue
+
+            out.append(
+                _build_threshold_estimate_row(
+                    decoder=decoder,
+                    noise_model=noise_model,
+                    d_small=int(d_small),
+                    d_large=int(d_large),
+                    p_common=p_common,
+                    er_small=er_small,
+                    er_large=er_large,
+                    pair_scope=str(pair_scope),
+                )
+            )
+    out.sort(
+        key=lambda x: (
+            str(x["decoder"]),
+            str(x["noise_model"]),
+            0 if str(x.get("pair_scope", "")) == "adjacent" else 1,
+            int(x["distance_pair"][0]),
+            int(x["distance_pair"][1]),
         )
+    )
     return out
 
 
@@ -465,6 +515,19 @@ def aggregate_rows(rows: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
     by_triplet: Dict[Tuple[str, str, int], List[Dict[str, Any]]] = {}
     for r in rows:
         by_triplet.setdefault((str(r["decoder"]), str(r["noise_model"]), int(r["distance"])), []).append(r)
+    pair_distance_summary: List[Dict[str, Any]] = []
+    for (decoder, noise_model, distance), arr in sorted(by_triplet.items()):
+        pair_distance_summary.append(
+            {
+                "decoder": decoder,
+                "noise_model": noise_model,
+                "distance": int(distance),
+                "num_points": len(arr),
+                "mean_error_rate": float(mean(float(x["error_rate"]) for x in arr)),
+                "mean_avg_decode_time_sec": float(mean(float(x["avg_decode_time_sec"]) for x in arr)),
+                "mean_switch_rate": float(mean(float(x.get("switch_rate", 0.0)) for x in arr)),
+            }
+        )
     for (decoder, noise_model, distance), arr in sorted(by_triplet.items()):
         best_er = min(arr, key=lambda x: (float(x["error_rate"]), float(x["avg_decode_time_sec"])))
         best_t = min(arr, key=lambda x: (float(x["avg_decode_time_sec"]), float(x["error_rate"])))
@@ -488,7 +551,12 @@ def aggregate_rows(rows: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
 
     return {
         "num_points": len(rows),
+        "pair_summary_note": (
+            "Averages over all distances and p-values for each (decoder, noise_model); "
+            "use pair_distance_summary or threshold_estimates for scientific comparisons."
+        ),
         "pair_summary": pair_summary,
+        "pair_distance_summary": pair_distance_summary,
         "pareto_reference_points": pareto_refs,
     }
 
@@ -546,6 +614,9 @@ def print_summary(report: Dict[str, Any]) -> None:
     print("\n=== Week 3 Person 2 - Threshold Scan ===")
     agg = report.get("aggregates", {})
     print(f"points: {agg.get('num_points', 0)}")
+    note = agg.get("pair_summary_note", None)
+    if note:
+        print(f"note: {note}")
     for row in agg.get("pair_summary", [])[:20]:
         print(
             f"{row['decoder']:<8} | {row['noise_model']:<14} | "
