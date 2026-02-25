@@ -99,6 +99,7 @@ class TraceObservation:
     distance: int
     observed_decode_time_sec: float
     switch_rate: Optional[float] = None
+    decoder_label: Optional[str] = None
 
 
 def utc_now_iso() -> str:
@@ -202,6 +203,7 @@ def load_trace_observations(
             row.get("latency_sec", row.get("decode_time_sec", None)),
         )
         switch_raw = row.get("switch_rate", None)
+        decoder_label_raw = row.get("decoder_label", row.get("label", None))
 
         if dist_raw is None or lat_raw is None:
             raise ValueError(
@@ -232,6 +234,11 @@ def load_trace_observations(
                 distance=int(distance),
                 observed_decode_time_sec=float(observed),
                 switch_rate=switch_rate,
+                decoder_label=(
+                    None
+                    if decoder_label_raw is None or str(decoder_label_raw).strip() == ""
+                    else str(decoder_label_raw).strip()
+                ),
             )
         )
     return out
@@ -436,8 +443,8 @@ def benchmark_row_distance(
         )
         run_rows.append(
             {
-                "repeat_index": float(i),
-                "seed": float(seed_i),
+                "repeat_index": int(i),
+                "seed": int(seed_i),
                 "error_rate": float(metrics["error_rate"]),
                 "avg_decode_time_sec": float(metrics["avg_decode_time_sec"]),
                 "switch_rate": float(metrics["switch_rate"]),
@@ -582,14 +589,34 @@ def predict_switch_rate(
 
 def build_adaptive_switch_rate_by_distance(rows: Sequence[Dict[str, Any]]) -> Dict[int, float]:
     acc: Dict[int, List[float]] = {}
+    labels_by_distance: Dict[int, set[str]] = {}
     for row in rows:
         if str(row.get("backend", "")) != "adaptive":
             continue
         d = int(row["distance"])
         acc.setdefault(d, []).append(float(row.get("mean_switch_rate", 0.0)))
+        labels_by_distance.setdefault(d, set()).add(str(row.get("decoder_label", "")))
     out: Dict[int, float] = {}
     for d, vals in sorted(acc.items()):
+        # Only keep distance-level fallback when exactly one adaptive policy is present.
+        if len(labels_by_distance.get(d, set())) != 1:
+            continue
         out[d] = float(np.clip(np.mean(vals), 0.0, 1.0))
+    return out
+
+
+def build_adaptive_switch_rate_by_label_distance(
+    rows: Sequence[Dict[str, Any]],
+) -> Dict[Tuple[str, int], float]:
+    acc: Dict[Tuple[str, int], List[float]] = {}
+    for row in rows:
+        if str(row.get("backend", "")) != "adaptive":
+            continue
+        key = (str(row.get("decoder_label", "")), int(row["distance"]))
+        acc.setdefault(key, []).append(float(row.get("mean_switch_rate", 0.0)))
+    out: Dict[Tuple[str, int], float] = {}
+    for key, vals in sorted(acc.items()):
+        out[key] = float(np.clip(np.mean(vals), 0.0, 1.0))
     return out
 
 
@@ -630,6 +657,7 @@ def calibrate_arch_models_from_traces(
     workload: Sequence[WorkloadFeatures],
     adaptive_fast_backend: str,
     adaptive_switch_rate_by_distance: Mapping[int, float],
+    adaptive_switch_rate_by_label_distance: Mapping[Tuple[str, int], float],
     ops_factor_mwpm: float,
     ops_factor_uf: float,
     ops_factor_bm: float,
@@ -672,7 +700,21 @@ def calibrate_arch_models_from_traces(
                 continue
             if tr.backend == "adaptive":
                 if tr.switch_rate is None:
-                    sw = float(adaptive_switch_rate_by_distance.get(int(tr.distance), 0.0))
+                    if tr.decoder_label is not None:
+                        key = (str(tr.decoder_label), int(tr.distance))
+                        if key in adaptive_switch_rate_by_label_distance:
+                            sw = float(adaptive_switch_rate_by_label_distance[key])
+                        elif int(tr.distance) in adaptive_switch_rate_by_distance:
+                            sw = float(adaptive_switch_rate_by_distance[int(tr.distance)])
+                        else:
+                            skipped += 1
+                            continue
+                    elif int(tr.distance) in adaptive_switch_rate_by_distance:
+                        sw = float(adaptive_switch_rate_by_distance[int(tr.distance)])
+                    else:
+                        # Ambiguous or unavailable fallback when multiple adaptive policies share distance.
+                        skipped += 1
+                        continue
                 else:
                     sw = float(tr.switch_rate)
                 ops_fast = proxy_ops_for_backend(
@@ -1080,6 +1122,7 @@ def build_report(
             "ops_rate_scale": float(args.ops_rate_scale),
             "fixed_overhead_scale": float(args.fixed_overhead_scale),
             "detector_penalty_scale": float(args.detector_penalty_scale),
+            "adaptive_benchmark_time_metric": "core",
             "trace_input": args.trace_input,
             "figure_output": args.figure_output,
         },
@@ -1312,12 +1355,16 @@ def main() -> None:
     )
     if trace_observations:
         adaptive_switch_rate_by_distance = build_adaptive_switch_rate_by_distance(benchmark_rows)
+        adaptive_switch_rate_by_label_distance = build_adaptive_switch_rate_by_label_distance(
+            benchmark_rows
+        )
         target_arch_models, trace_calibration = calibrate_arch_models_from_traces(
             trace_rows=trace_observations,
             default_models=base_target_arch_models,
             workload=workload_features,
             adaptive_fast_backend=str(args.adaptive_fast_backend),
             adaptive_switch_rate_by_distance=adaptive_switch_rate_by_distance,
+            adaptive_switch_rate_by_label_distance=adaptive_switch_rate_by_label_distance,
             ops_factor_mwpm=float(args.ops_factor_mwpm),
             ops_factor_uf=float(args.ops_factor_uf),
             ops_factor_bm=float(args.ops_factor_bm),

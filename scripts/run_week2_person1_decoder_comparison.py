@@ -174,6 +174,7 @@ def run_comparison(
             "shots_per_case": shots,
             "keep_soft_info_samples": keep_soft,
             "g_threshold": g_threshold,
+            "adaptive_benchmark_time_metric": "core",
         },
         "cases_summary": rows,
         "aggregates": agg,

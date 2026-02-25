@@ -533,6 +533,7 @@ def build_report(
             "seed": int(seed),
             "g_threshold": float(g_threshold),
             "adaptive_fast_mode": bool(adaptive_fast_mode),
+            "adaptive_benchmark_time_metric": "core",
             "logical_basis": logical_basis,
         },
         "points": list(rows),

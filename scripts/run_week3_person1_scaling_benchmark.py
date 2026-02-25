@@ -347,6 +347,7 @@ def main() -> None:
             "g_threshold": float(args.g_threshold),
             "keep_soft": int(args.keep_soft),
             "num_cases": len(rows),
+            "adaptive_benchmark_time_metric": "core",
         },
         "cases_summary": rows,
         "aggregates": aggregate_rows(rows),

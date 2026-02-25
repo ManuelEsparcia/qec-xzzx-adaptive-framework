@@ -238,6 +238,7 @@ def main() -> None:
             "g_threshold": float(args.g_threshold),
             "seed": int(args.seed),
             "top_n": int(args.top_n),
+            "adaptive_benchmark_time_metric": "core",
         },
         "modes": {
             "standard": {

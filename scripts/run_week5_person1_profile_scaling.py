@@ -587,6 +587,7 @@ def main() -> None:
             "seed": int(args.seed),
             "g_threshold": float(args.g_threshold),
             "adaptive_fast_mode": bool(args.adaptive_fast_mode),
+            "adaptive_benchmark_time_metric": "core",
             "profile_decoder": args.profile_decoder,
             "profile_distance": int(args.profile_distance),
             "profile_shots": int(args.profile_shots),

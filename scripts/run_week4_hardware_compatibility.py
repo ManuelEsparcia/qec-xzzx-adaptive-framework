@@ -253,8 +253,8 @@ def benchmark_row_distance(
         )
         run_rows.append(
             {
-                "repeat_index": float(i),
-                "seed": float(seed_i),
+                "repeat_index": int(i),
+                "seed": int(seed_i),
                 "error_rate": float(metrics["error_rate"]),
                 "avg_decode_time_sec": float(metrics["avg_decode_time_sec"]),
                 "switch_rate": float(metrics["switch_rate"]),
@@ -523,6 +523,7 @@ def build_report(
             "repeats": int(args.repeats),
             "seed": int(args.seed),
             "adaptive_fast_mode": bool(args.adaptive_fast_mode),
+            "adaptive_benchmark_time_metric": "core",
             "safety_factor": float(args.safety_factor),
             "figure_output": args.figure_output,
         },
