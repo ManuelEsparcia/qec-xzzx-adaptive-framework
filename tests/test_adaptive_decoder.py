@@ -6,8 +6,7 @@ from typing import Any, Dict, Sequence, Tuple
 
 import numpy as np
 import pytest
-
-# Dependencias requeridas by los decoders reales
+# Required dependencies for the real decoders
 pytest.importorskip("stim")
 pytest.importorskip("pymatching")
 
@@ -17,7 +16,7 @@ from src.switching.adaptive_decoder import AdaptiveConfig, AdaptiveDecoder
 
 class _DummyDecoder:
     """
-    Decoder mínimo for tests deterministas de lógica de switching.
+    Minimal decoder for deterministic switching-logic tests.
     """
 
     def __init__(self, pred_bit: int, confidence: float, decode_time: float = 1e-6) -> None:
@@ -365,10 +364,9 @@ def test_benchmark_threshold_controls_switch_rate_deterministically() -> None:
         accurate_decoder=accurate,
         config=AdaptiveConfig(g_threshold=0.5, compare_against_mwpm_in_benchmark=False),
     )
-
-    # threshold menor que 0.4 -> nunca switch
+    # Threshold below 0.4 -> never switch
     res_low = ad.benchmark_adaptive(shots=25, g_threshold=0.3, compare_against_mwpm=False)
-    # threshold mayor que 0.4 -> siempre switch
+    # Threshold above 0.4 -> always switch
     res_high = ad.benchmark_adaptive(shots=25, g_threshold=0.8, compare_against_mwpm=False)
 
     assert float(res_low["switch_rate"]) == 0.0

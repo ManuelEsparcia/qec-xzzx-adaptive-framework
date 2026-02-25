@@ -348,7 +348,7 @@ class UnionFindDecoderWithSoftInfo:
             sampled = self.sampler.sample(shots=shots, separate_observables=True)
         except TypeError as exc:
             raise RuntimeError(
-                "Tu versión de stim does not support sample(..., separate_observables=True). "
+                "Your Stim version does not support sample(..., separate_observables=True). "
                 "Update stim to use benchmark with error_rate."
             ) from exc
 

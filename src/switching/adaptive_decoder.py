@@ -339,13 +339,12 @@ class AdaptiveDecoder:
             sampled = self.sampler.sample(shots=shots, separate_observables=True)
         except TypeError as exc:
             raise RuntimeError(
-                "Tu versión de stim does not support sample(..., separate_observables=True). "
+                "Your Stim version does not support sample(..., separate_observables=True). "
                 "Update stim to use benchmark with error_rate."
             ) from exc
 
         if not isinstance(sampled, tuple) or len(sampled) != 2:
             raise RuntimeError(
-                "Expected que Stim devolviera (detector_samples, observable_flips)."
                 "Expected Stim to return (detector_samples, observable_flips)."
             )
 

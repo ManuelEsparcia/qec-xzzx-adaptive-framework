@@ -200,7 +200,7 @@ def test_run_noise_sweep_contract_min_ler(monkeypatch: pytest.MonkeyPatch) -> No
         base_circuit: Any = None,
     ) -> Dict[str, Any]:
         v = float(sweep_value)
-        # mínimo de LER en v=0.20
+        # Minimum LER at v=0.20
         ler = abs(v - 0.20) + 0.001 * case.distance
         return {
             "case_name": case.case_name,
@@ -266,7 +266,7 @@ def test_run_noise_sweep_contract_min_time(monkeypatch: pytest.MonkeyPatch) -> N
         base_circuit: Any = None,
     ) -> Dict[str, Any]:
         v = float(sweep_value)
-        # tiempo mínimo en v=0.40
+        # Minimum time at v=0.40
         avg_t = abs(v - 0.40) + 0.01
         return {
             "case_name": case.case_name,

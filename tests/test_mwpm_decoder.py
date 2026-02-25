@@ -28,7 +28,7 @@ def _build_decoder(distance: int = 3, rounds: int = 3, p: float = 0.01) -> MWPMD
 
 def test_decoder_construction_ok() -> None:
     """
-    Verifies que el decoder is construye correctamente and expone metadata básicos.
+    Verifies that the decoder is constructed correctly and exposes basic metadata.
     """
     decoder = _build_decoder()
     assert decoder.num_detectors > 0

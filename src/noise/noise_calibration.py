@@ -149,8 +149,7 @@ def _call_builder_with_flexible_signature(
             return c
     except Exception:
         pass
-
-    # Fallback mínimo posicional
+    # Minimal positional fallback
     try:
         out = fn(distance, rounds)
         c = _maybe_extract_circuit(out)
