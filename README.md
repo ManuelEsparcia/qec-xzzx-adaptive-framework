@@ -5,21 +5,22 @@ A research framework for evaluating QEC decoders on XZZX-like memory circuits us
 ## Goal
 
 Build a reproducible pipeline for:
-- XZZX circuit generation (Stim rotated memory templates)
-- noise model injection
+- XZZX memory-circuit generation (Stim rotated-memory templates)
+- noise model injection and calibration workflows
 - decoding with MWPM, Union-Find, Belief-Matching/BP, and adaptive switching
-- benchmark execution and result reporting
+- benchmark execution, profiling, scaling fits, and hardware-oriented reporting
 
 ## Current Status
 
 - XZZX circuit generation: implemented
-- Noise models (5): implemented
+- Noise model workflows: implemented (depolarizing / biased / circuit-level / correlated families used in scripts)
 - Decoders:
   - MWPM with soft-info: implemented
   - Union-Find with soft-info: implemented
-  - Belief-Matching/BP with soft-info: implemented (robust fallback included)
-  - Adaptive (UF -> MWPM switch by threshold): implemented
-- Test suite: passing in local conda environment `qec-xzzx`
+  - Belief-Matching/BP with soft-info: implemented (fallbacks included)
+  - Adaptive switching: implemented (threshold-based, configurable fast backend `uf`/`bm`, `fast_mode`)
+- Week 1-5 benchmark/report scripts: implemented
+- Tests: unit + integration + smoke tests (`156 passed` in local conda environment `qec-xzzx`)
 
 ## Repository Structure
 
@@ -29,23 +30,29 @@ src/
   noise/        # noise models and calibration utilities
   decoders/     # MWPM / UF / BM decoders
   switching/    # adaptive decoder logic
-  pipelines/    # end-to-end pipelines
-scripts/        # reproducible benchmark/report scripts
+  hardware/     # hardware latency/compatibility helpers
+  pipelines/    # end-to-end pipelines (reserved/experimental)
+scripts/        # reproducible benchmark/report scripts (weeks 1-5)
 tests/          # unit + integration + smoke tests
 results/        # benchmark JSON outputs
 docs/           # reports and notes
+figures/        # generated figures/plots
 ```
 
 ## Requirements
 
 - Python 3.11 recommended
-- Dependencies listed in `requirements.txt`
+- Base dependencies listed in `requirements.txt`
 
-Main dependencies:
+Base dependencies:
 - `numpy`
 - `stim`
 - `pymatching`
 - `pytest`
+
+Optional plotting dependencies (needed for some Week 4/5 scripts):
+- `matplotlib` (required for hardware compatibility/target-model figures)
+- `seaborn` (optional; scripts fall back if unavailable)
 
 ## Quick Setup (Conda)
 
@@ -53,6 +60,12 @@ Main dependencies:
 conda create -n qec-xzzx python=3.11 -y
 conda activate qec-xzzx
 python -m pip install -r requirements.txt
+```
+
+Optional extras for plotting scripts:
+
+```bash
+python -m pip install matplotlib seaborn
 ```
 
 ## Run Tests
@@ -111,17 +124,44 @@ python -m scripts.run_week3_person1_profile_adaptive --distance 7 --rounds 5 --p
 python -m scripts.run_week3_person1_scaling_benchmark --shots 300 --repeats 2 --g-threshold 0.35
 ```
 
-### Week 3 - person 2 threshold scan (massive simulations)
+### Week 3 - threshold scan (person 2)
 
 ```bash
 python -m scripts.run_week3_person2_threshold_scan --distances 3,5,7 --p-values 0.001,0.002,0.003,0.005,0.0075,0.01,0.015,0.02 --decoders mwpm,uf,bm,adaptive --noise-models depolarizing,biased_eta10,biased_eta100,biased_eta500,circuit_level,correlated --shots 300
 ```
 
-## Results
+### Week 4 - hardware compatibility report
 
-JSON outputs are written under `results/`.
+```bash
+python -m scripts.run_week4_hardware_compatibility --shots 120 --repeats 2
+```
+
+### Week 5 - adaptive policy tuning
+
+```bash
+python -m scripts.run_week5_person1_adaptive_policy_tuning --shots 150 --repeats 3 --time-metric core
+```
+
+### Week 5 - profiling + scaling (time/memory)
+
+```bash
+python -m scripts.run_week5_person1_profile_scaling --shots 200 --repeats 2 --profile-shots 120
+```
+
+### Week 5 - hardware target model / trace-calibrated report
+
+```bash
+python -m scripts.run_week5_person2_hardware_target_model --shots 120 --repeats 2
+```
+
+## Output Conventions
+
+- JSON outputs are written under `results/`.
+- Several adaptive benchmark reports explicitly store `adaptive_benchmark_time_metric` (currently `core`) in report metadata/config for reproducibility.
+- Some scripts also generate figures under `figures/` (or custom output paths).
 
 ## Notes
 
-- Execute commands from the repository root (`from src...` imports are used).
+- Run commands from the repository root (`from src...` imports are used).
 - In VS Code, pin the interpreter in `.vscode/settings.json` if needed.
+- For reproducible comparisons, keep seeds/time metrics consistent across runs and preserve generated JSON reports with their config blocks.
