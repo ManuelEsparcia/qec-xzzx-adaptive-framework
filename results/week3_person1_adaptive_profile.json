@@ -1,0 +1,288 @@
+{
+  "metadata": {
+    "report_name": "week3_person1_adaptive_profile",
+    "timestamp_utc": "2026-02-19T20:37:39+00:00"
+  },
+  "case": {
+    "distance": 7,
+    "rounds": 5,
+    "p": 0.01,
+    "logical_basis": "x",
+    "noise_model": "depolarizing"
+  },
+  "config": {
+    "shots": 200,
+    "keep_samples": 10,
+    "g_threshold": 0.35,
+    "seed": 2026,
+    "top_n": 12
+  },
+  "modes": {
+    "standard": {
+      "summary": {
+        "fast_mode": false,
+        "seed": 2037,
+        "shots": 200,
+        "wall_time_sec": 0.08189530007075518,
+        "benchmark": {
+          "error_rate_adaptive": 0.01,
+          "avg_decode_time_adaptive": 0.00032788650365546347,
+          "switch_rate": 0.0,
+          "num_detectors": 240,
+          "num_observables": 1
+        },
+        "cprofile": {
+          "total_calls": 20491,
+          "prim_calls": 20491,
+          "total_tt_sec": 0.08095219999999999
+        }
+      },
+      "top_cumulative": [
+        {
+          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\switching\\adaptive_decoder.py",
+          "line": 165,
+          "function": "benchmark_adaptive",
+          "primitive_calls": 1,
+          "total_calls": 1,
+          "tottime_sec": 0.0095137,
+          "cumtime_sec": 0.0809513
+        },
+        {
+          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\switching\\adaptive_decoder.py",
+          "line": 115,
+          "function": "decode_adaptive",
+          "primitive_calls": 200,
+          "total_calls": 200,
+          "tottime_sec": 0.0021111000000000003,
+          "cumtime_sec": 0.0672088
+        },
+        {
+          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
+          "line": 285,
+          "function": "decode_with_confidence",
+          "primitive_calls": 200,
+          "total_calls": 200,
+          "tottime_sec": 0.0039865000000000005,
+          "cumtime_sec": 0.060707300000000006
+        },
+        {
+          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
+          "line": 274,
+          "function": "_decode_backend",
+          "primitive_calls": 200,
+          "total_calls": 200,
+          "tottime_sec": 0.0011787,
+          "cumtime_sec": 0.021529200000000002
+        },
+        {
+          "file": "C:\\Python310\\lib\\site-packages\\pymatching\\matching.py",
+          "line": 218,
+          "function": "decode",
+          "primitive_calls": 200,
+          "total_calls": 200,
+          "tottime_sec": 0.0105473,
+          "cumtime_sec": 0.0171963
+        },
+        {
+          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
+          "line": 221,
+          "function": "_cluster_stats_from_syndrome",
+          "primitive_calls": 200,
+          "total_calls": 200,
+          "tottime_sec": 0.0040223,
+          "cumtime_sec": 0.0170498
+        },
+        {
+          "file": "C:\\Python310\\lib\\site-packages\\numpy\\core\\fromnumeric.py",
+          "line": 2177,
+          "function": "sum",
+          "primitive_calls": 800,
+          "total_calls": 800,
+          "tottime_sec": 0.0023698,
+          "cumtime_sec": 0.0129279
+        },
+        {
+          "file": "C:\\Python310\\lib\\site-packages\\numpy\\core\\fromnumeric.py",
+          "line": 71,
+          "function": "_wrapreduction",
+          "primitive_calls": 1000,
+          "total_calls": 1000,
+          "tottime_sec": 0.0042454,
+          "cumtime_sec": 0.0124782
+        },
+        {
+          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
+          "line": 245,
+          "function": "_estimate_total_weight",
+          "primitive_calls": 200,
+          "total_calls": 200,
+          "tottime_sec": 0.0010101,
+          "cumtime_sec": 0.007109600000000001
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+          "primitive_calls": 1002,
+          "total_calls": 1002,
+          "tottime_sec": 0.006923500000000001,
+          "cumtime_sec": 0.006923500000000001
+        },
+        {
+          "file": "C:\\Python310\\lib\\site-packages\\pymatching\\matching.py",
+          "line": 202,
+          "function": "_syndrome_array_to_detection_events",
+          "primitive_calls": 200,
+          "total_calls": 200,
+          "tottime_sec": 0.0015527000000000002,
+          "cumtime_sec": 0.006649
+        },
+        {
+          "file": "C:\\Python310\\lib\\site-packages\\numpy\\core\\numeric.py",
+          "line": 615,
+          "function": "flatnonzero",
+          "primitive_calls": 200,
+          "total_calls": 200,
+          "tottime_sec": 0.0009545,
+          "cumtime_sec": 0.0045141
+        }
+      ]
+    },
+    "fast": {
+      "summary": {
+        "fast_mode": true,
+        "seed": 2037,
+        "shots": 200,
+        "wall_time_sec": 0.0750152999535203,
+        "benchmark": {
+          "error_rate_adaptive": 0.01,
+          "avg_decode_time_adaptive": 0.0003078314918093383,
+          "switch_rate": 0.0,
+          "num_detectors": 240,
+          "num_observables": 1
+        },
+        "cprofile": {
+          "total_calls": 19641,
+          "prim_calls": 19641,
+          "total_tt_sec": 0.07498260000000001
+        }
+      },
+      "top_cumulative": [
+        {
+          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\switching\\adaptive_decoder.py",
+          "line": 165,
+          "function": "benchmark_adaptive",
+          "primitive_calls": 1,
+          "total_calls": 1,
+          "tottime_sec": 0.0090387,
+          "cumtime_sec": 0.07498110000000001
+        },
+        {
+          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\switching\\adaptive_decoder.py",
+          "line": 325,
+          "function": "_decode_adaptive_fastpath",
+          "primitive_calls": 200,
+          "total_calls": 200,
+          "tottime_sec": 0.0012949,
+          "cumtime_sec": 0.0619159
+        },
+        {
+          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
+          "line": 285,
+          "function": "decode_with_confidence",
+          "primitive_calls": 200,
+          "total_calls": 200,
+          "tottime_sec": 0.0038485000000000004,
+          "cumtime_sec": 0.0573164
+        },
+        {
+          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
+          "line": 274,
+          "function": "_decode_backend",
+          "primitive_calls": 200,
+          "total_calls": 200,
+          "tottime_sec": 0.0011419000000000002,
+          "cumtime_sec": 0.020642
+        },
+        {
+          "file": "C:\\Python310\\lib\\site-packages\\pymatching\\matching.py",
+          "line": 218,
+          "function": "decode",
+          "primitive_calls": 200,
+          "total_calls": 200,
+          "tottime_sec": 0.0092896,
+          "cumtime_sec": 0.015500400000000001
+        },
+        {
+          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
+          "line": 221,
+          "function": "_cluster_stats_from_syndrome",
+          "primitive_calls": 200,
+          "total_calls": 200,
+          "tottime_sec": 0.004017000000000001,
+          "cumtime_sec": 0.015473100000000002
+        },
+        {
+          "file": "C:\\Python310\\lib\\site-packages\\numpy\\core\\fromnumeric.py",
+          "line": 2177,
+          "function": "sum",
+          "primitive_calls": 800,
+          "total_calls": 800,
+          "tottime_sec": 0.0022889,
+          "cumtime_sec": 0.0126043
+        },
+        {
+          "file": "C:\\Python310\\lib\\site-packages\\numpy\\core\\fromnumeric.py",
+          "line": 71,
+          "function": "_wrapreduction",
+          "primitive_calls": 1000,
+          "total_calls": 1000,
+          "tottime_sec": 0.0031734000000000003,
+          "cumtime_sec": 0.0121191
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+          "primitive_calls": 1002,
+          "total_calls": 1002,
+          "tottime_sec": 0.0073318,
+          "cumtime_sec": 0.0073318
+        },
+        {
+          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
+          "line": 245,
+          "function": "_estimate_total_weight",
+          "primitive_calls": 200,
+          "total_calls": 200,
+          "tottime_sec": 0.0011535,
+          "cumtime_sec": 0.0065401
+        },
+        {
+          "file": "C:\\Python310\\lib\\site-packages\\pymatching\\matching.py",
+          "line": 202,
+          "function": "_syndrome_array_to_detection_events",
+          "primitive_calls": 200,
+          "total_calls": 200,
+          "tottime_sec": 0.0014734000000000001,
+          "cumtime_sec": 0.006210800000000001
+        },
+        {
+          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
+          "line": 212,
+          "function": "_normalize_prediction",
+          "primitive_calls": 200,
+          "total_calls": 200,
+          "tottime_sec": 0.0034057000000000002,
+          "cumtime_sec": 0.0039997
+        }
+      ]
+    }
+  },
+  "comparisons": {
+    "avg_decode_speedup_fast_vs_standard": 1.0651493183112877,
+    "wall_time_speedup_fast_vs_standard": 1.0917146251697687,
+    "delta_error_rate_fast_minus_standard": 0.0,
+    "delta_switch_rate_fast_minus_standard": 0.0
+  }
+}

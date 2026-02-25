@@ -1,0 +1,334 @@
+{
+  "metadata": {
+    "report_name": "week3_person1_scaling_benchmark",
+    "timestamp_utc": "2026-02-19T20:37:39+00:00",
+    "shots": 200,
+    "repeats": 2,
+    "seed": 2026,
+    "g_threshold": 0.35,
+    "keep_soft": 10,
+    "num_cases": 3
+  },
+  "cases_summary": [
+    {
+      "case_name": "d5_r3_p0.010",
+      "distance": 5,
+      "rounds": 3,
+      "p": 0.01,
+      "shots": 200,
+      "repeats": 2,
+      "g_threshold": 0.35,
+      "num_detectors": 72,
+      "num_observables": 1,
+      "means": {
+        "mwpm_error_rate": 0.01,
+        "uf_error_rate": 0.03,
+        "adaptive_standard_error_rate": 0.02,
+        "adaptive_fast_error_rate": 0.02,
+        "mwpm_avg_decode_time_sec": 5.053600179962814e-05,
+        "uf_avg_decode_time_sec": 7.168624695623293e-05,
+        "adaptive_standard_avg_decode_time_sec": 0.00032842100074049086,
+        "adaptive_fast_avg_decode_time_sec": 0.00038941849692491814,
+        "adaptive_standard_wall_time_sec": 0.07800340000540018,
+        "adaptive_fast_wall_time_sec": 0.09028619999298826,
+        "adaptive_standard_switch_rate": 0.0,
+        "adaptive_fast_switch_rate": 0.0,
+        "speedup_fast_vs_standard_decode_time": 0.8433626120328128,
+        "speedup_fast_vs_standard_wall_time": 0.8639570611174024,
+        "speedup_uf_vs_mwpm_decode_time": 0.7049609087567691,
+        "speedup_adaptive_fast_vs_mwpm_decode_time": 0.12977298766928305
+      },
+      "repeats_summary": [
+        {
+          "repeat_index": 0,
+          "seed_base": 7302,
+          "mwpm": {
+            "error_rate": 0.015,
+            "avg_decode_time_sec": 6.25554978614673e-05,
+            "wall_time_sec": 0.05191029992420226
+          },
+          "uf": {
+            "error_rate": 0.02,
+            "avg_decode_time_sec": 6.723649974446744e-05,
+            "wall_time_sec": 0.060910800006240606,
+            "backend_info": {
+              "matcher_build_mode": "default",
+              "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+              "is_union_find_backend": true
+            }
+          },
+          "adaptive_standard": {
+            "error_rate": 0.025,
+            "avg_decode_time_sec": 0.0002711040031863376,
+            "switch_rate": 0.0,
+            "wall_time_sec": 0.06619800010230392,
+            "fast_mode": false
+          },
+          "adaptive_fast": {
+            "error_rate": 0.025,
+            "avg_decode_time_sec": 0.0002760250010760501,
+            "switch_rate": 0.0,
+            "wall_time_sec": 0.06996230001095682,
+            "fast_mode": true
+          },
+          "speedup_fast_vs_standard_decode_time": 0.9821719124335528,
+          "speedup_fast_vs_standard_wall_time": 0.9461953093585634
+        },
+        {
+          "repeat_index": 1,
+          "seed_base": 17309,
+          "mwpm": {
+            "error_rate": 0.005,
+            "avg_decode_time_sec": 3.851650573778898e-05,
+            "wall_time_sec": 0.03895449999254197
+          },
+          "uf": {
+            "error_rate": 0.04,
+            "avg_decode_time_sec": 7.613599416799843e-05,
+            "wall_time_sec": 0.05475420004222542,
+            "backend_info": {
+              "matcher_build_mode": "default",
+              "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+              "is_union_find_backend": true
+            }
+          },
+          "adaptive_standard": {
+            "error_rate": 0.015,
+            "avg_decode_time_sec": 0.00038573799829464404,
+            "switch_rate": 0.0,
+            "wall_time_sec": 0.08980879990849644,
+            "fast_mode": false
+          },
+          "adaptive_fast": {
+            "error_rate": 0.015,
+            "avg_decode_time_sec": 0.0005028119927737862,
+            "switch_rate": 0.0,
+            "wall_time_sec": 0.1106100999750197,
+            "fast_mode": true
+          },
+          "speedup_fast_vs_standard_decode_time": 0.7671614914487264,
+          "speedup_fast_vs_standard_wall_time": 0.8119403194534582
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "case_name": "d7_r5_p0.010",
+      "distance": 7,
+      "rounds": 5,
+      "p": 0.01,
+      "shots": 200,
+      "repeats": 2,
+      "g_threshold": 0.35,
+      "num_detectors": 240,
+      "num_observables": 1,
+      "means": {
+        "mwpm_error_rate": 0.0225,
+        "uf_error_rate": 0.0175,
+        "adaptive_standard_error_rate": 0.02,
+        "adaptive_fast_error_rate": 0.02,
+        "mwpm_avg_decode_time_sec": 8.284775074571371e-05,
+        "uf_avg_decode_time_sec": 0.000425030249170959,
+        "adaptive_standard_avg_decode_time_sec": 0.00039268200111109764,
+        "adaptive_fast_avg_decode_time_sec": 0.0004258487487095408,
+        "adaptive_standard_wall_time_sec": 0.09941720002098009,
+        "adaptive_fast_wall_time_sec": 0.0987120500067249,
+        "adaptive_standard_switch_rate": 0.0,
+        "adaptive_fast_switch_rate": 0.0,
+        "speedup_fast_vs_standard_decode_time": 0.922116132314703,
+        "speedup_fast_vs_standard_wall_time": 1.0071435049136064,
+        "speedup_uf_vs_mwpm_decode_time": 0.19492201062703665,
+        "speedup_adaptive_fast_vs_mwpm_decode_time": 0.19454736217206026
+      },
+      "repeats_summary": [
+        {
+          "repeat_index": 0,
+          "seed_base": 1009493,
+          "mwpm": {
+            "error_rate": 0.015,
+            "avg_decode_time_sec": 8.107400208245963e-05,
+            "wall_time_sec": 0.25828079995699227
+          },
+          "uf": {
+            "error_rate": 0.02,
+            "avg_decode_time_sec": 0.0007452004979131743,
+            "wall_time_sec": 0.2310843999730423,
+            "backend_info": {
+              "matcher_build_mode": "default",
+              "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+              "is_union_find_backend": true
+            }
+          },
+          "adaptive_standard": {
+            "error_rate": 0.01,
+            "avg_decode_time_sec": 0.00039079649839550255,
+            "switch_rate": 0.0,
+            "wall_time_sec": 0.09823220001999289,
+            "fast_mode": false
+          },
+          "adaptive_fast": {
+            "error_rate": 0.01,
+            "avg_decode_time_sec": 0.00048777649935800583,
+            "switch_rate": 0.0,
+            "wall_time_sec": 0.11053810000885278,
+            "fast_mode": true
+          },
+          "speedup_fast_vs_standard_decode_time": 0.8011794313786234,
+          "speedup_fast_vs_standard_wall_time": 0.8886727744743728
+        },
+        {
+          "repeat_index": 1,
+          "seed_base": 1019500,
+          "mwpm": {
+            "error_rate": 0.03,
+            "avg_decode_time_sec": 8.46214994089678e-05,
+            "wall_time_sec": 0.060750899952836335
+          },
+          "uf": {
+            "error_rate": 0.015,
+            "avg_decode_time_sec": 0.00010486000042874367,
+            "wall_time_sec": 0.0745003999909386,
+            "backend_info": {
+              "matcher_build_mode": "default",
+              "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+              "is_union_find_backend": true
+            }
+          },
+          "adaptive_standard": {
+            "error_rate": 0.03,
+            "avg_decode_time_sec": 0.0003945675038266927,
+            "switch_rate": 0.0,
+            "wall_time_sec": 0.10060220002196729,
+            "fast_mode": false
+          },
+          "adaptive_fast": {
+            "error_rate": 0.03,
+            "avg_decode_time_sec": 0.0003639209980610758,
+            "switch_rate": 0.0,
+            "wall_time_sec": 0.08688600000459701,
+            "fast_mode": true
+          },
+          "speedup_fast_vs_standard_decode_time": 1.084211974381521,
+          "speedup_fast_vs_standard_wall_time": 1.1578643281615517
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "case_name": "d9_r7_p0.010",
+      "distance": 9,
+      "rounds": 7,
+      "p": 0.01,
+      "shots": 200,
+      "repeats": 2,
+      "g_threshold": 0.35,
+      "num_detectors": 560,
+      "num_observables": 1,
+      "means": {
+        "mwpm_error_rate": 0.027500000000000004,
+        "uf_error_rate": 0.035,
+        "adaptive_standard_error_rate": 0.0225,
+        "adaptive_fast_error_rate": 0.0225,
+        "mwpm_avg_decode_time_sec": 0.0001580857508815825,
+        "uf_avg_decode_time_sec": 0.00016708700248273088,
+        "adaptive_standard_avg_decode_time_sec": 0.00036010425275890157,
+        "adaptive_fast_avg_decode_time_sec": 0.0003341799968620762,
+        "adaptive_standard_wall_time_sec": 0.08754040003987029,
+        "adaptive_fast_wall_time_sec": 0.0788147000130266,
+        "adaptive_standard_switch_rate": 0.0,
+        "adaptive_fast_switch_rate": 0.0,
+        "speedup_fast_vs_standard_decode_time": 1.0775757260765217,
+        "speedup_fast_vs_standard_wall_time": 1.110711580776194,
+        "speedup_uf_vs_mwpm_decode_time": 0.9461283554830742,
+        "speedup_adaptive_fast_vs_mwpm_decode_time": 0.4730556956310827
+      },
+      "repeats_summary": [
+        {
+          "repeat_index": 0,
+          "seed_base": 2011684,
+          "mwpm": {
+            "error_rate": 0.035,
+            "avg_decode_time_sec": 0.0001667295052902773,
+            "wall_time_sec": 0.06893459998536855
+          },
+          "uf": {
+            "error_rate": 0.03,
+            "avg_decode_time_sec": 0.00016642600297927856,
+            "wall_time_sec": 0.08669170003850013,
+            "backend_info": {
+              "matcher_build_mode": "default",
+              "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+              "is_union_find_backend": true
+            }
+          },
+          "adaptive_standard": {
+            "error_rate": 0.025,
+            "avg_decode_time_sec": 0.000404010001802817,
+            "switch_rate": 0.0,
+            "wall_time_sec": 0.10084750002715737,
+            "fast_mode": false
+          },
+          "adaptive_fast": {
+            "error_rate": 0.025,
+            "avg_decode_time_sec": 0.00037737499515060334,
+            "switch_rate": 0.0,
+            "wall_time_sec": 0.08903100003954023,
+            "fast_mode": true
+          },
+          "speedup_fast_vs_standard_decode_time": 1.0705796806743493,
+          "speedup_fast_vs_standard_wall_time": 1.1327234332128047
+        },
+        {
+          "repeat_index": 1,
+          "seed_base": 2021691,
+          "mwpm": {
+            "error_rate": 0.02,
+            "avg_decode_time_sec": 0.0001494419964728877,
+            "wall_time_sec": 0.06207520002499223
+          },
+          "uf": {
+            "error_rate": 0.04,
+            "avg_decode_time_sec": 0.00016774800198618323,
+            "wall_time_sec": 0.07365609996486455,
+            "backend_info": {
+              "matcher_build_mode": "default",
+              "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+              "is_union_find_backend": true
+            }
+          },
+          "adaptive_standard": {
+            "error_rate": 0.02,
+            "avg_decode_time_sec": 0.00031619850371498613,
+            "switch_rate": 0.0,
+            "wall_time_sec": 0.07423330005258322,
+            "fast_mode": false
+          },
+          "adaptive_fast": {
+            "error_rate": 0.02,
+            "avg_decode_time_sec": 0.0002909849985735491,
+            "switch_rate": 0.0,
+            "wall_time_sec": 0.06859839998651296,
+            "fast_mode": true
+          },
+          "speedup_fast_vs_standard_decode_time": 1.0866488144235522,
+          "speedup_fast_vs_standard_wall_time": 1.0821433162752794
+        }
+      ],
+      "status": "ok"
+    }
+  ],
+  "aggregates": {
+    "mean_mwpm_error_rate": 0.02,
+    "mean_uf_error_rate": 0.0275,
+    "mean_adaptive_standard_error_rate": 0.020833333333333332,
+    "mean_adaptive_fast_error_rate": 0.020833333333333332,
+    "mean_mwpm_avg_decode_time_sec": 9.715650114230811e-05,
+    "mean_uf_avg_decode_time_sec": 0.00022126783286997428,
+    "mean_adaptive_standard_avg_decode_time_sec": 0.0003604024182034967,
+    "mean_adaptive_fast_avg_decode_time_sec": 0.0003831490808321784,
+    "mean_adaptive_standard_wall_time_sec": 0.08832033335541685,
+    "mean_adaptive_fast_wall_time_sec": 0.08927098333757992,
+    "mean_speedup_fast_vs_standard_decode_time": 0.9476848234746792,
+    "mean_speedup_fast_vs_standard_wall_time": 0.9939373822690676
+  }
+}

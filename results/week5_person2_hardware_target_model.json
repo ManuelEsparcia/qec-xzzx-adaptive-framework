@@ -1,0 +1,3678 @@
+{
+  "metadata": {
+    "report_name": "week5_person2_hardware_target_model",
+    "timestamp_utc": "2026-02-20T01:32:37+00:00"
+  },
+  "config": {
+    "benchmark_distances": [
+      5,
+      7,
+      9
+    ],
+    "distances": [
+      5,
+      7,
+      9,
+      11,
+      13
+    ],
+    "rounds_mode": "distance",
+    "rounds_fixed": 3,
+    "noise_model": "depolarizing",
+    "p_phys": 0.01,
+    "logical_basis": "x",
+    "adaptive_thresholds": [
+      0.2,
+      0.35,
+      0.5,
+      0.65,
+      0.8
+    ],
+    "include_bm": true,
+    "shots": 120,
+    "repeats": 2,
+    "seed": 2026,
+    "adaptive_fast_mode": true,
+    "adaptive_fast_backend": "bm",
+    "adaptive_min_switch_weight": null,
+    "safety_factor": 1.0,
+    "ops_factor_mwpm": 4.0,
+    "ops_factor_uf": 1.2,
+    "ops_factor_bm": 2.2,
+    "ops_adaptive_dispatch": 600.0,
+    "ops_rate_scale": 1.0,
+    "fixed_overhead_scale": 1.0,
+    "detector_penalty_scale": 1.0,
+    "figure_output": "figures/week5_person2_hardware_target_model_heatmaps.png"
+  },
+  "benchmark_rows": [
+    {
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "g_threshold": null,
+      "distance": 5,
+      "rounds": 5,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.04166666666666667,
+      "mean_avg_decode_time_sec": 3.66816675523296e-05,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 107694.0,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 3.873000775153438e-05,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 117701.0,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 3.463332735312482e-05,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "g_threshold": null,
+      "distance": 7,
+      "rounds": 7,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.05416666666666667,
+      "mean_avg_decode_time_sec": 7.400833225498598e-05,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 209963.0,
+          "error_rate": 0.041666666666666664,
+          "avg_decode_time_sec": 6.852666459356745e-05,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 219970.0,
+          "error_rate": 0.06666666666666667,
+          "avg_decode_time_sec": 7.948999991640449e-05,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "g_threshold": null,
+      "distance": 9,
+      "rounds": 9,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.05,
+      "mean_avg_decode_time_sec": 0.00014197249741603932,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 312232.0,
+          "error_rate": 0.058333333333333334,
+          "avg_decode_time_sec": 0.0001440641664279004,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 322239.0,
+          "error_rate": 0.041666666666666664,
+          "avg_decode_time_sec": 0.00013988082840417823,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "uf",
+      "backend": "uf",
+      "g_threshold": null,
+      "distance": 5,
+      "rounds": 5,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.029166666666666667,
+      "mean_avg_decode_time_sec": 3.991041545911382e-05,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 407703.0,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 3.9987502774844566e-05,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 417710.0,
+          "error_rate": 0.008333333333333333,
+          "avg_decode_time_sec": 3.983332814338307e-05,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "uf",
+      "backend": "uf",
+      "g_threshold": null,
+      "distance": 7,
+      "rounds": 7,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.05,
+      "mean_avg_decode_time_sec": 6.025833135936409e-05,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 509972.0,
+          "error_rate": 0.06666666666666667,
+          "avg_decode_time_sec": 6.38291685997198e-05,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 519979.0,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 5.668749411900838e-05,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "uf",
+      "backend": "uf",
+      "g_threshold": null,
+      "distance": 9,
+      "rounds": 9,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.04583333333333334,
+      "mean_avg_decode_time_sec": 0.00011294833578479787,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 612241.0,
+          "error_rate": 0.06666666666666667,
+          "avg_decode_time_sec": 0.00011261084582656622,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 622248.0,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 0.00011328582574302952,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "bm",
+      "backend": "bm",
+      "g_threshold": null,
+      "distance": 5,
+      "rounds": 5,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.05416666666666667,
+      "mean_avg_decode_time_sec": 3.929250039315472e-05,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 707712.0,
+          "error_rate": 0.058333333333333334,
+          "avg_decode_time_sec": 4.19591786339879e-05,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 717719.0,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 3.662582215232154e-05,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "bm",
+      "backend": "bm",
+      "g_threshold": null,
+      "distance": 7,
+      "rounds": 7,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.0625,
+      "mean_avg_decode_time_sec": 6.048249876281867e-05,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 809981.0,
+          "error_rate": 0.06666666666666667,
+          "avg_decode_time_sec": 6.0445000417530534e-05,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 819988.0,
+          "error_rate": 0.058333333333333334,
+          "avg_decode_time_sec": 6.051999710810681e-05,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "bm",
+      "backend": "bm",
+      "g_threshold": null,
+      "distance": 9,
+      "rounds": 9,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.025,
+      "mean_avg_decode_time_sec": 0.00011676334252115339,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 912250.0,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 0.00012688250086891154,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 922257.0,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 0.00010664418417339523,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "g_threshold": 0.2,
+      "distance": 5,
+      "rounds": 5,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.029166666666666667,
+      "mean_avg_decode_time_sec": 0.00010821208416018635,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 1007721.0,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 9.88541772433867e-05,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 1017728.0,
+          "error_rate": 0.008333333333333333,
+          "avg_decode_time_sec": 0.000117569991076986,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "g_threshold": 0.2,
+      "distance": 7,
+      "rounds": 7,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.05,
+      "mean_avg_decode_time_sec": 0.00014669874993463358,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 1109990.0,
+          "error_rate": 0.06666666666666667,
+          "avg_decode_time_sec": 0.00013397500733844936,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 1119997.0,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 0.0001594224925308178,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "g_threshold": 0.2,
+      "distance": 9,
+      "rounds": 9,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.037500000000000006,
+      "mean_avg_decode_time_sec": 0.000455873326670068,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 1212259.0,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 0.00019434915933137139,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 1222266.0,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 0.0007173974940087646,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "g_threshold": 0.35,
+      "distance": 5,
+      "rounds": 5,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.0125,
+      "mean_avg_decode_time_sec": 0.00011402374657336623,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 1307730.0,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 0.0001099175016861409,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 1317737.0,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 0.00011812999146059156,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "g_threshold": 0.35,
+      "distance": 7,
+      "rounds": 7,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.0375,
+      "mean_avg_decode_time_sec": 0.00014281917926079282,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 1409999.0,
+          "error_rate": 0.008333333333333333,
+          "avg_decode_time_sec": 0.00013165334433627626,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 1420006.0,
+          "error_rate": 0.06666666666666667,
+          "avg_decode_time_sec": 0.0001539850141853094,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "g_threshold": 0.35,
+      "distance": 9,
+      "rounds": 9,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.05,
+      "mean_avg_decode_time_sec": 0.00017724416684359313,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 1512268.0,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 0.00018211083564286432,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 1522275.0,
+          "error_rate": 0.075,
+          "avg_decode_time_sec": 0.00017237749804432194,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "g_threshold": 0.5,
+      "distance": 5,
+      "rounds": 5,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.058333333333333334,
+      "mean_avg_decode_time_sec": 0.00011182249969958016,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 1607739.0,
+          "error_rate": 0.058333333333333334,
+          "avg_decode_time_sec": 0.00010767999337986111,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 1617746.0,
+          "error_rate": 0.058333333333333334,
+          "avg_decode_time_sec": 0.00011596500601929923,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "g_threshold": 0.5,
+      "distance": 7,
+      "rounds": 7,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.037500000000000006,
+      "mean_avg_decode_time_sec": 0.00013070790543376158,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 1710008.0,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 0.00013461414685783286,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 1720015.0,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 0.00012680166400969028,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "g_threshold": 0.5,
+      "distance": 9,
+      "rounds": 9,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.0375,
+      "mean_avg_decode_time_sec": 0.0002162987511837855,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 1812277.0,
+          "error_rate": 0.041666666666666664,
+          "avg_decode_time_sec": 0.00020927000247562925,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 1822284.0,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 0.00022332749989194175,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "g_threshold": 0.65,
+      "distance": 5,
+      "rounds": 5,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.029166666666666667,
+      "mean_avg_decode_time_sec": 0.00012750415965759505,
+      "mean_switch_rate": 0.1,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 1907748.0,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 0.00011655666554967562,
+          "switch_rate": 0.11666666666666667
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 1917755.0,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 0.00013845165376551448,
+          "switch_rate": 0.08333333333333333
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "g_threshold": 0.65,
+      "distance": 7,
+      "rounds": 7,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.04583333333333334,
+      "mean_avg_decode_time_sec": 0.00015955122847420474,
+      "mean_switch_rate": 0.029166666666666667,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 2010017.0,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 0.0001680133146389077,
+          "switch_rate": 0.025
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 2020024.0,
+          "error_rate": 0.06666666666666667,
+          "avg_decode_time_sec": 0.00015108914230950178,
+          "switch_rate": 0.03333333333333333
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "g_threshold": 0.65,
+      "distance": 9,
+      "rounds": 9,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.06666666666666667,
+      "mean_avg_decode_time_sec": 0.00027106917502048116,
+      "mean_switch_rate": 0.0,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 2112286.0,
+          "error_rate": 0.08333333333333333,
+          "avg_decode_time_sec": 0.0003317649980696539,
+          "switch_rate": 0.0
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 2122293.0,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 0.00021037335197130838,
+          "switch_rate": 0.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "g_threshold": 0.8,
+      "distance": 5,
+      "rounds": 5,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.0125,
+      "mean_avg_decode_time_sec": 0.0001565724921723207,
+      "mean_switch_rate": 0.3041666666666667,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 2207757.0,
+          "error_rate": 0.008333333333333333,
+          "avg_decode_time_sec": 0.0001519158249720931,
+          "switch_rate": 0.2916666666666667
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 2217764.0,
+          "error_rate": 0.016666666666666666,
+          "avg_decode_time_sec": 0.00016122915937254826,
+          "switch_rate": 0.31666666666666665
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "g_threshold": 0.8,
+      "distance": 7,
+      "rounds": 7,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.03333333333333333,
+      "mean_avg_decode_time_sec": 0.00021149292297195643,
+      "mean_switch_rate": 0.39583333333333337,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 2310026.0,
+          "error_rate": 0.008333333333333333,
+          "avg_decode_time_sec": 0.00020312416988114515,
+          "switch_rate": 0.375
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 2320033.0,
+          "error_rate": 0.058333333333333334,
+          "avg_decode_time_sec": 0.0002198616760627677,
+          "switch_rate": 0.4166666666666667
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "g_threshold": 0.8,
+      "distance": 9,
+      "rounds": 9,
+      "noise_model": "depolarizing",
+      "p_phys": 0.01,
+      "shots": 120,
+      "repeats": 2,
+      "mean_error_rate": 0.04166666666666667,
+      "mean_avg_decode_time_sec": 0.000388042510409529,
+      "mean_switch_rate": 0.4583333333333333,
+      "repeat_runs": [
+        {
+          "repeat_index": 0.0,
+          "seed": 2412295.0,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 0.00043972416897304357,
+          "switch_rate": 0.4583333333333333
+        },
+        {
+          "repeat_index": 1.0,
+          "seed": 2422302.0,
+          "error_rate": 0.058333333333333334,
+          "avg_decode_time_sec": 0.0003363608518460145,
+          "switch_rate": 0.4583333333333333
+        }
+      ],
+      "status": "ok"
+    }
+  ],
+  "python_scaling_models": [
+    {
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "g_threshold": 0.2,
+      "fit_distances": [
+        5,
+        7,
+        9
+      ],
+      "fit_times_sec": [
+        0.00010821208416018635,
+        0.00014669874993463358,
+        0.000455873326670068
+      ],
+      "coefficient": 2.086985765281211e-06,
+      "exponent": 2.361991341438568,
+      "r2": 0.8560162407829088
+    },
+    {
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "g_threshold": 0.35,
+      "fit_distances": [
+        5,
+        7,
+        9
+      ],
+      "fit_times_sec": [
+        0.00011402374657336623,
+        0.00014281917926079282,
+        0.00017724416684359313
+      ],
+      "coefficient": 3.405574548209943e-05,
+      "exponent": 0.7460171891017289,
+      "r2": 0.9945514124613739
+    },
+    {
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "g_threshold": 0.5,
+      "fit_distances": [
+        5,
+        7,
+        9
+      ],
+      "fit_times_sec": [
+        0.00011182249969958016,
+        0.00013070790543376158,
+        0.0002162987511837855
+      ],
+      "coefficient": 1.8281830338891662e-05,
+      "exponent": 1.0862644905179346,
+      "r2": 0.8747493731533367
+    },
+    {
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "g_threshold": 0.65,
+      "fit_distances": [
+        5,
+        7,
+        9
+      ],
+      "fit_times_sec": [
+        0.00012750415965759505,
+        0.00015955122847420474,
+        0.00027106917502048116
+      ],
+      "coefficient": 1.609872774359924e-05,
+      "exponent": 1.2492962364580429,
+      "r2": 0.9097154168399043
+    },
+    {
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "g_threshold": 0.8,
+      "fit_distances": [
+        5,
+        7,
+        9
+      ],
+      "fit_times_sec": [
+        0.0001565724921723207,
+        0.00021149292297195643,
+        0.000388042510409529
+      ],
+      "coefficient": 1.2986745662036935e-05,
+      "exponent": 1.5083751689793303,
+      "r2": 0.9271907740107501
+    },
+    {
+      "decoder_label": "bm",
+      "backend": "bm",
+      "g_threshold": null,
+      "fit_distances": [
+        5,
+        7,
+        9
+      ],
+      "fit_times_sec": [
+        3.929250039315472e-05,
+        6.048249876281867e-05,
+        0.00011676334252115339
+      ],
+      "coefficient": 1.9837025981469433e-06,
+      "exponent": 1.821557458857691,
+      "r2": 0.9566864870950675
+    },
+    {
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "g_threshold": null,
+      "fit_distances": [
+        5,
+        7,
+        9
+      ],
+      "fit_times_sec": [
+        3.66816675523296e-05,
+        7.400833225498598e-05,
+        0.00014197249741603932
+      ],
+      "coefficient": 9.004328142996397e-07,
+      "exponent": 2.2905799124732638,
+      "r2": 0.9949381347385081
+    },
+    {
+      "decoder_label": "uf",
+      "backend": "uf",
+      "g_threshold": null,
+      "fit_distances": [
+        5,
+        7,
+        9
+      ],
+      "fit_times_sec": [
+        3.991041545911382e-05,
+        6.025833135936409e-05,
+        0.00011294833578479787
+      ],
+      "coefficient": 2.303494014168194e-06,
+      "exponent": 1.73990455892346,
+      "r2": 0.9569817387720072
+    }
+  ],
+  "python_predicted_rows": [
+    {
+      "decoder_label": "adaptive_g0.20",
+      "distance": 5,
+      "predicted_decode_time_sec": 9.34287600387714e-05
+    },
+    {
+      "decoder_label": "adaptive_g0.20",
+      "distance": 7,
+      "predicted_decode_time_sec": 0.00020683962420706058
+    },
+    {
+      "decoder_label": "adaptive_g0.20",
+      "distance": 9,
+      "predicted_decode_time_sec": 0.0003744829349174255
+    },
+    {
+      "decoder_label": "adaptive_g0.20",
+      "distance": 11,
+      "predicted_decode_time_sec": 0.0006015614427675685
+    },
+    {
+      "decoder_label": "adaptive_g0.20",
+      "distance": 13,
+      "predicted_decode_time_sec": 0.0008925736051090701
+    },
+    {
+      "decoder_label": "adaptive_g0.35",
+      "distance": 5,
+      "predicted_decode_time_sec": 0.00011314465156833325
+    },
+    {
+      "decoder_label": "adaptive_g0.35",
+      "distance": 7,
+      "predicted_decode_time_sec": 0.0001454280081228888
+    },
+    {
+      "decoder_label": "adaptive_g0.35",
+      "distance": 9,
+      "predicted_decode_time_sec": 0.00017541701077622223
+    },
+    {
+      "decoder_label": "adaptive_g0.35",
+      "distance": 11,
+      "predicted_decode_time_sec": 0.00020374512921867167
+    },
+    {
+      "decoder_label": "adaptive_g0.35",
+      "distance": 13,
+      "predicted_decode_time_sec": 0.00023078696713685928
+    },
+    {
+      "decoder_label": "adaptive_g0.50",
+      "distance": 5,
+      "predicted_decode_time_sec": 0.0001050233748427731
+    },
+    {
+      "decoder_label": "adaptive_g0.50",
+      "distance": 7,
+      "predicted_decode_time_sec": 0.00015136297884184158
+    },
+    {
+      "decoder_label": "adaptive_g0.50",
+      "distance": 9,
+      "predicted_decode_time_sec": 0.00019887464965362035
+    },
+    {
+      "decoder_label": "adaptive_g0.50",
+      "distance": 11,
+      "predicted_decode_time_sec": 0.0002473133548711886
+    },
+    {
+      "decoder_label": "adaptive_g0.50",
+      "distance": 13,
+      "predicted_decode_time_sec": 0.0002965219054912037
+    },
+    {
+      "decoder_label": "adaptive_g0.65",
+      "distance": 5,
+      "predicted_decode_time_sec": 0.00012022980745917971
+    },
+    {
+      "decoder_label": "adaptive_g0.65",
+      "distance": 7,
+      "predicted_decode_time_sec": 0.00018304984127107617
+    },
+    {
+      "decoder_label": "adaptive_g0.65",
+      "distance": 9,
+      "predicted_decode_time_sec": 0.000250566572036487
+    },
+    {
+      "decoder_label": "adaptive_g0.65",
+      "distance": 11,
+      "predicted_decode_time_sec": 0.00032195822028515666
+    },
+    {
+      "decoder_label": "adaptive_g0.65",
+      "distance": 13,
+      "predicted_decode_time_sec": 0.00039667679301207413
+    },
+    {
+      "decoder_label": "adaptive_g0.80",
+      "distance": 5,
+      "predicted_decode_time_sec": 0.00014716662614389865
+    },
+    {
+      "decoder_label": "adaptive_g0.80",
+      "distance": 7,
+      "predicted_decode_time_sec": 0.00024446980950736515
+    },
+    {
+      "decoder_label": "adaptive_g0.80",
+      "distance": 9,
+      "predicted_decode_time_sec": 0.0003571544302651944
+    },
+    {
+      "decoder_label": "adaptive_g0.80",
+      "distance": 11,
+      "predicted_decode_time_sec": 0.0004834050718236544
+    },
+    {
+      "decoder_label": "adaptive_g0.80",
+      "distance": 13,
+      "predicted_decode_time_sec": 0.0006219347560193784
+    },
+    {
+      "decoder_label": "bm",
+      "distance": 5,
+      "predicted_decode_time_sec": 3.721264904081818e-05
+    },
+    {
+      "decoder_label": "bm",
+      "distance": 7,
+      "predicted_decode_time_sec": 6.86864704929336e-05
+    },
+    {
+      "decoder_label": "bm",
+      "distance": 9,
+      "predicted_decode_time_sec": 0.0001085635716398278
+    },
+    {
+      "decoder_label": "bm",
+      "distance": 11,
+      "predicted_decode_time_sec": 0.00015647075401674102
+    },
+    {
+      "decoder_label": "bm",
+      "distance": 13,
+      "predicted_decode_time_sec": 0.00021212330462335832
+    },
+    {
+      "decoder_label": "mwpm",
+      "distance": 5,
+      "predicted_decode_time_sec": 3.593337129007744e-05
+    },
+    {
+      "decoder_label": "mwpm",
+      "distance": 7,
+      "predicted_decode_time_sec": 7.766331212380851e-05
+    },
+    {
+      "decoder_label": "mwpm",
+      "distance": 9,
+      "predicted_decode_time_sec": 0.000138108381977764
+    },
+    {
+      "decoder_label": "mwpm",
+      "distance": 11,
+      "predicted_decode_time_sec": 0.00021869783267749646
+    },
+    {
+      "decoder_label": "mwpm",
+      "distance": 13,
+      "predicted_decode_time_sec": 0.00032064729457181304
+    },
+    {
+      "decoder_label": "uf",
+      "distance": 5,
+      "predicted_decode_time_sec": 3.7890312325794735e-05
+    },
+    {
+      "decoder_label": "uf",
+      "distance": 7,
+      "predicted_decode_time_sec": 6.804199216404775e-05
+    },
+    {
+      "decoder_label": "uf",
+      "distance": 9,
+      "predicted_decode_time_sec": 0.0001053605382287402
+    },
+    {
+      "decoder_label": "uf",
+      "distance": 11,
+      "predicted_decode_time_sec": 0.00014938636803233187
+    },
+    {
+      "decoder_label": "uf",
+      "distance": 13,
+      "predicted_decode_time_sec": 0.00019977549024922153
+    }
+  ],
+  "switch_models": {
+    "adaptive_g0.20": {
+      "slope": 0.0,
+      "intercept": 0.0
+    },
+    "adaptive_g0.35": {
+      "slope": 0.0,
+      "intercept": 0.0
+    },
+    "adaptive_g0.50": {
+      "slope": 0.0,
+      "intercept": 0.0
+    },
+    "adaptive_g0.65": {
+      "slope": -0.024999999999999994,
+      "intercept": 0.21805555555555545
+    },
+    "adaptive_g0.80": {
+      "slope": 0.03854166666666661,
+      "intercept": 0.11631944444444488
+    }
+  },
+  "workload_features": [
+    {
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125
+    },
+    {
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248
+    },
+    {
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408
+    },
+    {
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608
+    },
+    {
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848
+    }
+  ],
+  "target_arch_models": [
+    {
+      "name": "GoogleSuperconducting",
+      "ops_per_sec": 80000000000.0,
+      "fixed_overhead_sec": 3.5e-08,
+      "detector_penalty_sec": 1.5e-11
+    },
+    {
+      "name": "IBMEagle",
+      "ops_per_sec": 60000000000.0,
+      "fixed_overhead_sec": 4.5e-08,
+      "detector_penalty_sec": 2e-11
+    },
+    {
+      "name": "IonQForte",
+      "ops_per_sec": 20000000000.0,
+      "fixed_overhead_sec": 8e-08,
+      "detector_penalty_sec": 3e-11
+    },
+    {
+      "name": "PsiQuantumPhotonic",
+      "ops_per_sec": 500000000000.0,
+      "fixed_overhead_sec": 1.5e-09,
+      "detector_penalty_sec": 5e-12
+    }
+  ],
+  "target_predicted_rows": [
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 3482.8921423310435,
+      "predicted_decode_time_sec": 8.033615177913805e-08
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 7890.56273990378,
+      "predicted_decode_time_sec": 1.3867203424879724e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 14153.39815809748,
+      "predicted_decode_time_sec": 2.227174769762185e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 22490.9597126948,
+      "predicted_decode_time_sec": 3.3593699640868496e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 32997.10618187837,
+      "predicted_decode_time_sec": 4.802238272734796e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 150.0,
+      "predicted_decode_time_sec": 3.867500000000001e-08
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 297.59999999999997,
+      "predicted_decode_time_sec": 4.376e-08
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 489.59999999999997,
+      "predicted_decode_time_sec": 5.192e-08
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 729.6,
+      "predicted_decode_time_sec": 6.392e-08
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 1017.5999999999999,
+      "predicted_decode_time_sec": 8.047999999999999e-08
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 1915.590678282074,
+      "predicted_decode_time_sec": 6.074488347852592e-08
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 4339.809506947079,
+      "predicted_decode_time_sec": 9.428761883683849e-08
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 7784.368986953615,
+      "predicted_decode_time_sec": 1.4310461233692017e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12370.02784198214,
+      "predicted_decode_time_sec": 2.0942534802477678e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18148.408400033106,
+      "predicted_decode_time_sec": 2.9461510500041383e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 2515.590678282074,
+      "predicted_decode_time_sec": 6.824488347852593e-08
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 4939.809506947079,
+      "predicted_decode_time_sec": 1.0178761883683848e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 8384.368986953614,
+      "predicted_decode_time_sec": 1.5060461233692015e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12970.02784198214,
+      "predicted_decode_time_sec": 2.1692534802477676e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18748.408400033106,
+      "predicted_decode_time_sec": 3.021151050004138e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 2515.590678282074,
+      "predicted_decode_time_sec": 6.824488347852593e-08
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 4939.809506947079,
+      "predicted_decode_time_sec": 1.0178761883683848e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 8384.368986953614,
+      "predicted_decode_time_sec": 1.5060461233692015e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12970.02784198214,
+      "predicted_decode_time_sec": 2.1692534802477676e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18748.408400033106,
+      "predicted_decode_time_sec": 3.021151050004138e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 2515.590678282074,
+      "predicted_decode_time_sec": 6.824488347852593e-08
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 4939.809506947079,
+      "predicted_decode_time_sec": 1.0178761883683848e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 8384.368986953614,
+      "predicted_decode_time_sec": 1.5060461233692015e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12970.02784198214,
+      "predicted_decode_time_sec": 2.1692534802477676e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18748.408400033106,
+      "predicted_decode_time_sec": 3.021151050004138e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.09305555555555547,
+      "proxy_ops": 2661.436786742186,
+      "predicted_decode_time_sec": 7.006795983427733e-08
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.043055555555555486,
+      "proxy_ops": 5092.689160032714,
+      "predicted_decode_time_sec": 1.0369861450040892e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 8384.368986953614,
+      "predicted_decode_time_sec": 1.5060461233692015e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12970.02784198214,
+      "predicted_decode_time_sec": 2.1692534802477676e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18748.408400033106,
+      "predicted_decode_time_sec": 3.021151050004138e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.30902777777777796,
+      "proxy_ops": 2999.930366824985,
+      "predicted_decode_time_sec": 7.429912958531233e-08
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.3861111111111112,
+      "proxy_ops": 6310.794783005362,
+      "predicted_decode_time_sec": 1.1892493478756701e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.46319444444444435,
+      "proxy_ops": 11334.467915532057,
+      "predicted_decode_time_sec": 1.8748084894415072e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.5402777777777776,
+      "proxy_ops": 18438.142422131063,
+      "predicted_decode_time_sec": 2.852767802766383e-07
+    },
+    {
+      "architecture": "GoogleSuperconducting",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.6173611111111108,
+      "proxy_ops": 27915.416961186187,
+      "predicted_decode_time_sec": 4.167027120148274e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 3482.8921423310435,
+      "predicted_decode_time_sec": 1.0544820237218405e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 7890.56273990378,
+      "predicted_decode_time_sec": 1.8322937899839636e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 14153.39815809748,
+      "predicted_decode_time_sec": 2.9528996930162466e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 22490.9597126948,
+      "predicted_decode_time_sec": 4.462493285449133e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 32997.10618187837,
+      "predicted_decode_time_sec": 6.386317696979728e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 150.0,
+      "predicted_decode_time_sec": 4.9900000000000003e-08
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 297.59999999999997,
+      "predicted_decode_time_sec": 5.668e-08
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 489.59999999999997,
+      "predicted_decode_time_sec": 6.756e-08
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 729.6,
+      "predicted_decode_time_sec": 8.355999999999999e-08
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 1017.5999999999999,
+      "predicted_decode_time_sec": 1.0564e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 1915.590678282074,
+      "predicted_decode_time_sec": 7.932651130470124e-08
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 4339.809506947079,
+      "predicted_decode_time_sec": 1.2405015844911798e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 7784.368986953615,
+      "predicted_decode_time_sec": 1.8913948311589358e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12370.02784198214,
+      "predicted_decode_time_sec": 2.7756713069970235e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18148.408400033106,
+      "predicted_decode_time_sec": 3.911534733338851e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 2515.590678282074,
+      "predicted_decode_time_sec": 8.932651130470123e-08
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 4939.809506947079,
+      "predicted_decode_time_sec": 1.34050158449118e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 8384.368986953614,
+      "predicted_decode_time_sec": 1.991394831158936e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12970.02784198214,
+      "predicted_decode_time_sec": 2.8756713069970236e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18748.408400033106,
+      "predicted_decode_time_sec": 4.011534733338851e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 2515.590678282074,
+      "predicted_decode_time_sec": 8.932651130470123e-08
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 4939.809506947079,
+      "predicted_decode_time_sec": 1.34050158449118e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 8384.368986953614,
+      "predicted_decode_time_sec": 1.991394831158936e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12970.02784198214,
+      "predicted_decode_time_sec": 2.8756713069970236e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18748.408400033106,
+      "predicted_decode_time_sec": 4.011534733338851e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 2515.590678282074,
+      "predicted_decode_time_sec": 8.932651130470123e-08
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 4939.809506947079,
+      "predicted_decode_time_sec": 1.34050158449118e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 8384.368986953614,
+      "predicted_decode_time_sec": 1.991394831158936e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12970.02784198214,
+      "predicted_decode_time_sec": 2.8756713069970236e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18748.408400033106,
+      "predicted_decode_time_sec": 4.011534733338851e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.09305555555555547,
+      "proxy_ops": 2661.436786742186,
+      "predicted_decode_time_sec": 9.175727977903644e-08
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.043055555555555486,
+      "proxy_ops": 5092.689160032714,
+      "predicted_decode_time_sec": 1.3659815266721191e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 8384.368986953614,
+      "predicted_decode_time_sec": 1.991394831158936e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12970.02784198214,
+      "predicted_decode_time_sec": 2.8756713069970236e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18748.408400033106,
+      "predicted_decode_time_sec": 4.011534733338851e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.30902777777777796,
+      "proxy_ops": 2999.930366824985,
+      "predicted_decode_time_sec": 9.739883944708308e-08
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.3861111111111112,
+      "proxy_ops": 6310.794783005362,
+      "predicted_decode_time_sec": 1.5689991305008938e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.46319444444444435,
+      "proxy_ops": 11334.467915532057,
+      "predicted_decode_time_sec": 2.4830779859220095e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.5402777777777776,
+      "proxy_ops": 18438.142422131063,
+      "predicted_decode_time_sec": 3.787023737021844e-07
+    },
+    {
+      "architecture": "IBMEagle",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.6173611111111108,
+      "proxy_ops": 27915.416961186187,
+      "predicted_decode_time_sec": 5.539369493531031e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 3482.8921423310435,
+      "predicted_decode_time_sec": 2.5774460711655217e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 7890.56273990378,
+      "predicted_decode_time_sec": 4.84608136995189e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 14153.39815809748,
+      "predicted_decode_time_sec": 8.09269907904874e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 22490.9597126948,
+      "predicted_decode_time_sec": 1.2441479856347398e-06
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 32997.10618187837,
+      "predicted_decode_time_sec": 1.7953753090939187e-06
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 150.0,
+      "predicted_decode_time_sec": 9.11e-08
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 297.59999999999997,
+      "predicted_decode_time_sec": 1.0496e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 489.59999999999997,
+      "predicted_decode_time_sec": 1.2608e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 729.6,
+      "predicted_decode_time_sec": 1.5607999999999998e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 1017.5999999999999,
+      "predicted_decode_time_sec": 1.9639999999999999e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 1915.590678282074,
+      "predicted_decode_time_sec": 1.793795339141037e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 4339.809506947079,
+      "predicted_decode_time_sec": 3.0707047534735396e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 7784.368986953615,
+      "predicted_decode_time_sec": 4.908184493476807e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12370.02784198214,
+      "predicted_decode_time_sec": 7.38101392099107e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18148.408400033106,
+      "predicted_decode_time_sec": 1.0529404200016553e-06
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 2515.590678282074,
+      "predicted_decode_time_sec": 2.093795339141037e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 4939.809506947079,
+      "predicted_decode_time_sec": 3.37070475347354e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 8384.368986953614,
+      "predicted_decode_time_sec": 5.208184493476806e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12970.02784198214,
+      "predicted_decode_time_sec": 7.681013920991071e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18748.408400033106,
+      "predicted_decode_time_sec": 1.0829404200016552e-06
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 2515.590678282074,
+      "predicted_decode_time_sec": 2.093795339141037e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 4939.809506947079,
+      "predicted_decode_time_sec": 3.37070475347354e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 8384.368986953614,
+      "predicted_decode_time_sec": 5.208184493476806e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12970.02784198214,
+      "predicted_decode_time_sec": 7.681013920991071e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18748.408400033106,
+      "predicted_decode_time_sec": 1.0829404200016552e-06
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 2515.590678282074,
+      "predicted_decode_time_sec": 2.093795339141037e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 4939.809506947079,
+      "predicted_decode_time_sec": 3.37070475347354e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 8384.368986953614,
+      "predicted_decode_time_sec": 5.208184493476806e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12970.02784198214,
+      "predicted_decode_time_sec": 7.681013920991071e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18748.408400033106,
+      "predicted_decode_time_sec": 1.0829404200016552e-06
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.09305555555555547,
+      "proxy_ops": 2661.436786742186,
+      "predicted_decode_time_sec": 2.1667183933710931e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.043055555555555486,
+      "proxy_ops": 5092.689160032714,
+      "predicted_decode_time_sec": 3.447144580016357e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 8384.368986953614,
+      "predicted_decode_time_sec": 5.208184493476806e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12970.02784198214,
+      "predicted_decode_time_sec": 7.681013920991071e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18748.408400033106,
+      "predicted_decode_time_sec": 1.0829404200016552e-06
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.30902777777777796,
+      "proxy_ops": 2999.930366824985,
+      "predicted_decode_time_sec": 2.3359651834124927e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.3861111111111112,
+      "proxy_ops": 6310.794783005362,
+      "predicted_decode_time_sec": 4.056197391502681e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.46319444444444435,
+      "proxy_ops": 11334.467915532057,
+      "predicted_decode_time_sec": 6.683233957766029e-07
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.5402777777777776,
+      "proxy_ops": 18438.142422131063,
+      "predicted_decode_time_sec": 1.0415071211065531e-06
+    },
+    {
+      "architecture": "IonQForte",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.6173611111111108,
+      "proxy_ops": 27915.416961186187,
+      "predicted_decode_time_sec": 1.5412908480593095e-06
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 3482.8921423310435,
+      "predicted_decode_time_sec": 9.065784284662087e-09
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 7890.56273990378,
+      "predicted_decode_time_sec": 1.896112547980756e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 14153.39815809748,
+      "predicted_decode_time_sec": 3.340679631619496e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 22490.9597126948,
+      "predicted_decode_time_sec": 5.30819194253896e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "mwpm",
+      "backend": "mwpm",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 32997.10618187837,
+      "predicted_decode_time_sec": 7.841421236375674e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 150.0,
+      "predicted_decode_time_sec": 2.4e-09
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 297.59999999999997,
+      "predicted_decode_time_sec": 3.7752e-09
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 489.59999999999997,
+      "predicted_decode_time_sec": 6.0792e-09
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 729.6,
+      "predicted_decode_time_sec": 9.5592e-09
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "uf",
+      "backend": "uf",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 1017.5999999999999,
+      "predicted_decode_time_sec": 1.44552e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 1915.590678282074,
+      "predicted_decode_time_sec": 5.931181356564147e-09
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 4339.809506947079,
+      "predicted_decode_time_sec": 1.1859619013894159e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 7784.368986953615,
+      "predicted_decode_time_sec": 2.066873797390723e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12370.02784198214,
+      "predicted_decode_time_sec": 3.284005568396428e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "bm",
+      "backend": "bm",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18148.408400033106,
+      "predicted_decode_time_sec": 4.8716816800066214e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 2515.590678282074,
+      "predicted_decode_time_sec": 7.131181356564147e-09
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 4939.809506947079,
+      "predicted_decode_time_sec": 1.305961901389416e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 8384.368986953614,
+      "predicted_decode_time_sec": 2.1868737973907227e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12970.02784198214,
+      "predicted_decode_time_sec": 3.404005568396428e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.20",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18748.408400033106,
+      "predicted_decode_time_sec": 4.991681680006621e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 2515.590678282074,
+      "predicted_decode_time_sec": 7.131181356564147e-09
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 4939.809506947079,
+      "predicted_decode_time_sec": 1.305961901389416e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 8384.368986953614,
+      "predicted_decode_time_sec": 2.1868737973907227e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12970.02784198214,
+      "predicted_decode_time_sec": 3.404005568396428e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.35",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18748.408400033106,
+      "predicted_decode_time_sec": 4.991681680006621e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 2515.590678282074,
+      "predicted_decode_time_sec": 7.131181356564147e-09
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 4939.809506947079,
+      "predicted_decode_time_sec": 1.305961901389416e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 8384.368986953614,
+      "predicted_decode_time_sec": 2.1868737973907227e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12970.02784198214,
+      "predicted_decode_time_sec": 3.404005568396428e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.50",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18748.408400033106,
+      "predicted_decode_time_sec": 4.991681680006621e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.09305555555555547,
+      "proxy_ops": 2661.436786742186,
+      "predicted_decode_time_sec": 7.422873573484372e-09
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.043055555555555486,
+      "proxy_ops": 5092.689160032714,
+      "predicted_decode_time_sec": 1.336537832006543e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 8384.368986953614,
+      "predicted_decode_time_sec": 2.1868737973907227e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 12970.02784198214,
+      "predicted_decode_time_sec": 3.404005568396428e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.65",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.0,
+      "proxy_ops": 18748.408400033106,
+      "predicted_decode_time_sec": 4.991681680006621e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 5,
+      "rounds": 5,
+      "num_detectors": 120,
+      "dem_terms": 125,
+      "switch_rate_pred": 0.30902777777777796,
+      "proxy_ops": 2999.930366824985,
+      "predicted_decode_time_sec": 8.099860733649969e-09
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 7,
+      "rounds": 7,
+      "num_detectors": 336,
+      "dem_terms": 248,
+      "switch_rate_pred": 0.3861111111111112,
+      "proxy_ops": 6310.794783005362,
+      "predicted_decode_time_sec": 1.5801589566010725e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 9,
+      "rounds": 9,
+      "num_detectors": 720,
+      "dem_terms": 408,
+      "switch_rate_pred": 0.46319444444444435,
+      "proxy_ops": 11334.467915532057,
+      "predicted_decode_time_sec": 2.7768935831064114e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 11,
+      "rounds": 11,
+      "num_detectors": 1320,
+      "dem_terms": 608,
+      "switch_rate_pred": 0.5402777777777776,
+      "proxy_ops": 18438.142422131063,
+      "predicted_decode_time_sec": 4.497628484426213e-08
+    },
+    {
+      "architecture": "PsiQuantumPhotonic",
+      "decoder_label": "adaptive_g0.80",
+      "backend": "adaptive",
+      "distance": 13,
+      "rounds": 13,
+      "num_detectors": 2184,
+      "dem_terms": 848,
+      "switch_rate_pred": 0.6173611111111108,
+      "proxy_ops": 27915.416961186187,
+      "predicted_decode_time_sec": 6.825083392237237e-08
+    }
+  ],
+  "compatibility": {
+    "decoder_labels": [
+      "mwpm",
+      "uf",
+      "bm",
+      "adaptive_g0.20",
+      "adaptive_g0.35",
+      "adaptive_g0.50",
+      "adaptive_g0.65",
+      "adaptive_g0.80"
+    ],
+    "distances": [
+      5,
+      7,
+      9,
+      11,
+      13
+    ],
+    "architectures": [
+      {
+        "architecture": "GoogleSuperconducting",
+        "cycle_time_sec": 1e-06,
+        "classical_budget_sec": 2e-07,
+        "python_runtime_matrix": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "target_model_matrix": [
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            0,
+            0
+          ]
+        ],
+        "python_runtime_compatible_cells": 0,
+        "python_runtime_total_cells": 40,
+        "python_runtime_ratio": 0.0,
+        "target_model_compatible_cells": 25,
+        "target_model_total_cells": 40,
+        "target_model_ratio": 0.625,
+        "ratio_delta_target_minus_python": 0.625
+      },
+      {
+        "architecture": "IBMEagle",
+        "cycle_time_sec": 1.5e-06,
+        "classical_budget_sec": 3e-07,
+        "python_runtime_matrix": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "target_model_matrix": [
+          [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            0,
+            0
+          ]
+        ],
+        "python_runtime_compatible_cells": 0,
+        "python_runtime_total_cells": 40,
+        "python_runtime_ratio": 0.0,
+        "target_model_compatible_cells": 31,
+        "target_model_total_cells": 40,
+        "target_model_ratio": 0.775,
+        "ratio_delta_target_minus_python": 0.775
+      },
+      {
+        "architecture": "IonQForte",
+        "cycle_time_sec": 1e-05,
+        "classical_budget_sec": 2e-06,
+        "python_runtime_matrix": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "target_model_matrix": [
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "python_runtime_compatible_cells": 0,
+        "python_runtime_total_cells": 40,
+        "python_runtime_ratio": 0.0,
+        "target_model_compatible_cells": 40,
+        "target_model_total_cells": 40,
+        "target_model_ratio": 1.0,
+        "ratio_delta_target_minus_python": 1.0
+      },
+      {
+        "architecture": "PsiQuantumPhotonic",
+        "cycle_time_sec": 1e-08,
+        "classical_budget_sec": 2e-09,
+        "python_runtime_matrix": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "target_model_matrix": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "python_runtime_compatible_cells": 0,
+        "python_runtime_total_cells": 40,
+        "python_runtime_ratio": 0.0,
+        "target_model_compatible_cells": 0,
+        "target_model_total_cells": 40,
+        "target_model_ratio": 0.0,
+        "ratio_delta_target_minus_python": 0.0
+      }
+    ],
+    "safety_factor": 1.0
+  }
+}

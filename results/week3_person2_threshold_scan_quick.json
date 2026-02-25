@@ -1,0 +1,1160 @@
+{
+  "metadata": {
+    "report_name": "week3_person2_threshold_scan",
+    "timestamp_utc": "2026-02-19T21:58:03+00:00",
+    "partial": false
+  },
+  "config": {
+    "distances": [
+      3,
+      5
+    ],
+    "p_values": [
+      0.005,
+      0.01
+    ],
+    "decoders": [
+      "mwpm",
+      "uf",
+      "adaptive"
+    ],
+    "noise_models": [
+      "depolarizing",
+      "biased_eta10",
+      "correlated"
+    ],
+    "shots": 40,
+    "rounds": 2,
+    "seed": 2026,
+    "g_threshold": 0.35,
+    "adaptive_fast_mode": true,
+    "logical_basis": "x"
+  },
+  "points": [
+    {
+      "decoder": "mwpm",
+      "noise_model": "depolarizing",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 109782,
+      "error_rate": 0.0,
+      "avg_decode_time_sec": 3.420502180233598e-05,
+      "switch_rate": 0.0,
+      "status": "ok"
+    },
+    {
+      "decoder": "mwpm",
+      "noise_model": "depolarizing",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 214511,
+      "error_rate": 0.025,
+      "avg_decode_time_sec": 7.405499927699566e-05,
+      "switch_rate": 0.0,
+      "status": "ok"
+    },
+    {
+      "decoder": "uf",
+      "noise_model": "depolarizing",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 319240,
+      "error_rate": 0.0,
+      "avg_decode_time_sec": 4.785249475389719e-05,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "backend_info": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      }
+    },
+    {
+      "decoder": "uf",
+      "noise_model": "depolarizing",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 423969,
+      "error_rate": 0.025,
+      "avg_decode_time_sec": 4.5632495312020185e-05,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "backend_info": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      }
+    },
+    {
+      "decoder": "adaptive",
+      "noise_model": "depolarizing",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 528698,
+      "error_rate": 0.0,
+      "avg_decode_time_sec": 0.00011886750580742955,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "fast_mode": true
+    },
+    {
+      "decoder": "adaptive",
+      "noise_model": "depolarizing",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 633427,
+      "error_rate": 0.025,
+      "avg_decode_time_sec": 0.0002200624963734299,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "fast_mode": true
+    },
+    {
+      "decoder": "mwpm",
+      "noise_model": "biased_eta10",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 738156,
+      "error_rate": 0.025,
+      "avg_decode_time_sec": 3.840500139631331e-05,
+      "switch_rate": 0.0,
+      "status": "ok"
+    },
+    {
+      "decoder": "mwpm",
+      "noise_model": "biased_eta10",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 842885,
+      "error_rate": 0.05,
+      "avg_decode_time_sec": 3.65750165656209e-05,
+      "switch_rate": 0.0,
+      "status": "ok"
+    },
+    {
+      "decoder": "uf",
+      "noise_model": "biased_eta10",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 947614,
+      "error_rate": 0.0,
+      "avg_decode_time_sec": 3.506249049678445e-05,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "backend_info": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      }
+    },
+    {
+      "decoder": "uf",
+      "noise_model": "biased_eta10",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 1052343,
+      "error_rate": 0.075,
+      "avg_decode_time_sec": 5.7959993137046693e-05,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "backend_info": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      }
+    },
+    {
+      "decoder": "adaptive",
+      "noise_model": "biased_eta10",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 1157072,
+      "error_rate": 0.0,
+      "avg_decode_time_sec": 0.0001763799984473735,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "fast_mode": true
+    },
+    {
+      "decoder": "adaptive",
+      "noise_model": "biased_eta10",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 1261801,
+      "error_rate": 0.0,
+      "avg_decode_time_sec": 0.00013022751663811506,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "fast_mode": true
+    },
+    {
+      "decoder": "mwpm",
+      "noise_model": "correlated",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 1366530,
+      "error_rate": 0.075,
+      "avg_decode_time_sec": 3.4322525607421994e-05,
+      "switch_rate": 0.0,
+      "status": "ok"
+    },
+    {
+      "decoder": "mwpm",
+      "noise_model": "correlated",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 1471259,
+      "error_rate": 0.1,
+      "avg_decode_time_sec": 1.9922497449442746e-05,
+      "switch_rate": 0.0,
+      "status": "ok"
+    },
+    {
+      "decoder": "uf",
+      "noise_model": "correlated",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 1575988,
+      "error_rate": 0.025,
+      "avg_decode_time_sec": 4.367249202914536e-05,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "backend_info": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      }
+    },
+    {
+      "decoder": "uf",
+      "noise_model": "correlated",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 1680717,
+      "error_rate": 0.05,
+      "avg_decode_time_sec": 5.416751373559237e-05,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "backend_info": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      }
+    },
+    {
+      "decoder": "adaptive",
+      "noise_model": "correlated",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 1785446,
+      "error_rate": 0.025,
+      "avg_decode_time_sec": 0.00017634748364798726,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "fast_mode": true
+    },
+    {
+      "decoder": "adaptive",
+      "noise_model": "correlated",
+      "distance": 3,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 1890175,
+      "error_rate": 0.075,
+      "avg_decode_time_sec": 0.00023224001633934677,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "fast_mode": true
+    },
+    {
+      "decoder": "mwpm",
+      "noise_model": "depolarizing",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 1996922,
+      "error_rate": 0.0,
+      "avg_decode_time_sec": 3.8622476859018205e-05,
+      "switch_rate": 0.0,
+      "status": "ok"
+    },
+    {
+      "decoder": "mwpm",
+      "noise_model": "depolarizing",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 2101651,
+      "error_rate": 0.025,
+      "avg_decode_time_sec": 3.634750028140843e-05,
+      "switch_rate": 0.0,
+      "status": "ok"
+    },
+    {
+      "decoder": "uf",
+      "noise_model": "depolarizing",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 2206380,
+      "error_rate": 0.0,
+      "avg_decode_time_sec": 6.684002000838518e-05,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "backend_info": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      }
+    },
+    {
+      "decoder": "uf",
+      "noise_model": "depolarizing",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 2311109,
+      "error_rate": 0.0,
+      "avg_decode_time_sec": 3.430750221014023e-05,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "backend_info": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      }
+    },
+    {
+      "decoder": "adaptive",
+      "noise_model": "depolarizing",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 2415838,
+      "error_rate": 0.0,
+      "avg_decode_time_sec": 0.0001400224631652236,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "fast_mode": true
+    },
+    {
+      "decoder": "adaptive",
+      "noise_model": "depolarizing",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 2520567,
+      "error_rate": 0.0,
+      "avg_decode_time_sec": 0.00010953248129226267,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "fast_mode": true
+    },
+    {
+      "decoder": "mwpm",
+      "noise_model": "biased_eta10",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 2625296,
+      "error_rate": 0.0,
+      "avg_decode_time_sec": 2.88375245872885e-05,
+      "switch_rate": 0.0,
+      "status": "ok"
+    },
+    {
+      "decoder": "mwpm",
+      "noise_model": "biased_eta10",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 2730025,
+      "error_rate": 0.025,
+      "avg_decode_time_sec": 3.5074999323114754e-05,
+      "switch_rate": 0.0,
+      "status": "ok"
+    },
+    {
+      "decoder": "uf",
+      "noise_model": "biased_eta10",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 2834754,
+      "error_rate": 0.0,
+      "avg_decode_time_sec": 3.864250029437244e-05,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "backend_info": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      }
+    },
+    {
+      "decoder": "uf",
+      "noise_model": "biased_eta10",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 2939483,
+      "error_rate": 0.05,
+      "avg_decode_time_sec": 2.9527494916692376e-05,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "backend_info": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      }
+    },
+    {
+      "decoder": "adaptive",
+      "noise_model": "biased_eta10",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 3044212,
+      "error_rate": 0.025,
+      "avg_decode_time_sec": 0.00012308998266234993,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "fast_mode": true
+    },
+    {
+      "decoder": "adaptive",
+      "noise_model": "biased_eta10",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 3148941,
+      "error_rate": 0.075,
+      "avg_decode_time_sec": 0.00010440749465487898,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "fast_mode": true
+    },
+    {
+      "decoder": "mwpm",
+      "noise_model": "correlated",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 3253670,
+      "error_rate": 0.0,
+      "avg_decode_time_sec": 3.408002085052431e-05,
+      "switch_rate": 0.0,
+      "status": "ok"
+    },
+    {
+      "decoder": "mwpm",
+      "noise_model": "correlated",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 3358399,
+      "error_rate": 0.2,
+      "avg_decode_time_sec": 4.076999612152576e-05,
+      "switch_rate": 0.0,
+      "status": "ok"
+    },
+    {
+      "decoder": "uf",
+      "noise_model": "correlated",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 3463128,
+      "error_rate": 0.05,
+      "avg_decode_time_sec": 3.099248860962689e-05,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "backend_info": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      }
+    },
+    {
+      "decoder": "uf",
+      "noise_model": "correlated",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 3567857,
+      "error_rate": 0.225,
+      "avg_decode_time_sec": 4.294249811209738e-05,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "backend_info": {
+        "matcher_build_mode": "default",
+        "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+        "is_union_find_backend": true
+      }
+    },
+    {
+      "decoder": "adaptive",
+      "noise_model": "correlated",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.005,
+      "shots": 40,
+      "seed": 3672586,
+      "error_rate": 0.05,
+      "avg_decode_time_sec": 0.0001339850015938282,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "fast_mode": true
+    },
+    {
+      "decoder": "adaptive",
+      "noise_model": "correlated",
+      "distance": 5,
+      "rounds": 2,
+      "p_phys": 0.01,
+      "shots": 40,
+      "seed": 3777315,
+      "error_rate": 0.175,
+      "avg_decode_time_sec": 0.0001587350096087903,
+      "switch_rate": 0.0,
+      "status": "ok",
+      "fast_mode": true
+    }
+  ],
+  "aggregates": {
+    "num_points": 36,
+    "pair_summary": [
+      {
+        "decoder": "adaptive",
+        "noise_model": "biased_eta10",
+        "num_points": 4,
+        "mean_error_rate": 0.025,
+        "mean_avg_decode_time_sec": 0.00013352624810067937,
+        "mean_switch_rate": 0.0
+      },
+      {
+        "decoder": "adaptive",
+        "noise_model": "correlated",
+        "num_points": 4,
+        "mean_error_rate": 0.08125,
+        "mean_avg_decode_time_sec": 0.00017532687779748813,
+        "mean_switch_rate": 0.0
+      },
+      {
+        "decoder": "adaptive",
+        "noise_model": "depolarizing",
+        "num_points": 4,
+        "mean_error_rate": 0.00625,
+        "mean_avg_decode_time_sec": 0.00014712123665958644,
+        "mean_switch_rate": 0.0
+      },
+      {
+        "decoder": "mwpm",
+        "noise_model": "biased_eta10",
+        "num_points": 4,
+        "mean_error_rate": 0.025,
+        "mean_avg_decode_time_sec": 3.472313546808437e-05,
+        "mean_switch_rate": 0.0
+      },
+      {
+        "decoder": "mwpm",
+        "noise_model": "correlated",
+        "num_points": 4,
+        "mean_error_rate": 0.09375,
+        "mean_avg_decode_time_sec": 3.22737600072287e-05,
+        "mean_switch_rate": 0.0
+      },
+      {
+        "decoder": "mwpm",
+        "noise_model": "depolarizing",
+        "num_points": 4,
+        "mean_error_rate": 0.0125,
+        "mean_avg_decode_time_sec": 4.580749955493957e-05,
+        "mean_switch_rate": 0.0
+      },
+      {
+        "decoder": "uf",
+        "noise_model": "biased_eta10",
+        "num_points": 4,
+        "mean_error_rate": 0.03125,
+        "mean_avg_decode_time_sec": 4.029811971122399e-05,
+        "mean_switch_rate": 0.0
+      },
+      {
+        "decoder": "uf",
+        "noise_model": "correlated",
+        "num_points": 4,
+        "mean_error_rate": 0.08750000000000001,
+        "mean_avg_decode_time_sec": 4.29437481216155e-05,
+        "mean_switch_rate": 0.0
+      },
+      {
+        "decoder": "uf",
+        "noise_model": "depolarizing",
+        "num_points": 4,
+        "mean_error_rate": 0.00625,
+        "mean_avg_decode_time_sec": 4.86581280711107e-05,
+        "mean_switch_rate": 0.0
+      }
+    ],
+    "pareto_reference_points": [
+      {
+        "decoder": "adaptive",
+        "noise_model": "biased_eta10",
+        "distance": 3,
+        "best_error_rate_point": {
+          "p_phys": 0.01,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 0.00013022751663811506
+        },
+        "best_time_point": {
+          "p_phys": 0.01,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 0.00013022751663811506
+        }
+      },
+      {
+        "decoder": "adaptive",
+        "noise_model": "biased_eta10",
+        "distance": 5,
+        "best_error_rate_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 0.00012308998266234993
+        },
+        "best_time_point": {
+          "p_phys": 0.01,
+          "error_rate": 0.075,
+          "avg_decode_time_sec": 0.00010440749465487898
+        }
+      },
+      {
+        "decoder": "adaptive",
+        "noise_model": "correlated",
+        "distance": 3,
+        "best_error_rate_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 0.00017634748364798726
+        },
+        "best_time_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 0.00017634748364798726
+        }
+      },
+      {
+        "decoder": "adaptive",
+        "noise_model": "correlated",
+        "distance": 5,
+        "best_error_rate_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 0.0001339850015938282
+        },
+        "best_time_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 0.0001339850015938282
+        }
+      },
+      {
+        "decoder": "adaptive",
+        "noise_model": "depolarizing",
+        "distance": 3,
+        "best_error_rate_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 0.00011886750580742955
+        },
+        "best_time_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 0.00011886750580742955
+        }
+      },
+      {
+        "decoder": "adaptive",
+        "noise_model": "depolarizing",
+        "distance": 5,
+        "best_error_rate_point": {
+          "p_phys": 0.01,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 0.00010953248129226267
+        },
+        "best_time_point": {
+          "p_phys": 0.01,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 0.00010953248129226267
+        }
+      },
+      {
+        "decoder": "mwpm",
+        "noise_model": "biased_eta10",
+        "distance": 3,
+        "best_error_rate_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 3.840500139631331e-05
+        },
+        "best_time_point": {
+          "p_phys": 0.01,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 3.65750165656209e-05
+        }
+      },
+      {
+        "decoder": "mwpm",
+        "noise_model": "biased_eta10",
+        "distance": 5,
+        "best_error_rate_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 2.88375245872885e-05
+        },
+        "best_time_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 2.88375245872885e-05
+        }
+      },
+      {
+        "decoder": "mwpm",
+        "noise_model": "correlated",
+        "distance": 3,
+        "best_error_rate_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.075,
+          "avg_decode_time_sec": 3.4322525607421994e-05
+        },
+        "best_time_point": {
+          "p_phys": 0.01,
+          "error_rate": 0.1,
+          "avg_decode_time_sec": 1.9922497449442746e-05
+        }
+      },
+      {
+        "decoder": "mwpm",
+        "noise_model": "correlated",
+        "distance": 5,
+        "best_error_rate_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 3.408002085052431e-05
+        },
+        "best_time_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 3.408002085052431e-05
+        }
+      },
+      {
+        "decoder": "mwpm",
+        "noise_model": "depolarizing",
+        "distance": 3,
+        "best_error_rate_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 3.420502180233598e-05
+        },
+        "best_time_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 3.420502180233598e-05
+        }
+      },
+      {
+        "decoder": "mwpm",
+        "noise_model": "depolarizing",
+        "distance": 5,
+        "best_error_rate_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 3.8622476859018205e-05
+        },
+        "best_time_point": {
+          "p_phys": 0.01,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 3.634750028140843e-05
+        }
+      },
+      {
+        "decoder": "uf",
+        "noise_model": "biased_eta10",
+        "distance": 3,
+        "best_error_rate_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 3.506249049678445e-05
+        },
+        "best_time_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 3.506249049678445e-05
+        }
+      },
+      {
+        "decoder": "uf",
+        "noise_model": "biased_eta10",
+        "distance": 5,
+        "best_error_rate_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 3.864250029437244e-05
+        },
+        "best_time_point": {
+          "p_phys": 0.01,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 2.9527494916692376e-05
+        }
+      },
+      {
+        "decoder": "uf",
+        "noise_model": "correlated",
+        "distance": 3,
+        "best_error_rate_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 4.367249202914536e-05
+        },
+        "best_time_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 4.367249202914536e-05
+        }
+      },
+      {
+        "decoder": "uf",
+        "noise_model": "correlated",
+        "distance": 5,
+        "best_error_rate_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 3.099248860962689e-05
+        },
+        "best_time_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 3.099248860962689e-05
+        }
+      },
+      {
+        "decoder": "uf",
+        "noise_model": "depolarizing",
+        "distance": 3,
+        "best_error_rate_point": {
+          "p_phys": 0.005,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 4.785249475389719e-05
+        },
+        "best_time_point": {
+          "p_phys": 0.01,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 4.5632495312020185e-05
+        }
+      },
+      {
+        "decoder": "uf",
+        "noise_model": "depolarizing",
+        "distance": 5,
+        "best_error_rate_point": {
+          "p_phys": 0.01,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 3.430750221014023e-05
+        },
+        "best_time_point": {
+          "p_phys": 0.01,
+          "error_rate": 0.0,
+          "avg_decode_time_sec": 3.430750221014023e-05
+        }
+      }
+    ]
+  },
+  "threshold_estimates": [
+    {
+      "decoder": "mwpm",
+      "noise_model": "depolarizing",
+      "distance_pair": [
+        3,
+        5
+      ],
+      "p_values": [
+        0.005,
+        0.01
+      ],
+      "error_rate_small_distance": [
+        0.0,
+        0.025
+      ],
+      "error_rate_large_distance": [
+        0.0,
+        0.025
+      ],
+      "method": "exact_point",
+      "p_threshold_estimate": 0.005,
+      "index_pair": [
+        0,
+        0
+      ]
+    },
+    {
+      "decoder": "uf",
+      "noise_model": "depolarizing",
+      "distance_pair": [
+        3,
+        5
+      ],
+      "p_values": [
+        0.005,
+        0.01
+      ],
+      "error_rate_small_distance": [
+        0.0,
+        0.025
+      ],
+      "error_rate_large_distance": [
+        0.0,
+        0.0
+      ],
+      "method": "exact_point",
+      "p_threshold_estimate": 0.005,
+      "index_pair": [
+        0,
+        0
+      ]
+    },
+    {
+      "decoder": "adaptive",
+      "noise_model": "depolarizing",
+      "distance_pair": [
+        3,
+        5
+      ],
+      "p_values": [
+        0.005,
+        0.01
+      ],
+      "error_rate_small_distance": [
+        0.0,
+        0.025
+      ],
+      "error_rate_large_distance": [
+        0.0,
+        0.0
+      ],
+      "method": "exact_point",
+      "p_threshold_estimate": 0.005,
+      "index_pair": [
+        0,
+        0
+      ]
+    },
+    {
+      "decoder": "mwpm",
+      "noise_model": "biased_eta10",
+      "distance_pair": [
+        3,
+        5
+      ],
+      "p_values": [
+        0.005,
+        0.01
+      ],
+      "error_rate_small_distance": [
+        0.025,
+        0.05
+      ],
+      "error_rate_large_distance": [
+        0.0,
+        0.025
+      ],
+      "method": "nearest_abs_diff",
+      "p_threshold_estimate": 0.005,
+      "index_pair": [
+        0,
+        0
+      ]
+    },
+    {
+      "decoder": "uf",
+      "noise_model": "biased_eta10",
+      "distance_pair": [
+        3,
+        5
+      ],
+      "p_values": [
+        0.005,
+        0.01
+      ],
+      "error_rate_small_distance": [
+        0.0,
+        0.075
+      ],
+      "error_rate_large_distance": [
+        0.0,
+        0.05
+      ],
+      "method": "exact_point",
+      "p_threshold_estimate": 0.005,
+      "index_pair": [
+        0,
+        0
+      ]
+    },
+    {
+      "decoder": "adaptive",
+      "noise_model": "biased_eta10",
+      "distance_pair": [
+        3,
+        5
+      ],
+      "p_values": [
+        0.005,
+        0.01
+      ],
+      "error_rate_small_distance": [
+        0.0,
+        0.0
+      ],
+      "error_rate_large_distance": [
+        0.025,
+        0.075
+      ],
+      "method": "nearest_abs_diff",
+      "p_threshold_estimate": 0.005,
+      "index_pair": [
+        0,
+        0
+      ]
+    },
+    {
+      "decoder": "mwpm",
+      "noise_model": "correlated",
+      "distance_pair": [
+        3,
+        5
+      ],
+      "p_values": [
+        0.005,
+        0.01
+      ],
+      "error_rate_small_distance": [
+        0.075,
+        0.1
+      ],
+      "error_rate_large_distance": [
+        0.0,
+        0.2
+      ],
+      "method": "linear_crossing",
+      "p_threshold_estimate": 0.0071428571428571435,
+      "index_pair": [
+        0,
+        1
+      ]
+    },
+    {
+      "decoder": "uf",
+      "noise_model": "correlated",
+      "distance_pair": [
+        3,
+        5
+      ],
+      "p_values": [
+        0.005,
+        0.01
+      ],
+      "error_rate_small_distance": [
+        0.025,
+        0.05
+      ],
+      "error_rate_large_distance": [
+        0.05,
+        0.225
+      ],
+      "method": "nearest_abs_diff",
+      "p_threshold_estimate": 0.005,
+      "index_pair": [
+        0,
+        0
+      ]
+    },
+    {
+      "decoder": "adaptive",
+      "noise_model": "correlated",
+      "distance_pair": [
+        3,
+        5
+      ],
+      "p_values": [
+        0.005,
+        0.01
+      ],
+      "error_rate_small_distance": [
+        0.025,
+        0.075
+      ],
+      "error_rate_large_distance": [
+        0.05,
+        0.175
+      ],
+      "method": "nearest_abs_diff",
+      "p_threshold_estimate": 0.005,
+      "index_pair": [
+        0,
+        0
+      ]
+    }
+  ]
+}
