@@ -202,6 +202,7 @@ def _run_adaptive(
         keep_samples=0,
         compare_against_mwpm=False,
         fast_mode=bool(fast_mode),
+        time_metric="core",
     )
     wall = float(perf_counter() - t0)
     return {

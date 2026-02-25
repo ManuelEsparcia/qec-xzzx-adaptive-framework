@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 
+import numpy as np
 import pymatching
 import stim
 
@@ -237,6 +238,17 @@ def _validate_probability_like(name: str, value: Any) -> None:
             raise ValueError(f"{name} must be in [0,1]. Received: {v}")
 
 
+def _decode_batch_compat(matcher: pymatching.Matching, dets: Any) -> Any:
+    """
+    Compatibility wrapper for PyMatching versions without decode_batch.
+    """
+    dets_arr = dets
+    if hasattr(matcher, "decode_batch"):
+        return matcher.decode_batch(dets_arr)
+    rows = [matcher.decode(dets_arr[i]) for i in range(len(dets_arr))]
+    return rows
+
+
 def estimate_ler_and_time(
     circuit: stim.Circuit,
     *,
@@ -264,8 +276,10 @@ def estimate_ler_and_time(
     import time
 
     t0 = time.perf_counter()
-    pred = matcher.decode_batch(dets)
+    pred = _decode_batch_compat(matcher, dets)
     decode_total = time.perf_counter() - t0
+    pred = np.asarray(pred, dtype=np.uint8)
+    obs = np.asarray(obs, dtype=np.uint8)
 
     if getattr(pred, "ndim", 1) == 1:
         pred = pred.reshape(-1, 1)

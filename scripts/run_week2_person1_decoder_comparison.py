@@ -85,6 +85,7 @@ def run_one_case(
         g_threshold=g_threshold,
         keep_samples=keep_soft,
         compare_against_mwpm=False,
+        time_metric="core",
     )
 
     mwpm_er = float(mwpm_res["error_rate"])

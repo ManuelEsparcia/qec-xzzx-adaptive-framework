@@ -46,6 +46,7 @@ def _profile_one_mode(
         keep_samples=keep_samples,
         compare_against_mwpm=False,
         fast_mode=fast_mode,
+        time_metric="core",
     )
     prof.disable()
     wall = float(perf_counter() - t0)

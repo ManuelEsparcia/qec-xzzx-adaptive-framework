@@ -58,6 +58,7 @@ def run_mode(
         keep_samples=keep_samples,
         compare_against_mwpm=False,
         fast_mode=fast_mode,
+        time_metric="core",
     )
 
 

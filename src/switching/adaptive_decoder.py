@@ -129,6 +129,17 @@ class AdaptiveDecoder:
             raise TypeError(f"{name} does not implement decode_with_confidence(...)")
 
     @staticmethod
+    def _infer_decoder_label(decoder: Any, *, fallback: str) -> str:
+        cls_name = decoder.__class__.__name__.lower()
+        if "belief" in cls_name or cls_name.startswith("bm"):
+            return "bm"
+        if "union" in cls_name or "uf" in cls_name:
+            return "uf"
+        if "mwpm" in cls_name:
+            return "mwpm"
+        return fallback
+
+    @staticmethod
     def _normalize_prediction(prediction: Any) -> np.ndarray:
         pred = np.asarray(prediction, dtype=np.uint8)
         if pred.ndim == 0:
@@ -224,7 +235,7 @@ class AdaptiveDecoder:
         """
         Two-stage adaptive decoding:
           - UF (fast)
-          - fallback a MWPM if insufficient confidence
+          - fallback to MWPM if insufficient confidence
         """
         threshold = float(self.config.g_threshold if g_threshold is None else g_threshold)
         self._validate_threshold(threshold)
@@ -247,12 +258,18 @@ class AdaptiveDecoder:
         if switched:
             pred_final, soft_final, t_acc = self.accurate_decoder.decode_with_confidence(syndrome)
             pred_final = self._normalize_prediction(pred_final)
-            selected_decoder = "mwpm"
+            selected_decoder = self._infer_decoder_label(
+                self.accurate_decoder,
+                fallback="mwpm",
+            )
         else:
             pred_final = pred_fast
             soft_final = soft_fast
             t_acc = 0.0
-            selected_decoder = "uf"
+            selected_decoder = self._infer_decoder_label(
+                self.fast_decoder,
+                fallback="uf",
+            )
 
         total_decode_time_wall = float(perf_counter() - t0)
         total_decode_time_core = float(max(0.0, float(t_fast) + float(t_acc)))
@@ -543,10 +560,16 @@ class AdaptiveDecoder:
         if switched:
             pred_final, _, dt_acc = self.accurate_decoder.decode_with_confidence(syndrome)
             pred_final = self._normalize_prediction(pred_final)
-            selected_decoder = "mwpm"
+            selected_decoder = self._infer_decoder_label(
+                self.accurate_decoder,
+                fallback="mwpm",
+            )
         else:
             pred_final = pred_fast
-            selected_decoder = "uf"
+            selected_decoder = self._infer_decoder_label(
+                self.fast_decoder,
+                fallback="uf",
+            )
             dt_acc = 0.0
 
         total_decode_time_wall = float(perf_counter() - t0)

@@ -205,6 +205,7 @@ def _benchmark_single_run(
             keep_samples=0,
             compare_against_mwpm=False,
             fast_mode=bool(adaptive_fast_mode),
+            time_metric="core",
         )
         return {
             "error_rate": float(res["error_rate_adaptive"]),

@@ -228,6 +228,7 @@ def _benchmark_decoder(
             keep_samples=0,
             compare_against_mwpm=False,
             fast_mode=adaptive_fast_mode,
+            time_metric="core",
         )
         return {
             "error_rate": float(res["error_rate_adaptive"]),

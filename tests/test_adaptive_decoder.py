@@ -246,6 +246,30 @@ def test_decode_adaptive_keeps_fast_when_confidence_above_threshold() -> None:
     assert pred[0] == 0
 
 
+class _BeliefMatchingDummyDecoder(_DummyDecoder):
+    """Dummy decoder whose class name should be inferred as BM."""
+
+
+def test_decode_adaptive_reports_bm_when_custom_fast_backend_is_bm() -> None:
+    circuit = _build_circuit(distance=3, rounds=2, p=0.01)
+
+    fast = _BeliefMatchingDummyDecoder(pred_bit=0, confidence=0.8)
+    accurate = _DummyDecoder(pred_bit=1, confidence=0.95)
+
+    ad = AdaptiveDecoder(
+        circuit,
+        fast_decoder=fast,
+        accurate_decoder=accurate,
+        config=AdaptiveConfig(g_threshold=0.5),
+    )
+
+    syndrome = np.zeros(ad.num_detectors, dtype=np.uint8)
+    _, info, _ = ad.decode_adaptive(syndrome)
+
+    assert info["switched"] is False
+    assert info["selected_decoder"] == "bm"
+
+
 def test_benchmark_adaptive_output_contract_with_reference() -> None:
     circuit = _build_circuit(distance=3, rounds=2, p=0.01)
     ad = AdaptiveDecoder(
