@@ -4,7 +4,7 @@ from __future__ import annotations
 from typing import List, Set, Tuple
 
 import pytest
-import stim
+stim = pytest.importorskip("stim")
 
 from src.noise.noise_models import (
     BiasedNoise,

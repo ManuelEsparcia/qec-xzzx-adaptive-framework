@@ -1,0 +1,214 @@
+{
+  "schema_version": "week5_stress_test.v1",
+  "metadata": {
+    "report_name": "week5_stress_test",
+    "timestamp_utc": "2026-03-08T17:45:28+00:00"
+  },
+  "provenance": {
+    "generator_script": "scripts/run_week5_stress_test.py",
+    "source_mode": "direct_benchmark",
+    "profile_artifact_input": null,
+    "memory_measurement_mode": "tracemalloc_python_allocations",
+    "timing_measurement_mode": "core_decode_time",
+    "memory_limitations": "tracemalloc tracks Python allocator behavior; it is not full process RSS.",
+    "distances_covered": [
+      11,
+      13
+    ],
+    "decoders_covered": [
+      "mwpm",
+      "uf",
+      "bm",
+      "adaptive"
+    ]
+  },
+  "config": {
+    "distances": [
+      11,
+      13
+    ],
+    "decoders": [
+      "mwpm",
+      "uf",
+      "bm",
+      "adaptive"
+    ],
+    "rounds_mode": "distance",
+    "rounds": 3,
+    "noise_model": "depolarizing",
+    "p_phys": 0.01,
+    "logical_basis": "x",
+    "shots": 120,
+    "repeats": 1,
+    "seed": 2026,
+    "g_threshold": 0.35,
+    "adaptive_fast_mode": false
+  },
+  "rows": [
+    {
+      "decoder": "mwpm",
+      "distance": 11,
+      "status": "ok",
+      "pass": true,
+      "source_mode": "direct_benchmark",
+      "metrics": {
+        "error_rate": 0.05,
+        "avg_decode_time_sec": 9.847665690661718e-05,
+        "memory_peak_bytes": 570670.0,
+        "switch_rate": 0.0
+      },
+      "health": {
+        "status_ok": true,
+        "finite_error_rate": true,
+        "finite_avg_decode_time_sec": true,
+        "finite_memory_peak_bytes": true,
+        "error_rate_in_01": true
+      }
+    },
+    {
+      "decoder": "uf",
+      "distance": 11,
+      "status": "ok",
+      "pass": true,
+      "source_mode": "direct_benchmark",
+      "metrics": {
+        "error_rate": 0.03333333333333333,
+        "avg_decode_time_sec": 8.329250267706812e-05,
+        "memory_peak_bytes": 571954.0,
+        "switch_rate": 0.0
+      },
+      "health": {
+        "status_ok": true,
+        "finite_error_rate": true,
+        "finite_avg_decode_time_sec": true,
+        "finite_memory_peak_bytes": true,
+        "error_rate_in_01": true
+      }
+    },
+    {
+      "decoder": "bm",
+      "distance": 11,
+      "status": "ok",
+      "pass": true,
+      "source_mode": "direct_benchmark",
+      "metrics": {
+        "error_rate": 0.058333333333333334,
+        "avg_decode_time_sec": 8.06433333006377e-05,
+        "memory_peak_bytes": 572778.0,
+        "switch_rate": 0.0
+      },
+      "health": {
+        "status_ok": true,
+        "finite_error_rate": true,
+        "finite_avg_decode_time_sec": true,
+        "finite_memory_peak_bytes": true,
+        "error_rate_in_01": true
+      }
+    },
+    {
+      "decoder": "adaptive",
+      "distance": 11,
+      "status": "ok",
+      "pass": true,
+      "source_mode": "direct_benchmark",
+      "metrics": {
+        "error_rate": 0.016666666666666666,
+        "avg_decode_time_sec": 7.897083608744045e-05,
+        "memory_peak_bytes": 570398.0,
+        "switch_rate": 0.0
+      },
+      "health": {
+        "status_ok": true,
+        "finite_error_rate": true,
+        "finite_avg_decode_time_sec": true,
+        "finite_memory_peak_bytes": true,
+        "error_rate_in_01": true
+      }
+    },
+    {
+      "decoder": "mwpm",
+      "distance": 13,
+      "status": "ok",
+      "pass": true,
+      "source_mode": "direct_benchmark",
+      "metrics": {
+        "error_rate": 0.025,
+        "avg_decode_time_sec": 0.0001648066652705893,
+        "memory_peak_bytes": 810671.0,
+        "switch_rate": 0.0
+      },
+      "health": {
+        "status_ok": true,
+        "finite_error_rate": true,
+        "finite_avg_decode_time_sec": true,
+        "finite_memory_peak_bytes": true,
+        "error_rate_in_01": true
+      }
+    },
+    {
+      "decoder": "uf",
+      "distance": 13,
+      "status": "ok",
+      "pass": true,
+      "source_mode": "direct_benchmark",
+      "metrics": {
+        "error_rate": 0.058333333333333334,
+        "avg_decode_time_sec": 0.00013954416596485922,
+        "memory_peak_bytes": 813219.0,
+        "switch_rate": 0.0
+      },
+      "health": {
+        "status_ok": true,
+        "finite_error_rate": true,
+        "finite_avg_decode_time_sec": true,
+        "finite_memory_peak_bytes": true,
+        "error_rate_in_01": true
+      }
+    },
+    {
+      "decoder": "bm",
+      "distance": 13,
+      "status": "ok",
+      "pass": true,
+      "source_mode": "direct_benchmark",
+      "metrics": {
+        "error_rate": 0.025,
+        "avg_decode_time_sec": 0.0001363691621615241,
+        "memory_peak_bytes": 814035.0,
+        "switch_rate": 0.0
+      },
+      "health": {
+        "status_ok": true,
+        "finite_error_rate": true,
+        "finite_avg_decode_time_sec": true,
+        "finite_memory_peak_bytes": true,
+        "error_rate_in_01": true
+      }
+    },
+    {
+      "decoder": "adaptive",
+      "distance": 13,
+      "status": "ok",
+      "pass": true,
+      "source_mode": "direct_benchmark",
+      "metrics": {
+        "error_rate": 0.03333333333333333,
+        "avg_decode_time_sec": 0.00011628166830632836,
+        "memory_peak_bytes": 813911.0,
+        "switch_rate": 0.0
+      },
+      "health": {
+        "status_ok": true,
+        "finite_error_rate": true,
+        "finite_avg_decode_time_sec": true,
+        "finite_memory_peak_bytes": true,
+        "error_rate_in_01": true
+      }
+    }
+  ],
+  "summary": {
+    "total_rows": 8,
+    "pass_rows": 8,
+    "all_pass": true
+  }
+}

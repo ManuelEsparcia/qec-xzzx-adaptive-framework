@@ -5,6 +5,7 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+from uuid import uuid4
 
 import pytest
 
@@ -15,20 +16,25 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = REPO_ROOT / "scripts" / "run_week2_person1_paired_threshold_sweep.py"
 
 
+def _tmp_output_path(stem: str) -> Path:
+    out_dir = REPO_ROOT / "results" / "_tmp_smoke"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    return out_dir / f"{stem}_{uuid4().hex}.json"
+
+
 def test_script_exists() -> None:
     assert SCRIPT.exists(), f"Expected script does not exist: {SCRIPT}"
 
 
-def test_paired_sweep_script_smoke(tmp_path: Path) -> None:
-    out = tmp_path / "paired_sweep.json"
+def test_paired_sweep_script_smoke() -> None:
+    out = _tmp_output_path("paired_sweep")
+    expected_thresholds = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
 
     cmd = [
         sys.executable,
         str(SCRIPT),
         "--shots",
-        "40",
-        "--thresholds",
-        "0.2,0.6",
+        "20",
         "--output",
         str(out),
     ]
@@ -49,16 +55,20 @@ def test_paired_sweep_script_smoke(tmp_path: Path) -> None:
     # Metadata
     md = data.get("metadata", {})
     assert md.get("report_name") == "week2_person1_paired_threshold_sweep"
-    assert md.get("shots_per_case") == 40
-    assert md.get("thresholds") == [0.2, 0.6]
+    assert md.get("shots_per_case") == 20
+    assert md.get("thresholds") == expected_thresholds
+    assert sorted(md.get("covered_distances", [])) == [3, 5]
+    assert sorted(md.get("covered_noise_models", [])) == ["biased", "depolarizing"]
 
     # Cases
     cases = data.get("cases_summary", [])
-    assert len(cases) == 3
+    assert len(cases) == 4
 
     for c in cases:
         assert c.get("status") == "ok"
         assert "mwpm" in c and "uf" in c and "adaptive_by_threshold" in c
+        assert int(c.get("distance", -1)) in {3, 5}
+        assert str(c.get("noise_model", "")).lower() in {"depolarizing", "biased"}
 
         mwpm_er = float(c["mwpm"]["error_rate"])
         uf_er = float(c["uf"]["error_rate"])
@@ -66,7 +76,8 @@ def test_paired_sweep_script_smoke(tmp_path: Path) -> None:
         assert 0.0 <= uf_er <= 1.0
 
         adp_rows = c["adaptive_by_threshold"]
-        assert len(adp_rows) == 2
+        assert len(adp_rows) == len(expected_thresholds)
+        assert [float(r["g_threshold"]) for r in adp_rows] == expected_thresholds
         for r in adp_rows:
             g = float(r["g_threshold"])
             er = float(r["error_rate"])
@@ -83,11 +94,12 @@ def test_paired_sweep_script_smoke(tmp_path: Path) -> None:
     assert "mean_mwpm_error_rate" in agg
     assert "mean_uf_error_rate" in agg
     assert "adaptive_means_by_threshold" in agg
-    assert len(agg["adaptive_means_by_threshold"]) == 2
+    assert len(agg["adaptive_means_by_threshold"]) == len(expected_thresholds)
+    assert [float(r["g_threshold"]) for r in agg["adaptive_means_by_threshold"]] == expected_thresholds
 
 
-def test_invalid_thresholds_fail(tmp_path: Path) -> None:
-    out = tmp_path / "bad.json"
+def test_invalid_thresholds_fail() -> None:
+    out = _tmp_output_path("bad_threshold")
     cmd = [
         sys.executable,
         str(SCRIPT),

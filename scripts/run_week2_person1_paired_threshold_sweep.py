@@ -4,7 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from statistics import mean
@@ -20,6 +20,7 @@ if str(PROJECT_ROOT) not in sys.path:
 from src.codes.xzzx_code import generate_xzzx_circuit  # noqa: E402
 from src.decoders.mwpm_decoder import MWPMDecoderWithSoftInfo  # noqa: E402
 from src.decoders.union_find_decoder import UnionFindDecoderWithSoftInfo  # noqa: E402
+from src.noise.noise_models import apply_noise_model  # noqa: E402
 from src.switching.adaptive_decoder import AdaptiveConfig, AdaptiveDecoder  # noqa: E402
 
 
@@ -29,7 +30,8 @@ class Case:
     distance: int
     rounds: int
     p: float
-    noise_model: Any = "depolarizing"
+    noise_model: str = "depolarizing"
+    noise_kwargs: Dict[str, Any] = field(default_factory=dict)
     logical_basis: str = "x"
 
 
@@ -39,9 +41,36 @@ def utc_now_iso() -> str:
 
 def default_cases() -> List[Case]:
     return [
-        Case(name="d3_r2_p0.005", distance=3, rounds=2, p=0.005),
-        Case(name="d3_r3_p0.010", distance=3, rounds=3, p=0.010),
-        Case(name="d5_r3_p0.010", distance=5, rounds=3, p=0.010),
+        Case(
+            name="depol_d3_r2_p0.005",
+            distance=3,
+            rounds=2,
+            p=0.005,
+            noise_model="depolarizing",
+        ),
+        Case(
+            name="depol_d5_r3_p0.010",
+            distance=5,
+            rounds=3,
+            p=0.010,
+            noise_model="depolarizing",
+        ),
+        Case(
+            name="biased_d3_r2_p0.005_eta100",
+            distance=3,
+            rounds=2,
+            p=0.005,
+            noise_model="biased",
+            noise_kwargs={"eta": 100.0},
+        ),
+        Case(
+            name="biased_d5_r3_p0.010_eta100",
+            distance=5,
+            rounds=3,
+            p=0.010,
+            noise_model="biased",
+            noise_kwargs={"eta": 100.0},
+        ),
     ]
 
 
@@ -82,14 +111,40 @@ def safe_speedup(ref_t: float, cand_t: float) -> float:
     return float(ref_t / cand_t)
 
 
-def run_case_paired(case: Case, shots: int, thresholds: List[float]) -> Dict[str, Any]:
-    circuit = generate_xzzx_circuit(
+def build_case_circuit(case: Case):
+    noise_model = str(case.noise_model).strip().lower()
+    if noise_model == "depolarizing":
+        return generate_xzzx_circuit(
+            distance=case.distance,
+            rounds=case.rounds,
+            noise_model="depolarizing",
+            p=case.p,
+            logical_basis=case.logical_basis,
+        )
+    if noise_model == "biased":
+        base = generate_xzzx_circuit(
+            distance=case.distance,
+            rounds=case.rounds,
+            noise_model="none",
+            p=0.0,
+            logical_basis=case.logical_basis,
+        )
+        kwargs = dict(case.noise_kwargs)
+        kwargs.setdefault("p", case.p)
+        return apply_noise_model(base, model="biased", **kwargs)
+
+    # Backward-compatible fallback for custom values.
+    return generate_xzzx_circuit(
         distance=case.distance,
         rounds=case.rounds,
         noise_model=case.noise_model,
         p=case.p,
         logical_basis=case.logical_basis,
     )
+
+
+def run_case_paired(case: Case, shots: int, thresholds: List[float]) -> Dict[str, Any]:
+    circuit = build_case_circuit(case)
 
     # Single sample for all decoders (paired comparison)
     sampler = circuit.compile_detector_sampler()
@@ -167,6 +222,8 @@ def run_case_paired(case: Case, shots: int, thresholds: List[float]) -> Dict[str
         "distance": case.distance,
         "rounds": case.rounds,
         "p": case.p,
+        "noise_model": case.noise_model,
+        "noise_kwargs": case.noise_kwargs,
         "shots": shots,
         "num_detectors": int(getattr(circuit, "num_detectors", 0)),
         "num_observables": int(getattr(circuit, "num_observables", 0)),
@@ -269,7 +326,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--thresholds",
         type=str,
-        default="0.20,0.35,0.40,0.60,0.80",
+        default="0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9",
         help="Comma-separated threshold list",
     )
     parser.add_argument(
@@ -296,6 +353,8 @@ def main() -> None:
             "shots_per_case": args.shots,
             "thresholds": thresholds,
             "num_cases": len(cases),
+            "covered_distances": sorted({int(c.distance) for c in cases}),
+            "covered_noise_models": sorted({str(c.noise_model) for c in cases}),
         },
         "cases_summary": rows,
         "aggregates": aggregate_report(rows, thresholds),

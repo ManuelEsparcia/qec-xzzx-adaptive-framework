@@ -1,10 +1,34 @@
 {
+  "schema_version": "week5_profile_scaling.v2",
   "metadata": {
     "report_name": "week5_person1_profile_scaling",
-    "timestamp_utc": "2026-02-20T00:55:08+00:00"
+    "timestamp_utc": "2026-03-08T17:45:19+00:00"
+  },
+  "provenance": {
+    "generator_script": "scripts/run_week5_person1_profile_scaling.py",
+    "memory_measurement_mode": "tracemalloc_python_allocations",
+    "timing_measurement_mode": "core_decode_time_plus_perf_counter_wall",
+    "fit_method": "loglog_power_law_polyfit",
+    "fit_quality_field": "r2",
+    "distances_covered": [
+      3,
+      5,
+      7,
+      9,
+      11,
+      13
+    ],
+    "decoders_covered": [
+      "mwpm",
+      "uf",
+      "bm",
+      "adaptive"
+    ],
+    "memory_limitations": "tracemalloc tracks Python allocator behavior; it is not full process RSS."
   },
   "config": {
     "distances": [
+      3,
       5,
       7,
       9,
@@ -27,6 +51,7 @@
     "seed": 2026,
     "g_threshold": 0.35,
     "adaptive_fast_mode": false,
+    "adaptive_benchmark_time_metric": "core",
     "profile_decoder": "adaptive",
     "profile_distance": 13,
     "profile_shots": 80,
@@ -35,38 +60,38 @@
   "rows": [
     {
       "decoder": "mwpm",
-      "distance": 5,
-      "rounds": 5,
+      "distance": 3,
+      "rounds": 3,
       "p_phys": 0.01,
       "noise_model": "depolarizing",
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 1002514,
+      "base_seed": 1002320,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.037500000000000006,
-          "std": 0.01767766952966369,
-          "ci95_half_width": 0.024500000000000004,
-          "ci95_low": 0.013000000000000001,
-          "ci95_high": 0.06200000000000001
+          "mean": 0.025,
+          "std": 0.011785113019775792,
+          "ci95_half_width": 0.01633333333333333,
+          "ci95_low": 0.00866666666666667,
+          "ci95_high": 0.04133333333333333
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 5.303749348968267e-05,
-          "std": 3.244432019930311e-06,
-          "ci95_half_width": 4.496553369487322e-06,
-          "ci95_low": 4.854094012019535e-05,
-          "ci95_high": 5.7534046859169995e-05
+          "mean": 1.2329586024861782e-05,
+          "std": 2.3375771313579485e-06,
+          "ci95_half_width": 3.239716616614412e-06,
+          "ci95_low": 9.089869408247371e-06,
+          "ci95_high": 1.5569302641476193e-05
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.027519799885340035,
-          "std": 0.0016772573794571885,
-          "ci95_half_width": 0.002324560130946338,
-          "ci95_low": 0.025195239754393698,
-          "ci95_high": 0.029844360016286372
+          "mean": 0.008283250033855438,
+          "std": 0.001482307954850683,
+          "ci95_half_width": 0.002054374013096094,
+          "ci95_low": 0.006228876020759344,
+          "ci95_high": 0.010337624046951533
         },
         "switch_rate": {
           "n": 2.0,
@@ -78,41 +103,125 @@
         },
         "memory_peak_bytes": {
           "n": 2.0,
-          "mean": 90200.0,
-          "std": 2856.711395993652,
-          "ci95_half_width": 3959.2,
-          "ci95_low": 86240.8,
-          "ci95_high": 94159.2
+          "mean": 40422.0,
+          "std": 15187.239446324667,
+          "ci95_half_width": 21048.44,
+          "ci95_low": 19373.56,
+          "ci95_high": 61470.44
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 25223.5,
-          "std": 11208.349588587966,
-          "ci95_half_width": 15533.98,
-          "ci95_low": 9689.52,
-          "ci95_high": 40757.479999999996
+          "mean": 28115.0,
+          "std": 15221.180571821622,
+          "ci95_half_width": 21095.48,
+          "ci95_low": 7019.52,
+          "ci95_high": 49210.479999999996
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 1007984,
-          "error_rate": 0.05,
-          "avg_decode_time_sec": 5.5331653372074166e-05,
+          "seed": 1005602,
+          "error_rate": 0.016666666666666666,
+          "avg_decode_time_sec": 1.3982502665991585e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.02870579995214939,
-          "memory_peak_bytes": 92220.0,
-          "memory_current_bytes": 33149.0
+          "wall_time_sec": 0.009331400040537119,
+          "memory_peak_bytes": 51161.0,
+          "memory_current_bytes": 38878.0
         },
         {
           "repeat_index": 1,
-          "seed": 1017991,
-          "error_rate": 0.025,
-          "avg_decode_time_sec": 5.0743333607291184e-05,
+          "seed": 1015609,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 1.067666938373198e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.02633379981853068,
+          "wall_time_sec": 0.0072351000271737576,
+          "memory_peak_bytes": 29683.0,
+          "memory_current_bytes": 17352.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder": "mwpm",
+      "distance": 5,
+      "rounds": 5,
+      "p_phys": 0.01,
+      "noise_model": "depolarizing",
+      "logical_basis": "x",
+      "shots": 120,
+      "repeats": 2,
+      "base_seed": 2002517,
+      "metrics": {
+        "error_rate": {
+          "n": 2.0,
+          "mean": 0.029166666666666667,
+          "std": 0.005892556509887895,
+          "ci95_half_width": 0.008166666666666664,
+          "ci95_low": 0.021000000000000005,
+          "ci95_high": 0.03733333333333333
+        },
+        "avg_decode_time_sec": {
+          "n": 2.0,
+          "mean": 1.5581667927714685e-05,
+          "std": 2.274406935413577e-07,
+          "ci95_half_width": 3.152167191728962e-07,
+          "ci95_low": 1.5266451208541788e-05,
+          "ci95_high": 1.5896884646887583e-05
+        },
+        "wall_time_sec": {
+          "n": 2.0,
+          "mean": 0.008174849965143949,
+          "std": 9.142894444771733e-05,
+          "ci95_half_width": 0.00012671405216678976,
+          "ci95_low": 0.008048135912977159,
+          "ci95_high": 0.008301564017310739
+        },
+        "switch_rate": {
+          "n": 2.0,
+          "mean": 0.0,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0
+        },
+        "memory_peak_bytes": {
+          "n": 2.0,
+          "mean": 88180.0,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 88180.0,
+          "ci95_high": 88180.0
+        },
+        "memory_current_bytes": {
+          "n": 2.0,
+          "mean": 17688.5,
+          "std": 475.88286373854646,
+          "ci95_half_width": 659.5399999999998,
+          "ci95_low": 17028.96,
+          "ci95_high": 18348.04
+        }
+      },
+      "repeat_runs": [
+        {
+          "repeat_index": 0,
+          "seed": 2007987,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 1.574249278443555e-05,
+          "switch_rate": 0.0,
+          "wall_time_sec": 0.008239499991759658,
           "memory_peak_bytes": 88180.0,
-          "memory_current_bytes": 17298.0
+          "memory_current_bytes": 18025.0
+        },
+        {
+          "repeat_index": 1,
+          "seed": 2017994,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 1.542084307099382e-05,
+          "switch_rate": 0.0,
+          "wall_time_sec": 0.00811019993852824,
+          "memory_peak_bytes": 88180.0,
+          "memory_current_bytes": 17352.0
         }
       ],
       "status": "ok"
@@ -126,31 +235,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 2002711,
+      "base_seed": 3002714,
       "metrics": {
         "error_rate": {
           "n": 2.0,
           "mean": 0.05416666666666667,
-          "std": 0.01767766952966369,
-          "ci95_half_width": 0.024500000000000004,
-          "ci95_low": 0.029666666666666664,
-          "ci95_high": 0.07866666666666668
+          "std": 0.005892556509887895,
+          "ci95_half_width": 0.008166666666666664,
+          "ci95_low": 0.046000000000000006,
+          "ci95_high": 0.06233333333333333
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 9.368209769794097e-05,
-          "std": 1.2615997813292759e-06,
-          "ci95_half_width": 1.748488090621937e-06,
-          "ci95_low": 9.193360960731903e-05,
-          "ci95_high": 9.54305857885629e-05
+          "mean": 2.8036247143366685e-05,
+          "std": 3.91863479555805e-07,
+          "ci95_half_width": 5.430950744388008e-07,
+          "ci95_low": 2.7493152068927884e-05,
+          "ci95_high": 2.8579342217805487e-05
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.034864399931393564,
-          "std": 0.0016843281718393987,
-          "ci95_half_width": 0.0023343597492203115,
-          "ci95_low": 0.03253004018217325,
-          "ci95_high": 0.037198759680613876
+          "mean": 0.009767499985173345,
+          "std": 3.6345400667820263e-05,
+          "ci95_half_width": 5.037215538322925e-05,
+          "ci95_low": 0.009717127829790116,
+          "ci95_high": 0.009817872140556573
         },
         "switch_rate": {
           "n": 2.0,
@@ -170,31 +279,31 @@
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 17688.5,
-          "std": 475.88286373854646,
-          "ci95_half_width": 659.5399999999998,
-          "ci95_low": 17028.96,
-          "ci95_high": 18348.04
+          "mean": 17370.5,
+          "std": 26.16295090390226,
+          "ci95_half_width": 36.26,
+          "ci95_low": 17334.24,
+          "ci95_high": 17406.76
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 2010369,
-          "error_rate": 0.041666666666666664,
-          "avg_decode_time_sec": 9.279001193741957e-05,
+          "seed": 3010372,
+          "error_rate": 0.058333333333333334,
+          "avg_decode_time_sec": 2.775915781967342e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.033673400059342384,
+          "wall_time_sec": 0.009741799905896187,
           "memory_peak_bytes": 207380.0,
-          "memory_current_bytes": 18025.0
+          "memory_current_bytes": 17389.0
         },
         {
           "repeat_index": 1,
-          "seed": 2020376,
-          "error_rate": 0.06666666666666667,
-          "avg_decode_time_sec": 9.457418345846236e-05,
+          "seed": 3020379,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 2.831333646705995e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.03605539980344474,
+          "wall_time_sec": 0.009793200064450502,
           "memory_peak_bytes": 207380.0,
           "memory_current_bytes": 17352.0
         }
@@ -210,31 +319,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 3002908,
+      "base_seed": 4002911,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.029166666666666667,
-          "std": 0.005892556509887895,
-          "ci95_half_width": 0.008166666666666664,
-          "ci95_low": 0.021000000000000005,
-          "ci95_high": 0.03733333333333333
+          "mean": 0.04583333333333334,
+          "std": 0.01767766952966369,
+          "ci95_half_width": 0.024500000000000004,
+          "ci95_low": 0.021333333333333333,
+          "ci95_high": 0.07033333333333334
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 0.00017681333896083136,
-          "std": 4.681041376223719e-06,
-          "ci95_half_width": 6.4875923562794965e-06,
-          "ci95_low": 0.00017032574660455187,
-          "ci95_high": 0.00018330093131711084
+          "mean": 5.070625096171473e-05,
+          "std": 2.1513736717258333e-06,
+          "ci95_half_width": 2.9816517878013346e-06,
+          "ci95_low": 4.77245991739134e-05,
+          "ci95_high": 5.368790274951607e-05
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.04605734988581389,
-          "std": 0.0008364366420157102,
-          "ci95_half_width": 0.0011592420423403383,
-          "ci95_low": 0.044898107843473554,
-          "ci95_high": 0.04721659192815423
+          "mean": 0.012655350030399859,
+          "std": 0.0002574576461235901,
+          "ci95_half_width": 0.00035681809298694135,
+          "ci95_low": 0.012298531937412918,
+          "ci95_high": 0.0130121681233868
         },
         "switch_rate": {
           "n": 2.0,
@@ -254,31 +363,31 @@
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 17316.5,
-          "std": 26.16295090390226,
-          "ci95_half_width": 36.26,
-          "ci95_low": 17280.24,
-          "ci95_high": 17352.76
+          "mean": 17271.0,
+          "std": 38.18376618407357,
+          "ci95_half_width": 52.919999999999995,
+          "ci95_low": 17218.08,
+          "ci95_high": 17323.92
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 3012754,
-          "error_rate": 0.025,
-          "avg_decode_time_sec": 0.00017350334286068877,
+          "seed": 4012757,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 4.91850000495712e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.04546589986421168,
+          "wall_time_sec": 0.012473299982957542,
           "memory_peak_bytes": 365466.0,
-          "memory_current_bytes": 17335.0
+          "memory_current_bytes": 17244.0
         },
         {
           "repeat_index": 1,
-          "seed": 3022761,
-          "error_rate": 0.03333333333333333,
-          "avg_decode_time_sec": 0.00018012333506097397,
+          "seed": 4022764,
+          "error_rate": 0.058333333333333334,
+          "avg_decode_time_sec": 5.2227501873858274e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.046648799907416105,
+          "wall_time_sec": 0.012837400077842176,
           "memory_peak_bytes": 365466.0,
           "memory_current_bytes": 17298.0
         }
@@ -294,31 +403,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 4003105,
+      "base_seed": 5003108,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.020833333333333336,
-          "std": 0.005892556509887897,
-          "ci95_half_width": 0.008166666666666666,
-          "ci95_low": 0.01266666666666667,
-          "ci95_high": 0.029
+          "mean": 0.04166666666666667,
+          "std": 0.011785113019775794,
+          "ci95_half_width": 0.01633333333333333,
+          "ci95_low": 0.02533333333333334,
+          "ci95_high": 0.058
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 0.0003108758362941444,
-          "std": 1.9527930052629467e-06,
-          "ci95_half_width": 2.7064330254991704e-06,
-          "ci95_low": 0.0003081694032686452,
-          "ci95_high": 0.0003135822693196436
+          "mean": 9.511041765411694e-05,
+          "std": 2.5626710741057567e-06,
+          "ci95_half_width": 3.5516809051235557e-06,
+          "ci95_low": 9.155873674899339e-05,
+          "ci95_high": 9.866209855924049e-05
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.0653304000152275,
-          "std": 0.005198083273323299,
-          "ci95_half_width": 0.007204175866208969,
-          "ci95_low": 0.058126224149018524,
-          "ci95_high": 0.07253457588143647
+          "mean": 0.018578849965706468,
+          "std": 0.00040326302218575806,
+          "ci95_half_width": 0.0005588940344750881,
+          "ci95_low": 0.01801995593123138,
+          "ci95_high": 0.019137744000181554
         },
         "switch_rate": {
           "n": 2.0,
@@ -338,33 +447,33 @@
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 17352.0,
-          "std": 0.0,
-          "ci95_half_width": 0.0,
-          "ci95_low": 17352.0,
-          "ci95_high": 17352.0
+          "mean": 19291.0,
+          "std": 2818.5276298095782,
+          "ci95_half_width": 3906.2799999999993,
+          "ci95_low": 15384.720000000001,
+          "ci95_high": 23197.28
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 4015139,
-          "error_rate": 0.016666666666666666,
-          "avg_decode_time_sec": 0.0003122566694704195,
+          "seed": 5015142,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 9.329833555966615e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.06900599994696677,
+          "wall_time_sec": 0.018293699948117137,
           "memory_peak_bytes": 566630.0,
-          "memory_current_bytes": 17352.0
+          "memory_current_bytes": 21284.0
         },
         {
           "repeat_index": 1,
-          "seed": 4025146,
-          "error_rate": 0.025,
-          "avg_decode_time_sec": 0.0003094950031178693,
+          "seed": 5025149,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 9.692249974856774e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.061654800083488226,
+          "wall_time_sec": 0.0188639999832958,
           "memory_peak_bytes": 566630.0,
-          "memory_current_bytes": 17352.0
+          "memory_current_bytes": 17298.0
         }
       ],
       "status": "ok"
@@ -378,31 +487,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 5003302,
+      "base_seed": 6003305,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.05416666666666667,
-          "std": 0.04124789556921527,
-          "ci95_half_width": 0.05716666666666666,
-          "ci95_low": 0.0,
-          "ci95_high": 0.11133333333333333
+          "mean": 0.058333333333333334,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 0.058333333333333334,
+          "ci95_high": 0.058333333333333334
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 0.0005608674973094216,
-          "std": 6.875670309185448e-05,
-          "ci95_half_width": 9.529192877622949e-05,
-          "ci95_low": 0.00046557556853319207,
-          "ci95_high": 0.000656159426085651
+          "mean": 0.00016476875171065328,
+          "std": 5.373428212078128e-06,
+          "ci95_half_width": 7.447191552879918e-06,
+          "ci95_low": 0.00015732156015777336,
+          "ci95_high": 0.0001722159432635332
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.09793544991407543,
-          "std": 0.011077181416422322,
-          "ci95_half_width": 0.015352190188132225,
-          "ci95_low": 0.08258325972594321,
-          "ci95_high": 0.11328764010220765
+          "mean": 0.027804800018202513,
+          "std": 0.0008951971690559288,
+          "ci95_half_width": 0.0012406799779273569,
+          "ci95_low": 0.026564120040275155,
+          "ci95_high": 0.029045479996129872
         },
         "switch_rate": {
           "n": 2.0,
@@ -422,33 +531,117 @@
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 19058.0,
-          "std": 2489.0158697766474,
-          "ci95_half_width": 3449.6,
-          "ci95_low": 15608.4,
-          "ci95_high": 22507.6
+          "mean": 17298.0,
+          "std": 76.36753236814714,
+          "ci95_half_width": 105.83999999999999,
+          "ci95_low": 17192.16,
+          "ci95_high": 17403.84
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 5017524,
-          "error_rate": 0.025,
-          "avg_decode_time_sec": 0.0005122491663011411,
+          "seed": 6017527,
+          "error_rate": 0.058333333333333334,
+          "avg_decode_time_sec": 0.00016096916418367375,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.0901026998180896,
+          "wall_time_sec": 0.027171800029464066,
           "memory_peak_bytes": 810671.0,
-          "memory_current_bytes": 20818.0
+          "memory_current_bytes": 17352.0
         },
         {
           "repeat_index": 1,
-          "seed": 5027531,
-          "error_rate": 0.08333333333333333,
-          "avg_decode_time_sec": 0.0006094858283177019,
+          "seed": 6027534,
+          "error_rate": 0.058333333333333334,
+          "avg_decode_time_sec": 0.00016856833923763285,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.10576820001006126,
+          "wall_time_sec": 0.02843780000694096,
           "memory_peak_bytes": 810671.0,
-          "memory_current_bytes": 17298.0
+          "memory_current_bytes": 17244.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder": "uf",
+      "distance": 3,
+      "rounds": 3,
+      "p_phys": 0.01,
+      "noise_model": "depolarizing",
+      "logical_basis": "x",
+      "shots": 120,
+      "repeats": 2,
+      "base_seed": 7002338,
+      "metrics": {
+        "error_rate": {
+          "n": 2.0,
+          "mean": 0.025,
+          "std": 0.011785113019775792,
+          "ci95_half_width": 0.01633333333333333,
+          "ci95_low": 0.00866666666666667,
+          "ci95_high": 0.04133333333333333
+        },
+        "avg_decode_time_sec": {
+          "n": 2.0,
+          "mean": 1.632625062484294e-05,
+          "std": 5.833469569774377e-08,
+          "ci95_half_width": 8.084776345640354e-08,
+          "ci95_low": 1.6245402861386538e-05,
+          "ci95_high": 1.6407098388299343e-05
+        },
+        "wall_time_sec": {
+          "n": 2.0,
+          "mean": 0.009869250003248453,
+          "std": 0.00011320775218927734,
+          "ci95_half_width": 0.00015689793974161146,
+          "ci95_low": 0.009712352063506841,
+          "ci95_high": 0.010026147942990065
+        },
+        "switch_rate": {
+          "n": 2.0,
+          "mean": 0.0,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0
+        },
+        "memory_peak_bytes": {
+          "n": 2.0,
+          "mean": 37870.0,
+          "std": 9459.674518713633,
+          "ci95_half_width": 13110.439999999999,
+          "ci95_low": 24759.56,
+          "ci95_high": 50980.44
+        },
+        "memory_current_bytes": {
+          "n": 2.0,
+          "mean": 25067.0,
+          "std": 9448.360810214648,
+          "ci95_half_width": 13094.759999999998,
+          "ci95_low": 11972.240000000002,
+          "ci95_high": 38161.759999999995
+        }
+      },
+      "repeat_runs": [
+        {
+          "repeat_index": 0,
+          "seed": 7005620,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 1.6285001765936614e-05,
+          "switch_rate": 0.0,
+          "wall_time_sec": 0.009949299972504377,
+          "memory_peak_bytes": 44559.0,
+          "memory_current_bytes": 31748.0
+        },
+        {
+          "repeat_index": 1,
+          "seed": 7015627,
+          "error_rate": 0.016666666666666666,
+          "avg_decode_time_sec": 1.636749948374927e-05,
+          "switch_rate": 0.0,
+          "wall_time_sec": 0.009789200033992529,
+          "memory_peak_bytes": 31181.0,
+          "memory_current_bytes": 18386.0
         }
       ],
       "status": "ok"
@@ -462,31 +655,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 6002529,
+      "base_seed": 8002535,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.029166666666666667,
-          "std": 0.005892556509887895,
-          "ci95_half_width": 0.008166666666666664,
-          "ci95_low": 0.021000000000000005,
-          "ci95_high": 0.03733333333333333
+          "mean": 0.03333333333333333,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 0.03333333333333333,
+          "ci95_high": 0.03333333333333333
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 7.211750489659608e-05,
-          "std": 2.699966628278347e-06,
-          "ci95_half_width": 3.7419628351926753e-06,
-          "ci95_low": 6.837554206140341e-05,
-          "ci95_high": 7.585946773178875e-05
+          "mean": 1.8889171284778666e-05,
+          "std": 1.2609823958530182e-07,
+          "ci95_half_width": 1.747632438006476e-07,
+          "ci95_low": 1.8714408040978018e-05,
+          "ci95_high": 1.9063934528579315e-05
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.03878754994366318,
-          "std": 0.002202991240881509,
-          "ci95_half_width": 0.003053190088830888,
-          "ci95_low": 0.035734359854832295,
-          "ci95_high": 0.041840740032494064
+          "mean": 0.010809399944264442,
+          "std": 0.00011455126530362558,
+          "ci95_half_width": 0.00015875995391979812,
+          "ci95_low": 0.010650639990344643,
+          "ci95_high": 0.01096815989818424
         },
         "switch_rate": {
           "n": 2.0,
@@ -498,41 +691,41 @@
         },
         "memory_peak_bytes": {
           "n": 2.0,
-          "mean": 92088.0,
-          "std": 1962.9284245738559,
-          "ci95_half_width": 2720.4799999999996,
-          "ci95_low": 89367.52,
-          "ci95_high": 94808.48
+          "mean": 90700.0,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 90700.0,
+          "ci95_high": 90700.0
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 24427.0,
-          "std": 8565.891547293837,
-          "ci95_half_width": 11871.72,
-          "ci95_low": 12555.28,
-          "ci95_high": 36298.72
+          "mean": 18305.0,
+          "std": 38.18376618407357,
+          "ci95_half_width": 52.919999999999995,
+          "ci95_low": 18252.08,
+          "ci95_high": 18357.92
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 6007999,
+          "seed": 8008005,
           "error_rate": 0.03333333333333333,
-          "avg_decode_time_sec": 7.020834018476308e-05,
+          "avg_decode_time_sec": 1.8978336205085117e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.0372297998983413,
-          "memory_peak_bytes": 93476.0,
-          "memory_current_bytes": 30484.0
+          "wall_time_sec": 0.010890399920754135,
+          "memory_peak_bytes": 90700.0,
+          "memory_current_bytes": 18278.0
         },
         {
           "repeat_index": 1,
-          "seed": 6018006,
-          "error_rate": 0.025,
-          "avg_decode_time_sec": 7.402666960842907e-05,
+          "seed": 8018012,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 1.8800006364472212e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.04034529998898506,
+          "wall_time_sec": 0.010728399967774749,
           "memory_peak_bytes": 90700.0,
-          "memory_current_bytes": 18370.0
+          "memory_current_bytes": 18332.0
         }
       ],
       "status": "ok"
@@ -546,31 +739,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 7002726,
+      "base_seed": 9002732,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.0375,
-          "std": 0.005892556509887895,
-          "ci95_half_width": 0.008166666666666664,
-          "ci95_low": 0.029333333333333336,
-          "ci95_high": 0.04566666666666666
+          "mean": 0.058333333333333334,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 0.058333333333333334,
+          "ci95_high": 0.058333333333333334
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 0.00010126291405564795,
-          "std": 2.8902873630530824e-06,
-          "ci95_half_width": 4.005733916225534e-06,
-          "ci95_low": 9.725718013942242e-05,
-          "ci95_high": 0.00010526864797187349
+          "mean": 2.8895416956705352e-05,
+          "std": 5.391750841045035e-07,
+          "ci95_half_width": 7.472585421055582e-07,
+          "ci95_low": 2.8148158414599793e-05,
+          "ci95_high": 2.964267549881091e-05
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.04267029999755323,
-          "std": 0.0009472402128424696,
-          "ci95_half_width": 0.0013128079567104576,
-          "ci95_low": 0.04135749204084277,
-          "ci95_high": 0.04398310795426369
+          "mean": 0.012623850023373961,
+          "std": 0.0002604273525823382,
+          "ci95_half_width": 0.0003609338961541653,
+          "ci95_low": 0.012262916127219796,
+          "ci95_high": 0.012984783919528127
         },
         "switch_rate": {
           "n": 2.0,
@@ -590,33 +783,33 @@
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 18386.0,
-          "std": 76.36753236814714,
-          "ci95_half_width": 105.83999999999999,
-          "ci95_low": 18280.16,
-          "ci95_high": 18491.84
+          "mean": 18440.0,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 18440.0,
+          "ci95_high": 18440.0
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 7010384,
-          "error_rate": 0.041666666666666664,
-          "avg_decode_time_sec": 9.921917226165533e-05,
+          "seed": 9010390,
+          "error_rate": 0.058333333333333334,
+          "avg_decode_time_sec": 2.851416259848823e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.04200050001963973,
+          "wall_time_sec": 0.01243970007635653,
           "memory_peak_bytes": 209928.0,
           "memory_current_bytes": 18440.0
         },
         {
           "repeat_index": 1,
-          "seed": 7020391,
-          "error_rate": 0.03333333333333333,
-          "avg_decode_time_sec": 0.00010330665584964056,
+          "seed": 9020397,
+          "error_rate": 0.058333333333333334,
+          "avg_decode_time_sec": 2.9276671314922473e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.04334009997546673,
+          "wall_time_sec": 0.012807999970391393,
           "memory_peak_bytes": 209928.0,
-          "memory_current_bytes": 18332.0
+          "memory_current_bytes": 18440.0
         }
       ],
       "status": "ok"
@@ -630,31 +823,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 8002923,
+      "base_seed": 10002929,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.0375,
-          "std": 0.005892556509887895,
-          "ci95_half_width": 0.008166666666666664,
-          "ci95_low": 0.029333333333333336,
-          "ci95_high": 0.04566666666666666
+          "mean": 0.04583333333333334,
+          "std": 0.01767766952966369,
+          "ci95_half_width": 0.024500000000000004,
+          "ci95_low": 0.021333333333333333,
+          "ci95_high": 0.07033333333333334
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 0.00015352875634562225,
-          "std": 4.871384062482039e-06,
-          "ci95_half_width": 6.751393860516439e-06,
-          "ci95_low": 0.00014677736248510582,
-          "ci95_high": 0.00016028015020613868
+          "mean": 4.5766251666160915e-05,
+          "std": 9.351551528190604e-07,
+          "ci95_half_width": 1.2960589180390036e-06,
+          "ci95_low": 4.447019274812191e-05,
+          "ci95_high": 4.706231058419992e-05
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.05113194999285042,
-          "std": 0.0006629126337041687,
-          "ci95_half_width": 0.0009187500365078449,
-          "ci95_low": 0.050213199956342575,
-          "ci95_high": 0.05205070002935827
+          "mean": 0.015005600056611001,
+          "std": 3.9597951992746916e-05,
+          "ci95_half_width": 5.4879961535334584e-05,
+          "ci95_low": 0.014950720095075667,
+          "ci95_high": 0.015060480018146336
         },
         "switch_rate": {
           "n": 2.0,
@@ -674,33 +867,33 @@
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 18413.0,
-          "std": 38.18376618407357,
-          "ci95_half_width": 52.919999999999995,
-          "ci95_low": 18360.08,
-          "ci95_high": 18465.92
+          "mean": 18332.0,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 18332.0,
+          "ci95_high": 18332.0
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 8012769,
-          "error_rate": 0.03333333333333333,
-          "avg_decode_time_sec": 0.00015008416764127712,
+          "seed": 10012775,
+          "error_rate": 0.058333333333333334,
+          "avg_decode_time_sec": 4.642750621618082e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.05066319997422397,
+          "wall_time_sec": 0.015033600036986172,
           "memory_peak_bytes": 368014.0,
-          "memory_current_bytes": 18440.0
+          "memory_current_bytes": 18332.0
         },
         {
           "repeat_index": 1,
-          "seed": 8022776,
-          "error_rate": 0.041666666666666664,
-          "avg_decode_time_sec": 0.00015697334504996736,
+          "seed": 10022782,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 4.510499711614102e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.051600700011476874,
+          "wall_time_sec": 0.01497760007623583,
           "memory_peak_bytes": 368014.0,
-          "memory_current_bytes": 18386.0
+          "memory_current_bytes": 18332.0
         }
       ],
       "status": "ok"
@@ -714,31 +907,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 9003120,
+      "base_seed": 11003126,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.05416666666666667,
-          "std": 0.01767766952966369,
-          "ci95_half_width": 0.024500000000000004,
-          "ci95_low": 0.029666666666666664,
-          "ci95_high": 0.07866666666666668
+          "mean": 0.07083333333333333,
+          "std": 0.017677669529663684,
+          "ci95_half_width": 0.024499999999999994,
+          "ci95_low": 0.04633333333333334,
+          "ci95_high": 0.09533333333333333
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 0.00025220499956049027,
-          "std": 2.1869629261017178e-05,
-          "ci95_half_width": 3.030975977890194e-05,
-          "ci95_low": 0.00022189523978158833,
-          "ci95_high": 0.00028251475933939224
+          "mean": 7.291750274210547e-05,
+          "std": 4.496018494818938e-06,
+          "ci95_half_width": 6.231163725412146e-06,
+          "ci95_low": 6.668633901669332e-05,
+          "ci95_high": 7.914866646751762e-05
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.06849830003920943,
-          "std": 0.00424490331829108,
-          "ci95_half_width": 0.005883135846816004,
-          "ci95_low": 0.06261516419239342,
-          "ci95_high": 0.07438143588602543
+          "mean": 0.01869670004816726,
+          "std": 0.0006164556937065912,
+          "ci95_half_width": 0.0008543640025891363,
+          "ci95_low": 0.01784233604557812,
+          "ci95_high": 0.019551064050756396
         },
         "switch_rate": {
           "n": 2.0,
@@ -758,33 +951,33 @@
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 18440.0,
-          "std": 0.0,
-          "ci95_half_width": 0.0,
-          "ci95_low": 18440.0,
-          "ci95_high": 18440.0
+          "mean": 20890.5,
+          "std": 1713.3197308150047,
+          "ci95_half_width": 2374.54,
+          "ci95_low": 18515.96,
+          "ci95_high": 23265.04
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 9015154,
-          "error_rate": 0.06666666666666667,
-          "avg_decode_time_sec": 0.00023674083640798927,
+          "seed": 11015160,
+          "error_rate": 0.058333333333333334,
+          "avg_decode_time_sec": 7.609666790813208e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.06549670011736453,
+          "wall_time_sec": 0.019132600049488246,
           "memory_peak_bytes": 569178.0,
-          "memory_current_bytes": 18440.0
+          "memory_current_bytes": 22102.0
         },
         {
           "repeat_index": 1,
-          "seed": 9025161,
-          "error_rate": 0.041666666666666664,
-          "avg_decode_time_sec": 0.00026766916271299125,
+          "seed": 11025167,
+          "error_rate": 0.08333333333333333,
+          "avg_decode_time_sec": 6.973833757607887e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.07149989996105433,
+          "wall_time_sec": 0.01826080004684627,
           "memory_peak_bytes": 569178.0,
-          "memory_current_bytes": 18440.0
+          "memory_current_bytes": 19679.0
         }
       ],
       "status": "ok"
@@ -798,31 +991,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 10003317,
+      "base_seed": 12003323,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.020833333333333336,
-          "std": 0.005892556509887897,
-          "ci95_half_width": 0.008166666666666666,
-          "ci95_low": 0.01266666666666667,
-          "ci95_high": 0.029
+          "mean": 0.03333333333333333,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 0.03333333333333333,
+          "ci95_high": 0.03333333333333333
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 0.0004280750009153659,
-          "std": 5.657562316327847e-05,
-          "ci95_half_width": 7.840981330567347e-05,
-          "ci95_low": 0.0003496651876096924,
-          "ci95_high": 0.0005064848142210394
+          "mean": 0.00013222416794936482,
+          "std": 1.0783330186124322e-06,
+          "ci95_half_width": 1.4944933160828923e-06,
+          "ci95_low": 0.00013072967463328194,
+          "ci95_high": 0.0001337186612654477
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.09337595000397414,
-          "std": 0.015569147749686865,
-          "ci95_half_width": 0.021577737904153762,
-          "ci95_low": 0.07179821209982037,
-          "ci95_high": 0.1149536879081279
+          "mean": 0.027965449960902333,
+          "std": 0.0003154403497818176,
+          "ci95_half_width": 0.0004371780203655362,
+          "ci95_low": 0.027528271940536798,
+          "ci95_high": 0.02840262798126787
         },
         "switch_rate": {
           "n": 2.0,
@@ -842,33 +1035,117 @@
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 20944.5,
-          "std": 3694.6329316997108,
-          "ci95_half_width": 5120.499999999999,
-          "ci95_low": 15824.0,
-          "ci95_high": 26065.0
+          "mean": 18440.0,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 18440.0,
+          "ci95_high": 18440.0
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 10017539,
-          "error_rate": 0.025,
-          "avg_decode_time_sec": 0.000388069994126757,
+          "seed": 12017545,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 0.00013298666453920305,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.08236690005287528,
+          "wall_time_sec": 0.028188499971292913,
           "memory_peak_bytes": 813219.0,
-          "memory_current_bytes": 23557.0
+          "memory_current_bytes": 18440.0
         },
         {
           "repeat_index": 1,
-          "seed": 10027546,
-          "error_rate": 0.016666666666666666,
-          "avg_decode_time_sec": 0.00046808000770397483,
+          "seed": 12027552,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 0.00013146167135952663,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.104384999955073,
+          "wall_time_sec": 0.027742399950511754,
           "memory_peak_bytes": 813219.0,
-          "memory_current_bytes": 18332.0
+          "memory_current_bytes": 18440.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder": "bm",
+      "distance": 3,
+      "rounds": 3,
+      "p_phys": 0.01,
+      "noise_model": "depolarizing",
+      "logical_basis": "x",
+      "shots": 120,
+      "repeats": 2,
+      "base_seed": 13002356,
+      "metrics": {
+        "error_rate": {
+          "n": 2.0,
+          "mean": 0.025,
+          "std": 0.011785113019775792,
+          "ci95_half_width": 0.01633333333333333,
+          "ci95_low": 0.00866666666666667,
+          "ci95_high": 0.04133333333333333
+        },
+        "avg_decode_time_sec": {
+          "n": 2.0,
+          "mean": 1.7323334759566933e-05,
+          "std": 2.5927789058300727e-07,
+          "ci95_half_width": 3.5934082310025673e-07,
+          "ci95_low": 1.6963993936466677e-05,
+          "ci95_high": 1.768267558266719e-05
+        },
+        "wall_time_sec": {
+          "n": 2.0,
+          "mean": 0.01111050002509728,
+          "std": 0.00013138053484125096,
+          "ci95_half_width": 0.00018208413152024148,
+          "ci95_low": 0.010928415893577039,
+          "ci95_high": 0.011292584156617522
+        },
+        "switch_rate": {
+          "n": 2.0,
+          "mean": 0.0,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0
+        },
+        "memory_peak_bytes": {
+          "n": 2.0,
+          "mean": 35767.0,
+          "std": 6508.210814040984,
+          "ci95_half_width": 9019.92,
+          "ci95_low": 26747.08,
+          "ci95_high": 44786.92
+        },
+        "memory_current_bytes": {
+          "n": 2.0,
+          "mean": 22840.0,
+          "std": 6559.122502286415,
+          "ci95_half_width": 9090.479999999998,
+          "ci95_low": 13749.520000000002,
+          "ci95_high": 31930.479999999996
+        }
+      },
+      "repeat_runs": [
+        {
+          "repeat_index": 0,
+          "seed": 13005638,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 1.750667191420992e-05,
+          "switch_rate": 0.0,
+          "wall_time_sec": 0.011203400092199445,
+          "memory_peak_bytes": 40369.0,
+          "memory_current_bytes": 27478.0
+        },
+        {
+          "repeat_index": 1,
+          "seed": 13015645,
+          "error_rate": 0.016666666666666666,
+          "avg_decode_time_sec": 1.7139997604923945e-05,
+          "switch_rate": 0.0,
+          "wall_time_sec": 0.011017599957995117,
+          "memory_peak_bytes": 31165.0,
+          "memory_current_bytes": 18202.0
         }
       ],
       "status": "ok"
@@ -882,31 +1159,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 11002544,
+      "base_seed": 14002553,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.05416666666666667,
-          "std": 0.005892556509887895,
-          "ci95_half_width": 0.008166666666666664,
-          "ci95_low": 0.046000000000000006,
-          "ci95_high": 0.06233333333333333
+          "mean": 0.05,
+          "std": 0.023570226039551584,
+          "ci95_half_width": 0.03266666666666666,
+          "ci95_low": 0.01733333333333334,
+          "ci95_high": 0.08266666666666667
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 7.339040845787774e-05,
-          "std": 3.485457937884262e-06,
-          "ci95_half_width": 4.830598249100145e-06,
-          "ci95_low": 6.85598102087776e-05,
-          "ci95_high": 7.822100670697788e-05
+          "mean": 2.0680836072036377e-05,
+          "std": 7.424334745256366e-08,
+          "ci95_half_width": 1.0289602990572563e-07,
+          "ci95_low": 2.057794004213065e-05,
+          "ci95_high": 2.0783732101942102e-05
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.032695950008928776,
-          "std": 0.001778868656769271,
-          "ci95_half_width": 0.002465386176481843,
-          "ci95_low": 0.030230563832446933,
-          "ci95_high": 0.03516133618541062
+          "mean": 0.011522550019435585,
+          "std": 1.1384423545624264e-05,
+          "ci95_half_width": 1.5778006054461003e-05,
+          "ci95_low": 0.011506772013381123,
+          "ci95_high": 0.011538328025490046
         },
         "switch_rate": {
           "n": 2.0,
@@ -918,41 +1195,41 @@
         },
         "memory_peak_bytes": {
           "n": 2.0,
-          "mean": 92908.0,
-          "std": 1968.5852788233483,
-          "ci95_half_width": 2728.3199999999997,
-          "ci95_low": 90179.68,
-          "ci95_high": 95636.32
+          "mean": 91516.0,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 91516.0,
+          "ci95_high": 91516.0
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 22404.0,
-          "std": 5866.157856723598,
-          "ci95_half_width": 8130.079999999999,
-          "ci95_low": 14273.920000000002,
-          "ci95_high": 30534.079999999998
+          "mean": 18314.5,
+          "std": 311.8340905032675,
+          "ci95_half_width": 432.17999999999995,
+          "ci95_low": 17882.32,
+          "ci95_high": 18746.68
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 11008014,
-          "error_rate": 0.05,
-          "avg_decode_time_sec": 7.092581751445929e-05,
+          "seed": 14008023,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 2.062833809759468e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.03143809991888702,
-          "memory_peak_bytes": 94300.0,
-          "memory_current_bytes": 26552.0
+          "wall_time_sec": 0.011514500016346574,
+          "memory_peak_bytes": 91516.0,
+          "memory_current_bytes": 18535.0
         },
         {
           "repeat_index": 1,
-          "seed": 11018021,
-          "error_rate": 0.058333333333333334,
-          "avg_decode_time_sec": 7.585499940129617e-05,
+          "seed": 14018030,
+          "error_rate": 0.06666666666666667,
+          "avg_decode_time_sec": 2.0733334046478073e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.03395380009897053,
+          "wall_time_sec": 0.011530600022524595,
           "memory_peak_bytes": 91516.0,
-          "memory_current_bytes": 18256.0
+          "memory_current_bytes": 18094.0
         }
       ],
       "status": "ok"
@@ -966,31 +1243,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 12002741,
+      "base_seed": 15002750,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.04166666666666667,
-          "std": 0.011785113019775794,
-          "ci95_half_width": 0.01633333333333333,
-          "ci95_low": 0.02533333333333334,
-          "ci95_high": 0.058
+          "mean": 0.029166666666666667,
+          "std": 0.017677669529663688,
+          "ci95_half_width": 0.0245,
+          "ci95_low": 0.004666666666666666,
+          "ci95_high": 0.05366666666666667
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 9.933999584366878e-05,
-          "std": 6.882503531636423e-07,
-          "ci95_half_width": 9.538663240770534e-07,
-          "ci95_low": 9.838612951959172e-05,
-          "ci95_high": 0.00010029386216774583
+          "mean": 3.137833312697088e-05,
+          "std": 5.72750564253685e-07,
+          "ci95_half_width": 7.93791783507916e-07,
+          "ci95_low": 3.058454134346296e-05,
+          "ci95_high": 3.2172124910478794e-05
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.035656999913044274,
-          "std": 0.0003829691499916356,
-          "ci95_half_width": 0.0005307681625708937,
-          "ci95_low": 0.03512623175047338,
-          "ci95_high": 0.03618776807561517
+          "mean": 0.012931849982123822,
+          "std": 0.000571837327657238,
+          "ci95_half_width": 0.0007925261021591722,
+          "ci95_low": 0.01213932387996465,
+          "ci95_high": 0.013724376084282994
         },
         "switch_rate": {
           "n": 2.0,
@@ -1010,33 +1287,33 @@
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 18256.0,
-          "std": 0.0,
-          "ci95_half_width": 0.0,
-          "ci95_low": 18256.0,
-          "ci95_high": 18256.0
+          "mean": 18229.0,
+          "std": 38.18376618407357,
+          "ci95_half_width": 52.919999999999995,
+          "ci95_low": 18176.08,
+          "ci95_high": 18281.92
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 12010399,
-          "error_rate": 0.03333333333333333,
-          "avg_decode_time_sec": 9.982666233554482e-05,
+          "seed": 15010408,
+          "error_rate": 0.016666666666666666,
+          "avg_decode_time_sec": 3.178332893488308e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.03592779999598861,
+          "wall_time_sec": 0.013336200034245849,
           "memory_peak_bytes": 210744.0,
           "memory_current_bytes": 18256.0
         },
         {
           "repeat_index": 1,
-          "seed": 12020406,
-          "error_rate": 0.05,
-          "avg_decode_time_sec": 9.885332935179273e-05,
+          "seed": 15020415,
+          "error_rate": 0.041666666666666664,
+          "avg_decode_time_sec": 3.0973337319058675e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.03538619983009994,
+          "wall_time_sec": 0.012527499930001795,
           "memory_peak_bytes": 210744.0,
-          "memory_current_bytes": 18256.0
+          "memory_current_bytes": 18202.0
         }
       ],
       "status": "ok"
@@ -1050,31 +1327,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 13002938,
+      "base_seed": 16002947,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.0625,
-          "std": 0.04124789556921527,
-          "ci95_half_width": 0.05716666666666666,
-          "ci95_low": 0.005333333333333343,
-          "ci95_high": 0.11966666666666666
+          "mean": 0.0125,
+          "std": 0.005892556509887896,
+          "ci95_half_width": 0.008166666666666666,
+          "ci95_low": 0.004333333333333335,
+          "ci95_high": 0.020666666666666667
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 0.00014372957812156526,
-          "std": 2.9975450558553184e-06,
-          "ci95_half_width": 4.154385494378707e-06,
-          "ci95_low": 0.00013957519262718654,
-          "ci95_high": 0.00014788396361594398
+          "mean": 4.576750070555136e-05,
+          "std": 1.1667556525025083e-07,
+          "ci95_half_width": 1.6170408343896266e-07,
+          "ci95_low": 4.560579662211239e-05,
+          "ci95_high": 4.5929204788990324e-05
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.0413226499222219,
-          "std": 0.001258720899133914,
-          "ci95_half_width": 0.0017444981634616849,
-          "ci95_low": 0.03957815175876021,
-          "ci95_high": 0.043067148085683585
+          "mean": 0.014371949946507812,
+          "std": 0.00012282447763934897,
+          "ci95_half_width": 0.00017022604122757907,
+          "ci95_low": 0.014201723905280232,
+          "ci95_high": 0.014542175987735391
         },
         "switch_rate": {
           "n": 2.0,
@@ -1094,33 +1371,33 @@
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 18175.0,
+          "mean": 18229.0,
           "std": 38.18376618407357,
           "ci95_half_width": 52.919999999999995,
-          "ci95_low": 18122.08,
-          "ci95_high": 18227.92
+          "ci95_low": 18176.08,
+          "ci95_high": 18281.92
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 13012784,
-          "error_rate": 0.03333333333333333,
-          "avg_decode_time_sec": 0.00014584916255747278,
+          "seed": 16012793,
+          "error_rate": 0.016666666666666666,
+          "avg_decode_time_sec": 4.568499862216413e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.04221270000562072,
+          "wall_time_sec": 0.01445879996754229,
           "memory_peak_bytes": 368830.0,
           "memory_current_bytes": 18202.0
         },
         {
           "repeat_index": 1,
-          "seed": 13022791,
-          "error_rate": 0.09166666666666666,
-          "avg_decode_time_sec": 0.00014160999368565777,
+          "seed": 16022800,
+          "error_rate": 0.008333333333333333,
+          "avg_decode_time_sec": 4.5850002788938585e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.04043259983882308,
+          "wall_time_sec": 0.014285099925473332,
           "memory_peak_bytes": 368830.0,
-          "memory_current_bytes": 18148.0
+          "memory_current_bytes": 18256.0
         }
       ],
       "status": "ok"
@@ -1134,31 +1411,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 14003135,
+      "base_seed": 17003144,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.0625,
-          "std": 0.017677669529663684,
-          "ci95_half_width": 0.024499999999999994,
-          "ci95_low": 0.038000000000000006,
-          "ci95_high": 0.087
+          "mean": 0.05,
+          "std": 0.035355339059327376,
+          "ci95_half_width": 0.049,
+          "ci95_low": 0.0010000000000000009,
+          "ci95_high": 0.099
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 0.00025358792724243057,
-          "std": 5.599709592891874e-06,
-          "ci95_half_width": 7.760801546586042e-06,
-          "ci95_low": 0.0002458271256958445,
-          "ci95_high": 0.0002613487287890166
+          "mean": 7.261207986933489e-05,
+          "std": 4.905550174736831e-06,
+          "ci95_half_width": 6.798745676254242e-06,
+          "ci95_low": 6.581333419308064e-05,
+          "ci95_high": 7.941082554558914e-05
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.058637650101445615,
-          "std": 0.0016634687745490462,
-          "ci95_half_width": 0.002305450099520385,
-          "ci95_low": 0.05633220000192523,
-          "ci95_high": 0.060943100200966
+          "mean": 0.017777849978301674,
+          "std": 0.0006626297065199265,
+          "ci95_half_width": 0.0009183579194359479,
+          "ci95_low": 0.016859492058865725,
+          "ci95_high": 0.018696207897737623
         },
         "switch_rate": {
           "n": 2.0,
@@ -1178,33 +1455,33 @@
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 18148.0,
-          "std": 76.36753236814714,
-          "ci95_half_width": 105.83999999999999,
-          "ci95_low": 18042.16,
-          "ci95_high": 18253.84
+          "mean": 20660.0,
+          "std": 3399.7694039449207,
+          "ci95_half_width": 4711.84,
+          "ci95_low": 15948.16,
+          "ci95_high": 25371.84
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 14015169,
-          "error_rate": 0.05,
-          "avg_decode_time_sec": 0.00025754751986823977,
+          "seed": 17015178,
+          "error_rate": 0.075,
+          "avg_decode_time_sec": 7.608082766334216e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.05981390015222132,
+          "wall_time_sec": 0.018246399937197566,
           "memory_peak_bytes": 569994.0,
-          "memory_current_bytes": 18202.0
+          "memory_current_bytes": 23064.0
         },
         {
           "repeat_index": 1,
-          "seed": 14025176,
-          "error_rate": 0.075,
-          "avg_decode_time_sec": 0.00024962833461662136,
+          "seed": 17025185,
+          "error_rate": 0.025,
+          "avg_decode_time_sec": 6.914333207532763e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.05746140005066991,
+          "wall_time_sec": 0.017309300019405782,
           "memory_peak_bytes": 569994.0,
-          "memory_current_bytes": 18094.0
+          "memory_current_bytes": 18256.0
         }
       ],
       "status": "ok"
@@ -1218,31 +1495,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 15003332,
+      "base_seed": 18003341,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.04166666666666667,
-          "std": 0.011785113019775794,
-          "ci95_half_width": 0.01633333333333333,
-          "ci95_low": 0.02533333333333334,
-          "ci95_high": 0.058
+          "mean": 0.0375,
+          "std": 0.005892556509887895,
+          "ci95_half_width": 0.008166666666666664,
+          "ci95_low": 0.029333333333333336,
+          "ci95_high": 0.04566666666666666
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 0.0004187804229635124,
-          "std": 1.3698421353677094e-05,
-          "ci95_half_width": 1.8985043396241928e-05,
-          "ci95_low": 0.0003997953795672705,
-          "ci95_high": 0.0004377654663597543
+          "mean": 0.00012803375041888407,
+          "std": 1.4572259152964337e-06,
+          "ci95_half_width": 2.019612079796688e-06,
+          "ci95_low": 0.00012601413833908737,
+          "ci95_high": 0.00013005336249868077
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.08129594998899847,
-          "std": 0.0002097986154447537,
-          "ci95_half_width": 0.0002907660463824868,
-          "ci95_low": 0.08100518394261598,
-          "ci95_high": 0.08158671603538097
+          "mean": 0.02575385000091046,
+          "std": 0.00027329679399346345,
+          "ci95_half_width": 0.00037877003196626894,
+          "ci95_low": 0.02537507996894419,
+          "ci95_high": 0.02613262003287673
         },
         "switch_rate": {
           "n": 2.0,
@@ -1262,33 +1539,117 @@
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 19990.5,
-          "std": 2529.3209563042806,
-          "ci95_half_width": 3505.4599999999996,
-          "ci95_low": 16485.04,
-          "ci95_high": 23495.96
+          "mean": 18202.0,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 18202.0,
+          "ci95_high": 18202.0
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 15017554,
-          "error_rate": 0.05,
-          "avg_decode_time_sec": 0.00040909417633277676,
+          "seed": 18017563,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 0.00012700333609245719,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.08114759996533394,
+          "wall_time_sec": 0.02556059998460114,
           "memory_peak_bytes": 814035.0,
-          "memory_current_bytes": 21779.0
+          "memory_current_bytes": 18202.0
         },
         {
           "repeat_index": 1,
-          "seed": 15027561,
-          "error_rate": 0.03333333333333333,
-          "avg_decode_time_sec": 0.0004284666695942481,
+          "seed": 18027570,
+          "error_rate": 0.041666666666666664,
+          "avg_decode_time_sec": 0.00012906416474531095,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.081444300012663,
+          "wall_time_sec": 0.025947100017219782,
           "memory_peak_bytes": 814035.0,
           "memory_current_bytes": 18202.0
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "decoder": "adaptive",
+      "distance": 3,
+      "rounds": 3,
+      "p_phys": 0.01,
+      "noise_model": "depolarizing",
+      "logical_basis": "x",
+      "shots": 120,
+      "repeats": 2,
+      "base_seed": 19002374,
+      "metrics": {
+        "error_rate": {
+          "n": 2.0,
+          "mean": 0.04583333333333334,
+          "std": 0.01767766952966369,
+          "ci95_half_width": 0.024500000000000004,
+          "ci95_low": 0.021333333333333333,
+          "ci95_high": 0.07033333333333334
+        },
+        "avg_decode_time_sec": {
+          "n": 2.0,
+          "mean": 1.8053750682156534e-05,
+          "std": 2.6104635698048615e-07,
+          "ci95_half_width": 3.617917924808941e-07,
+          "ci95_low": 1.769195888967564e-05,
+          "ci95_high": 1.8415542474637428e-05
+        },
+        "wall_time_sec": {
+          "n": 2.0,
+          "mean": 0.013422150048427284,
+          "std": 0.0003162888843803533,
+          "ci95_half_width": 0.00043835402932018036,
+          "ci95_low": 0.012983796019107104,
+          "ci95_high": 0.013860504077747464
+        },
+        "switch_rate": {
+          "n": 2.0,
+          "mean": 0.0,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0
+        },
+        "memory_peak_bytes": {
+          "n": 2.0,
+          "mean": 40566.0,
+          "std": 5303.300858899106,
+          "ci95_half_width": 7349.999999999999,
+          "ci95_low": 33216.0,
+          "ci95_high": 47916.0
+        },
+        "memory_current_bytes": {
+          "n": 2.0,
+          "mean": 22492.0,
+          "std": 5359.86940139403,
+          "ci95_half_width": 7428.399999999999,
+          "ci95_low": 15063.600000000002,
+          "ci95_high": 29920.399999999998
+        }
+      },
+      "repeat_runs": [
+        {
+          "repeat_index": 0,
+          "seed": 19005656,
+          "error_rate": 0.058333333333333334,
+          "avg_decode_time_sec": 1.823833833138148e-05,
+          "switch_rate": 0.0,
+          "wall_time_sec": 0.01364580006338656,
+          "memory_peak_bytes": 44316.0,
+          "memory_current_bytes": 26282.0
+        },
+        {
+          "repeat_index": 1,
+          "seed": 19015663,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 1.7869163032931588e-05,
+          "switch_rate": 0.0,
+          "wall_time_sec": 0.013198500033468008,
+          "memory_peak_bytes": 36816.0,
+          "memory_current_bytes": 18702.0
         }
       ],
       "status": "ok"
@@ -1302,31 +1663,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 16002559,
+      "base_seed": 20002571,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.029166666666666667,
-          "std": 0.005892556509887895,
-          "ci95_half_width": 0.008166666666666664,
-          "ci95_low": 0.021000000000000005,
-          "ci95_high": 0.03733333333333333
+          "mean": 0.04583333333333334,
+          "std": 0.0058925565098878994,
+          "ci95_half_width": 0.008166666666666671,
+          "ci95_low": 0.03766666666666667,
+          "ci95_high": 0.054000000000000006
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 0.00037807000141280395,
-          "std": 9.579056978608582e-05,
-          "ci95_half_width": 0.0001327589564801504,
-          "ci95_low": 0.00024531104493265353,
-          "ci95_high": 0.0005108289578929544
+          "mean": 2.133292000507936e-05,
+          "std": 9.8407814992356e-08,
+          "ci95_half_width": 1.3638627327357838e-07,
+          "ci95_low": 2.1196533731805783e-05,
+          "ci95_high": 2.1469306278352937e-05
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.058724000002257526,
-          "std": 0.014689294749984998,
-          "ci95_half_width": 0.02035832385998219,
-          "ci95_low": 0.03836567614227533,
-          "ci95_high": 0.07908232386223972
+          "mean": 0.014496300020255148,
+          "std": 3.238540790519318e-05,
+          "ci95_half_width": 4.4883885420858855e-05,
+          "ci95_low": 0.01445141613483429,
+          "ci95_high": 0.014541183905676007
         },
         "switch_rate": {
           "n": 2.0,
@@ -1338,41 +1699,41 @@
         },
         "memory_peak_bytes": {
           "n": 2.0,
-          "mean": 91628.0,
-          "std": 373.3523804664971,
-          "ci95_half_width": 517.4399999999999,
-          "ci95_low": 91110.56,
-          "ci95_high": 92145.44
+          "mean": 91364.0,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 91364.0,
+          "ci95_high": 91364.0
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 20994.0,
-          "std": 3346.029288574743,
-          "ci95_half_width": 4637.36,
-          "ci95_low": 16356.64,
-          "ci95_high": 25631.36
+          "mean": 18794.0,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 18794.0,
+          "ci95_high": 18794.0
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 16008029,
-          "error_rate": 0.025,
-          "avg_decode_time_sec": 0.00031033583994333945,
+          "seed": 20008041,
+          "error_rate": 0.041666666666666664,
+          "avg_decode_time_sec": 2.1263335171776512e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.04833710007369518,
-          "memory_peak_bytes": 91892.0,
-          "memory_current_bytes": 23360.0
+          "wall_time_sec": 0.014519199961796403,
+          "memory_peak_bytes": 91364.0,
+          "memory_current_bytes": 18794.0
         },
         {
           "repeat_index": 1,
-          "seed": 16018036,
-          "error_rate": 0.03333333333333333,
-          "avg_decode_time_sec": 0.00044580416288226844,
+          "seed": 20018048,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 2.1402504838382205e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.06911089993081987,
+          "wall_time_sec": 0.014473400078713894,
           "memory_peak_bytes": 91364.0,
-          "memory_current_bytes": 18628.0
+          "memory_current_bytes": 18794.0
         }
       ],
       "status": "ok"
@@ -1386,31 +1747,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 17002756,
+      "base_seed": 21002768,
       "metrics": {
         "error_rate": {
           "n": 2.0,
           "mean": 0.05,
-          "std": 0.011785113019775794,
-          "ci95_half_width": 0.01633333333333333,
-          "ci95_low": 0.03366666666666667,
-          "ci95_high": 0.06633333333333333
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 0.05,
+          "ci95_high": 0.05
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 0.0003080695877239729,
-          "std": 5.7729947416225085e-05,
-          "ci95_half_width": 8.00096250992889e-05,
-          "ci95_low": 0.000228059962624684,
-          "ci95_high": 0.0003880792128232618
+          "mean": 3.2459579718609646e-05,
+          "std": 4.554932846880459e-07,
+          "ci95_half_width": 6.312814851601897e-07,
+          "ci95_low": 3.182829823344946e-05,
+          "ci95_high": 3.3090861203769834e-05
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.046393249882385135,
-          "std": 0.00834774903731492,
-          "ci95_half_width": 0.011569389905780552,
-          "ci95_low": 0.03482385997660458,
-          "ci95_high": 0.05796263978816569
+          "mean": 0.01640065002720803,
+          "std": 0.0001495531528570976,
+          "ci95_half_width": 0.00020727009512484072,
+          "ci95_low": 0.01619337993208319,
+          "ci95_high": 0.01660792012233287
         },
         "switch_rate": {
           "n": 2.0,
@@ -1430,33 +1791,33 @@
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 18736.0,
-          "std": 0.0,
-          "ci95_half_width": 0.0,
-          "ci95_low": 18736.0,
-          "ci95_high": 18736.0
+          "mean": 18659.0,
+          "std": 38.18376618407357,
+          "ci95_half_width": 52.919999999999995,
+          "ci95_low": 18606.08,
+          "ci95_high": 18711.92
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 17010414,
-          "error_rate": 0.058333333333333334,
-          "avg_decode_time_sec": 0.00034889082501952847,
+          "seed": 21010426,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 3.27816621089975e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.05229599983431399,
+          "wall_time_sec": 0.016506400075741112,
           "memory_peak_bytes": 210620.0,
-          "memory_current_bytes": 18736.0
+          "memory_current_bytes": 18686.0
         },
         {
           "repeat_index": 1,
-          "seed": 17020421,
-          "error_rate": 0.041666666666666664,
-          "avg_decode_time_sec": 0.00026724835042841734,
+          "seed": 21020433,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 3.21374973282218e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.04049049993045628,
+          "wall_time_sec": 0.016294899978674948,
           "memory_peak_bytes": 210620.0,
-          "memory_current_bytes": 18736.0
+          "memory_current_bytes": 18632.0
         }
       ],
       "status": "ok"
@@ -1470,31 +1831,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 18002953,
+      "base_seed": 22002965,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.0625,
-          "std": 0.005892556509887895,
-          "ci95_half_width": 0.008166666666666664,
-          "ci95_low": 0.05433333333333334,
-          "ci95_high": 0.07066666666666667
+          "mean": 0.04166666666666667,
+          "std": 0.011785113019775794,
+          "ci95_half_width": 0.01633333333333333,
+          "ci95_low": 0.02533333333333334,
+          "ci95_high": 0.058
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 0.00036832000963234657,
-          "std": 2.346295711856551e-05,
-          "ci95_half_width": 3.251799952704462e-05,
-          "ci95_low": 0.00033580201010530197,
-          "ci95_high": 0.00040083800915939117
+          "mean": 5.0430832197889684e-05,
+          "std": 1.0983671773162285e-06,
+          "ci95_half_width": 1.522259243453543e-06,
+          "ci95_low": 4.890857295443614e-05,
+          "ci95_high": 5.195309144134323e-05
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.05364269996061921,
-          "std": 0.0032413774709874536,
-          "ci95_half_width": 0.004492319980636239,
-          "ci95_low": 0.04915037997998297,
-          "ci95_high": 0.05813501994125545
+          "mean": 0.019207149976864457,
+          "std": 9.241881916127886e-05,
+          "ci95_half_width": 0.00012808594852685927,
+          "ci95_low": 0.0190790640283376,
+          "ci95_high": 0.019335235925391315
         },
         "switch_rate": {
           "n": 2.0,
@@ -1514,33 +1875,33 @@
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 18601.0,
-          "std": 38.18376618407357,
-          "ci95_half_width": 52.919999999999995,
-          "ci95_low": 18548.08,
-          "ci95_high": 18653.92
+          "mean": 18794.0,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 18794.0,
+          "ci95_high": 18794.0
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 18012799,
-          "error_rate": 0.06666666666666667,
-          "avg_decode_time_sec": 0.0003517291935471197,
+          "seed": 22012811,
+          "error_rate": 0.05,
+          "avg_decode_time_sec": 4.965416931857665e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.05135069997049868,
+          "wall_time_sec": 0.019141800003126264,
           "memory_peak_bytes": 368706.0,
-          "memory_current_bytes": 18574.0
+          "memory_current_bytes": 18794.0
         },
         {
           "repeat_index": 1,
-          "seed": 18022806,
-          "error_rate": 0.058333333333333334,
-          "avg_decode_time_sec": 0.0003849108257175734,
+          "seed": 22022818,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 5.1207495077202717e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.05593469995073974,
+          "wall_time_sec": 0.01927249995060265,
           "memory_peak_bytes": 368706.0,
-          "memory_current_bytes": 18628.0
+          "memory_current_bytes": 18794.0
         }
       ],
       "status": "ok"
@@ -1554,31 +1915,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 19003150,
+      "base_seed": 23003162,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.041666666666666664,
-          "std": 0.0,
-          "ci95_half_width": 0.0,
-          "ci95_low": 0.041666666666666664,
-          "ci95_high": 0.041666666666666664
+          "mean": 0.025,
+          "std": 0.011785113019775792,
+          "ci95_half_width": 0.01633333333333333,
+          "ci95_low": 0.00866666666666667,
+          "ci95_high": 0.04133333333333333
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 0.0004773691752537464,
-          "std": 1.5300610750760946e-05,
-          "ci95_half_width": 2.1205564611591358e-05,
-          "ci95_low": 0.00045616361064215505,
-          "ci95_high": 0.0004985747398653377
+          "mean": 8.363708135827134e-05,
+          "std": 7.359769944119642e-07,
+          "ci95_half_width": 1.0200120741501475e-06,
+          "ci95_low": 8.261706928412119e-05,
+          "ci95_high": 8.46570934324215e-05
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.06748494994826615,
-          "std": 0.001990434970309577,
-          "ci95_half_width": 0.0027586021274328227,
-          "ci95_low": 0.06472634782083332,
-          "ci95_high": 0.07024355207569898
+          "mean": 0.023434999980963767,
+          "std": 2.842557977869309e-05,
+          "ci95_half_width": 3.939584363251924e-05,
+          "ci95_low": 0.023395604137331247,
+          "ci95_high": 0.023474395824596286
         },
         "switch_rate": {
           "n": 2.0,
@@ -1598,33 +1959,33 @@
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 18655.0,
-          "std": 114.5512985522207,
-          "ci95_half_width": 158.76,
-          "ci95_low": 18496.24,
-          "ci95_high": 18813.76
+          "mean": 20362.0,
+          "std": 2217.486865801013,
+          "ci95_half_width": 3073.2799999999997,
+          "ci95_low": 17288.72,
+          "ci95_high": 23435.28
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 19015184,
-          "error_rate": 0.041666666666666664,
-          "avg_decode_time_sec": 0.00048818834087190527,
+          "seed": 23015196,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 8.311666703472534e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.0688924000132829,
+          "wall_time_sec": 0.023414900060743093,
           "memory_peak_bytes": 569870.0,
-          "memory_current_bytes": 18736.0
+          "memory_current_bytes": 21930.0
         },
         {
           "repeat_index": 1,
-          "seed": 19025191,
-          "error_rate": 0.041666666666666664,
-          "avg_decode_time_sec": 0.00046655000963558756,
+          "seed": 23025203,
+          "error_rate": 0.016666666666666666,
+          "avg_decode_time_sec": 8.415749568181733e-05,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.0660774998832494,
+          "wall_time_sec": 0.02345509990118444,
           "memory_peak_bytes": 569870.0,
-          "memory_current_bytes": 18574.0
+          "memory_current_bytes": 18794.0
         }
       ],
       "status": "ok"
@@ -1638,31 +1999,31 @@
       "logical_basis": "x",
       "shots": 120,
       "repeats": 2,
-      "base_seed": 20003347,
+      "base_seed": 24003359,
       "metrics": {
         "error_rate": {
           "n": 2.0,
-          "mean": 0.037500000000000006,
-          "std": 0.01767766952966369,
-          "ci95_half_width": 0.024500000000000004,
-          "ci95_low": 0.013000000000000001,
-          "ci95_high": 0.06200000000000001
+          "mean": 0.03333333333333333,
+          "std": 0.0,
+          "ci95_half_width": 0.0,
+          "ci95_low": 0.03333333333333333,
+          "ci95_high": 0.03333333333333333
         },
         "avg_decode_time_sec": {
           "n": 2.0,
-          "mean": 0.0006632704161650812,
-          "std": 7.510056660679848e-06,
-          "ci95_half_width": 1.0408407504049362e-05,
-          "ci95_low": 0.0006528620086610319,
-          "ci95_high": 0.0006736788236691306
+          "mean": 0.00013111042159531886,
+          "std": 4.524894299526254e-06,
+          "ci95_half_width": 6.271183548960839e-06,
+          "ci95_low": 0.00012483923804635803,
+          "ci95_high": 0.0001373816051442797
         },
         "wall_time_sec": {
           "n": 2.0,
-          "mean": 0.09176219999790192,
-          "std": 0.0013814037897040467,
-          "ci95_half_width": 0.0019145279750227926,
-          "ci95_low": 0.08984767202287912,
-          "ci95_high": 0.09367672797292471
+          "mean": 0.029664349975064397,
+          "std": 0.0012648018991206266,
+          "ci95_half_width": 0.0017529259994626045,
+          "ci95_low": 0.02791142397560179,
+          "ci95_high": 0.031417275974527
         },
         "switch_rate": {
           "n": 2.0,
@@ -1682,33 +2043,33 @@
         },
         "memory_current_bytes": {
           "n": 2.0,
-          "mean": 19310.0,
-          "std": 811.7585848021565,
-          "ci95_half_width": 1125.0399999999997,
-          "ci95_low": 18184.96,
-          "ci95_high": 20435.04
+          "mean": 18767.0,
+          "std": 38.18376618407357,
+          "ci95_half_width": 52.919999999999995,
+          "ci95_low": 18714.08,
+          "ci95_high": 18819.92
         }
       },
       "repeat_runs": [
         {
           "repeat_index": 0,
-          "seed": 20017569,
-          "error_rate": 0.025,
-          "avg_decode_time_sec": 0.0006579600041732192,
+          "seed": 24017581,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 0.00013431000503866624,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.09078540001064539,
+          "wall_time_sec": 0.030558699974790215,
           "memory_peak_bytes": 813911.0,
-          "memory_current_bytes": 19884.0
+          "memory_current_bytes": 18794.0
         },
         {
           "repeat_index": 1,
-          "seed": 20027576,
-          "error_rate": 0.05,
-          "avg_decode_time_sec": 0.0006685808281569431,
+          "seed": 24027588,
+          "error_rate": 0.03333333333333333,
+          "avg_decode_time_sec": 0.0001279108381519715,
           "switch_rate": 0.0,
-          "wall_time_sec": 0.09273899998515844,
+          "wall_time_sec": 0.028769999975338578,
           "memory_peak_bytes": 813911.0,
-          "memory_current_bytes": 18736.0
+          "memory_current_bytes": 18740.0
         }
       ],
       "status": "ok"
@@ -1718,81 +2079,93 @@
     {
       "decoder": "adaptive",
       "distances": [
+        3,
         5,
         7,
         9,
         11,
         13
       ],
+      "fit_method": "loglog_power_law_polyfit",
+      "fit_quality_field": "r2",
       "time_fit": {
-        "coefficient": 0.00011974464786804919,
-        "exponent": 0.5891532046937419,
-        "r2": 0.6269791839729315
+        "coefficient": 3.04275933108516e-06,
+        "exponent": 1.352641056156443,
+        "r2": 0.8571675054383125
       },
       "memory_fit": {
-        "coefficient": 2408.3678672266624,
-        "exponent": 2.279921004851251,
-        "r2": 0.9983556678559043
+        "coefficient": 3670.430396809112,
+        "exponent": 2.0927019469199677,
+        "r2": 0.9971926230421263
       }
     },
     {
       "decoder": "bm",
       "distances": [
+        3,
         5,
         7,
         9,
         11,
         13
       ],
+      "fit_method": "loglog_power_law_polyfit",
+      "fit_quality_field": "r2",
       "time_fit": {
-        "coefficient": 3.3905136303220196e-06,
-        "exponent": 1.8039825114345032,
-        "r2": 0.9154823449484613
+        "coefficient": 3.054650770238992e-06,
+        "exponent": 1.3194809839455208,
+        "r2": 0.8140806134979824
       },
       "memory_fit": {
-        "coefficient": 2483.726664875297,
-        "exponent": 2.2669596250598714,
-        "r2": 0.9986851929221681
+        "coefficient": 3109.1525485789066,
+        "exponent": 2.1665806195155763,
+        "r2": 0.9993461595590953
       }
     },
     {
       "decoder": "mwpm",
       "distances": [
+        3,
         5,
         7,
         9,
         11,
         13
       ],
+      "fit_method": "loglog_power_law_polyfit",
+      "fit_quality_field": "r2",
       "time_fit": {
-        "coefficient": 8.938809777385438e-07,
-        "exponent": 2.455881245477134,
-        "r2": 0.962563274665785
+        "coefficient": 1.1965913541493974e-06,
+        "exponent": 1.7860429223942458,
+        "r2": 0.8503545757120649
       },
       "memory_fit": {
-        "coefficient": 2315.336553335213,
-        "exponent": 2.2936623438829025,
-        "r2": 0.9984049968903116
+        "coefficient": 3581.0484343164403,
+        "exponent": 2.099039577997696,
+        "r2": 0.996447403842748
       }
     },
     {
       "decoder": "uf",
       "distances": [
+        3,
         5,
         7,
         9,
         11,
         13
       ],
+      "fit_method": "loglog_power_law_polyfit",
+      "fit_quality_field": "r2",
       "time_fit": {
-        "coefficient": 3.2344192811941063e-06,
-        "exponent": 1.8338248617957233,
-        "r2": 0.9245624609631964
+        "coefficient": 2.5636234662095993e-06,
+        "exponent": 1.3918951486798725,
+        "r2": 0.8052302568092281
       },
       "memory_fit": {
-        "coefficient": 2432.736399873201,
-        "exponent": 2.2750154953831023,
-        "r2": 0.998578071191355
+        "coefficient": 3336.959609244715,
+        "exponent": 2.1340250722661676,
+        "r2": 0.9984811380456348
       }
     }
   ],
@@ -1804,81 +2177,81 @@
       "decoder": "adaptive",
       "shots": 80,
       "seed": 7781506,
-      "wall_time_sec": 0.451969200046733,
+      "wall_time_sec": 0.1286662999773398,
       "benchmark_summary": {
         "error_rate": 0.025,
-        "avg_decode_time_sec": 0.0005077674752101303,
+        "avg_decode_time_sec": 0.00010928249976132065,
         "switch_rate": 0.0,
-        "wall_time_sec": 0.04562760004773736
+        "wall_time_sec": 0.014768799999728799
       },
       "cprofile_summary": {
-        "total_calls": 8244,
-        "prim_calls": 8244,
-        "total_tt_sec": 0.4519191000000002
+        "total_calls": 9381,
+        "prim_calls": 9381,
+        "total_tt_sec": 0.12865109999999996
       },
       "top_cumulative": [
         {
-          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\scripts\\run_week5_person1_profile_scaling.py",
-          "line": 215,
+          "file": "C:\\Users\\manue\\Desktop\\qec-xzzx-adaptive-framework\\scripts\\run_week5_person1_profile_scaling.py",
+          "line": 216,
           "function": "_run_one",
           "primitive_calls": 1,
           "total_calls": 1,
-          "tottime_sec": 0.0043891,
-          "cumtime_sec": 0.4519263
+          "tottime_sec": 0.0015693,
+          "cumtime_sec": 0.128658
         },
         {
-          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\scripts\\run_week5_person1_profile_scaling.py",
+          "file": "C:\\Users\\manue\\Desktop\\qec-xzzx-adaptive-framework\\scripts\\run_week5_person1_profile_scaling.py",
           "line": 178,
           "function": "_run_adaptive",
           "primitive_calls": 1,
           "total_calls": 1,
-          "tottime_sec": 0.0001066,
-          "cumtime_sec": 0.4475372
+          "tottime_sec": 7.000000000000001e-05,
+          "cumtime_sec": 0.1270887
         },
         {
-          "file": "C:\\Python310\\lib\\site-packages\\pymatching\\matching.py",
+          "file": "C:\\Users\\manue\\miniconda3\\envs\\quantum\\lib\\site-packages\\pymatching\\matching.py",
           "line": 1240,
           "function": "from_detector_error_model",
           "primitive_calls": 2,
           "total_calls": 2,
-          "tottime_sec": 1.23e-05,
-          "cumtime_sec": 0.2605488
+          "tottime_sec": 1.45e-05,
+          "cumtime_sec": 0.0652677
         },
         {
-          "file": "C:\\Python310\\lib\\site-packages\\pymatching\\matching.py",
+          "file": "C:\\Users\\manue\\miniconda3\\envs\\quantum\\lib\\site-packages\\pymatching\\matching.py",
           "line": 1420,
           "function": "_load_from_detector_error_model",
           "primitive_calls": 2,
           "total_calls": 2,
-          "tottime_sec": 0.1618473,
-          "cumtime_sec": 0.2604902
+          "tottime_sec": 0.0407034,
+          "cumtime_sec": 0.0652175
         },
         {
-          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
+          "file": "C:\\Users\\manue\\Desktop\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
           "line": 60,
           "function": "__init__",
           "primitive_calls": 1,
           "total_calls": 1,
-          "tottime_sec": 0.0645979,
-          "cumtime_sec": 0.2032864
+          "tottime_sec": 0.0209522,
+          "cumtime_sec": 0.0579322
         },
         {
-          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\decoders\\mwpm_decoder.py",
+          "file": "C:\\Users\\manue\\Desktop\\qec-xzzx-adaptive-framework\\src\\decoders\\mwpm_decoder.py",
           "line": 50,
           "function": "__init__",
           "primitive_calls": 1,
           "total_calls": 1,
-          "tottime_sec": 0.0608322,
-          "cumtime_sec": 0.1983761
+          "tottime_sec": 0.021170300000000003,
+          "cumtime_sec": 0.054237600000000004
         },
         {
-          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
+          "file": "C:\\Users\\manue\\Desktop\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
           "line": 114,
           "function": "_build_matcher",
           "primitive_calls": 1,
           "total_calls": 1,
-          "tottime_sec": 2.1700000000000002e-05,
-          "cumtime_sec": 0.12304140000000001
+          "tottime_sec": 1.7500000000000002e-05,
+          "cumtime_sec": 0.0322274
         },
         {
           "file": "~",
@@ -1886,71 +2259,71 @@
           "function": "<built-in method pymatching._cpp_pymatching.detector_error_model_to_matching_graph>",
           "primitive_calls": 2,
           "total_calls": 2,
-          "tottime_sec": 0.09864250000000001,
-          "cumtime_sec": 0.09864250000000001
+          "tottime_sec": 0.024513100000000003,
+          "cumtime_sec": 0.024513100000000003
         },
         {
-          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\switching\\adaptive_decoder.py",
-          "line": 165,
+          "file": "C:\\Users\\manue\\Desktop\\qec-xzzx-adaptive-framework\\src\\switching\\adaptive_decoder.py",
+          "line": 302,
           "function": "benchmark_adaptive",
           "primitive_calls": 1,
           "total_calls": 1,
-          "tottime_sec": 0.0033136000000000003,
-          "cumtime_sec": 0.0456176
+          "tottime_sec": 0.0009834000000000002,
+          "cumtime_sec": 0.014764000000000001
         },
         {
-          "file": "C:\\Python310\\lib\\site-packages\\pymatching\\matching.py",
+          "file": "C:\\Users\\manue\\Desktop\\qec-xzzx-adaptive-framework\\src\\switching\\adaptive_decoder.py",
+          "line": 230,
+          "function": "decode_adaptive",
+          "primitive_calls": 80,
+          "total_calls": 80,
+          "tottime_sec": 0.0003799,
+          "cumtime_sec": 0.013292700000000001
+        },
+        {
+          "file": "C:\\Users\\manue\\miniconda3\\envs\\quantum\\lib\\site-packages\\pymatching\\matching.py",
           "line": 218,
           "function": "decode",
           "primitive_calls": 81,
           "total_calls": 81,
-          "tottime_sec": 0.038859500000000005,
-          "cumtime_sec": 0.041057500000000004
+          "tottime_sec": 0.0123455,
+          "cumtime_sec": 0.013118900000000001
         },
         {
-          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\switching\\adaptive_decoder.py",
-          "line": 115,
-          "function": "decode_adaptive",
-          "primitive_calls": 80,
-          "total_calls": 80,
-          "tottime_sec": 0.0006121000000000001,
-          "cumtime_sec": 0.0410494
-        },
-        {
-          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
+          "file": "C:\\Users\\manue\\Desktop\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
           "line": 285,
           "function": "decode_with_confidence",
           "primitive_calls": 80,
           "total_calls": 80,
-          "tottime_sec": 0.0011949,
-          "cumtime_sec": 0.039366000000000005
+          "tottime_sec": 0.0003861,
+          "cumtime_sec": 0.0123963
         },
         {
-          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
+          "file": "C:\\Users\\manue\\Desktop\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
           "line": 274,
           "function": "_decode_backend",
           "primitive_calls": 80,
           "total_calls": 80,
-          "tottime_sec": 0.00039410000000000004,
-          "cumtime_sec": 0.0270864
+          "tottime_sec": 0.00010920000000000001,
+          "cumtime_sec": 0.0086872
         },
         {
-          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
+          "file": "C:\\Users\\manue\\Desktop\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
           "line": 145,
           "function": "_select_decode_mode",
           "primitive_calls": 1,
           "total_calls": 1,
-          "tottime_sec": 2.46e-05,
-          "cumtime_sec": 0.0156286
+          "tottime_sec": 2.04e-05,
+          "cumtime_sec": 0.004737300000000001
         },
         {
-          "file": "C:\\Users\\USUARIO\\Desktop\\QEC_paper_Q1\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
+          "file": "C:\\Users\\manue\\Desktop\\qec-xzzx-adaptive-framework\\src\\decoders\\union_find_decoder.py",
           "line": 221,
           "function": "_cluster_stats_from_syndrome",
           "primitive_calls": 80,
           "total_calls": 80,
-          "tottime_sec": 0.0011683000000000002,
-          "cumtime_sec": 0.0049486
+          "tottime_sec": 0.00032450000000000003,
+          "cumtime_sec": 0.001634
         }
       ]
     }

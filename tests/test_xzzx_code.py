@@ -20,6 +20,8 @@ from src.codes.xzzx_code import (
         (3, 2, "x"),
         (3, 2, "z"),
         (5, 2, "x"),
+        (7, 1, "x"),
+        (9, 1, "x"),
     ],
 )
 def test_circuit_generation(distance: int, rounds: int, logical_basis: str) -> None:

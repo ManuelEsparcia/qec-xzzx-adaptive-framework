@@ -36,15 +36,47 @@ def utc_now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 
-def default_cases() -> List[BenchmarkCase]:
+def _parse_distances_arg(distances_arg: str) -> List[int]:
+    raw = [x.strip() for x in str(distances_arg).split(",") if x.strip()]
+    if not raw:
+        raise ValueError("--distances must contain at least one value.")
+
+    out: List[int] = []
+    for tok in raw:
+        d = int(tok)
+        if d < 3 or d % 2 == 0:
+            raise ValueError(f"All distances must be odd and >= 3. Invalid value: {d}")
+        if d not in out:
+            out.append(d)
+    return out
+
+
+def _case_params_for_distance(distance: int) -> Dict[str, float | int]:
+    # Keep Week 1 runtime moderate while preserving historical d=3 setup.
+    if distance == 3:
+        return {"rounds": 2, "p": 0.005}
+    return {"rounds": 3, "p": 0.01}
+
+
+def default_cases(distances: List[int]) -> List[BenchmarkCase]:
     """
     Recommended base cases for Week 1 evidence.
     """
-    return [
-        BenchmarkCase(name="case_d3_r2_p0.005", distance=3, rounds=2, p=0.005),
-        BenchmarkCase(name="case_d3_r3_p0.01", distance=3, rounds=3, p=0.01),
-        BenchmarkCase(name="case_d5_r3_p0.01", distance=5, rounds=3, p=0.01),
-    ]
+    out: List[BenchmarkCase] = []
+    for d in distances:
+        params = _case_params_for_distance(d)
+        rounds = int(params["rounds"])
+        p = float(params["p"])
+        p_label = f"{p:.3f}".rstrip("0").rstrip(".")
+        out.append(
+            BenchmarkCase(
+                name=f"case_d{d}_r{rounds}_p{p_label}",
+                distance=d,
+                rounds=rounds,
+                p=p,
+            )
+        )
+    return out
 
 
 def run_cases(
@@ -142,7 +174,7 @@ def print_summary_table(report: Dict[str, Any]) -> None:
 
     header = (
         f"{'CASE':<20} {'d':>2} {'r':>2} {'p':>8} "
-        f"{'bench_ER':>10} {'ref_LER':>10} {'|Δ|':>10} {'avg_t(s)':>10}"
+        f"{'bench_ER':>10} {'ref_LER':>10} {'|d|':>10} {'avg_t(s)':>10}"
     )
     print(header)
     print("-" * len(header))
@@ -170,6 +202,12 @@ def print_summary_table(report: Dict[str, Any]) -> None:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Run Week 1 Person 1 baseline benchmark (XZZX + MWPM soft-info)."
+    )
+    parser.add_argument(
+        "--distances",
+        type=str,
+        default="3,5,7,9",
+        help="Comma-separated odd distances >=3 (default: 3,5,7,9).",
     )
     parser.add_argument(
         "--shots",
@@ -201,6 +239,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
 
+    distances = _parse_distances_arg(args.distances)
     if args.shots <= 0:
         raise ValueError(f"--shots must be > 0. Received: {args.shots}")
     if args.ref_shots <= 0:
@@ -208,7 +247,7 @@ def main() -> None:
     if args.keep_soft < 0:
         raise ValueError(f"--keep-soft must be >= 0. Received: {args.keep_soft}")
 
-    cases = default_cases()
+    cases = default_cases(distances)
     report = run_cases(
         cases=cases,
         shots=args.shots,

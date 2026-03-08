@@ -4,6 +4,12 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+from uuid import uuid4
+
+import pytest
+
+pytest.importorskip("stim")
+pytest.importorskip("pymatching")
 
 
 def _run_cmd(cmd: list[str], timeout: int = 300) -> subprocess.CompletedProcess[str]:
@@ -16,13 +22,22 @@ def _run_cmd(cmd: list[str], timeout: int = 300) -> subprocess.CompletedProcess[
     )
 
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+
+
+def _tmp_output_path(stem: str) -> Path:
+    out_dir = REPO_ROOT / "results" / "_tmp_smoke"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    return out_dir / f"{stem}_{uuid4().hex}.json"
+
+
 def test_script_exists() -> None:
     script = Path("scripts/run_week3_person2_threshold_scan.py")
     assert script.exists(), f"Script does not exist: {script}"
 
 
-def test_week3_person2_threshold_scan_smoke(tmp_path: Path) -> None:
-    output = tmp_path / "week3_person2_threshold_scan_smoke.json"
+def test_week3_person2_threshold_scan_smoke() -> None:
+    output = _tmp_output_path("week3_person2_threshold_scan_smoke")
     cmd = [
         sys.executable,
         "-m",
@@ -90,8 +105,8 @@ def test_week3_person2_threshold_scan_smoke(tmp_path: Path) -> None:
     assert "aggregates" in payload
 
 
-def test_invalid_decoder_fails(tmp_path: Path) -> None:
-    output = tmp_path / "week3_person2_threshold_scan_invalid.json"
+def test_invalid_decoder_fails() -> None:
+    output = _tmp_output_path("week3_person2_threshold_scan_invalid")
     cmd = [
         sys.executable,
         "-m",
@@ -111,8 +126,8 @@ def test_invalid_decoder_fails(tmp_path: Path) -> None:
     )
 
 
-def test_invalid_repeats_fails(tmp_path: Path) -> None:
-    output = tmp_path / "week3_person2_threshold_scan_invalid_repeats.json"
+def test_invalid_repeats_fails() -> None:
+    output = _tmp_output_path("week3_person2_threshold_scan_invalid_repeats")
     cmd = [
         sys.executable,
         "-m",

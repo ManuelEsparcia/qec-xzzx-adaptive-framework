@@ -228,6 +228,44 @@ def default_noise_specs(p: float) -> List[Dict[str, Any]]:
     ]
 
 
+def _parse_distances_arg(distances_arg: str) -> List[int]:
+    raw = [x.strip() for x in str(distances_arg).split(",") if x.strip()]
+    if not raw:
+        raise ValueError("--distances must contain at least one value.")
+
+    out: List[int] = []
+    for tok in raw:
+        d = int(tok)
+        if d < 3 or d % 2 == 0:
+            raise ValueError(f"All distances must be odd and >= 3. Invalid value: {d}")
+        if d not in out:
+            out.append(d)
+    return out
+
+
+def _case_params_for_distance(distance: int) -> Dict[str, float | int]:
+    if distance == 3:
+        return {"rounds": 2, "p": 0.005}
+    return {"rounds": 3, "p": 0.01}
+
+
+def build_cases_cfg(distances: List[int]) -> List[Dict[str, Any]]:
+    out: List[Dict[str, Any]] = []
+    for d in distances:
+        params = _case_params_for_distance(d)
+        rounds = int(params["rounds"])
+        p = float(params["p"])
+        out.append(
+            {
+                "case_name": f"d{d}_r{rounds}_p{p:.3f}",
+                "distance": d,
+                "rounds": rounds,
+                "p": p,
+            }
+        )
+    return out
+
+
 def run_case(
     *,
     case_name: str,
@@ -361,6 +399,12 @@ def parse_args() -> argparse.Namespace:
         description="Week1 Person2 benchmark of noise models."
     )
     parser.add_argument(
+        "--distances",
+        type=str,
+        default="3,5,7,9",
+        help="Comma-separated odd distances >=3 (default: 3,5,7,9).",
+    )
+    parser.add_argument(
         "--shots",
         type=_positive_int,
         default=400,
@@ -391,12 +435,9 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     _configure_stdio_utf8()
     args = parse_args()
+    distances = _parse_distances_arg(args.distances)
 
-    cases_cfg = [
-        {"case_name": "d3_r2_p0.005", "distance": 3, "rounds": 2, "p": 0.005},
-        {"case_name": "d3_r3_p0.010", "distance": 3, "rounds": 3, "p": 0.010},
-        {"case_name": "d5_r3_p0.010", "distance": 5, "rounds": 3, "p": 0.010},
-    ]
+    cases_cfg = build_cases_cfg(distances)
 
     cases_out: List[Dict[str, Any]] = []
     for i, c in enumerate(cases_cfg):

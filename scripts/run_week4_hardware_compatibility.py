@@ -53,6 +53,8 @@ NOISE_ALLOWED = {
     "correlated",
 }
 
+WEEK4_SCHEMA_VERSION = "week4_hw_v2"
+
 
 @dataclass(frozen=True)
 class DecoderRowSpec:
@@ -106,6 +108,26 @@ def format_seconds(x: float) -> str:
     if x < 1.0:
         return f"{x * 1e3:.2f} ms"
     return f"{x:.3f} s"
+
+
+def _parse_adaptive_threshold_from_label(label: str) -> Optional[float]:
+    if not isinstance(label, str):
+        return None
+    if not label.startswith("adaptive_g"):
+        return None
+    try:
+        return float(label[len("adaptive_g") :])
+    except ValueError:
+        return None
+
+
+def _extract_adaptive_thresholds_from_labels(labels: Sequence[str]) -> List[float]:
+    vals: List[float] = []
+    for label in labels:
+        g = _parse_adaptive_threshold_from_label(str(label))
+        if g is not None:
+            vals.append(float(g))
+    return sorted(set(vals))
 
 
 def make_decoder_rows(
@@ -342,6 +364,26 @@ def build_scaling_models(rows: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]
     return out
 
 
+def build_fit_provenance_summary(
+    scaling_models: Sequence[Dict[str, Any]],
+) -> List[Dict[str, Any]]:
+    out: List[Dict[str, Any]] = []
+    for model in scaling_models:
+        out.append(
+            {
+                "decoder_label": str(model["decoder_label"]),
+                "backend": str(model["backend"]),
+                "g_threshold": model.get("g_threshold"),
+                "fit_distances": [int(x) for x in model.get("fit_distances", [])],
+                "fit_method": "power_law_loglog_linear_regression",
+                "coefficient": float(model["coefficient"]),
+                "exponent": float(model["exponent"]),
+                "r2": float(model["r2"]),
+            }
+        )
+    return out
+
+
 def build_predictions(
     *,
     scaling_models: Sequence[Dict[str, Any]],
@@ -362,6 +404,97 @@ def build_predictions(
                 }
             )
     return out
+
+
+def _coerce_latency_rows(payload: Any, *, source_path: Path) -> List[Dict[str, Any]]:
+    rows_obj: Any
+    if isinstance(payload, dict):
+        if isinstance(payload.get("predicted_rows"), list):
+            rows_obj = payload["predicted_rows"]
+        elif isinstance(payload.get("rows"), list):
+            rows_obj = payload["rows"]
+        else:
+            raise ValueError(
+                f"{source_path}: expected 'predicted_rows' list (or 'rows') in object payload."
+            )
+    elif isinstance(payload, list):
+        rows_obj = payload
+    else:
+        raise ValueError(
+            f"{source_path}: unsupported payload type {type(payload).__name__}; expected dict or list."
+        )
+
+    out: List[Dict[str, Any]] = []
+    for i, row in enumerate(rows_obj):
+        if not isinstance(row, dict):
+            raise ValueError(f"{source_path}: row {i} is not an object.")
+        try:
+            decoder_label = str(row["decoder_label"])
+            distance = int(row["distance"])
+            pred = float(row["predicted_decode_time_sec"])
+        except (KeyError, TypeError, ValueError) as exc:
+            raise ValueError(
+                f"{source_path}: row {i} missing required keys "
+                "('decoder_label','distance','predicted_decode_time_sec')."
+            ) from exc
+        if distance <= 0:
+            raise ValueError(f"{source_path}: row {i} has invalid distance {distance}.")
+        if pred < 0.0:
+            raise ValueError(f"{source_path}: row {i} has negative predicted latency {pred}.")
+        out.append(
+            {
+                "decoder_label": decoder_label,
+                "distance": int(distance),
+                "predicted_decode_time_sec": float(pred),
+            }
+        )
+    if not out:
+        raise ValueError(f"{source_path}: no latency rows found.")
+    return out
+
+
+def load_latency_rows_from_input(path: Path) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+    if not path.exists():
+        raise FileNotFoundError(f"--latency-input file does not exist: {path}")
+    with path.open("r", encoding="utf-8") as f:
+        payload = json.load(f)
+    rows = _coerce_latency_rows(payload, source_path=path)
+
+    summary: Dict[str, Any] = {"source_path": str(path), "source_type": "unknown"}
+    if isinstance(payload, dict):
+        summary["source_type"] = "object"
+        if payload.get("metadata") is not None:
+            summary["source_metadata"] = payload.get("metadata")
+        if isinstance(payload.get("scaling_models"), list):
+            summary["fit_summary_from_input"] = payload.get("scaling_models")
+    elif isinstance(payload, list):
+        summary["source_type"] = "row_list"
+    return rows, summary
+
+
+def _validate_latency_row_coverage(
+    *,
+    predicted_rows: Sequence[Dict[str, Any]],
+    decoder_labels: Sequence[str],
+    distances: Sequence[int],
+) -> None:
+    present = {
+        (str(r["decoder_label"]), int(r["distance"]))
+        for r in predicted_rows
+    }
+    missing: List[Tuple[str, int]] = []
+    for label in decoder_labels:
+        for distance in distances:
+            key = (str(label), int(distance))
+            if key not in present:
+                missing.append(key)
+    if missing:
+        preview = ", ".join(f"{k[0]}@d{k[1]}" for k in missing[:8])
+        more = f" (+{len(missing)-8} more)" if len(missing) > 8 else ""
+        raise ValueError(
+            "latency input does not cover all requested decoder-distance pairs: "
+            f"{preview}{more}"
+        )
 
 
 def build_compatibility_report(
@@ -502,12 +635,39 @@ def build_report(
     scaling_models: Sequence[Dict[str, Any]],
     predicted_rows: Sequence[Dict[str, Any]],
     compatibility: Dict[str, Any],
+    latency_source_mode: str,
+    latency_input_path: Optional[str],
+    benchmark_distances_used: Sequence[int],
+    fit_provenance_summary: Sequence[Dict[str, Any]],
+    latency_input_summary: Optional[Dict[str, Any]],
     args: argparse.Namespace,
 ) -> Dict[str, Any]:
+    decoder_labels = [str(x) for x in compatibility.get("decoder_labels", [])]
+    distances_covered = [int(x) for x in compatibility.get("distances", [])]
+    adaptive_thresholds_covered = _extract_adaptive_thresholds_from_labels(decoder_labels)
+    architecture_count = int(len(compatibility.get("architectures", [])))
+    decoder_row_count = int(len(decoder_labels))
+
     return {
         "metadata": {
             "report_name": "week4_hardware_compatibility",
+            "schema_version": WEEK4_SCHEMA_VERSION,
             "timestamp_utc": utc_now_iso(),
+            "coverage": {
+                "architecture_count": architecture_count,
+                "decoder_row_count": decoder_row_count,
+                "distances_covered": distances_covered,
+                "adaptive_thresholds_covered": adaptive_thresholds_covered,
+            },
+            "latency_source_mode": str(latency_source_mode),
+            "benchmark_distances_used": [int(x) for x in benchmark_distances_used],
+            "latency_input_path": (str(latency_input_path) if latency_input_path else None),
+            "hardware_trace_calibrated": False,
+            "limitations": [
+                "Compatibility latencies are based on benchmarked Python decode times plus fitted extrapolation unless --latency-input is provided.",
+                "This Week 4 result is not hardware-trace-calibrated.",
+                "A fully degenerate all-incompatible map is still a valid computed output under strict budget assumptions and should be interpreted cautiously.",
+            ],
         },
         "config": {
             "benchmark_distances": [int(x) for x in parse_csv_ints(args.benchmark_distances)],
@@ -526,6 +686,15 @@ def build_report(
             "adaptive_benchmark_time_metric": "core",
             "safety_factor": float(args.safety_factor),
             "figure_output": args.figure_output,
+            "latency_input": (str(args.latency_input) if str(args.latency_input).strip() else None),
+        },
+        "latency_source": {
+            "mode": str(latency_source_mode),
+            "benchmark_distances_used": [int(x) for x in benchmark_distances_used],
+            "latency_input_path": (str(latency_input_path) if latency_input_path else None),
+            "fit_provenance_summary": list(fit_provenance_summary),
+            "input_summary": (latency_input_summary if latency_input_summary is not None else {}),
+            "hardware_trace_calibrated": False,
         },
         "benchmark_rows": list(benchmark_rows),
         "scaling_models": list(scaling_models),
@@ -537,11 +706,14 @@ def build_report(
 def print_summary(report: Dict[str, Any]) -> None:
     print("\n=== Week 4 - Hardware Compatibility ===")
     cfg = report["config"]
+    md = report.get("metadata", {})
     print(
         "bench_distances="
         f"{cfg['benchmark_distances']} | target_distances={cfg['distances']} | "
         f"shots={cfg['shots']} | repeats={cfg['repeats']} | rounds_mode={cfg['rounds_mode']}"
     )
+    if md.get("latency_source_mode") is not None:
+        print(f"latency_source_mode={md['latency_source_mode']}")
     print("\n--- Fitted latency models ---")
     for m in report["scaling_models"]:
         print(
@@ -580,6 +752,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed", type=int, default=2026, help="Base seed.")
     parser.add_argument("--adaptive-fast-mode", action="store_true", help="Use fast_mode=True for adaptive benchmark.")
     parser.add_argument("--safety-factor", type=float, default=1.0, help="Latency safety factor before budget check.")
+    parser.add_argument(
+        "--latency-input",
+        type=str,
+        default="",
+        help=(
+            "Optional JSON path with latency rows to reuse instead of recomputing timings. "
+            "Accepted payloads: {'predicted_rows':[...]} or a direct row list with "
+            "decoder_label,distance,predicted_decode_time_sec."
+        ),
+    )
     parser.add_argument(
         "--output",
         type=str,
@@ -621,41 +803,61 @@ def main() -> None:
         raise ValueError("--safety-factor must be > 0")
 
     row_specs = make_decoder_rows(adaptive_thresholds, include_bm=bool(args.include_bm))
-    benchmark_rows: List[Dict[str, Any]] = []
-    total = len(row_specs) * len(benchmark_distances)
-    idx = 0
-
-    for row in row_specs:
-        for d in benchmark_distances:
-            idx += 1
-            rounds_i = int(d) if args.rounds_mode == "distance" else int(args.rounds)
-            seed_i = int(args.seed + idx * 100003 + d * 103)
-            out = benchmark_row_distance(
-                row=row,
-                distance=int(d),
-                rounds=rounds_i,
-                noise_model=str(args.noise_model),
-                p_phys=float(args.p_phys),
-                logical_basis=args.logical_basis,
-                shots=int(args.shots),
-                repeats=int(args.repeats),
-                base_seed=seed_i,
-                adaptive_fast_mode=bool(args.adaptive_fast_mode),
-            )
-            benchmark_rows.append(out)
-            print(
-                f"[{idx}/{total}] {row.decoder_label:<15} | d={d:>2} | rounds={rounds_i:>2} | "
-                f"t={out['mean_avg_decode_time_sec']:.6f}s | ER={out['mean_error_rate']:.6f} | "
-                f"sw={100.0 * out['mean_switch_rate']:.2f}%"
-            )
-
-    scaling_models = build_scaling_models(benchmark_rows)
-    predicted_rows = build_predictions(
-        scaling_models=scaling_models,
-        target_distances=target_distances,
-    )
-
     decoder_labels = [r.decoder_label for r in row_specs]
+
+    benchmark_rows: List[Dict[str, Any]] = []
+    scaling_models: List[Dict[str, Any]] = []
+    predicted_rows: List[Dict[str, Any]] = []
+    fit_provenance_summary: List[Dict[str, Any]] = []
+    latency_input_summary: Optional[Dict[str, Any]] = None
+    latency_input_path = str(args.latency_input).strip()
+
+    if latency_input_path:
+        predicted_rows, latency_input_summary = load_latency_rows_from_input(Path(latency_input_path))
+        _validate_latency_row_coverage(
+            predicted_rows=predicted_rows,
+            decoder_labels=decoder_labels,
+            distances=target_distances,
+        )
+        latency_source_mode = "imported_predicted_latency_rows"
+        benchmark_distances_used: List[int] = []
+        print(f"Using imported latency rows from: {latency_input_path}")
+    else:
+        total = len(row_specs) * len(benchmark_distances)
+        idx = 0
+        for row in row_specs:
+            for d in benchmark_distances:
+                idx += 1
+                rounds_i = int(d) if args.rounds_mode == "distance" else int(args.rounds)
+                seed_i = int(args.seed + idx * 100003 + d * 103)
+                out = benchmark_row_distance(
+                    row=row,
+                    distance=int(d),
+                    rounds=rounds_i,
+                    noise_model=str(args.noise_model),
+                    p_phys=float(args.p_phys),
+                    logical_basis=args.logical_basis,
+                    shots=int(args.shots),
+                    repeats=int(args.repeats),
+                    base_seed=seed_i,
+                    adaptive_fast_mode=bool(args.adaptive_fast_mode),
+                )
+                benchmark_rows.append(out)
+                print(
+                    f"[{idx}/{total}] {row.decoder_label:<15} | d={d:>2} | rounds={rounds_i:>2} | "
+                    f"t={out['mean_avg_decode_time_sec']:.6f}s | ER={out['mean_error_rate']:.6f} | "
+                    f"sw={100.0 * out['mean_switch_rate']:.2f}%"
+                )
+
+        scaling_models = build_scaling_models(benchmark_rows)
+        fit_provenance_summary = build_fit_provenance_summary(scaling_models)
+        predicted_rows = build_predictions(
+            scaling_models=scaling_models,
+            target_distances=target_distances,
+        )
+        latency_source_mode = "benchmarked_plus_fitted_extrapolation"
+        benchmark_distances_used = [int(x) for x in benchmark_distances]
+
     compatibility = build_compatibility_report(
         predicted_rows=predicted_rows,
         decoder_labels=decoder_labels,
@@ -674,6 +876,11 @@ def main() -> None:
         scaling_models=scaling_models,
         predicted_rows=predicted_rows,
         compatibility=compatibility,
+        latency_source_mode=latency_source_mode,
+        latency_input_path=(latency_input_path if latency_input_path else None),
+        benchmark_distances_used=benchmark_distances_used,
+        fit_provenance_summary=fit_provenance_summary,
+        latency_input_summary=latency_input_summary,
         args=args,
     )
     json_path = save_json(report, Path(args.output))

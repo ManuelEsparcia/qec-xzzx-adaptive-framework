@@ -6,7 +6,7 @@ import statistics
 from typing import Callable, Iterable, List, Optional, Tuple
 
 import pytest
-import stim
+stim = pytest.importorskip("stim")
 
 pytest.importorskip("pymatching")
 import pymatching  # noqa: E402

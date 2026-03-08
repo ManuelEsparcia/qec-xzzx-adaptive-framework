@@ -1,11 +1,11 @@
 {
   "metadata": {
     "report_name": "week1_person2_noise_benchmark",
-    "timestamp_utc": "2026-02-16T12:47:59+00:00",
+    "timestamp_utc": "2026-03-08T14:49:23+00:00",
     "shots_per_model": 400,
     "logical_basis": "x",
     "seed": 20260216,
-    "num_cases": 3
+    "num_cases": 4
   },
   "cases_summary": [
     {
@@ -25,8 +25,8 @@
           },
           "seed": 20260216,
           "ler": 0.0,
-          "avg_decode_time_sec": 2.2555000032298267e-06,
-          "decode_total_time_sec": 0.0009022000012919307,
+          "avg_decode_time_sec": 6.225000834092497e-07,
+          "decode_total_time_sec": 0.0002490000333636999,
           "num_detectors": 16,
           "num_observables": 1
         },
@@ -39,8 +39,8 @@
           },
           "seed": 20260313,
           "ler": 0.0075,
-          "avg_decode_time_sec": 6.22000079602003e-07,
-          "decode_total_time_sec": 0.00024880003184080124,
+          "avg_decode_time_sec": 2.972499351017177e-07,
+          "decode_total_time_sec": 0.00011889997404068708,
           "num_detectors": 16,
           "num_observables": 1
         },
@@ -52,8 +52,8 @@
           },
           "seed": 20260410,
           "ler": 0.01,
-          "avg_decode_time_sec": 6.199997733347118e-07,
-          "decode_total_time_sec": 0.0002479999093338847,
+          "avg_decode_time_sec": 3.007499617524445e-07,
+          "decode_total_time_sec": 0.0001202999847009778,
           "num_detectors": 16,
           "num_observables": 1
         },
@@ -65,8 +65,8 @@
           },
           "seed": 20260507,
           "ler": 0.0,
-          "avg_decode_time_sec": 4.189999890513718e-07,
-          "decode_total_time_sec": 0.00016759999562054873,
+          "avg_decode_time_sec": 2.3325002985075116e-07,
+          "decode_total_time_sec": 9.330001194030046e-05,
           "num_detectors": 16,
           "num_observables": 1
         },
@@ -82,96 +82,13 @@
           },
           "seed": 20260604,
           "ler": 0.3075,
-          "avg_decode_time_sec": 1.3637501979246735e-06,
-          "decode_total_time_sec": 0.0005455000791698694,
+          "avg_decode_time_sec": 7.427498348988592e-07,
+          "decode_total_time_sec": 0.0002970999339595437,
           "num_detectors": 16,
           "num_observables": 1
         }
       ],
       "delta_ler_correlated_minus_depolarizing": 0.3075,
-      "status": "ok"
-    },
-    {
-      "case_name": "d3_r3_p0.010",
-      "distance": 3,
-      "rounds": 3,
-      "p": 0.01,
-      "shots": 400,
-      "logical_basis": "x",
-      "num_qubits": 26,
-      "models": [
-        {
-          "model_name": "depolarizing",
-          "model_spec": {
-            "type": "depolarizing",
-            "p": 0.01
-          },
-          "seed": 20261216,
-          "ler": 0.025,
-          "avg_decode_time_sec": 1.0370000381954015e-06,
-          "decode_total_time_sec": 0.00041480001527816057,
-          "num_detectors": 24,
-          "num_observables": 1
-        },
-        {
-          "model_name": "biased",
-          "model_spec": {
-            "type": "biased",
-            "p": 0.01,
-            "eta": 100.0
-          },
-          "seed": 20261313,
-          "ler": 0.095,
-          "avg_decode_time_sec": 1.4957500388845802e-06,
-          "decode_total_time_sec": 0.000598300015553832,
-          "num_detectors": 24,
-          "num_observables": 1
-        },
-        {
-          "model_name": "circuit_level",
-          "model_spec": {
-            "type": "circuit_level",
-            "p": 0.01
-          },
-          "seed": 20261410,
-          "ler": 0.0425,
-          "avg_decode_time_sec": 1.7792501603253186e-06,
-          "decode_total_time_sec": 0.0007117000641301274,
-          "num_detectors": 24,
-          "num_observables": 1
-        },
-        {
-          "model_name": "phenomenological",
-          "model_spec": {
-            "type": "phenomenological",
-            "p": 0.01
-          },
-          "seed": 20261507,
-          "ler": 0.0,
-          "avg_decode_time_sec": 7.094998727552593e-07,
-          "decode_total_time_sec": 0.0002837999491021037,
-          "num_detectors": 24,
-          "num_observables": 1
-        },
-        {
-          "model_name": "correlated",
-          "model_spec": {
-            "type": "correlated",
-            "p": 0.01,
-            "correlation_length": 2,
-            "correlation_strength": 0.8,
-            "topology": "line",
-            "pauli": "Z"
-          },
-          "seed": 20261604,
-          "ler": 0.455,
-          "avg_decode_time_sec": 3.2017499324865637e-06,
-          "decode_total_time_sec": 0.0012806999729946256,
-          "num_detectors": 24,
-          "num_observables": 1
-        }
-      ],
-      "delta_ler_correlated_minus_depolarizing": 0.43,
       "status": "ok"
     },
     {
@@ -189,10 +106,10 @@
             "type": "depolarizing",
             "p": 0.01
           },
-          "seed": 20262216,
-          "ler": 0.0125,
-          "avg_decode_time_sec": 4.3197500053793195e-06,
-          "decode_total_time_sec": 0.0017279000021517277,
+          "seed": 20261216,
+          "ler": 0.0075,
+          "avg_decode_time_sec": 1.9014999270439148e-06,
+          "decode_total_time_sec": 0.0007605999708175659,
           "num_detectors": 72,
           "num_observables": 1
         },
@@ -203,10 +120,10 @@
             "p": 0.01,
             "eta": 100.0
           },
-          "seed": 20262313,
-          "ler": 0.1075,
-          "avg_decode_time_sec": 6.534499989356845e-06,
-          "decode_total_time_sec": 0.0026137999957427382,
+          "seed": 20261313,
+          "ler": 0.11,
+          "avg_decode_time_sec": 3.636250039562583e-06,
+          "decode_total_time_sec": 0.0014545000158250332,
           "num_detectors": 72,
           "num_observables": 1
         },
@@ -216,10 +133,10 @@
             "type": "circuit_level",
             "p": 0.01
           },
-          "seed": 20262410,
-          "ler": 0.085,
-          "avg_decode_time_sec": 8.418499783147127e-06,
-          "decode_total_time_sec": 0.0033673999132588506,
+          "seed": 20261410,
+          "ler": 0.1,
+          "avg_decode_time_sec": 3.880250151269138e-06,
+          "decode_total_time_sec": 0.0015521000605076551,
           "num_detectors": 72,
           "num_observables": 1
         },
@@ -229,10 +146,10 @@
             "type": "phenomenological",
             "p": 0.01
           },
-          "seed": 20262507,
+          "seed": 20261507,
           "ler": 0.0025,
-          "avg_decode_time_sec": 1.9805002375505865e-06,
-          "decode_total_time_sec": 0.0007922000950202346,
+          "avg_decode_time_sec": 9.012501686811447e-07,
+          "decode_total_time_sec": 0.0003605000674724579,
           "num_detectors": 72,
           "num_observables": 1
         },
@@ -246,11 +163,177 @@
             "topology": "line",
             "pauli": "Z"
           },
-          "seed": 20262604,
-          "ler": 0.4775,
-          "avg_decode_time_sec": 1.7583750013727696e-05,
-          "decode_total_time_sec": 0.007033500005491078,
+          "seed": 20261604,
+          "ler": 0.4675,
+          "avg_decode_time_sec": 9.085999918170274e-06,
+          "decode_total_time_sec": 0.0036343999672681093,
           "num_detectors": 72,
+          "num_observables": 1
+        }
+      ],
+      "delta_ler_correlated_minus_depolarizing": 0.46,
+      "status": "ok"
+    },
+    {
+      "case_name": "d7_r3_p0.010",
+      "distance": 7,
+      "rounds": 3,
+      "p": 0.01,
+      "shots": 400,
+      "logical_basis": "x",
+      "num_qubits": 118,
+      "models": [
+        {
+          "model_name": "depolarizing",
+          "model_spec": {
+            "type": "depolarizing",
+            "p": 0.01
+          },
+          "seed": 20262216,
+          "ler": 0.0175,
+          "avg_decode_time_sec": 4.452250141184777e-06,
+          "decode_total_time_sec": 0.0017809000564739108,
+          "num_detectors": 144,
+          "num_observables": 1
+        },
+        {
+          "model_name": "biased",
+          "model_spec": {
+            "type": "biased",
+            "p": 0.01,
+            "eta": 100.0
+          },
+          "seed": 20262313,
+          "ler": 0.125,
+          "avg_decode_time_sec": 8.59524996485561e-06,
+          "decode_total_time_sec": 0.0034380999859422445,
+          "num_detectors": 144,
+          "num_observables": 1
+        },
+        {
+          "model_name": "circuit_level",
+          "model_spec": {
+            "type": "circuit_level",
+            "p": 0.01
+          },
+          "seed": 20262410,
+          "ler": 0.0925,
+          "avg_decode_time_sec": 9.158500179182738e-06,
+          "decode_total_time_sec": 0.0036634000716730952,
+          "num_detectors": 144,
+          "num_observables": 1
+        },
+        {
+          "model_name": "phenomenological",
+          "model_spec": {
+            "type": "phenomenological",
+            "p": 0.01
+          },
+          "seed": 20262507,
+          "ler": 0.0,
+          "avg_decode_time_sec": 1.865499943960458e-06,
+          "decode_total_time_sec": 0.0007461999775841832,
+          "num_detectors": 144,
+          "num_observables": 1
+        },
+        {
+          "model_name": "correlated",
+          "model_spec": {
+            "type": "correlated",
+            "p": 0.01,
+            "correlation_length": 2,
+            "correlation_strength": 0.8,
+            "topology": "line",
+            "pauli": "Z"
+          },
+          "seed": 20262604,
+          "ler": 0.4875,
+          "avg_decode_time_sec": 2.4164750066120177e-05,
+          "decode_total_time_sec": 0.009665900026448071,
+          "num_detectors": 144,
+          "num_observables": 1
+        }
+      ],
+      "delta_ler_correlated_minus_depolarizing": 0.47,
+      "status": "ok"
+    },
+    {
+      "case_name": "d9_r3_p0.010",
+      "distance": 9,
+      "rounds": 3,
+      "p": 0.01,
+      "shots": 400,
+      "logical_basis": "x",
+      "num_qubits": 188,
+      "models": [
+        {
+          "model_name": "depolarizing",
+          "model_spec": {
+            "type": "depolarizing",
+            "p": 0.01
+          },
+          "seed": 20263216,
+          "ler": 0.01,
+          "avg_decode_time_sec": 7.989250007085502e-06,
+          "decode_total_time_sec": 0.003195700002834201,
+          "num_detectors": 240,
+          "num_observables": 1
+        },
+        {
+          "model_name": "biased",
+          "model_spec": {
+            "type": "biased",
+            "p": 0.01,
+            "eta": 100.0
+          },
+          "seed": 20263313,
+          "ler": 0.13,
+          "avg_decode_time_sec": 1.5856750251259656e-05,
+          "decode_total_time_sec": 0.006342700100503862,
+          "num_detectors": 240,
+          "num_observables": 1
+        },
+        {
+          "model_name": "circuit_level",
+          "model_spec": {
+            "type": "circuit_level",
+            "p": 0.01
+          },
+          "seed": 20263410,
+          "ler": 0.0825,
+          "avg_decode_time_sec": 1.7767249955795707e-05,
+          "decode_total_time_sec": 0.007106899982318282,
+          "num_detectors": 240,
+          "num_observables": 1
+        },
+        {
+          "model_name": "phenomenological",
+          "model_spec": {
+            "type": "phenomenological",
+            "p": 0.01
+          },
+          "seed": 20263507,
+          "ler": 0.0,
+          "avg_decode_time_sec": 3.003249876201153e-06,
+          "decode_total_time_sec": 0.0012012999504804611,
+          "num_detectors": 240,
+          "num_observables": 1
+        },
+        {
+          "model_name": "correlated",
+          "model_spec": {
+            "type": "correlated",
+            "p": 0.01,
+            "correlation_length": 2,
+            "correlation_strength": 0.8,
+            "topology": "line",
+            "pauli": "Z"
+          },
+          "seed": 20263604,
+          "ler": 0.475,
+          "avg_decode_time_sec": 4.580375010846183e-05,
+          "decode_total_time_sec": 0.01832150004338473,
+          "num_detectors": 240,
           "num_observables": 1
         }
       ],
@@ -260,20 +343,20 @@
   ],
   "aggregates": {
     "mean_ler_by_model": {
-      "depolarizing": 0.012500000000000002,
-      "biased": 0.07,
-      "circuit_level": 0.04583333333333334,
-      "phenomenological": 0.0008333333333333334,
-      "correlated": 0.41333333333333333
+      "depolarizing": 0.00875,
+      "biased": 0.093125,
+      "circuit_level": 0.07125000000000001,
+      "phenomenological": 0.000625,
+      "correlated": 0.43437499999999996
     },
     "mean_avg_decode_time_sec_by_model": {
-      "depolarizing": 2.5374166822681827e-06,
-      "biased": 2.8840833692811427e-06,
-      "circuit_level": 3.605916572269053e-06,
-      "phenomenological": 1.0363333664524059e-06,
-      "correlated": 7.383083381379645e-06
+      "depolarizing": 3.741375039680861e-06,
+      "biased": 7.096375047694892e-06,
+      "circuit_level": 7.776687562000007e-06,
+      "phenomenological": 1.5008125046733767e-06,
+      "correlated": 1.9949312481912783e-05
     },
-    "mean_delta_ler_correlated_minus_depolarizing": 0.4008333333333334
+    "mean_delta_ler_correlated_minus_depolarizing": 0.42562500000000003
   },
   "status": "ok"
 }

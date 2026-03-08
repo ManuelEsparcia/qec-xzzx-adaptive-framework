@@ -60,6 +60,9 @@ def test_decode_with_confidence_output_structure() -> None:
         "prediction_density",
         "agreement_score",
         "entropy_proxy",
+        "convergence_flag",
+        "num_iterations",
+        "residual_error",
         "confidence_score",
         "decode_time",
         "is_bp_backend",
@@ -82,6 +85,10 @@ def test_soft_metrics_ranges(seed: int) -> None:
     assert 0.0 <= soft_info["prediction_density"] <= 1.0
     assert 0.0 <= soft_info["agreement_score"] <= 1.0
     assert soft_info["entropy_proxy"] >= 0.0
+    assert isinstance(soft_info["convergence_flag"], bool)
+    assert isinstance(soft_info["num_iterations"], int)
+    assert soft_info["num_iterations"] >= 0
+    assert 0.0 <= soft_info["residual_error"] <= 1.0
     assert soft_info["is_bp_backend"] in (0.0, 1.0)
     assert soft_info["decode_time"] >= 0.0
     assert decode_time >= 0.0
@@ -157,7 +164,14 @@ def test_benchmark_output_contract() -> None:
     if res["soft_info_samples"]:
         s0 = res["soft_info_samples"][0]
         assert "confidence_score" in s0
+        assert "convergence_flag" in s0
+        assert "num_iterations" in s0
+        assert "residual_error" in s0
         assert 0.0 <= s0["confidence_score"] <= 1.0
+        assert isinstance(s0["convergence_flag"], bool)
+        assert isinstance(s0["num_iterations"], int)
+        assert s0["num_iterations"] >= 0
+        assert 0.0 <= s0["residual_error"] <= 1.0
 
     backend = res["backend_info"]
     assert isinstance(backend, dict)

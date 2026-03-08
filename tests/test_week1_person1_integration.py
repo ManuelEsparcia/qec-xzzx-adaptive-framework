@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import shutil
+import uuid
 
 import numpy as np
 import pytest
@@ -17,6 +19,14 @@ from src.pipelines.week1_person1_pipeline import (
     run_week1_person1_pipeline,
     save_pipeline_result,
 )
+
+
+def _local_tmp_dir(prefix: str) -> Path:
+    root = Path("tmp_test_runtime")
+    root.mkdir(parents=True, exist_ok=True)
+    path = root / f"{prefix}{uuid.uuid4().hex}"
+    path.mkdir(parents=True, exist_ok=False)
+    return path
 
 
 def test_pipeline_e2e_output_contract() -> None:
@@ -117,6 +127,27 @@ def test_pipeline_with_noise_dict_runs() -> None:
     assert result["benchmark"]["shots"] == 20
 
 
+def test_pipeline_e2e_d7_tiny_runs() -> None:
+    """
+    Tiny d=7 case to validate Week 1 distance coverage with low runtime.
+    """
+    cfg = Week1Person1PipelineConfig(
+        distance=7,
+        rounds=1,
+        noise_model="depolarizing",
+        p=0.01,
+        logical_basis="x",
+        shots=8,
+        keep_soft_info_samples=4,
+        reference_ler_shots=8,
+    )
+
+    result = run_week1_person1_pipeline(cfg)
+    assert result["status"] == "ok"
+    assert int(result["config"]["distance"]) == 7
+    assert int(result["benchmark"]["num_detectors"]) > 0
+
+
 def test_pipeline_ideal_noise_is_low_error() -> None:
     """
     In the ideal case (no noise), logical error rate should be very low/near zero.
@@ -161,7 +192,7 @@ def test_pipeline_invalid_distance_raises() -> None:
         _ = run_week1_person1_pipeline(cfg)
 
 
-def test_save_pipeline_result_creates_json(tmp_path: Path) -> None:
+def test_save_pipeline_result_creates_json() -> None:
     """
     save_pipeline_result must create a valid JSON file on disk.
     """
@@ -177,21 +208,25 @@ def test_save_pipeline_result_creates_json(tmp_path: Path) -> None:
     )
     result = run_week1_person1_pipeline(cfg)
 
-    out_path = tmp_path / "results" / "week1_person1_result.json"
-    saved = save_pipeline_result(result, out_path)
+    tmp_path = _local_tmp_dir("week1_p1_save_")
+    try:
+        out_path = tmp_path / "results" / "week1_person1_result.json"
+        saved = save_pipeline_result(result, out_path)
 
-    assert saved.exists()
-    assert saved.is_file()
+        assert saved.exists()
+        assert saved.is_file()
 
-    with saved.open("r", encoding="utf-8") as f:
-        loaded = json.load(f)
+        with saved.open("r", encoding="utf-8") as f:
+            loaded = json.load(f)
 
-    assert loaded["status"] == "ok"
-    assert loaded["config"]["distance"] == 3
-    assert "benchmark" in loaded
+        assert loaded["status"] == "ok"
+        assert loaded["config"]["distance"] == 3
+        assert "benchmark" in loaded
+    finally:
+        shutil.rmtree(tmp_path, ignore_errors=True)
 
 
-def test_run_and_save_pipeline_wrapper(tmp_path: Path) -> None:
+def test_run_and_save_pipeline_wrapper() -> None:
     """
     run_and_save_week1_person1_pipeline must run and save in one call.
     """
@@ -206,14 +241,18 @@ def test_run_and_save_pipeline_wrapper(tmp_path: Path) -> None:
         reference_ler_shots=12,
     )
 
-    out_path = tmp_path / "out" / "pipeline.json"
-    result = run_and_save_week1_person1_pipeline(cfg, out_path)
+    tmp_path = _local_tmp_dir("week1_p1_wrapper_")
+    try:
+        out_path = tmp_path / "out" / "pipeline.json"
+        result = run_and_save_week1_person1_pipeline(cfg, out_path)
 
-    assert result["status"] == "ok"
-    assert out_path.exists()
+        assert result["status"] == "ok"
+        assert out_path.exists()
 
-    with out_path.open("r", encoding="utf-8") as f:
-        loaded = json.load(f)
+        with out_path.open("r", encoding="utf-8") as f:
+            loaded = json.load(f)
 
-    assert loaded["config"]["shots"] == 12
-    assert loaded["benchmark"]["shots"] == 12
+        assert loaded["config"]["shots"] == 12
+        assert loaded["benchmark"]["shots"] == 12
+    finally:
+        shutil.rmtree(tmp_path, ignore_errors=True)

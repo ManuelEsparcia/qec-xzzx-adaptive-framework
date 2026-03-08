@@ -49,6 +49,12 @@ def safe_speedup(ref_time: float, candidate_time: float) -> float:
     return float(ref_time / candidate_time)
 
 
+def _safe_mean(values: List[float]) -> float:
+    if not values:
+        return float("nan")
+    return float(mean(values))
+
+
 def run_one_case(
     case: ComparisonCase,
     shots: int,
@@ -96,6 +102,18 @@ def run_one_case(
 
     bm_er = float(bm_res["error_rate"])
     bm_t = float(bm_res["avg_decode_time"])
+    bm_backend_info = bm_res.get("backend_info", {})
+    bm_soft_samples = bm_res.get("soft_info_samples", []) or []
+    bm_conv_rate = _safe_mean(
+        [1.0 if bool(s.get("convergence_flag", False)) else 0.0 for s in bm_soft_samples]
+    )
+    bm_avg_iters = _safe_mean([float(s.get("num_iterations", 0.0)) for s in bm_soft_samples])
+    bm_avg_residual = _safe_mean([float(s.get("residual_error", 1.0)) for s in bm_soft_samples])
+    bm_diag_source = (
+        str(bm_soft_samples[0].get("bp_diagnostics_source", "unknown"))
+        if bm_soft_samples
+        else "unknown"
+    )
 
     adp_er = float(adp_res["error_rate_adaptive"])
     adp_t = float(adp_res["avg_decode_time_adaptive"])
@@ -117,6 +135,17 @@ def run_one_case(
         "bm_error_rate": bm_er,
         "bm_avg_decode_time_sec": bm_t,
         "bm_speedup_vs_mwpm": safe_speedup(mwpm_t, bm_t),
+        "bm_backend_matcher_build_mode": str(bm_backend_info.get("matcher_build_mode", "unknown")),
+        "bm_backend_decode_mode": str(bm_backend_info.get("decode_mode", "unknown")),
+        "bm_is_bp_backend": bool(bm_backend_info.get("is_bp_backend", False)),
+        "bm_beliefmatching_available": bool(bm_backend_info.get("beliefmatching_available", False)),
+        "bm_bp_diagnostics_policy": str(
+            bm_backend_info.get("bp_diagnostics_policy", "unknown")
+        ),
+        "bm_convergence_rate": float(bm_conv_rate),
+        "bm_avg_num_iterations": float(bm_avg_iters),
+        "bm_avg_residual_error": float(bm_avg_residual),
+        "bm_bp_diagnostics_source": bm_diag_source,
         "adaptive_error_rate": adp_er,
         "adaptive_avg_decode_time_sec": adp_t,
         "adaptive_speedup_vs_mwpm": safe_speedup(mwpm_t, adp_t),
@@ -128,7 +157,7 @@ def run_one_case(
     }
 
     row["backend_info_uf"] = uf_res.get("backend_info", {})
-    row["backend_info_bm"] = bm_res.get("backend_info", {})
+    row["backend_info_bm"] = bm_backend_info
     row["samples_adaptive"] = adp_res.get("samples", [])
     return row
 
@@ -162,6 +191,9 @@ def run_comparison(
         "mean_adaptive_avg_decode_time_sec": mean([r["adaptive_avg_decode_time_sec"] for r in rows]) if rows else float("nan"),
         "mean_uf_speedup_vs_mwpm": mean([r["uf_speedup_vs_mwpm"] for r in rows]) if rows else float("nan"),
         "mean_bm_speedup_vs_mwpm": mean([r["bm_speedup_vs_mwpm"] for r in rows]) if rows else float("nan"),
+        "mean_bm_convergence_rate": mean([r["bm_convergence_rate"] for r in rows]) if rows else float("nan"),
+        "mean_bm_avg_num_iterations": mean([r["bm_avg_num_iterations"] for r in rows]) if rows else float("nan"),
+        "mean_bm_avg_residual_error": mean([r["bm_avg_residual_error"] for r in rows]) if rows else float("nan"),
         "mean_adaptive_speedup_vs_mwpm": mean([r["adaptive_speedup_vs_mwpm"] for r in rows]) if rows else float("nan"),
         "mean_adaptive_switch_rate": mean([r["adaptive_switch_rate"] for r in rows]) if rows else float("nan"),
     }
@@ -175,6 +207,7 @@ def run_comparison(
             "keep_soft_info_samples": keep_soft,
             "g_threshold": g_threshold,
             "adaptive_benchmark_time_metric": "core",
+            "schema_version": "week2_cmp_v2",
         },
         "cases_summary": rows,
         "aggregates": agg,

@@ -234,6 +234,92 @@ class BeliefMatchingDecoderWithSoftInfo:
             pred_raw = self.matcher.decode(syndrome)
         return self._normalize_prediction(pred_raw)
 
+    @staticmethod
+    def _extract_numeric_attr(obj: Any, names: Sequence[str]) -> Optional[float]:
+        """
+        Try to read a numeric attribute (or zero-arg numeric method) from a backend object.
+        """
+        for name in names:
+            if not hasattr(obj, name):
+                continue
+            raw = getattr(obj, name)
+            if callable(raw):
+                try:
+                    raw = raw()
+                except TypeError:
+                    continue
+            try:
+                return float(raw)
+            except (TypeError, ValueError):
+                continue
+        return None
+
+    def _extract_bp_diagnostics(
+        self,
+        *,
+        syndrome_density: float,
+        prediction_density: float,
+        is_bp_backend: bool,
+    ) -> Tuple[bool, int, float, str]:
+        """
+        Return roadmap-required BP diagnostics:
+        - convergence_flag
+        - num_iterations
+        - residual_error
+
+        If the active backend does not expose native values, we provide explicit
+        heuristic fallbacks and mark the source for traceability.
+        """
+        if not is_bp_backend:
+            return False, 0, 1.0, "not_bp_backend"
+
+        native_conv = self._extract_numeric_attr(
+            self.matcher,
+            names=(
+                "converged",
+                "is_converged",
+                "has_converged",
+                "bp_converged",
+            ),
+        )
+        native_iter = self._extract_numeric_attr(
+            self.matcher,
+            names=(
+                "num_iterations",
+                "n_iterations",
+                "iterations",
+                "last_num_iterations",
+                "bp_num_iterations",
+            ),
+        )
+        native_residual = self._extract_numeric_attr(
+            self.matcher,
+            names=(
+                "residual_error",
+                "residual",
+                "last_residual",
+                "bp_residual",
+            ),
+        )
+
+        if (native_conv is not None) or (native_iter is not None) or (native_residual is not None):
+            convergence_flag = bool(native_conv >= 0.5) if native_conv is not None else True
+            num_iterations = int(max(0, round(native_iter))) if native_iter is not None else 0
+            residual_error = (
+                float(max(0.0, native_residual))
+                if native_residual is not None
+                else float(max(0.0, abs(syndrome_density - prediction_density)))
+            )
+            residual_error = float(max(0.0, min(1.0, residual_error)))
+            return convergence_flag, num_iterations, residual_error, "native_or_partial_native"
+
+        # Explicit heuristic fallback when backend does not expose diagnostics.
+        density_gap = float(abs(syndrome_density - prediction_density))
+        convergence_flag = bool(density_gap <= 0.50)
+        num_iterations = int(max(1, min(50, round(5 + 20 * density_gap))))
+        residual_error = float(max(0.0, min(1.0, density_gap)))
+        return convergence_flag, num_iterations, residual_error, "heuristic_fallback"
+
     def _compute_confidence(
         self,
         agreement_score: float,
@@ -257,7 +343,7 @@ class BeliefMatchingDecoderWithSoftInfo:
 
     def decode_with_confidence(
         self, syndrome: Sequence[int] | np.ndarray
-    ) -> Tuple[np.ndarray, Dict[str, float], float]:
+    ) -> Tuple[np.ndarray, Dict[str, Any], float]:
         s = self._ensure_syndrome_vector(syndrome)
 
         t0 = perf_counter()
@@ -274,6 +360,16 @@ class BeliefMatchingDecoderWithSoftInfo:
         agreement_score = float(max(0.0, 1.0 - abs(syndrome_density - prediction_density)))
         entropy_proxy = self._binary_entropy(syndrome_density, self.conf_cfg.eps)
         is_bp = self._is_bp_backend()
+        (
+            convergence_flag,
+            num_iterations,
+            residual_error,
+            bp_diagnostics_source,
+        ) = self._extract_bp_diagnostics(
+            syndrome_density=syndrome_density,
+            prediction_density=prediction_density,
+            is_bp_backend=is_bp,
+        )
 
         confidence_score = self._compute_confidence(
             agreement_score=agreement_score,
@@ -283,7 +379,7 @@ class BeliefMatchingDecoderWithSoftInfo:
             is_bp_backend=is_bp,
         )
 
-        soft_info: Dict[str, float] = {
+        soft_info: Dict[str, Any] = {
             "syndrome_weight": float(syndrome_weight),
             "prediction_weight": float(pred_weight),
             "total_weight": float(total_weight),
@@ -292,6 +388,10 @@ class BeliefMatchingDecoderWithSoftInfo:
             "prediction_density": float(prediction_density),
             "agreement_score": float(agreement_score),
             "entropy_proxy": float(entropy_proxy),
+            "convergence_flag": bool(convergence_flag),
+            "num_iterations": int(num_iterations),
+            "residual_error": float(residual_error),
+            "bp_diagnostics_source": str(bp_diagnostics_source),
             "confidence_score": float(confidence_score),
             "decode_time": float(decode_time),
             "is_bp_backend": float(1.0 if is_bp else 0.0),
@@ -334,7 +434,7 @@ class BeliefMatchingDecoderWithSoftInfo:
 
         failures: List[bool] = []
         decode_times: List[float] = []
-        soft_infos: List[Dict[str, float]] = []
+        soft_infos: List[Dict[str, Any]] = []
 
         for i in range(shots):
             pred, s_info, dt = self.decode_with_confidence(dets[i])
@@ -365,6 +465,7 @@ class BeliefMatchingDecoderWithSoftInfo:
                 "decode_mode": self.decode_mode,
                 "is_bp_backend": bool(self._is_bp_backend()),
                 "beliefmatching_available": bool(beliefmatching is not None),
+                "bp_diagnostics_policy": "native_if_available_else_fallback",
             },
         }
 

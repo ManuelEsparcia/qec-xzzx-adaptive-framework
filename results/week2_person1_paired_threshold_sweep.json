@@ -1,34 +1,48 @@
 {
   "metadata": {
     "report_name": "week2_person1_paired_threshold_sweep",
-    "timestamp_utc": "2026-02-15T12:36:28+00:00",
+    "timestamp_utc": "2026-03-08T15:52:53+00:00",
     "shots_per_case": 2000,
     "thresholds": [
+      0.1,
       0.2,
-      0.35,
+      0.3,
       0.4,
+      0.5,
       0.6,
-      0.8
+      0.7,
+      0.8,
+      0.9
     ],
-    "num_cases": 3
+    "num_cases": 4,
+    "covered_distances": [
+      3,
+      5
+    ],
+    "covered_noise_models": [
+      "biased",
+      "depolarizing"
+    ]
   },
   "cases_summary": [
     {
-      "case_name": "d3_r2_p0.005",
+      "case_name": "depol_d3_r2_p0.005",
       "distance": 3,
       "rounds": 2,
       "p": 0.005,
+      "noise_model": "depolarizing",
+      "noise_kwargs": {},
       "shots": 2000,
       "num_detectors": 16,
       "num_observables": 1,
       "mwpm": {
-        "error_rate": 0.0035,
-        "avg_decode_time_sec": 1.5666501480154693e-05
+        "error_rate": 0.0005,
+        "avg_decode_time_sec": 5.397701577749103e-06
       },
       "uf": {
-        "error_rate": 0.0035,
-        "avg_decode_time_sec": 2.3390348011162132e-05,
-        "speedup_vs_mwpm": 0.6697848818956633,
+        "error_rate": 0.0005,
+        "avg_decode_time_sec": 7.062149699777365e-06,
+        "speedup_vs_mwpm": 0.7643142396031716,
         "backend_info": {
           "matcher_build_mode": "default",
           "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
@@ -37,120 +51,89 @@
       },
       "adaptive_by_threshold": [
         {
-          "g_threshold": 0.2,
-          "error_rate": 0.0035,
-          "avg_decode_time_sec": 7.871735218213872e-05,
+          "g_threshold": 0.1,
+          "error_rate": 0.0005,
+          "avg_decode_time_sec": 2.7300099201966075e-05,
           "switch_rate": 0.0,
-          "speedup_vs_mwpm": 0.19902221106097476
+          "speedup_vs_mwpm": 0.19771728805147992
         },
         {
-          "g_threshold": 0.35,
-          "error_rate": 0.0035,
-          "avg_decode_time_sec": 7.822885044151917e-05,
+          "g_threshold": 0.2,
+          "error_rate": 0.0005,
+          "avg_decode_time_sec": 2.728804963408038e-05,
           "switch_rate": 0.0,
-          "speedup_vs_mwpm": 0.2002650095423089
+          "speedup_vs_mwpm": 0.19780459395705025
+        },
+        {
+          "g_threshold": 0.3,
+          "error_rate": 0.0005,
+          "avg_decode_time_sec": 2.69794991472736e-05,
+          "switch_rate": 0.0,
+          "speedup_vs_mwpm": 0.20006678212536666
         },
         {
           "g_threshold": 0.4,
-          "error_rate": 0.0035,
-          "avg_decode_time_sec": 7.862735172966496e-05,
+          "error_rate": 0.0005,
+          "avg_decode_time_sec": 2.6821097766514868e-05,
           "switch_rate": 0.002,
-          "speedup_vs_mwpm": 0.19925002095986846
+          "speedup_vs_mwpm": 0.20124834653441853
+        },
+        {
+          "g_threshold": 0.5,
+          "error_rate": 0.0005,
+          "avg_decode_time_sec": 2.6911150314845146e-05,
+          "switch_rate": 0.0105,
+          "speedup_vs_mwpm": 0.2005749109420841
         },
         {
           "g_threshold": 0.6,
-          "error_rate": 0.0035,
-          "avg_decode_time_sec": 8.021054964046925e-05,
-          "switch_rate": 0.0225,
-          "speedup_vs_mwpm": 0.1953172188742907
+          "error_rate": 0.0005,
+          "avg_decode_time_sec": 2.7177598734851927e-05,
+          "switch_rate": 0.0245,
+          "speedup_vs_mwpm": 0.19860848010928997
+        },
+        {
+          "g_threshold": 0.7,
+          "error_rate": 0.0005,
+          "avg_decode_time_sec": 2.8018549783155323e-05,
+          "switch_rate": 0.0635,
+          "speedup_vs_mwpm": 0.1926474289184727
         },
         {
           "g_threshold": 0.8,
-          "error_rate": 0.0035,
-          "avg_decode_time_sec": 8.385239855851977e-05,
-          "switch_rate": 0.079,
-          "speedup_vs_mwpm": 0.18683426770697792
+          "error_rate": 0.0005,
+          "avg_decode_time_sec": 2.8676300775259734e-05,
+          "switch_rate": 0.092,
+          "speedup_vs_mwpm": 0.18822865682891463
+        },
+        {
+          "g_threshold": 0.9,
+          "error_rate": 0.0005,
+          "avg_decode_time_sec": 3.2312253140844405e-05,
+          "switch_rate": 0.2385,
+          "speedup_vs_mwpm": 0.16704813354306516
         }
       ],
       "status": "ok"
     },
     {
-      "case_name": "d3_r3_p0.010",
-      "distance": 3,
-      "rounds": 3,
-      "p": 0.01,
-      "shots": 2000,
-      "num_detectors": 24,
-      "num_observables": 1,
-      "mwpm": {
-        "error_rate": 0.022,
-        "avg_decode_time_sec": 1.659365015802905e-05
-      },
-      "uf": {
-        "error_rate": 0.022,
-        "avg_decode_time_sec": 2.4306501378305258e-05,
-        "speedup_vs_mwpm": 0.6826836120824733,
-        "backend_info": {
-          "matcher_build_mode": "default",
-          "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
-          "is_union_find_backend": true
-        }
-      },
-      "adaptive_by_threshold": [
-        {
-          "g_threshold": 0.2,
-          "error_rate": 0.022,
-          "avg_decode_time_sec": 8.719424996525049e-05,
-          "switch_rate": 0.0,
-          "speedup_vs_mwpm": 0.19030670215802206
-        },
-        {
-          "g_threshold": 0.35,
-          "error_rate": 0.022,
-          "avg_decode_time_sec": 8.636990166269243e-05,
-          "switch_rate": 0.0005,
-          "speedup_vs_mwpm": 0.1921230641529918
-        },
-        {
-          "g_threshold": 0.4,
-          "error_rate": 0.022,
-          "avg_decode_time_sec": 8.659234992228448e-05,
-          "switch_rate": 0.0055,
-          "speedup_vs_mwpm": 0.191629516613438
-        },
-        {
-          "g_threshold": 0.6,
-          "error_rate": 0.022,
-          "avg_decode_time_sec": 8.947094908216968e-05,
-          "switch_rate": 0.056,
-          "speedup_vs_mwpm": 0.1854641124102699
-        },
-        {
-          "g_threshold": 0.8,
-          "error_rate": 0.022,
-          "avg_decode_time_sec": 0.00010050899849738926,
-          "switch_rate": 0.217,
-          "speedup_vs_mwpm": 0.16509616458331414
-        }
-      ],
-      "status": "ok"
-    },
-    {
-      "case_name": "d5_r3_p0.010",
+      "case_name": "depol_d5_r3_p0.010",
       "distance": 5,
       "rounds": 3,
       "p": 0.01,
+      "noise_model": "depolarizing",
+      "noise_kwargs": {},
       "shots": 2000,
       "num_detectors": 72,
       "num_observables": 1,
       "mwpm": {
-        "error_rate": 0.0165,
-        "avg_decode_time_sec": 2.0605449797585605e-05
+        "error_rate": 0.0185,
+        "avg_decode_time_sec": 7.67514988547191e-06
       },
       "uf": {
-        "error_rate": 0.0165,
-        "avg_decode_time_sec": 2.776210109004751e-05,
-        "speedup_vs_mwpm": 0.7422150697726727,
+        "error_rate": 0.0185,
+        "avg_decode_time_sec": 8.724748622626067e-06,
+        "speedup_vs_mwpm": 0.8796986844489466,
         "backend_info": {
           "matcher_build_mode": "default",
           "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
@@ -159,85 +142,327 @@
       },
       "adaptive_by_threshold": [
         {
-          "g_threshold": 0.2,
-          "error_rate": 0.0165,
-          "avg_decode_time_sec": 9.91151500493288e-05,
+          "g_threshold": 0.1,
+          "error_rate": 0.0185,
+          "avg_decode_time_sec": 3.47506002872251e-05,
           "switch_rate": 0.0,
-          "speedup_vs_mwpm": 0.20789404836021982
+          "speedup_vs_mwpm": 0.2208638073021554
         },
         {
-          "g_threshold": 0.35,
-          "error_rate": 0.0165,
-          "avg_decode_time_sec": 9.79161006398499e-05,
+          "g_threshold": 0.2,
+          "error_rate": 0.0185,
+          "avg_decode_time_sec": 3.4552049706690014e-05,
           "switch_rate": 0.0,
-          "speedup_vs_mwpm": 0.21043985272019294
+          "speedup_vs_mwpm": 0.22213298344456356
+        },
+        {
+          "g_threshold": 0.3,
+          "error_rate": 0.0185,
+          "avg_decode_time_sec": 3.407189960125834e-05,
+          "switch_rate": 0.0,
+          "speedup_vs_mwpm": 0.22526333944669324
         },
         {
           "g_threshold": 0.4,
-          "error_rate": 0.0165,
-          "avg_decode_time_sec": 9.824945015134289e-05,
+          "error_rate": 0.0185,
+          "avg_decode_time_sec": 3.3885450451634826e-05,
           "switch_rate": 0.0005,
-          "speedup_vs_mwpm": 0.20972585358844337
+          "speedup_vs_mwpm": 0.22650281413336257
+        },
+        {
+          "g_threshold": 0.5,
+          "error_rate": 0.0185,
+          "avg_decode_time_sec": 3.385885135503486e-05,
+          "switch_rate": 0.005,
+          "speedup_vs_mwpm": 0.22668075195441043
         },
         {
           "g_threshold": 0.6,
-          "error_rate": 0.0165,
-          "avg_decode_time_sec": 9.97147504822351e-05,
-          "switch_rate": 0.0345,
-          "speedup_vs_mwpm": 0.20664394884342224
+          "error_rate": 0.0185,
+          "avg_decode_time_sec": 3.454119869275019e-05,
+          "switch_rate": 0.032,
+          "speedup_vs_mwpm": 0.22220276585487575
+        },
+        {
+          "g_threshold": 0.7,
+          "error_rate": 0.0185,
+          "avg_decode_time_sec": 3.866950009251013e-05,
+          "switch_rate": 0.202,
+          "speedup_vs_mwpm": 0.1984807113386631
         },
         {
           "g_threshold": 0.8,
-          "error_rate": 0.0165,
-          "avg_decode_time_sec": 0.0001317802484263666,
-          "switch_rate": 0.4825,
-          "speedup_vs_mwpm": 0.15636220179914964
+          "error_rate": 0.0185,
+          "avg_decode_time_sec": 4.5179599546827375e-05,
+          "switch_rate": 0.489,
+          "speedup_vs_mwpm": 0.1698808746083912
+        },
+        {
+          "g_threshold": 0.9,
+          "error_rate": 0.0185,
+          "avg_decode_time_sec": 5.499029974453151e-05,
+          "switch_rate": 0.924,
+          "speedup_vs_mwpm": 0.1395727959499832
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "case_name": "biased_d3_r2_p0.005_eta100",
+      "distance": 3,
+      "rounds": 2,
+      "p": 0.005,
+      "noise_model": "biased",
+      "noise_kwargs": {
+        "eta": 100.0
+      },
+      "shots": 2000,
+      "num_detectors": 16,
+      "num_observables": 1,
+      "mwpm": {
+        "error_rate": 0.0195,
+        "avg_decode_time_sec": 5.670650512911379e-06
+      },
+      "uf": {
+        "error_rate": 0.0195,
+        "avg_decode_time_sec": 7.226697460282594e-06,
+        "speedup_vs_mwpm": 0.7846807679547766,
+        "backend_info": {
+          "matcher_build_mode": "default",
+          "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+          "is_union_find_backend": true
+        }
+      },
+      "adaptive_by_threshold": [
+        {
+          "g_threshold": 0.1,
+          "error_rate": 0.0195,
+          "avg_decode_time_sec": 2.875024970853701e-05,
+          "switch_rate": 0.0,
+          "speedup_vs_mwpm": 0.19723830472427353
+        },
+        {
+          "g_threshold": 0.2,
+          "error_rate": 0.0195,
+          "avg_decode_time_sec": 2.8667948034126312e-05,
+          "switch_rate": 0.0,
+          "speedup_vs_mwpm": 0.19780454834650318
+        },
+        {
+          "g_threshold": 0.3,
+          "error_rate": 0.0195,
+          "avg_decode_time_sec": 2.8236698592081666e-05,
+          "switch_rate": 0.0,
+          "speedup_vs_mwpm": 0.20082554957404203
+        },
+        {
+          "g_threshold": 0.4,
+          "error_rate": 0.0195,
+          "avg_decode_time_sec": 2.802719984902069e-05,
+          "switch_rate": 0.0005,
+          "speedup_vs_mwpm": 0.2023266877696853
+        },
+        {
+          "g_threshold": 0.5,
+          "error_rate": 0.0195,
+          "avg_decode_time_sec": 2.793199842562899e-05,
+          "switch_rate": 0.003,
+          "speedup_vs_mwpm": 0.20301628356488366
+        },
+        {
+          "g_threshold": 0.6,
+          "error_rate": 0.0195,
+          "avg_decode_time_sec": 2.8533997829072176e-05,
+          "switch_rate": 0.0305,
+          "speedup_vs_mwpm": 0.19873312344384406
+        },
+        {
+          "g_threshold": 0.7,
+          "error_rate": 0.0195,
+          "avg_decode_time_sec": 2.8912199719343335e-05,
+          "switch_rate": 0.0455,
+          "speedup_vs_mwpm": 0.1961334857934557
+        },
+        {
+          "g_threshold": 0.8,
+          "error_rate": 0.0195,
+          "avg_decode_time_sec": 3.055719978874549e-05,
+          "switch_rate": 0.1265,
+          "speedup_vs_mwpm": 0.18557493985427076
+        },
+        {
+          "g_threshold": 0.9,
+          "error_rate": 0.0195,
+          "avg_decode_time_sec": 3.7110298988409343e-05,
+          "switch_rate": 0.426,
+          "speedup_vs_mwpm": 0.1528053038506236
+        }
+      ],
+      "status": "ok"
+    },
+    {
+      "case_name": "biased_d5_r3_p0.010_eta100",
+      "distance": 5,
+      "rounds": 3,
+      "p": 0.01,
+      "noise_model": "biased",
+      "noise_kwargs": {
+        "eta": 100.0
+      },
+      "shots": 2000,
+      "num_detectors": 72,
+      "num_observables": 1,
+      "mwpm": {
+        "error_rate": 0.1205,
+        "avg_decode_time_sec": 9.37515019904822e-06
+      },
+      "uf": {
+        "error_rate": 0.1205,
+        "avg_decode_time_sec": 9.949401719495655e-06,
+        "speedup_vs_mwpm": 0.9422828088926996,
+        "backend_info": {
+          "matcher_build_mode": "default",
+          "decode_mode": "union_find_via_decode:{'decoder': 'union_find'}",
+          "is_union_find_backend": true
+        }
+      },
+      "adaptive_by_threshold": [
+        {
+          "g_threshold": 0.1,
+          "error_rate": 0.1205,
+          "avg_decode_time_sec": 3.633689851267263e-05,
+          "switch_rate": 0.0,
+          "speedup_vs_mwpm": 0.25800634018829655
+        },
+        {
+          "g_threshold": 0.2,
+          "error_rate": 0.1205,
+          "avg_decode_time_sec": 3.605354978935793e-05,
+          "switch_rate": 0.0,
+          "speedup_vs_mwpm": 0.26003403974982575
+        },
+        {
+          "g_threshold": 0.3,
+          "error_rate": 0.1205,
+          "avg_decode_time_sec": 3.5689500218722966e-05,
+          "switch_rate": 0.0,
+          "speedup_vs_mwpm": 0.26268650840142477
+        },
+        {
+          "g_threshold": 0.4,
+          "error_rate": 0.1205,
+          "avg_decode_time_sec": 3.5543249337933955e-05,
+          "switch_rate": 0.0005,
+          "speedup_vs_mwpm": 0.26376739250574033
+        },
+        {
+          "g_threshold": 0.5,
+          "error_rate": 0.1205,
+          "avg_decode_time_sec": 3.555449948180467e-05,
+          "switch_rate": 0.0005,
+          "speedup_vs_mwpm": 0.26368393130793577
+        },
+        {
+          "g_threshold": 0.6,
+          "error_rate": 0.1205,
+          "avg_decode_time_sec": 3.548754862276837e-05,
+          "switch_rate": 0.0045,
+          "speedup_vs_mwpm": 0.26418139778280547
+        },
+        {
+          "g_threshold": 0.7,
+          "error_rate": 0.1205,
+          "avg_decode_time_sec": 3.668200212996453e-05,
+          "switch_rate": 0.0495,
+          "speedup_vs_mwpm": 0.25557902117316317
+        },
+        {
+          "g_threshold": 0.8,
+          "error_rate": 0.1205,
+          "avg_decode_time_sec": 4.3686851859092714e-05,
+          "switch_rate": 0.3355,
+          "speedup_vs_mwpm": 0.21459889646630453
+        },
+        {
+          "g_threshold": 0.9,
+          "error_rate": 0.1205,
+          "avg_decode_time_sec": 5.905290134251118e-05,
+          "switch_rate": 0.9945,
+          "speedup_vs_mwpm": 0.15875850273082534
         }
       ],
       "status": "ok"
     }
   ],
   "aggregates": {
-    "mean_mwpm_error_rate": 0.014,
-    "mean_uf_error_rate": 0.014,
-    "mean_mwpm_avg_decode_time_sec": 1.7621867145256448e-05,
-    "mean_uf_avg_decode_time_sec": 2.5152983493171633e-05,
-    "mean_uf_speedup_vs_mwpm": 0.6982278545836031,
+    "mean_mwpm_error_rate": 0.03975,
+    "mean_uf_error_rate": 0.03975,
+    "mean_mwpm_avg_decode_time_sec": 7.0296630437951535e-06,
+    "mean_uf_avg_decode_time_sec": 8.24074937554542e-06,
+    "mean_uf_speedup_vs_mwpm": 0.8427441252248986,
     "adaptive_means_by_threshold": [
       {
-        "g_threshold": 0.2,
-        "mean_error_rate": 0.014,
-        "mean_avg_decode_time_sec": 8.834225073223934e-05,
+        "g_threshold": 0.1,
+        "mean_error_rate": 0.03975,
+        "mean_avg_decode_time_sec": 3.17844619276002e-05,
         "mean_switch_rate": 0.0,
-        "mean_speedup_vs_mwpm": 0.19907432052640556
+        "mean_speedup_vs_mwpm": 0.21845643506655135
       },
       {
-        "g_threshold": 0.35,
-        "mean_error_rate": 0.014,
-        "mean_avg_decode_time_sec": 8.750495091468717e-05,
-        "mean_switch_rate": 0.00016666666666666666,
-        "mean_speedup_vs_mwpm": 0.20094264213849788
+        "g_threshold": 0.2,
+        "mean_error_rate": 0.03975,
+        "mean_avg_decode_time_sec": 3.164039929106366e-05,
+        "mean_switch_rate": 0.0,
+        "mean_speedup_vs_mwpm": 0.2194440413744857
+      },
+      {
+        "g_threshold": 0.3,
+        "mean_error_rate": 0.03975,
+        "mean_avg_decode_time_sec": 3.124439938983414e-05,
+        "mean_switch_rate": 0.0,
+        "mean_speedup_vs_mwpm": 0.2222105448868817
       },
       {
         "g_threshold": 0.4,
-        "mean_error_rate": 0.014,
-        "mean_avg_decode_time_sec": 8.782305060109744e-05,
-        "mean_switch_rate": 0.0026666666666666666,
-        "mean_speedup_vs_mwpm": 0.2002017970539166
+        "mean_error_rate": 0.03975,
+        "mean_avg_decode_time_sec": 3.106924935127609e-05,
+        "mean_switch_rate": 0.000875,
+        "mean_speedup_vs_mwpm": 0.22346131023580168
+      },
+      {
+        "g_threshold": 0.5,
+        "mean_error_rate": 0.03975,
+        "mean_avg_decode_time_sec": 3.106412489432841e-05,
+        "mean_switch_rate": 0.00475,
+        "mean_speedup_vs_mwpm": 0.2234889694423285
       },
       {
         "g_threshold": 0.6,
-        "mean_error_rate": 0.014,
-        "mean_avg_decode_time_sec": 8.9798749734958e-05,
-        "mean_switch_rate": 0.03766666666666667,
-        "mean_speedup_vs_mwpm": 0.1958084267093276
+        "mean_error_rate": 0.03975,
+        "mean_avg_decode_time_sec": 3.1435085969860665e-05,
+        "mean_switch_rate": 0.022875,
+        "mean_speedup_vs_mwpm": 0.2209314417977038
+      },
+      {
+        "g_threshold": 0.7,
+        "mean_error_rate": 0.03975,
+        "mean_avg_decode_time_sec": 3.3070562931243334e-05,
+        "mean_switch_rate": 0.09012500000000001,
+        "mean_speedup_vs_mwpm": 0.21071016180593866
       },
       {
         "g_threshold": 0.8,
-        "mean_error_rate": 0.014,
-        "mean_avg_decode_time_sec": 0.00010538054849409187,
-        "mean_switch_rate": 0.2595,
-        "mean_speedup_vs_mwpm": 0.1694308780298139
+        "mean_error_rate": 0.03975,
+        "mean_avg_decode_time_sec": 3.702498799248133e-05,
+        "mean_switch_rate": 0.26075,
+        "mean_speedup_vs_mwpm": 0.18957084193947027
+      },
+      {
+        "g_threshold": 0.9,
+        "mean_error_rate": 0.03975,
+        "mean_avg_decode_time_sec": 4.586643830407411e-05,
+        "mean_switch_rate": 0.64575,
+        "mean_speedup_vs_mwpm": 0.15454618401862433
       }
     ]
   }

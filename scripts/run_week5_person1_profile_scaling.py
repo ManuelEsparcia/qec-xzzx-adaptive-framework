@@ -309,6 +309,8 @@ def _build_scaling_models(rows: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]
             {
                 "decoder": decoder,
                 "distances": ds,
+                "fit_method": "loglog_power_law_polyfit",
+                "fit_quality_field": "r2",
                 "time_fit": t_fit,
                 "memory_fit": m_fit,
             }
@@ -463,7 +465,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Week 5 Block 3: profiling + memory + scaling benchmark."
     )
-    parser.add_argument("--distances", type=str, default="5,7,9,11,13", help="CSV odd distances >= 3.")
+    parser.add_argument("--distances", type=str, default="3,5,7,9,11,13", help="CSV odd distances >= 3.")
     parser.add_argument("--rounds-mode", type=str, choices=["fixed", "distance"], default="distance", help="Use fixed rounds or rounds=distance.")
     parser.add_argument("--rounds", type=int, default=3, help="Rounds when --rounds-mode=fixed.")
     parser.add_argument("--decoders", type=str, default="mwpm,uf,bm,adaptive", help="CSV decoders to benchmark.")
@@ -570,9 +572,22 @@ def main() -> None:
     )
 
     report = {
+        "schema_version": "week5_profile_scaling.v2",
         "metadata": {
             "report_name": "week5_person1_profile_scaling",
             "timestamp_utc": utc_now_iso(),
+        },
+        "provenance": {
+            "generator_script": "scripts/run_week5_person1_profile_scaling.py",
+            "memory_measurement_mode": "tracemalloc_python_allocations",
+            "timing_measurement_mode": "core_decode_time_plus_perf_counter_wall",
+            "fit_method": "loglog_power_law_polyfit",
+            "fit_quality_field": "r2",
+            "distances_covered": [int(x) for x in distances],
+            "decoders_covered": list(decoders),
+            "memory_limitations": (
+                "tracemalloc tracks Python allocator behavior; it is not full process RSS."
+            ),
         },
         "config": {
             "distances": [int(x) for x in distances],
