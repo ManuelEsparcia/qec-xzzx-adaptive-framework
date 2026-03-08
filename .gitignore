@@ -208,3 +208,7 @@ __marimo__/
 
 # Local extracted artifacts
 docs/QEC_Paper_ErGueno_extracted.txt
+
+# Local test runtime outputs
+.tmp_week5_tests/
+results/_tmp_smoke/

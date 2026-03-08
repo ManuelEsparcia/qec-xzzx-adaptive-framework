@@ -20,7 +20,9 @@ Build a reproducible pipeline for:
   - Belief-Matching/BP with soft-info: implemented (fallbacks included)
   - Adaptive switching: implemented (threshold-based, configurable fast backend `uf`/`bm`, `fast_mode`)
 - Week 1-5 benchmark/report scripts: implemented
-- Tests: unit + integration + smoke tests (`156 passed` in local conda environment `qec-xzzx`)
+- Week 3 canonical scientific artifact: `results/week3_person2_threshold_scan_paper_grade_r2.json` (`shots=300`, `repeats=2`, CI fields per point)
+- Week 3 adaptive switching sensitivity artifacts: `results/week3_person2_threshold_scan_adaptive_g035_r2.json`, `results/week3_person2_threshold_scan_adaptive_g065_r2.json`, `results/week3_person2_threshold_scan_adaptive_g080_r2.json`
+- Tests: unit + integration + smoke tests (`171 passed` on 2026-03-08 in local environment)
 
 ## Repository Structure
 
@@ -124,10 +126,16 @@ python -m scripts.run_week3_person1_profile_adaptive --distance 7 --rounds 5 --p
 python -m scripts.run_week3_person1_scaling_benchmark --shots 300 --repeats 2 --g-threshold 0.35
 ```
 
-### Week 3 - threshold scan (person 2)
+### Week 3 - threshold scan (person 2, paper-grade)
 
 ```bash
-python -m scripts.run_week3_person2_threshold_scan --distances 3,5,7 --p-values 0.001,0.002,0.003,0.005,0.0075,0.01,0.015,0.02 --decoders mwpm,uf,bm,adaptive --noise-models depolarizing,biased_eta10,biased_eta100,biased_eta500,circuit_level,correlated --shots 300
+python -m scripts.run_week3_person2_threshold_scan --distances 3,5,7,9,11,13 --rounds 3 --p-values 0.001,0.002,0.003,0.005,0.0075,0.01,0.015,0.02 --decoders mwpm,uf,bm,adaptive --noise-models depolarizing,biased_eta10,biased_eta100,biased_eta500,circuit_level,correlated --shots 300 --repeats 2 --seed 20260220 --g-threshold 0.35 --adaptive-fast-mode --checkpoint-every 24 --output results/week3_person2_threshold_scan_paper_grade_r2.json
+```
+
+### Week 3 - adaptive `g` sensitivity (switching observability)
+
+```bash
+python -m scripts.run_week3_person2_threshold_scan --distances 3,5,7,9,11,13 --rounds 3 --p-values 0.001,0.002,0.003,0.005,0.0075,0.01,0.015,0.02 --decoders adaptive --noise-models depolarizing,biased_eta10,biased_eta100,biased_eta500,circuit_level,correlated --shots 300 --repeats 2 --seed 20260220 --g-threshold 0.65 --adaptive-fast-mode --checkpoint-every 24 --output results/week3_person2_threshold_scan_adaptive_g065_r2.json
 ```
 
 ### Week 4 - hardware compatibility report

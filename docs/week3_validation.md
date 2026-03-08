@@ -32,18 +32,79 @@ Default config now targets:
 - decoders: `mwpm,uf,bm,adaptive`
 - noise: `depolarizing,biased_eta10,biased_eta100,biased_eta500,circuit_level,correlated`
 
-Canonical artifact command (runtime-friendly):
+Note: the paper-grade command below fixes an 8-point p-grid up to `0.02` to match the replicated CI campaign artifact.
+
+Canonical artifact command (paper-grade):
+```bash
+python -m scripts.run_week3_person2_threshold_scan \
+  --distances 3,5,7,9,11,13 \
+  --rounds 3 \
+  --p-values 0.001,0.002,0.003,0.005,0.0075,0.01,0.015,0.02 \
+  --decoders mwpm,uf,bm,adaptive \
+  --noise-models depolarizing,biased_eta10,biased_eta100,biased_eta500,circuit_level,correlated \
+  --shots 300 \
+  --repeats 2 \
+  --seed 20260220 \
+  --g-threshold 0.35 \
+  --adaptive-fast-mode \
+  --checkpoint-every 24 \
+  --output results/week3_person2_threshold_scan_paper_grade_r2.json
+```
+
+Optional runtime-friendly run (faster, lower statistical power):
 ```bash
 python -m scripts.run_week3_person2_threshold_scan \
   --shots 40 \
+  --repeats 1 \
   --checkpoint-every 48 \
   --adaptive-fast-mode \
   --output results/week3_person2_threshold_scan_full.json
 ```
 
-Optional deeper run (slower):
+## Adaptive g-threshold sensitivity (switching observability)
+Use the same grid but `adaptive` only to measure how switching changes with `g`:
 ```bash
-python -m scripts.run_week3_person2_threshold_scan --output results/week3_person2_threshold_scan_full.json
+python -m scripts.run_week3_person2_threshold_scan \
+  --distances 3,5,7,9,11,13 \
+  --rounds 3 \
+  --p-values 0.001,0.002,0.003,0.005,0.0075,0.01,0.015,0.02 \
+  --decoders adaptive \
+  --noise-models depolarizing,biased_eta10,biased_eta100,biased_eta500,circuit_level,correlated \
+  --shots 300 \
+  --repeats 2 \
+  --seed 20260220 \
+  --g-threshold 0.35 \
+  --adaptive-fast-mode \
+  --checkpoint-every 24 \
+  --output results/week3_person2_threshold_scan_adaptive_g035_r2.json
+
+python -m scripts.run_week3_person2_threshold_scan \
+  --distances 3,5,7,9,11,13 \
+  --rounds 3 \
+  --p-values 0.001,0.002,0.003,0.005,0.0075,0.01,0.015,0.02 \
+  --decoders adaptive \
+  --noise-models depolarizing,biased_eta10,biased_eta100,biased_eta500,circuit_level,correlated \
+  --shots 300 \
+  --repeats 2 \
+  --seed 20260220 \
+  --g-threshold 0.65 \
+  --adaptive-fast-mode \
+  --checkpoint-every 24 \
+  --output results/week3_person2_threshold_scan_adaptive_g065_r2.json
+
+python -m scripts.run_week3_person2_threshold_scan \
+  --distances 3,5,7,9,11,13 \
+  --rounds 3 \
+  --p-values 0.001,0.002,0.003,0.005,0.0075,0.01,0.015,0.02 \
+  --decoders adaptive \
+  --noise-models depolarizing,biased_eta10,biased_eta100,biased_eta500,circuit_level,correlated \
+  --shots 300 \
+  --repeats 2 \
+  --seed 20260220 \
+  --g-threshold 0.80 \
+  --adaptive-fast-mode \
+  --checkpoint-every 24 \
+  --output results/week3_person2_threshold_scan_adaptive_g080_r2.json
 ```
 
 ## Partial Run + Resume Verification
@@ -105,7 +166,13 @@ sbatch --array=0-N_MINUS_1 scripts/submit_week3_slurm.sh
 
 ## Expected Artifact Paths
 - Main canonical scan:
+  - `results/week3_person2_threshold_scan_paper_grade_r2.json`
+- Optional runtime-friendly scan:
   - `results/week3_person2_threshold_scan_full.json`
+- Adaptive threshold sensitivity scans:
+  - `results/week3_person2_threshold_scan_adaptive_g035_r2.json`
+  - `results/week3_person2_threshold_scan_adaptive_g065_r2.json`
+  - `results/week3_person2_threshold_scan_adaptive_g080_r2.json`
 - Optional partial for resume check:
   - `results/week3_person2_threshold_scan_partial.json`
 - Manifest:
@@ -118,9 +185,12 @@ sbatch --array=0-N_MINUS_1 scripts/submit_week3_slurm.sh
 - [ ] Checkpoints/final JSON writes are atomic (tmp + rename).
 - [ ] Default p-grid reaches `~0.03` with 8-10 points.
 - [ ] Default distances include `3,5,7,9,11,13`.
+- [ ] Week 3 canonical artifact uses `shots >= 300` and `repeats >= 2`.
 - [ ] Week 3 canonical artifact contains all decoders and all required noise families.
 - [ ] Biased `eta=10/100/500` are present in canonical outputs.
+- [ ] Canonical artifact stores CI fields (e.g., `error_rate_ci95_half_width`) for paper-grade reporting.
 - [ ] Manifest generator exists and produces unique jobs.
 - [ ] Local parallel launcher exists and consumes manifest jobs.
 - [ ] SLURM launcher/template exists and runs manifest job by array index.
 - [ ] Resume and manifest/schema tests pass.
+- [ ] Adaptive `g` sensitivity artifacts show increasing non-zero switching from `g=0.35` to `g=0.80`.
