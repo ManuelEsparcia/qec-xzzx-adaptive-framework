@@ -162,6 +162,20 @@ python -m scripts.run_week5_person1_profile_scaling --shots 200 --repeats 2 --pr
 python -m scripts.run_week5_person2_hardware_target_model --shots 120 --repeats 2
 ```
 
+### Paper figures (Figure1..Figure6)
+
+```bash
+python -m scripts.generate_paper_figures --output-dir figures/paper --formats png,pdf
+```
+
+Main inputs:
+- `results/week3_person2_threshold_scan_paper_grade_r2.json`
+- `results/week3_person2_threshold_scan_adaptive_g035_r2.json`
+- `results/week3_person2_threshold_scan_adaptive_g065_r2.json`
+- `results/week3_person2_threshold_scan_adaptive_g080_r2.json`
+- `results/week5_person1_profile_scaling.json`
+- `results/week5_person2_hardware_target_model.json`
+
 ## Output Conventions
 
 - JSON outputs are written under `results/`.
