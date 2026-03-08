@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Iterable
@@ -19,6 +18,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.colors import ListedColormap
+from matplotlib.patches import Patch
 
 
 DECODER_COLORS = {
@@ -113,6 +113,7 @@ def figure1_threshold_curves(scan: dict[str, Any], noise_model: str = "depolariz
     axes_list = axes.flatten()
 
     distance_palette = plt.cm.viridis(np.linspace(0.15, 0.9, len(distances)))
+    y_candidates: list[float] = []
 
     for ax, dec in zip(axes_list, decoders):
         for dist, c in zip(distances, distance_palette):
@@ -126,6 +127,9 @@ def figure1_threshold_curves(scan: dict[str, Any], noise_model: str = "depolariz
             y = np.array([r["error_rate"] for r in rows], dtype=float)
             ci = np.array([r.get("error_rate_ci95_half_width", 0.0) for r in rows], dtype=float)
 
+            if y.size:
+                y_candidates.extend(np.clip(y + ci, 0.0, 1.0).tolist())
+
             ax.plot(x, y, marker="o", markersize=3.5, linewidth=1.7, color=c, label=f"d={dist}")
             ax.fill_between(x, np.clip(y - ci, 0.0, 1.0), np.clip(y + ci, 0.0, 1.0), color=c, alpha=0.16)
 
@@ -133,16 +137,34 @@ def figure1_threshold_curves(scan: dict[str, Any], noise_model: str = "depolariz
         ax.set_title(_decoder_label(dec))
         ax.set_xlabel("Physical Error Rate p")
         ax.set_ylabel("Logical Error Rate (LER)")
-        ax.set_ylim(-0.01, 0.72)
+
+    if y_candidates:
+        y_max = max(y_candidates)
+        if y_max < 0.20:
+            y_upper = min(0.25, y_max * 1.22 + 0.01)
+        else:
+            y_upper = min(1.0, y_max * 1.10 + 0.02)
+    else:
+        y_upper = 1.0
+
+    for ax in axes_list:
+        ax.set_ylim(0.0, y_upper)
 
     handles, labels = axes_list[0].get_legend_handles_labels()
-    fig.legend(handles, labels, loc="upper center", ncol=min(6, len(labels)), frameon=False)
+    fig.legend(
+        handles,
+        labels,
+        loc="upper center",
+        ncol=min(6, len(labels)),
+        frameon=False,
+        bbox_to_anchor=(0.5, 1.01),
+    )
     fig.suptitle(
         f"Figure 1: Threshold Curves with CI95 Bands ({_noise_label(noise_model)})\n"
         "Data: week3_person2_threshold_scan_paper_grade_r2.json",
-        y=1.03,
+        y=1.08,
     )
-    fig.tight_layout()
+    fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.90))
     return fig
 
 
@@ -175,12 +197,12 @@ def figure2_g_sensitivity(scans: dict[float, dict[str, Any]]) -> plt.Figure:
 
     fig, axes = plt.subplots(1, 3, figsize=(13.8, 4.6))
     panels = [
-        (sw, "Mean Switch Rate", "magma"),
-        (tm * 1e6, "Mean Decode Time (µs)", "viridis"),
-        (er, "Mean LER", "plasma"),
+        (sw, "Mean Switch Rate", "magma", "{:.3f}"),
+        (tm * 1e6, "Mean Decode Time (us)", "viridis", "{:.1f}"),
+        (er, "Mean LER", "plasma", "{:.3f}"),
     ]
 
-    for ax, (arr, title, cmap) in zip(axes, panels):
+    for ax, (arr, title, cmap, fmt) in zip(axes, panels):
         im = ax.imshow(arr, aspect="auto", cmap=cmap)
         ax.set_title(title)
         ax.set_xticks(range(len(g_values)))
@@ -190,7 +212,7 @@ def figure2_g_sensitivity(scans: dict[float, dict[str, Any]]) -> plt.Figure:
         ax.set_xlabel("g-threshold")
         for i in range(arr.shape[0]):
             for j in range(arr.shape[1]):
-                text = f"{arr[i, j]:.3f}" if title != "Mean Decode Time (µs)" else f"{arr[i, j]:.1f}"
+                text = fmt.format(arr[i, j])
                 ax.text(j, i, text, ha="center", va="center", color="white", fontsize=8)
         cb = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
         cb.ax.tick_params(labelsize=8)
@@ -198,7 +220,6 @@ def figure2_g_sensitivity(scans: dict[float, dict[str, Any]]) -> plt.Figure:
     fig.suptitle("Figure 2: Adaptive g-threshold Sensitivity (switch/time/ER)", y=1.04)
     fig.tight_layout()
     return fig
-
 
 def figure3_tradeoff(scan: dict[str, Any]) -> plt.Figure:
     points = scan["points"]
@@ -246,17 +267,23 @@ def figure3_tradeoff(scan: dict[str, Any]) -> plt.Figure:
         ax.set_title(_decoder_label(dec))
         ax.set_xlabel("Speedup vs MWPM ( >1 faster )")
 
-    axes[0].set_ylabel("ΔLER vs MWPM ( <0 better )")
+    axes[0].set_ylabel("dLER vs MWPM ( <0 better )")
     handles, labels = axes[0].get_legend_handles_labels()
     uniq = {}
     for h, l in zip(handles, labels):
         if l not in uniq:
             uniq[l] = h
-    fig.legend(uniq.values(), uniq.keys(), loc="upper center", ncol=3, frameon=False)
-    fig.suptitle("Figure 3: Accuracy-Speed Trade-off Relative to MWPM", y=1.05)
-    fig.tight_layout()
+    fig.legend(
+        uniq.values(),
+        uniq.keys(),
+        loc="upper center",
+        ncol=6,
+        frameon=False,
+        bbox_to_anchor=(0.5, 1.01),
+    )
+    fig.suptitle("Figure 3: Accuracy-Speed Trade-off Relative to MWPM", y=1.08)
+    fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.90))
     return fig
-
 
 def _extract_profile_rows(profile: dict[str, Any], metric_name: str) -> dict[str, dict[str, np.ndarray]]:
     out: dict[str, dict[str, np.ndarray]] = {}
@@ -309,9 +336,9 @@ def figure4_scaling(profile: dict[str, Any]) -> plt.Figure:
         ax.set_title(title)
 
     handles, labels = axes[0].get_legend_handles_labels()
-    fig.legend(handles, labels, loc="upper center", ncol=4, frameon=False)
-    fig.suptitle("Figure 4: Profiling/Scaling Fits (Week 5)", y=1.05)
-    fig.tight_layout()
+    fig.legend(handles, labels, loc="upper center", ncol=4, frameon=False, bbox_to_anchor=(0.5, 1.01))
+    fig.suptitle("Figure 4: Profiling/Scaling Fits (Week 5)", y=1.08)
+    fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.90))
     return fig
 
 
@@ -349,10 +376,14 @@ def figure5_hardware(target_model: dict[str, Any]) -> plt.Figure:
                 for c in range(mat.shape[1]):
                     ax.text(c, r, str(int(mat[r, c])), ha="center", va="center", color="white", fontsize=7)
 
-    fig.suptitle("Figure 5: Hardware Compatibility (Python Runtime vs Target Model)", y=0.99)
-    fig.tight_layout()
+    compat_handles = [
+        Patch(facecolor="#B22222", edgecolor="none", label="0 = incompatible"),
+        Patch(facecolor="#2E8B57", edgecolor="none", label="1 = compatible"),
+    ]
+    fig.legend(handles=compat_handles, loc="upper center", ncol=2, frameon=False, bbox_to_anchor=(0.5, 1.02))
+    fig.suptitle("Figure 5: Hardware Compatibility (Python Runtime vs Target Model)", y=1.07)
+    fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.95))
     return fig
-
 
 def figure6_uncertainty_thresholds(scan: dict[str, Any]) -> plt.Figure:
     points = scan["points"]
@@ -385,33 +416,87 @@ def figure6_uncertainty_thresholds(scan: dict[str, Any]) -> plt.Figure:
     decoders = scan["config"]["decoders"]
     x_pos = {d: i for i, d in enumerate(decoders)}
     rng = np.random.default_rng(20260309)
+    p_vals = sorted(scan["config"]["p_values"])
+    p_min = float(p_vals[0])
+    p_max = float(p_vals[-1])
+    low_bound_count = 0
+    high_bound_count = 0
+
     for row in thresholds:
         dec = row["decoder"]
         n = row["noise_model"]
         x = x_pos[dec] + rng.uniform(-0.16, 0.16)
         y = float(row["p_threshold_estimate"])
-        axes[1].scatter(x, y, s=30, alpha=0.75, color=NOISE_COLORS.get(n, "#666666"), edgecolors="white", linewidths=0.3)
+        at_low = np.isclose(y, p_min)
+        at_high = np.isclose(y, p_max)
+
+        if at_low:
+            low_bound_count += 1
+        if at_high:
+            high_bound_count += 1
+
+        marker = "o"
+        size = 30
+        edge = "white"
+        lw = 0.3
+        if at_low:
+            marker = "v"
+            size = 52
+            edge = "black"
+            lw = 0.5
+        elif at_high:
+            marker = "^"
+            size = 52
+            edge = "black"
+            lw = 0.5
+
+        axes[1].scatter(
+            x,
+            y,
+            s=size,
+            alpha=0.82,
+            marker=marker,
+            color=NOISE_COLORS.get(n, "#666666"),
+            edgecolors=edge,
+            linewidths=lw,
+        )
+
     axes[1].set_xticks(range(len(decoders)))
     axes[1].set_xticklabels([_decoder_label(d) for d in decoders], rotation=0)
     axes[1].set_yscale("log")
     axes[1].set_ylabel("Estimated Threshold p*")
     axes[1].set_title("Threshold Estimates (distance crossings)")
-    p_vals = sorted(scan["config"]["p_values"])
-    axes[1].axhline(p_vals[0], color="black", linestyle="--", linewidth=1.0, alpha=0.6)
-    axes[1].axhline(p_vals[-1], color="black", linestyle="--", linewidth=1.0, alpha=0.6)
+    axes[1].axhline(p_min, color="black", linestyle="--", linewidth=1.0, alpha=0.6)
+    axes[1].axhline(p_max, color="black", linestyle="--", linewidth=1.0, alpha=0.6)
+    axes[1].text(
+        0.02,
+        0.98,
+        f"Boundary estimates: {low_bound_count} @ p_min, {high_bound_count} @ p_max",
+        transform=axes[1].transAxes,
+        va="top",
+        ha="left",
+        fontsize=8,
+        bbox={"facecolor": "white", "alpha": 0.78, "edgecolor": "#CCCCCC", "linewidth": 0.6},
+    )
 
-    # Legend (unique noise labels)
+    # Legend (unique noise labels + boundary marker semantics)
     handles = []
     labels = []
     for n in scan["config"]["noise_models"]:
         handles.append(plt.Line2D([0], [0], marker="o", color="none", markerfacecolor=NOISE_COLORS.get(n, "#666666"), markersize=6))
         labels.append(_noise_label(n))
+    handles.extend(
+        [
+            plt.Line2D([0], [0], marker="v", color="black", markerfacecolor="white", linestyle="none", markersize=6),
+            plt.Line2D([0], [0], marker="^", color="black", markerfacecolor="white", linestyle="none", markersize=6),
+        ]
+    )
+    labels.extend(["At p_min bound", "At p_max bound"])
     axes[1].legend(handles, labels, frameon=False, fontsize=8, loc="upper left")
 
     fig.suptitle("Figure 6: CI Quality and Threshold-Estimate Landscape", y=1.03)
     fig.tight_layout()
     return fig
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate Figure1..Figure6 publication plots.")
