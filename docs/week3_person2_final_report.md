@@ -1,93 +1,68 @@
 # Week 3 - Person 2 Final Report (Massive Simulations + Threshold Scan)
 
-## 1) Scope completed
-- Implemented a Week 3 threshold-scan runner aligned with roadmap "Simulaciones Masivas":
-  - expanded grid over decoder/noise/distance/physical-error-rate,
-  - checkpointed JSON saves for long runs,
-  - automatic threshold estimation from distance-curve crossings.
-- Added smoke tests for script reliability and argument validation.
+## 1) Scope Closed
+- Week 3 threshold-scan runner implemented with:
+  - multi-axis grid over decoder/noise/distance/physical error rate,
+  - checkpointed atomic writes,
+  - resumable execution,
+  - threshold estimates from distance-curve crossings.
+- Validation path in place (`smoke`, `resume`, `manifest`, `schema` tests).
 
-## 2) Main artifacts
-### Source
-- `scripts/run_week3_person2_threshold_scan.py`
+## 2) Canonical Scientific Artifact (Current)
+Primary Week 3 reference artifact:
+- `results/week3_person2_threshold_scan_paper_grade_r2.json`
 
-### Tests
-- `tests/test_week3_person2_threshold_scan_smoke.py`
-
-### Results
-- `results/week3_person2_threshold_scan_quick.json`
-- `results/week3_person2_threshold_scan_verify.json`
-- `results/week3_person2_threshold_scan_full.json`
-
-## 3) Implemented roadmap behaviors
-- Grid scan over:
-  - decoders: MWPM, UF, BM/BP, Adaptive (configurable)
-  - distances: CSV input (default `3,5,7`)
-  - noise models: depolarizing, biased (`eta=10/100/500`), circuit-level, correlated
-  - physical error rates `p`: CSV input (default roadmap-style range)
-- Per-point metrics:
-  - `error_rate`
-  - `avg_decode_time_sec`
-  - `switch_rate` (adaptive)
-- Checkpoints:
-  - partial write every `N` points via `--checkpoint-every`
-- Threshold fitting:
-  - crossing estimate between smallest/largest distance curves per `(decoder, noise_model)`
-  - methods: `exact_point`, `linear_crossing`, `nearest_abs_diff` fallback
-
-## 4) Validation status
-- `python -m pytest -q -p no:cacheprovider tests/test_week3_person2_threshold_scan_smoke.py`
-  - **3 passed**
-- Quick execution evidence:
-  - `python -m scripts.run_week3_person2_threshold_scan --distances 3,5 --rounds 2 --p-values 0.005,0.01 --decoders mwpm,uf,adaptive --noise-models depolarizing,biased_eta10,correlated --shots 40 --adaptive-fast-mode --checkpoint-every 4 --output results/week3_person2_threshold_scan_quick.json`
-  - output generated successfully.
-
-## 5) Quick evidence snapshot
-From `results/week3_person2_threshold_scan_quick.json`:
-- total points: `36`
-- threshold estimates generated for all `(decoder, noise_model)` combinations in the run
-- contract includes:
-  - `points`
-  - `aggregates.pair_summary`
-  - `aggregates.pareto_reference_points`
-  - `threshold_estimates`
-
-## 6) Recommended next run (full Week 3 grid)
-Use:
-- `--distances 3,5,7`
-- `--p-values 0.001,0.002,0.003,0.005,0.0075,0.01,0.015,0.02`
-- `--decoders mwpm,uf,bm,adaptive`
-- `--noise-models depolarizing,biased_eta10,biased_eta100,biased_eta500,circuit_level,correlated`
-- `--shots 300`
-- `--checkpoint-every 24`
-
-## 7) Full run closure (executed)
-Execution date:
-- **2026-02-19**
-
-Command used:
-- `python -m scripts.run_week3_person2_threshold_scan --distances 3,5,7 --p-values 0.001,0.002,0.003,0.005,0.0075,0.01,0.015,0.02 --decoders mwpm,uf,bm,adaptive --noise-models depolarizing,biased_eta10,biased_eta100,biased_eta500,circuit_level,correlated --shots 300 --checkpoint-every 24 --adaptive-fast-mode --output results/week3_person2_threshold_scan_full.json`
-
-Full-run output:
-- `results/week3_person2_threshold_scan_full.json`
-
-Closure metrics:
-- total points: `576`
-- threshold estimates: `24`
-- point status: `576/576 ok`
-- metadata partial flag: `False`
-
-Validated config in output:
-- distances: `3,5,7`
+Canonical run characteristics:
+- distances: `3,5,7,9,11,13`
 - p-values: `0.001,0.002,0.003,0.005,0.0075,0.01,0.015,0.02`
 - decoders: `mwpm,uf,bm,adaptive`
 - noise models: `depolarizing,biased_eta10,biased_eta100,biased_eta500,circuit_level,correlated`
 - shots: `300`
-- rounds: `3`
+- repeats: `2`
+- adaptive config: `g_threshold=0.35`, `adaptive_fast_mode=true`
 
-Post-run test check:
-- `python -m pytest -q -p no:cacheprovider tests/test_week3_person2_threshold_scan_smoke.py`
-  - **3 passed**
+Coverage summary from artifact:
+- points: `1152`
+- threshold estimates: `24`
+- CI coverage:
+  - `ER CI95 half-width <= 0.02`: `911/1152` (`79.08%`)
+  - `ER CI95 half-width <= 0.03`: `997/1152` (`86.55%`)
+  - `time CI95 half-width <= 1e-5 s`: `928/1152` (`80.56%`)
+  - `time CI95 half-width <= 2e-5 s`: `1049/1152` (`91.06%`)
 
-## 8) Status
-Week 3 Person 2 is now fully completed (implementation + validation + full-scale execution evidence).
+## 3) Adaptive g-Threshold Sensitivity Addendum (2026-03-08)
+New artifacts:
+- `results/week3_person2_threshold_scan_adaptive_g035_r2.json`
+- `results/week3_person2_threshold_scan_adaptive_g065_r2.json`
+- `results/week3_person2_threshold_scan_adaptive_g080_r2.json`
+
+Grid for all three:
+- distances `3,5,7,9,11,13`, same p-grid/noise-grid as canonical,
+- decoder fixed to `adaptive`,
+- `shots=300`, `repeats=2`.
+
+Aggregate behavior (all 288 points per run):
+
+| g | mean_switch_rate | mean_avg_decode_time_sec | mean_error_rate |
+|---|---:|---:|---:|
+| 0.35 | 0.000110 | 3.686e-05 | 0.101453 |
+| 0.65 | 0.047251 | 3.976e-05 | 0.101453 |
+| 0.80 | 0.447054 | 5.931e-05 | 0.101453 |
+
+Interpretation:
+- switching becomes clearly observable and monotonic with `g`,
+- higher `g` substantially increases switching and average decode time on this grid,
+- no aggregate ER gain is observed from increasing `g` in this setup.
+
+## 4) Historical Artifacts (Non-Canonical)
+The following remain useful for runtime smoke and debugging, but are not the primary scientific reference:
+- `results/week3_person2_threshold_scan_full.json` (`shots=40`, `repeats=1`)
+- `results/week3_person2_threshold_scan_quick.json`
+- `results/week3_person2_threshold_scan_verify.json`
+
+## 5) Closure Status
+Week 3 Person 2 is closed with:
+- implementation complete,
+- test coverage active,
+- paper-grade canonical artifact designated,
+- explicit adaptive threshold-sensitivity evidence for switching observability.
